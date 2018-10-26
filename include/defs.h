@@ -45,7 +45,7 @@ on save and restore. */
    This might usually be "/usr/games/lib/omegalib/", for unix,
    or something like "c:\\games\\omega\\omegalib\\" for msdos */
 
-#define OMEGALIB "./lib/"
+#define OMEGALIB "./omegalib/"
 
 /* Comment the following line out if you want users to be able to override */
 /* the OMEGALIB define, above, by setting the environment variable OMEGALIB */

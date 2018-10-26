@@ -15,7 +15,7 @@ DECRYPT_EXECUTABLE := decrypt
 ENCRYPT_EXECUTABLE := encrypt
 
 
-all: $(BIN)/$(EXECUTABLE) $(BIN)/$(GEN_CLR_EXECUTABLE) $(BIN)/$(DECRYPT_EXECUTABLE) $(BIN)/$(ENCRYPT_EXECUTABLE)
+all: $(BIN)/$(GEN_CLR_EXECUTABLE) $(BIN)/$(DECRYPT_EXECUTABLE) $(BIN)/$(ENCRYPT_EXECUTABLE) $(BIN)/$(EXECUTABLE)
 
 run: clean all
 	./$(BIN)/$(EXECUTABLE)
@@ -23,9 +23,10 @@ run: clean all
 	./$(BIN)/$(DECRYPT_EXECUTABLE)
 	./$(BIN)/$(ENCRYPT_EXECUTABLE)
 
-$(BIN)/$(EXECUTABLE): $(SRC)/*.c
+$(BIN)/$(EXECUTABLE): $(SRC)/*.c*
 	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) -L$(LIB) $^ -o $@ $(LIBRARIES)
-	cp -rf omegalib $(BIN)/lib
+	./encryptall.sh
+	cp -rf omegalib $(BIN)/omegalib
 
 $(BIN)/$(GEN_CLR_EXECUTABLE): $(GEN_CLR_SRC)/*.c
 	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) -L$(LIB) $^ -o $@ $(LIBRARIES)
@@ -37,4 +38,4 @@ $(BIN)/$(ENCRYPT_EXECUTABLE): $(TOOLS_SRC)/crypt.c
 	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) -L$(LIB) $^ -o $@ $(LIBRARIES)
 
 clean:
-	-rm $(BIN)/*
+	-rm -rf $(BIN)/*
