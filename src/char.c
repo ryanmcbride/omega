@@ -645,3 +645,4 @@ void omegan_character_stats()
   while ((Player.preference != 'm') && (Player.preference != 'f') &&
          (Player.preference != 'y') && (Player.preference != 'n')); /* :-) */
 }
+ 
