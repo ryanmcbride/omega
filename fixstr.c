@@ -15,7 +15,7 @@ to be far arrays. You don't need to run this for the unix version. */
 Thus it can be broken. */
 
 #include <stdio.h>
-#include <malloc.h>
+#include <stdlib.h>
 
 #define TMPFILE "fixtmp.c"
 
