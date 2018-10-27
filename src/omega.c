@@ -17,6 +17,9 @@
 
 /* most globals originate in omega.c */
 
+  void init_items();
+  void init_monsters();
+
 char *Omegalib; /* contains the path to the library files */
 
 #ifdef DEBUG
@@ -287,6 +290,8 @@ char *argv[];
     exit(0);
 
   /* all kinds of initialization */
+  init_items();
+  init_monsters();
   init_perms();
   initgraf();
 #ifndef MSDOS_SUPPORTED_ANTIQUE

@@ -719,22 +719,20 @@ int itemblessing()
 
 int twohandedp(id) int id;
 {
-  switch (id)
-  {
-  case WEAPONID + 5:
-  case WEAPONID + 12:
-  case WEAPONID + 18:
-  case WEAPONID + 20:
-  case WEAPONID + 26:
-  case WEAPONID + 27:
-  case WEAPONID + 32:
-  case WEAPONID + 36:
-  case WEAPONID + 38:
-  case WEAPONID + 39:
+  if(id == WEAPONID + 5 ||
+  id ==  WEAPONID + 12 ||
+  id ==  WEAPONID + 18 ||
+  id ==  WEAPONID + 20 ||
+  id ==  WEAPONID + 26 ||
+  id ==  WEAPONID + 27 ||
+  id ==  WEAPONID + 32 ||
+  id ==  WEAPONID + 36 ||
+  id ==  WEAPONID + 38 ||
+  id ==  WEAPONID + 39)
     return (TRUE);
-  default:
+  else
     return (FALSE);
-  }
+  
 }
 
 void item_use(o) struct object *o;

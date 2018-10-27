@@ -688,38 +688,37 @@ on save and restore. */
 #define COMPRESS_OPTION 128
 #define SHOW_COLOUR 256
 
-/* This has to be changed whenever an item is added */
-#define NUMSCROLLS 24
-#define NUMPOTIONS 18
-#define NUMFOODS 16
-#define NUMTHINGS 26
-#define NUMWEAPONS 42
-#define NUMARMOR 17
-#define NUMSHIELDS 8
-#define NUMCLOAKS 7
-#define NUMBOOTS 7
-#define NUMRINGS 10
-#define NUMSTICKS 17
-#define NUMARTIFACTS 24
+extern const int NUMSCROLLS;
+extern const int NUMPOTIONS;
+extern const int NUMFOODS;
+extern const int NUMTHINGS;
+extern const int NUMWEAPONS;
+extern const int NUMARMOR;
+extern const int NUMSHIELDS;
+extern const int NUMCLOAKS;
+extern const int NUMBOOTS;
+extern const int NUMRINGS;
+extern const int NUMSTICKS;
+extern const int NUMARTIFACTS;
 
 /* running sum of itemtypes, for indexing into Objects array */
-#define THINGID 0 
-#define FOODID NUMTHINGS
-#define SCROLLID (FOODID + NUMFOODS)
-#define POTIONID (SCROLLID + NUMSCROLLS)
-#define WEAPONID (POTIONID + NUMPOTIONS)
-#define ARMORID (WEAPONID + NUMWEAPONS)
-#define SHIELDID (ARMORID + NUMARMOR)
-#define CLOAKID (SHIELDID + NUMSHIELDS)
-#define BOOTID (CLOAKID + NUMCLOAKS)
-#define RINGID (BOOTID + NUMBOOTS)
-#define STICKID (RINGID + NUMRINGS)
-#define ARTIFACTID (STICKID + NUMSTICKS)
-#define CASHID (ARTIFACTID+NUMARTIFACTS)
+extern const int THINGID; 
+extern const int FOODID;
+extern const int SCROLLID;
+extern const int POTIONID;
+extern const int WEAPONID;
+extern const int ARMORID;
+extern const int SHIELDID;
+extern const int CLOAKID;
+extern const int BOOTID;
+extern const int RINGID;
+extern const int STICKID;
+extern const int ARTIFACTID;
+extern const int CASHID;
 /* Corpse's aux field is monster id */
-#define CORPSEID (CASHID+1)
+extern const int CORPSEID;
 
-#define TOTALITEMS (CORPSEID+1) 
+extern const int TOTALITEMS;
 
 /* describing unique items and monsters */
 #define COMMON 0
