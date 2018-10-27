@@ -23,13 +23,13 @@ extern int DG_debug_flag;
 extern char *Omegalib;
 
 /* one of each monster */
-extern struct monster Monsters[NUMMONSTERS];
+extern struct monster* Monsters;
 
 /* one of each spell */
 extern struct spell Spells[NUMSPELLS+1];
 
 /* one of each item */
-extern struct object Objects[];
+extern struct object *Objects;
 
 /* locations of city sites [0] - found, [1] - x, [2] - y */
 extern int CitySiteList[NUMCITYSITES][3];

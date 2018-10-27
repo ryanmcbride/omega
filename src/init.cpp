@@ -7,11 +7,7 @@ extern "C" {
 #include <vector>
 
 
-
-/* omega, (C) 1987,1988,1989 by Laurence Raphael Brothers */
-/* iinit.h */
-/* This file defines and initializes the Objects Array */
-/* This has to be changed whenever an item is added */
+static std::vector<object> _objects;
 extern "C" {
  int NUMSCROLLS = 24;
  int NUMPOTIONS = 18;
@@ -45,7 +41,10 @@ extern "C" {
 
  int TOTALITEMS; 
 
-struct object Objects[] = {
+struct object* Objects; 
+}
+extern "C" void init_items(){
+_objects = {
 { 0,10,0,0,0,0,0,1,10,50,0,0,0,0,COMMON,I_RAISE_PORTCULLIS,2,THING,"small grey box with red button","disposeable garage door opener","disposeable garage door opener" },
 { 1,20,0,0,0,0,0,1,20,2000,0,0,0,0,COMMON,I_NO_OP,4,THING,"some rocks","uncut diamonds","uncut diamonds" },{ 2,15,0,0,0,0,0,1,10,50,0,0,0,0,COMMON,I_PICK,2,THING,"twisted piece of metal","thieve's pick","thieve's pick" },{ 3,10,0,0,0,0,0,1,15,1500,0,0,0,0,COMMON,I_NO_OP,1,THING,"large green gem","humongous emerald","humongous emerald" },
 { 4,200,0,0,0,0,0,1,18,1750,0,0,0,0,COMMON,I_NO_OP,4,THING,"gold ingot","gold ingot","gold ingot" },
@@ -263,8 +262,9 @@ struct object Objects[] = {
 { 216,0,0,0,0,0,0,1,10,0,0,0,0,0,COMMON,I_NO_OP,0,CASH,"money","money","money (the root of all evil)" },
 { 217,100,0,0,0,0,0,1,10,0,0,0,0,0,COMMON,I_CORPSE,0,CORPSE,"a mysterious corpse","a mysterious corpse","a mysterious corpse" },
 };
-}
-extern "C" void init_items(){
+
+Objects = _objects.data();
+  
  THINGID = 0; 
  FOODID = NUMTHINGS;
  SCROLLID = (FOODID + NUMFOODS);
@@ -307,7 +307,7 @@ extern "C" void init_items(){
 
 static std::vector<monster> _monsters;
 extern "C" {
-  struct monster Monsters[NUMMONSTERS];
+  struct monster* Monsters;
 }
 
 extern "C" void init_monsters(){
@@ -464,7 +464,5 @@ _monsters = {
 { NULL,0,0,0,0,0,0,148,1500,200,100,300,10,1,10,3,100,0,5000,1000,1,-1,ARTIFACTID+2,UNIQUE_MADE,M_TALK_SILENT,M_MOVE_NORMAL,M_MELEE_FIRE,M_STRIKE_FBALL,M_NO_OP,MOBILE,pow2(FLAME)|pow2(ELECTRICITY)|pow2(POISON)|pow2(ACID)|pow2(FEAR)|pow2(SLEEP)|pow2(NEGENERGY)|pow2(OTHER_MAGIC)|pow2(THEFT)|pow2(GAZE)|pow2(INFECTION),'F'|CLRS(LIGHT_RED,WHITE),"The Elemental Lord of Fire","a spark","A?A?A?R?R?R?R?" },
 { NULL,0,0,0,0,0,0,149,1000,200,200,200,20,20,10,2,0,10,10000,10000,1,-1,ARTIFACTID+0,UNIQUE_MADE,M_TALK_EVIL,M_MOVE_SMART,M_MELEE_MASTER,M_STRIKE_MASTER,M_SP_MASTER,MOBILE|FLYING|SWIMMING,pow2(NORMAL_DAMAGE)|pow2(COLD)|pow2(ELECTRICITY)|pow2(POISON)|pow2(ACID)|pow2(FEAR)|pow2(SLEEP)|pow2(NEGENERGY)|pow2(OTHER_MAGIC)|pow2(THEFT)|pow2(GAZE)|pow2(INFECTION),'M'|CLRS(PURPLE,WHITE),"The Elemental Master","A burning mound of bubbling mud","A?A?A?A?R?R?R?R?" }
 };
-for(int i = 0; i < _monsters.size(); i++){
-  Monsters[i] = _monsters[i];
-}
+  Monsters = _monsters.data();
 }
