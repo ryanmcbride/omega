@@ -1,3 +1,5 @@
+#ifndef __GLOB_H__
+#define __GLOB_H__
 /* omega copyright (c) 1987,1988,1989 by Laurence Raphael Brothers */
 
 /* this file contains extern declarations of global variables used
@@ -6,7 +8,7 @@
 (except o.c) can just include this file. */
 
 /* glob.h */
-
+#include <stdio.h>
 #include "defs.h"
 
 #include "extern.h"
@@ -253,3 +255,4 @@ extern int boot_ids[30];
 
 extern int deepest[E_MAX + 1];
 extern int level_seed[E_MAX + 1];
+#endif

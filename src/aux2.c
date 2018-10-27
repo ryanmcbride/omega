@@ -702,6 +702,9 @@ struct monster *m;
   case I_ACIDWHIP:
     weapon_acidwhip(dmgmod, weapon, m);
     break;
+  case I_MJOLNIR:
+    weapon_mjolnir(dmgmod, weapon, m);
+    break;
   case I_TANGLE:
     weapon_tangle(dmgmod, weapon, m);
     break;

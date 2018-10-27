@@ -981,9 +981,9 @@ int aux_top_take_from_pack(slot, display) int slot, display;
 int take_from_pack(slot, display) int slot, display;
 {
   if (optionp(TOPINV))
-    aux_top_take_from_pack(slot, display);
+    return aux_top_take_from_pack(slot, display);
   else
-    aux_take_from_pack(slot);
+    return aux_take_from_pack(slot);
 }
 
 #ifndef MSDOS_SUPPORTED_ANTIQUE

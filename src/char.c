@@ -10,6 +10,14 @@
 
 #include "glob.h"
 
+pob findObjectWithTrueName(char* name){
+  for(int i = 0; i < TOTALITEMS; i++){
+    if(strcmp(name,Objects[i].truename)==0){
+      return &Objects[i];
+    }
+  }
+  return &Objects[0];
+}
 /* set player to begin with */
 void initplayer()
 {
@@ -20,6 +28,7 @@ void initplayer()
 #ifndef MSDOS
   struct passwd *dastuff;
 #endif
+  pob newitem;
 
   lname = getlogin();
 #ifndef MSDOS
@@ -96,6 +105,10 @@ void initplayer()
   strcpy(Player.meleestr, "CCBC");
   calc_melee();
   ScreenOffset = -1000; /* to force a redraw */
+
+  newitem = ((pob)checkmalloc(sizeof(objtype)));
+          *newitem = *findObjectWithTrueName("mjolnir");
+          gain_item(newitem);
 }
 
 FILE *omegarc_check()

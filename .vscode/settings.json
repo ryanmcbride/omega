@@ -1,6 +1,7 @@
 {
     "files.associations": {
-        "*.tpp": "cpp"
+        "*.tpp": "cpp",
+        "glob.h": "c"
     },
     "terminal.integrated.shell.windows": "cmd.exe"
 }

@@ -1,3 +1,5 @@
+#ifndef __EXTERN_H__
+#define __EXTERN_H__
 /* omega copyright (c) 1987,1988,1989 by Laurence Raphael Brothers */
 /* extern.h -- function declarations */
 
@@ -536,6 +538,7 @@ void i_perm_regenerate ARGS((pob));
 void i_perm_strength ARGS((pob));
 void i_victrix ARGS((pob));
 void weapon_acidwhip ARGS((int, pob, struct monster *));
+void weapon_mjolnir ARGS((int, pob, struct monster *));
 void weapon_arrow ARGS((int, pob, struct monster *));
 void weapon_bare_hands ARGS((int, struct monster *));
 void weapon_bolt ARGS((int, pob, struct monster *));
@@ -1089,3 +1092,4 @@ void make_horse ARGS((int,int));
 void make_merchant ARGS((int,int));
 void make_sheep ARGS((int,int));
 void special_village_site ARGS((int,int,int));
+#endif

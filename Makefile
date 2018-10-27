@@ -38,4 +38,8 @@ $(BIN)/$(ENCRYPT_EXECUTABLE): $(TOOLS_SRC)/crypt.c
 	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) -L$(LIB) $^ -o $@ $(LIBRARIES)
 
 clean:
-	-rm -rf $(BIN)/*
+	-rm -rf $(BIN)/omegalib
+	-rm -rf $(BIN)/omega*
+	-rm -rf $(BIN)/encrypt*
+	-rm -rf $(BIN)/decrypt*
+	-rm -rf $(BIN)/genclr*

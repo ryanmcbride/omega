@@ -490,6 +490,19 @@ struct monster *m;
     weapon_normal_hit(dmgmod, o, m);
 }
 
+void weapon_mjolnir(dmgmod, o, m) int dmgmod;
+pob o;
+struct monster *m;
+{
+  if (random_range(3) == 1)
+  {
+    o->known = 2;
+    lball(Player.x, Player.y, Player.x, Player.y, max(Player.dmg, 25));
+  }
+  if (m->hp > 0)
+    weapon_normal_hit(dmgmod, o, m);
+}
+
 void weapon_defend(dmgmod, o, m) int dmgmod;
 pob o;
 struct monster *m;

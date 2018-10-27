@@ -253,187 +253,190 @@ struct object Objects[TOTALITEMS] = {
 
 { 124,30,0,0,16,16,1015,1,15,1000,0,0,0,STRIKING,COMMON,I_NORMAL_WEAPON,4,WEAPON,"whip","acid whip","acid whip" },
 
-{ 125,100,0,0,1,0,0,1,20,5,0,0,0,0,COMMON,I_NORMAL_ARMOR,0,ARMOR,"flak jacket","flak jacket","flak jacket" },
+{ 125,60,7,0,20,10,1016,1,15,2000,0,0,0,STRIKING,COMMON,I_PERM_ENERGY_RESIST,6,WEAPON,"war-hammer","mjolnir","mjolnir" },
 
-{ 126,200,0,0,2,0,1,1,20,10,0,0,0,0,COMMON,I_NORMAL_ARMOR,1,ARMOR,"soft leather armor","soft leather armor","soft leather armor" },
+{ 126,100,0,0,1,0,0,1,20,5,0,0,0,0,COMMON,I_NORMAL_ARMOR,0,ARMOR,"flak jacket","flak jacket","flak jacket" },
 
-{ 127,200,0,0,2,0,1,1,20,30,0,0,0,0,COMMON,I_NORMAL_ARMOR,1,ARMOR,"cuirbouilli","cuirbouilli","cuirbouilli" },
+{ 127,200,0,0,2,0,1,1,20,10,0,0,0,0,COMMON,I_NORMAL_ARMOR,1,ARMOR,"soft leather armor","soft leather armor","soft leather armor" },
 
-{ 128,300,0,0,3,0,2,1,20,100,0,0,0,0,COMMON,I_NORMAL_ARMOR,2,ARMOR,"ring mail","ring mail","ring mail" },
+{ 128,200,0,0,2,0,1,1,20,30,0,0,0,0,COMMON,I_NORMAL_ARMOR,1,ARMOR,"cuirbouilli","cuirbouilli","cuirbouilli" },
 
-{ 129,400,0,0,4,0,3,1,20,200,0,0,0,0,COMMON,I_NORMAL_ARMOR,3,ARMOR,"chain mail","chain mail","chain mail" },
+{ 129,300,0,0,3,0,2,1,20,100,0,0,0,0,COMMON,I_NORMAL_ARMOR,2,ARMOR,"ring mail","ring mail","ring mail" },
 
-{ 130,400,0,0,4,0,2,1,20,300,0,0,0,0,COMMON,I_NORMAL_ARMOR,4,ARMOR,"scale mail","scale mail","scale mail" },
+{ 130,400,0,0,4,0,3,1,20,200,0,0,0,0,COMMON,I_NORMAL_ARMOR,3,ARMOR,"chain mail","chain mail","chain mail" },
 
-{ 131,400,0,0,5,0,3,1,20,450,0,0,0,0,COMMON,I_NORMAL_ARMOR,5,ARMOR,"partial plate mail","partial plate mail","partial plate mail" },
+{ 131,400,0,0,4,0,2,1,20,300,0,0,0,0,COMMON,I_NORMAL_ARMOR,4,ARMOR,"scale mail","scale mail","scale mail" },
 
-{ 132,600,0,0,6,0,4,1,20,750,0,0,0,0,COMMON,I_NORMAL_ARMOR,6,ARMOR,"full plate mail","full plate mail","full plate mail" },
+{ 132,400,0,0,5,0,3,1,20,450,0,0,0,0,COMMON,I_NORMAL_ARMOR,5,ARMOR,"partial plate mail","partial plate mail","partial plate mail" },
 
-{ 133,500,0,0,7,0,4,1,20,1500,0,0,0,0,COMMON,I_NORMAL_ARMOR,6,ARMOR,"plate armor","plate armor","plate armor" },
+{ 133,600,0,0,6,0,4,1,20,750,0,0,0,0,COMMON,I_NORMAL_ARMOR,6,ARMOR,"full plate mail","full plate mail","full plate mail" },
 
-{ 134,200,0,0,5,0,2,1,20,1500,0,0,0,0,COMMON,I_NORMAL_ARMOR,6,ARMOR,"lamellar armor","lamellar armor","lamellar armor" },
+{ 134,500,0,0,7,0,4,1,20,1500,0,0,0,0,COMMON,I_NORMAL_ARMOR,6,ARMOR,"plate armor","plate armor","plate armor" },
 
-{ 135,200,0,0,5,0,2,1,20,2000,0,0,0,0,COMMON,I_PERM_FEAR_RESIST,7,ARMOR,"mithril chain mail","mithril chain mail","mithril chain mail" },
+{ 135,200,0,0,5,0,2,1,20,1500,0,0,0,0,COMMON,I_NORMAL_ARMOR,6,ARMOR,"lamellar armor","lamellar armor","lamellar armor" },
 
-{ 136,300,0,0,8,0,3,1,20,3000,0,0,0,0,COMMON,I_PERM_FEAR_RESIST,7,ARMOR,"mithril plate armor","mithril plate armor","mithril plate armor" },
+{ 136,200,0,0,5,0,2,1,20,2000,0,0,0,0,COMMON,I_PERM_FEAR_RESIST,7,ARMOR,"mithril chain mail","mithril chain mail","mithril chain mail" },
 
-{ 137,500,0,0,6,0,3,1,20,3000,0,0,0,0,COMMON,I_PERM_FIRE_RESIST,7,ARMOR,"dragonscale armor","dragonscale armor","dragonscale armor" },
+{ 137,300,0,0,8,0,3,1,20,3000,0,0,0,0,COMMON,I_PERM_FEAR_RESIST,7,ARMOR,"mithril plate armor","mithril plate armor","mithril plate armor" },
 
-{ 138,100,9,0,7,0,2,1,20,1000,0,0,0,0,COMMON,I_PERM_ENERGY_RESIST,8,ARMOR,"prismatrix armor","prismatrix armor","prismatrix armor" },
+{ 138,500,0,0,6,0,3,1,20,3000,0,0,0,0,COMMON,I_PERM_FIRE_RESIST,7,ARMOR,"dragonscale armor","dragonscale armor","dragonscale armor" },
 
-{ 139,0,0,0,20,0,0,1,20,5000,0,0,0,0,COMMON,I_PERM_BREATHING,9,ARMOR,"powered combat armor","powered combat armor","powered combat armor" },
+{ 139,100,9,0,7,0,2,1,20,1000,0,0,0,0,COMMON,I_PERM_ENERGY_RESIST,8,ARMOR,"prismatrix armor","prismatrix armor","prismatrix armor" },
 
-{ 140,0,0,0,10,0,0,1,20,3000,0,0,0,0,COMMON,I_PERM_BREATHING,7,ARMOR,"powered scout armor","powered scout armor","powered scout armor" },
+{ 140,0,0,0,20,0,0,1,20,5000,0,0,0,0,COMMON,I_PERM_BREATHING,9,ARMOR,"powered combat armor","powered combat armor","powered combat armor" },
 
-{ 141,100,5,0,5,0,0,1,20,2000,0,0,-9,0,COMMON,I_PERM_ENERGY_RESIST,3,ARMOR,"demonhide armor","demonhide armor","demonhide armor" },
+{ 141,0,0,0,10,0,0,1,20,3000,0,0,0,0,COMMON,I_PERM_BREATHING,7,ARMOR,"powered scout armor","powered scout armor","powered scout armor" },
 
-{ 142,20,0,0,0,0,1,1,15,10,0,0,0,0,COMMON,I_NORMAL_SHIELD,0,SHIELD,"buckler","buckler","buckler" },
+{ 142,100,5,0,5,0,0,1,20,2000,0,0,-9,0,COMMON,I_PERM_ENERGY_RESIST,3,ARMOR,"demonhide armor","demonhide armor","demonhide armor" },
 
-{ 143,40,0,0,0,0,2,1,15,20,0,0,0,0,COMMON,I_NORMAL_SHIELD,1,SHIELD,"small round shield","small round shield","small round shield" },
+{ 143,20,0,0,0,0,1,1,15,10,0,0,0,0,COMMON,I_NORMAL_SHIELD,0,SHIELD,"buckler","buckler","buckler" },
 
-{ 144,100,0,0,0,0,3,1,15,50,0,0,0,0,COMMON,I_NORMAL_SHIELD,2,SHIELD,"large round shield","large round shield","large round shield" },
+{ 144,40,0,0,0,0,2,1,15,20,0,0,0,0,COMMON,I_NORMAL_SHIELD,1,SHIELD,"small round shield","small round shield","small round shield" },
 
-{ 145,200,0,0,0,0,4,1,15,75,0,0,0,0,COMMON,I_NORMAL_SHIELD,2,SHIELD,"heater shield","heater shield","heater shield" },
+{ 145,100,0,0,0,0,3,1,15,50,0,0,0,0,COMMON,I_NORMAL_SHIELD,2,SHIELD,"large round shield","large round shield","large round shield" },
 
-{ 146,300,0,0,0,0,5,1,15,150,0,0,0,0,COMMON,I_NORMAL_SHIELD,3,SHIELD,"hoplon","hoplon","hoplon" },
+{ 146,200,0,0,0,0,4,1,15,75,0,0,0,0,COMMON,I_NORMAL_SHIELD,2,SHIELD,"heater shield","heater shield","heater shield" },
 
-{ 147,500,0,0,0,0,6,1,15,200,0,0,0,0,COMMON,I_NORMAL_SHIELD,4,SHIELD,"tower shield","tower shield","tower shield" },
+{ 147,300,0,0,0,0,5,1,15,150,0,0,0,0,COMMON,I_NORMAL_SHIELD,3,SHIELD,"hoplon","hoplon","hoplon" },
 
-{ 148,20,0,0,0,0,7,1,15,1000,0,0,0,0,COMMON,I_NORMAL_SHIELD,6,SHIELD,"plasteel shield","plasteel shield","plasteel shield" },
+{ 148,500,0,0,0,0,6,1,15,200,0,0,0,0,COMMON,I_NORMAL_SHIELD,4,SHIELD,"tower shield","tower shield","tower shield" },
 
-{ 149,200,6,0,0,0,6,1,15,2000,0,0,0,0,COMMON,I_PERM_DEFLECT,7,SHIELD,"shield of deflection","shield of deflection","shield of deflection" },
+{ 149,20,0,0,0,0,7,1,15,1000,0,0,0,0,COMMON,I_NORMAL_SHIELD,6,SHIELD,"plasteel shield","plasteel shield","plasteel shield" },
 
-{ 150,30,0,0,0,0,0,1,4,15,0,0,0,0,COMMON,I_NO_OP,0,CLOAK,"?","cloak of wool","cloak of wool" },
+{ 150,200,6,0,0,0,6,1,15,2000,0,0,0,0,COMMON,I_PERM_DEFLECT,7,SHIELD,"shield of deflection","shield of deflection","shield of deflection" },
 
-{ 151,30,0,0,0,0,0,1,4,500,0,0,0,0,COMMON,I_PERM_NEGIMMUNE,3,CLOAK,"?","cloak of negimmunity","cloak of level drain" },
+{ 151,30,0,0,0,0,0,1,4,15,0,0,0,0,COMMON,I_NO_OP,0,CLOAK,"?","cloak of wool","cloak of wool" },
 
-{ 152,30,0,0,0,0,0,1,4,500,0,0,0,0,COMMON,I_PERM_INVISIBLE,5,CLOAK,"?","cloak of invisibility","cloak of invisibility" },
+{ 152,30,0,0,0,0,0,1,4,500,0,0,0,0,COMMON,I_PERM_NEGIMMUNE,3,CLOAK,"?","cloak of negimmunity","cloak of level drain" },
 
-{ 153,30,0,0,0,0,0,1,4,1000,0,0,0,0,COMMON,I_PERM_ACCURACY,5,CLOAK,"?","cloak of skill","cloak of skill" },
+{ 153,30,0,0,0,0,0,1,4,500,0,0,0,0,COMMON,I_PERM_INVISIBLE,5,CLOAK,"?","cloak of invisibility","cloak of invisibility" },
 
-{ 154,30,0,0,0,0,0,1,4,500,0,0,0,0,COMMON,I_PERM_PROTECTION,3,CLOAK,"?","cloak of protection","cloak of damage" },
+{ 154,30,0,0,0,0,0,1,4,1000,0,0,0,0,COMMON,I_PERM_ACCURACY,5,CLOAK,"?","cloak of skill","cloak of skill" },
 
-{ 155,30,0,0,0,0,0,1,4,2000,0,0,0,0,COMMON,I_PERM_DISPLACE,6,CLOAK,"?","cloak of displacement","cloak of vulnerability" },
+{ 155,30,0,0,0,0,0,1,4,500,0,0,0,0,COMMON,I_PERM_PROTECTION,3,CLOAK,"?","cloak of protection","cloak of damage" },
 
-{ 156,30,0,0,0,0,0,1,4,500,0,0,0,0,COMMON,I_PERM_TRUESIGHT,3,CLOAK,"?","cloak of true sight","cloak of blindness" },
+{ 156,30,0,0,0,0,0,1,4,2000,0,0,0,0,COMMON,I_PERM_DISPLACE,6,CLOAK,"?","cloak of displacement","cloak of vulnerability" },
 
-{ 157,30,0,0,0,0,0,1,6,1000,0,0,0,0,COMMON,I_PERM_SPEED,4,BOOTS,"?","boots of speed","boots of slowness" },
+{ 157,30,0,0,0,0,0,1,4,500,0,0,0,0,COMMON,I_PERM_TRUESIGHT,3,CLOAK,"?","cloak of true sight","cloak of blindness" },
 
-{ 158,30,0,0,0,0,0,1,6,1000,0,0,0,0,COMMON,I_PERM_HERO,6,BOOTS,"?","boots of heroism","boots of cowardliness" },
+{ 158,30,0,0,0,0,0,1,6,1000,0,0,0,0,COMMON,I_PERM_SPEED,4,BOOTS,"?","boots of speed","boots of slowness" },
 
-{ 159,30,0,0,0,0,0,1,6,500,0,0,0,0,COMMON,I_PERM_LEVITATE,3,BOOTS,"?","boots of levitation","boots of levitation" },
+{ 159,30,0,0,0,0,0,1,6,1000,0,0,0,0,COMMON,I_PERM_HERO,6,BOOTS,"?","boots of heroism","boots of cowardliness" },
 
-{ 160,30,0,0,0,0,0,1,6,250,0,0,0,0,COMMON,I_PERM_AGILITY,3,BOOTS,"?","boots of agility","boots of clumsiness" },
+{ 160,30,0,0,0,0,0,1,6,500,0,0,0,0,COMMON,I_PERM_LEVITATE,3,BOOTS,"?","boots of levitation","boots of levitation" },
 
-{ 161,30,0,0,0,0,0,1,6,200,0,0,0,0,COMMON,I_BOOTS_JUMPING,2,BOOTS,"?","jumping boots","jumping boots" },
+{ 161,30,0,0,0,0,0,1,6,250,0,0,0,0,COMMON,I_PERM_AGILITY,3,BOOTS,"?","boots of agility","boots of clumsiness" },
 
-{ 162,30,0,0,0,0,0,1,6,7,0,0,0,0,COMMON,I_NO_OP,0,BOOTS,"?","boots of leather","boots of leather" },
+{ 162,30,0,0,0,0,0,1,6,200,0,0,0,0,COMMON,I_BOOTS_JUMPING,2,BOOTS,"?","jumping boots","jumping boots" },
 
-{ 163,30,0,0,0,0,0,1,6,2700,0,0,0,0,COMMON,I_BOOTS_7LEAGUE,7,BOOTS,"?","seven league boots","umpteen league boots" },
+{ 163,30,0,0,0,0,0,1,6,7,0,0,0,0,COMMON,I_NO_OP,0,BOOTS,"?","boots of leather","boots of leather" },
 
-{ 164,1,0,0,0,0,0,1,10,400,0,0,0,0,COMMON,I_PERM_TRUESIGHT,3,RING,"?","ring of truesight","ring of blindness" },
+{ 164,30,0,0,0,0,0,1,6,2700,0,0,0,0,COMMON,I_BOOTS_7LEAGUE,7,BOOTS,"?","seven league boots","umpteen league boots" },
 
-{ 165,1,0,0,0,0,0,1,10,1,0,0,-1,0,COMMON,I_PERM_BURDEN,0,RING,"?","ring of burden","ring of burden" },
+{ 165,1,0,0,0,0,0,1,10,400,0,0,0,0,COMMON,I_PERM_TRUESIGHT,3,RING,"?","ring of truesight","ring of blindness" },
 
-{ 166,1,0,0,0,0,0,1,10,100,0,0,0,0,COMMON,I_PERM_STRENGTH,1,RING,"?","ring of strength","ring of strength" },
+{ 166,1,0,0,0,0,0,1,10,1,0,0,-1,0,COMMON,I_PERM_BURDEN,0,RING,"?","ring of burden","ring of burden" },
 
-{ 167,1,0,0,0,0,0,1,10,100,0,0,0,0,COMMON,I_PERM_GAZE_IMMUNE,2,RING,"?","ring of gaze immunity","ring of gaze immunity" },
+{ 167,1,0,0,0,0,0,1,10,100,0,0,0,0,COMMON,I_PERM_STRENGTH,1,RING,"?","ring of strength","ring of strength" },
 
-{ 168,1,0,0,0,0,0,1,10,100,0,0,0,0,COMMON,I_PERM_FIRE_RESIST,3,RING,"?","ring of fire resistance","ring of fire resistance" },
+{ 168,1,0,0,0,0,0,1,10,100,0,0,0,0,COMMON,I_PERM_GAZE_IMMUNE,2,RING,"?","ring of gaze immunity","ring of gaze immunity" },
 
-{ 169,1,0,0,0,0,0,1,10,10,0,0,0,0,COMMON,I_NO_OP,0,RING,"?","ring of brass and glass","ring of brass and glass" },
+{ 169,1,0,0,0,0,0,1,10,100,0,0,0,0,COMMON,I_PERM_FIRE_RESIST,3,RING,"?","ring of fire resistance","ring of fire resistance" },
 
-{ 170,1,0,0,0,0,0,1,10,100,0,0,0,0,COMMON,I_PERM_POISON_RESIST,4,RING,"?","ring of poison resistance","ring of poison" },
+{ 170,1,0,0,0,0,0,1,10,10,0,0,0,0,COMMON,I_NO_OP,0,RING,"?","ring of brass and glass","ring of brass and glass" },
 
-{ 171,1,0,0,0,0,0,1,10,1000,0,0,0,0,COMMON,I_PERM_REGENERATE,5,RING,"?","ring of regeneration","ring of regeneration" },
+{ 171,1,0,0,0,0,0,1,10,100,0,0,0,0,COMMON,I_PERM_POISON_RESIST,4,RING,"?","ring of poison resistance","ring of poison" },
 
-{ 172,1,0,0,0,0,0,1,10,100,0,0,0,0,COMMON,I_PERM_KNOWLEDGE,0,RING,"?","ring of self-knowledge","ring of delusion" },
+{ 172,1,0,0,0,0,0,1,10,1000,0,0,0,0,COMMON,I_PERM_REGENERATE,5,RING,"?","ring of regeneration","ring of regeneration" },
 
-{ 173,1,0,0,0,0,0,1,10,500,0,0,0,0,COMMON,I_PERM_PROTECTION,4,RING,"?","ring of protection","ring of vulnerability" },
+{ 173,1,0,0,0,0,0,1,10,100,0,0,0,0,COMMON,I_PERM_KNOWLEDGE,0,RING,"?","ring of self-knowledge","ring of delusion" },
 
-{ 174,80,0,0,0,0,0,1,10,500,0,0,0,0,COMMON,I_FIREBOLT,3,STICK,"?","staff of firebolts","staff of firebolts" },
+{ 174,1,0,0,0,0,0,1,10,500,0,0,0,0,COMMON,I_PERM_PROTECTION,4,RING,"?","ring of protection","ring of vulnerability" },
 
-{ 175,80,0,0,0,0,0,1,10,10,0,0,0,0,COMMON,I_NOTHING,0,STICK,"?","walking stick","walking stick" },
+{ 175,80,0,0,0,0,0,1,10,500,0,0,0,0,COMMON,I_FIREBOLT,3,STICK,"?","staff of firebolts","staff of firebolts" },
 
-{ 176,80,0,0,0,0,0,1,10,100,0,0,0,0,COMMON,I_SLEEP_OTHER,1,STICK,"?","staff of sleep","staff of sleep" },
+{ 176,80,0,0,0,0,0,1,10,10,0,0,0,0,COMMON,I_NOTHING,0,STICK,"?","walking stick","walking stick" },
 
-{ 177,80,0,0,0,0,0,1,10,500,0,0,0,0,COMMON,I_LBALL,4,STICK,"?","wand of ball lightning","wand of ball lightning" },
+{ 177,80,0,0,0,0,0,1,10,100,0,0,0,0,COMMON,I_SLEEP_OTHER,1,STICK,"?","staff of sleep","staff of sleep" },
 
-{ 178,80,0,0,0,0,0,1,10,500,0,0,0,0,COMMON,I_SUMMON,2,STICK,"?","rod of summoning","rod of summoning" },
+{ 178,80,0,0,0,0,0,1,10,500,0,0,0,0,COMMON,I_LBALL,4,STICK,"?","wand of ball lightning","wand of ball lightning" },
 
-{ 179,80,0,0,0,0,0,1,10,100,0,0,0,0,COMMON,I_HIDE,1,STICK,"?","rod of hiding","rod of hiding" },
+{ 179,80,0,0,0,0,0,1,10,500,0,0,0,0,COMMON,I_SUMMON,2,STICK,"?","rod of summoning","rod of summoning" },
 
-{ 180,80,0,0,0,0,0,1,10,500,0,0,0,0,COMMON,I_LBOLT,3,STICK,"?","staff of lightning bolts","staff of lightning bolts" },
+{ 180,80,0,0,0,0,0,1,10,100,0,0,0,0,COMMON,I_HIDE,1,STICK,"?","rod of hiding","rod of hiding" },
 
-{ 181,80,0,0,0,0,0,1,10,500,0,0,0,0,COMMON,I_FIREBALL,5,STICK,"?","wand of fireballs","wand of fireballs" },
+{ 181,80,0,0,0,0,0,1,10,500,0,0,0,0,COMMON,I_LBOLT,3,STICK,"?","staff of lightning bolts","staff of lightning bolts" },
 
-{ 182,80,0,0,0,0,0,1,10,2000,0,0,0,0,COMMON,I_DISINTEGRATE,7,STICK,"?","rod of disintegration","rod of disintegration" },
+{ 182,80,0,0,0,0,0,1,10,500,0,0,0,0,COMMON,I_FIREBALL,5,STICK,"?","wand of fireballs","wand of fireballs" },
 
-{ 183,80,0,0,0,0,0,1,10,1000,0,0,0,0,COMMON,I_DISRUPT,6,STICK,"?","staff of disruption","staff of disruption" },
+{ 183,80,0,0,0,0,0,1,10,2000,0,0,0,0,COMMON,I_DISINTEGRATE,7,STICK,"?","rod of disintegration","rod of disintegration" },
 
-{ 184,80,0,0,0,0,0,1,10,100,0,0,0,0,COMMON,I_SNOWBALL,2,STICK,"?","snowball stick","snowball stick" },
+{ 184,80,0,0,0,0,0,1,10,1000,0,0,0,0,COMMON,I_DISRUPT,6,STICK,"?","staff of disruption","staff of disruption" },
 
-{ 185,80,0,0,0,0,0,1,10,50,0,0,0,0,COMMON,I_MISSILE,1,STICK,"?","staff of missiles","staff of missiles" },
+{ 185,80,0,0,0,0,0,1,10,100,0,0,0,0,COMMON,I_SNOWBALL,2,STICK,"?","snowball stick","snowball stick" },
 
-{ 186,80,0,0,0,0,0,1,10,200,0,0,0,0,COMMON,I_APPORT,2,STICK,"?","rod of apportation","rod of lossage" },
+{ 186,80,0,0,0,0,0,1,10,50,0,0,0,0,COMMON,I_MISSILE,1,STICK,"?","staff of missiles","staff of missiles" },
 
-{ 187,80,0,0,0,0,0,1,10,750,0,0,0,0,COMMON,I_DISPEL,6,STICK,"?","staff of dispelling","staff of self-dispelling" },
+{ 187,80,0,0,0,0,0,1,10,200,0,0,0,0,COMMON,I_APPORT,2,STICK,"?","rod of apportation","rod of lossage" },
 
-{ 188,80,0,0,0,0,0,1,10,500,0,0,0,0,COMMON,I_HEAL,3,STICK,"?","staff of healing","staff of harming" },
+{ 188,80,0,0,0,0,0,1,10,750,0,0,0,0,COMMON,I_DISPEL,6,STICK,"?","staff of dispelling","staff of self-dispelling" },
 
-{ 189,80,0,0,0,0,0,1,10,1000,0,0,0,0,COMMON,I_POLYMORPH,3,STICK,"wand of stupidity","wand of polymorph","wand of stupidity" },
+{ 189,80,0,0,0,0,0,1,10,500,0,0,0,0,COMMON,I_HEAL,3,STICK,"?","staff of healing","staff of harming" },
 
-{ 190,80,0,0,0,0,0,1,10,500,0,0,0,0,COMMON,I_FEAR,2,STICK,"?","wand of fear","wand of fear" },
+{ 190,80,0,0,0,0,0,1,10,1000,0,0,0,0,COMMON,I_POLYMORPH,3,STICK,"wand of stupidity","wand of polymorph","wand of stupidity" },
 
-{ 191,500,0,0,0,0,0,1,15,10000,0,0,0,0,UNIQUE_MADE,I_ORBMASTERY,10,ARTIFACT,"Mysterious Orb","Orb of Mastery","Orb of Mastery" },
+{ 191,80,0,0,0,0,0,1,10,500,0,0,0,0,COMMON,I_FEAR,2,STICK,"?","wand of fear","wand of fear" },
 
-{ 192,50,0,0,0,0,0,1,15,2000,0,0,0,0,COMMON,I_ORBFIRE,9,ARTIFACT,"Mysterious Orb","Orb of Fire","Orb of Fire" },
+{ 192,500,0,0,0,0,0,1,15,10000,0,0,0,0,UNIQUE_MADE,I_ORBMASTERY,10,ARTIFACT,"Mysterious Orb","Orb of Mastery","Orb of Mastery" },
 
-{ 193,50,0,0,0,0,0,1,15,2000,0,0,0,0,COMMON,I_ORBWATER,8,ARTIFACT,"Mysterious Orb","Orb of Water","Orb of Water" },
+{ 193,50,0,0,0,0,0,1,15,2000,0,0,0,0,COMMON,I_ORBFIRE,9,ARTIFACT,"Mysterious Orb","Orb of Fire","Orb of Fire" },
 
-{ 194,50,0,0,0,0,0,1,15,2000,0,0,0,0,COMMON,I_ORBEARTH,7,ARTIFACT,"Mysterious Orb","Orb of Earth","Orb of Earth" },
+{ 194,50,0,0,0,0,0,1,15,2000,0,0,0,0,COMMON,I_ORBWATER,8,ARTIFACT,"Mysterious Orb","Orb of Water","Orb of Water" },
 
-{ 195,50,0,0,0,0,0,1,15,2000,0,0,0,0,COMMON,I_ORBAIR,6,ARTIFACT,"Mysterious Orb","Orb of Air","Orb of Air" },
+{ 195,50,0,0,0,0,0,1,15,2000,0,0,0,0,COMMON,I_ORBEARTH,7,ARTIFACT,"Mysterious Orb","Orb of Earth","Orb of Earth" },
 
-{ 196,25,0,0,0,0,0,1,15,100,0,0,0,0,COMMON,I_ORBDEAD,1,ARTIFACT,"Black Orb","Burnt-out Orb","Burnt-out Orb" },
+{ 196,50,0,0,0,0,0,1,15,2000,0,0,0,0,COMMON,I_ORBAIR,6,ARTIFACT,"Mysterious Orb","Orb of Air","Orb of Air" },
 
-{ 197,75,0,0,0,0,0,1,15,500,0,0,0,0,COMMON,I_CRYSTAL,3,ARTIFACT,"Glass Orb","Crystal Ball","Ball of Mindlessness" },
+{ 197,25,0,0,0,0,0,1,15,100,0,0,0,0,COMMON,I_ORBDEAD,1,ARTIFACT,"Black Orb","Burnt-out Orb","Burnt-out Orb" },
 
-{ 198,25,0,0,0,0,0,1,15,1000,0,0,0,0,COMMON,I_ANTIOCH,5,ARTIFACT,"Metal Pineapple","Holy Hand-Grenade of Antioch","Holy Hand-Grenade of Antioch" },
+{ 198,75,0,0,0,0,0,1,15,500,0,0,0,0,COMMON,I_CRYSTAL,3,ARTIFACT,"Glass Orb","Crystal Ball","Ball of Mindlessness" },
 
-{ 199,500,0,0,0,0,0,1,15,1,0,0,0,0,UNIQUE_UNMADE,I_NOTHING,1,ARTIFACT,"Mystic Amulet","Amulet of Yendor","Amulet of Yendor" },
+{ 199,25,0,0,0,0,0,1,15,1000,0,0,0,0,COMMON,I_ANTIOCH,5,ARTIFACT,"Metal Pineapple","Holy Hand-Grenade of Antioch","Holy Hand-Grenade of Antioch" },
 
-{ 200,1,0,0,0,0,0,1,15,20000,0,0,0,0,UNIQUE_MADE,I_KOLWYNIA,7,ARTIFACT,"Key","Kolwynia, the Key That Was Lost","Kolwynia, the Key That was Lost" },
+{ 200,500,0,0,0,0,0,1,15,1,0,0,0,0,UNIQUE_UNMADE,I_NOTHING,1,ARTIFACT,"Mystic Amulet","Amulet of Yendor","Amulet of Yendor" },
 
-{ 201,10,0,0,0,0,0,1,15,500,0,0,0,0,UNIQUE_UNMADE,I_DEATH,3,ARTIFACT,"?","Potion of Death","Potion of Death" },
+{ 201,1,0,0,0,0,0,1,15,20000,0,0,0,0,UNIQUE_MADE,I_KOLWYNIA,7,ARTIFACT,"Key","Kolwynia, the Key That Was Lost","Kolwynia, the Key That was Lost" },
 
-{ 202,100,0,0,0,0,0,1,15,2000,0,0,0,0,UNIQUE_UNMADE,I_ENCHANTMENT,5,ARTIFACT,"Scintillating Staff","Staff of Enchantment","Staff of Enchantment" },
+{ 202,10,0,0,0,0,0,1,15,500,0,0,0,0,UNIQUE_UNMADE,I_DEATH,3,ARTIFACT,"?","Potion of Death","Potion of Death" },
 
-{ 203,0,0,0,0,0,0,1,15,1500,0,0,0,0,UNIQUE_UNMADE,I_HELM,2,ARTIFACT,"Strange Weightless Helm","Helm of Teleportation","Helm of Teleportation" },
+{ 203,100,0,0,0,0,0,1,15,2000,0,0,0,0,UNIQUE_UNMADE,I_ENCHANTMENT,5,ARTIFACT,"Scintillating Staff","Staff of Enchantment","Staff of Enchantment" },
 
-{ 204,10,0,0,0,0,0,1,15,500,0,0,0,0,UNIQUE_UNMADE,I_LIFE,6,ARTIFACT,"?","Potion of Life","Potion of Life" },
+{ 204,0,0,0,0,0,0,1,15,1500,0,0,0,0,UNIQUE_UNMADE,I_HELM,2,ARTIFACT,"Strange Weightless Helm","Helm of Teleportation","Helm of Teleportation" },
 
-{ 205,5,0,0,0,0,1,1,15,5000,0,0,0,0,UNIQUE_MADE,I_SYMBOL,10,ARTIFACT,"Silver Gallows","Holy Symbol of Odin","Holy Symbol of Odin" },
+{ 205,10,0,0,0,0,0,1,15,500,0,0,0,0,UNIQUE_UNMADE,I_LIFE,6,ARTIFACT,"?","Potion of Life","Potion of Life" },
 
-{ 206,5,0,0,0,0,2,1,15,5000,0,0,0,0,UNIQUE_MADE,I_SYMBOL,10,ARTIFACT,"Jet Scarab","Holy Symbol of Set","Holy Symbol of Set" },
+{ 206,5,0,0,0,0,1,1,15,5000,0,0,0,0,UNIQUE_MADE,I_SYMBOL,10,ARTIFACT,"Silver Gallows","Holy Symbol of Odin","Holy Symbol of Odin" },
 
-{ 207,5,0,0,0,0,3,1,15,5000,0,0,0,0,UNIQUE_MADE,I_SYMBOL,10,ARTIFACT,"Gold Owl Pendant","Holy Symbol of Athena","Holy Symbol of Athena" },
+{ 207,5,0,0,0,0,2,1,15,5000,0,0,0,0,UNIQUE_MADE,I_SYMBOL,10,ARTIFACT,"Jet Scarab","Holy Symbol of Set","Holy Symbol of Set" },
 
-{ 208,5,0,0,0,0,4,1,15,5000,0,0,0,0,UNIQUE_MADE,I_SYMBOL,10,ARTIFACT,"Obsidian Crescent","Holy Symbol of Hecate","Holy Symbol of Hecate" },
+{ 208,5,0,0,0,0,3,1,15,5000,0,0,0,0,UNIQUE_MADE,I_SYMBOL,10,ARTIFACT,"Gold Owl Pendant","Holy Symbol of Athena","Holy Symbol of Athena" },
 
-{ 209,5,0,0,0,0,5,1,15,5000,0,0,0,0,UNIQUE_MADE,I_SYMBOL,10,ARTIFACT,"Sprig of Mistletoe","Holy Symbol of Druidism","Holy Symbol of Druidism" },
+{ 209,5,0,0,0,0,4,1,15,5000,0,0,0,0,UNIQUE_MADE,I_SYMBOL,10,ARTIFACT,"Obsidian Crescent","Holy Symbol of Hecate","Holy Symbol of Hecate" },
 
-{ 210,5,0,0,0,0,6,1,15,5000,0,0,0,0,UNIQUE_MADE,I_SYMBOL,10,ARTIFACT,"Blue Crystal Pendant","Holy Symbol of Destiny","Holy Symbol of Destiny" },
+{ 210,5,0,0,0,0,5,1,15,5000,0,0,0,0,UNIQUE_MADE,I_SYMBOL,10,ARTIFACT,"Sprig of Mistletoe","Holy Symbol of Druidism","Holy Symbol of Druidism" },
 
-{ 211,1000,0,0,0,0,0,1,15,1000,0,0,0,0,UNIQUE_UNMADE,I_JUGGERNAUT,6,ARTIFACT,"Crudely Carved Monolith","Juggernaut of Karnak","Juggernaut of Karnak" },
+{ 211,5,0,0,0,0,6,1,15,5000,0,0,0,0,UNIQUE_MADE,I_SYMBOL,10,ARTIFACT,"Blue Crystal Pendant","Holy Symbol of Destiny","Holy Symbol of Destiny" },
 
-{ 212,10,0,0,0,0,0,1,0,10000,0,0,0,0,UNIQUE_MADE,I_STARGEM,7,ARTIFACT,"Strangely Glowing Crystal","Star Gem","Star Gem" },
+{ 212,1000,0,0,0,0,0,1,15,1000,0,0,0,0,UNIQUE_UNMADE,I_JUGGERNAUT,6,ARTIFACT,"Crudely Carved Monolith","Juggernaut of Karnak","Juggernaut of Karnak" },
 
-{ 213,1000,0,0,0,0,0,1,10,1000,0,0,0,0,UNIQUE_MADE,I_SCEPTRE,10,ARTIFACT,"Extremely Heavy Stick ","Sceptre of High Magic","Sceptre of High Magic" },
+{ 213,10,0,0,0,0,0,1,0,10000,0,0,0,0,UNIQUE_MADE,I_STARGEM,7,ARTIFACT,"Strangely Glowing Crystal","Star Gem","Star Gem" },
 
-{ 214,10,0,0,0,0,0,1,10,1000,0,0,0,0,UNIQUE_MADE,I_PLANES,10,ARTIFACT,"Octagonal Copper Amulet ","Amulet of the Planes","Amulet of the Planes" },
+{ 214,1000,0,0,0,0,0,1,10,1000,0,0,0,0,UNIQUE_MADE,I_SCEPTRE,10,ARTIFACT,"Extremely Heavy Stick ","Sceptre of High Magic","Sceptre of High Magic" },
 
-{ 215,0,0,0,0,0,0,1,10,0,0,0,0,0,COMMON,I_NO_OP,0,CASH,"money","money","money (the root of all evil)" },
+{ 215,10,0,0,0,0,0,1,10,1000,0,0,0,0,UNIQUE_MADE,I_PLANES,10,ARTIFACT,"Octagonal Copper Amulet ","Amulet of the Planes","Amulet of the Planes" },
 
-{ 216,100,0,0,0,0,0,1,10,0,0,0,0,0,COMMON,I_CORPSE,0,CORPSE,"a mysterious corpse","a mysterious corpse","a mysterious corpse" }
+{ 216,0,0,0,0,0,0,1,10,0,0,0,0,0,COMMON,I_NO_OP,0,CASH,"money","money","money (the root of all evil)" },
+
+{ 217,100,0,0,0,0,0,1,10,0,0,0,0,0,COMMON,I_CORPSE,0,CORPSE,"a mysterious corpse","a mysterious corpse","a mysterious corpse" },
+
 };

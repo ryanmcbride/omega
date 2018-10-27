@@ -1,3 +1,5 @@
+#ifndef __DEF_H__
+#define __DEF_H__
 /* omega copyright (c) 1987,1988,1989 by Laurence Raphael Brothers */
 /* This file is the header file for all omega modules */
 /* defs.h */
@@ -691,7 +693,7 @@ on save and restore. */
 #define NUMPOTIONS 18
 #define NUMFOODS 16
 #define NUMTHINGS 26
-#define NUMWEAPONS 41
+#define NUMWEAPONS 42
 #define NUMARMOR 17
 #define NUMSHIELDS 8
 #define NUMCLOAKS 7
@@ -871,6 +873,7 @@ on save and restore. */
 #define I_EMPIRE 1013
 #define I_SCYTHE 1014
 #define I_ACIDWHIP 1015
+#define I_MJOLNIR 1016
 
 /* thing functions */
 #define I_PICK 1101
@@ -1599,4 +1602,5 @@ typedef oltype *pol;
 
 #ifdef SAVE_LEVELS
 plv msdos_changelevel();
+#endif
 #endif
