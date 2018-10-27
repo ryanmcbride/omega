@@ -1,8 +1,10 @@
 /* omega copyright (c) 1987,1988,1989 by Laurence Raphael Brothers */
 /* init.c */
 
+extern "C" {
 #include "defs.h"
-
+}
+#include <vector>
 
 
 
@@ -10,37 +12,38 @@
 /* iinit.h */
 /* This file defines and initializes the Objects Array */
 /* This has to be changed whenever an item is added */
-const int NUMSCROLLS = 24;
-const int NUMPOTIONS = 18;
-const int NUMFOODS = 16;
-const int NUMTHINGS = 26;
-const int NUMWEAPONS = 42;
-const int NUMARMOR = 17;
-const int NUMSHIELDS = 8;
-const int NUMCLOAKS = 7;
-const int NUMBOOTS = 7;
-const int NUMRINGS = 10;
-const int NUMSTICKS = 17;
-const int NUMARTIFACTS = 24;
+extern "C" {
+ int NUMSCROLLS = 24;
+ int NUMPOTIONS = 18;
+ int NUMFOODS = 16;
+ int NUMTHINGS = 26;
+ int NUMWEAPONS = 42;
+ int NUMARMOR = 17;
+ int NUMSHIELDS = 8;
+ int NUMCLOAKS = 7;
+ int NUMBOOTS = 7;
+ int NUMRINGS = 10;
+ int NUMSTICKS = 17;
+ int NUMARTIFACTS = 24;
 
 /* running sum of itemtypes, for indexing into Objects array */
-const int THINGID = 0; 
-const int FOODID = NUMTHINGS;
-const int SCROLLID = (FOODID + NUMFOODS);
-const int POTIONID = (SCROLLID + NUMSCROLLS);
-const int WEAPONID = (POTIONID + NUMPOTIONS);
-const int ARMORID = (WEAPONID + NUMWEAPONS);
-const int SHIELDID = (ARMORID + NUMARMOR);
-const int CLOAKID = (SHIELDID + NUMSHIELDS);
-const int BOOTID = (CLOAKID + NUMCLOAKS);
-const int RINGID = (BOOTID + NUMBOOTS);
-const int STICKID = (RINGID + NUMRINGS);
-const int ARTIFACTID = (STICKID + NUMSTICKS);
-const int CASHID = (ARTIFACTID+NUMARTIFACTS);
+ int THINGID = 0; 
+ int FOODID;
+ int SCROLLID;
+ int POTIONID;
+ int WEAPONID;
+ int ARMORID;
+ int SHIELDID;
+ int CLOAKID;
+ int BOOTID;
+ int RINGID;
+ int STICKID;
+ int ARTIFACTID;
+ int CASHID;
 /* Corpse's aux field is monster id */
-const int CORPSEID = (CASHID+1);
+ int CORPSEID;
 
-const int TOTALITEMS = (CORPSEID+1); 
+ int TOTALITEMS; 
 
 struct object Objects[] = {
 { 0,10,0,0,0,0,0,1,10,50,0,0,0,0,COMMON,I_RAISE_PORTCULLIS,2,THING,"small grey box with red button","disposeable garage door opener","disposeable garage door opener" },
@@ -158,15 +161,15 @@ struct object Objects[] = {
 { 114,50,0,0,3,10,1005,1,15,50,0,0,0,MISSILE,COMMON,I_NORMAL_WEAPON,2,MISSILEWEAPON,"bola","bola","bola" },
 { 115,40,5,0,12,9,1008,1,15,3000,0,0,0,CUTTING,COMMON,I_NORMAL_WEAPON,7,WEAPON,"broad sword","vorpal sword","sword of self-mutilation" },
 { 116,100,7,0,20,7,1009,1,15,5000,0,0,-7,CUTTING,COMMON,I_DESECRATE,9,WEAPON,"great-sword","Desecrator","Desecrator" },
-{ 117,60,7,0,16,7,1010,1,15,2000,0,0,0,STRIKING,COMMON,I_PERM_FIRE_RESIST,6,WEAPON,"morning-star","firestar","firestar" },
+{ 117,60,7,0,16,7,1010,1,15,2000,0,0,0,STRIKING,COMMON,I_PERM_FIRE_RESIST,6,WEAPON,"morning-star","Firestar","Firestar" },
 { 118,50,7,0,10,12,1011,1,15,3000,0,0,7,THRUSTING,COMMON,I_DEFEND,7,WEAPON,"estoc","Defender","Defender" },
 { 119,50,10,0,100,10,1012,1,15,5000,0,0,10,THRUSTING,UNIQUE_MADE,I_VICTRIX,10,WEAPON,"ivory spear","Victrix","Victrix" },
 { 120,500,6,0,32,6,0,1,15,2000,0,0,0,CUTTING,UNIQUE_MADE,I_NORMAL_WEAPON,7,WEAPON,"great-axe","Goblins' Hewer","Goblins' Hewer" },
 { 121,100,20,0,30,10,0,1,15,500,0,0,-10,CUTTING,COMMON,I_NORMAL_WEAPON,6,WEAPON,"scythe","scythe of slicing","scythe of slicing" },
 { 122,250,0,0,50,-10,0,1,15,100,0,0,0,STRIKING,COMMON,I_NORMAL_WEAPON,5,WEAPON,"giant club","giant club","giant club" },
 { 123,500,0,0,10000,1000,1014,1,15,10000,0,0,0,CUTTING,UNIQUE_MADE,I_NORMAL_WEAPON,10,WEAPON,"Scythe of Death","Scythe of Death","Scythe of Death" },
-{ 124,30,0,0,16,16,1015,1,15,1000,0,0,0,STRIKING,COMMON,I_NORMAL_WEAPON,4,WEAPON,"whip","acid whip","acid whip" },
-{ 125,60,7,0,20,10,1016,1,15,2000,0,0,0,STRIKING,COMMON,I_PERM_ENERGY_RESIST,6,WEAPON,"war-hammer","mjolnir","mjolnir" },
+{ 124,30,0,0,16,16,1015,1,15,1000,0,0,0,STRIKING,COMMON,I_NORMAL_WEAPON,4,WEAPON,"whip","Acid whip","Acid whip" },
+{ 125,60,7,0,20,10,1016,1,15,2000,0,0,0,STRIKING,COMMON,I_PERM_ENERGY_RESIST,6,WEAPON,"war-hammer","Mjolnir","Mjolnir" },
 { 126,100,0,0,1,0,0,1,20,5,0,0,0,0,COMMON,I_NORMAL_ARMOR,0,ARMOR,"flak jacket","flak jacket","flak jacket" },
 { 127,200,0,0,2,0,1,1,20,10,0,0,0,0,COMMON,I_NORMAL_ARMOR,1,ARMOR,"soft leather armor","soft leather armor","soft leather armor" },
 { 128,200,0,0,2,0,1,1,20,30,0,0,0,0,COMMON,I_NORMAL_ARMOR,1,ARMOR,"cuirbouilli","cuirbouilli","cuirbouilli" },
@@ -260,8 +263,25 @@ struct object Objects[] = {
 { 216,0,0,0,0,0,0,1,10,0,0,0,0,0,COMMON,I_NO_OP,0,CASH,"money","money","money (the root of all evil)" },
 { 217,100,0,0,0,0,0,1,10,0,0,0,0,0,COMMON,I_CORPSE,0,CORPSE,"a mysterious corpse","a mysterious corpse","a mysterious corpse" },
 };
+}
+extern "C" void init_items(){
+ THINGID = 0; 
+ FOODID = NUMTHINGS;
+ SCROLLID = (FOODID + NUMFOODS);
+ POTIONID = (SCROLLID + NUMSCROLLS);
+ WEAPONID = (POTIONID + NUMPOTIONS);
+ ARMORID = (WEAPONID + NUMWEAPONS);
+ SHIELDID = (ARMORID + NUMARMOR);
+ CLOAKID = (SHIELDID + NUMSHIELDS);
+ BOOTID = (CLOAKID + NUMCLOAKS);
+ RINGID = (BOOTID + NUMBOOTS);
+ STICKID = (RINGID + NUMRINGS);
+ ARTIFACTID = (STICKID + NUMSTICKS);
+ CASHID = (ARTIFACTID+NUMARTIFACTS);
+/* Corpse's aux field is monster id */
+  CORPSEID = (CASHID+1);
 
-  void init_items(){
+  TOTALITEMS = (CORPSEID+1); 
      for(int i = THINGID; i < TOTALITEMS; i++){
         assert(Objects[i].id == i);
         if(i >= THINGID && i < FOODID) assert(Objects[i].objchar == THING);
@@ -285,7 +305,13 @@ struct object Objects[] = {
 /* minit.h */
 /* This file defines and initializes the Monsters Array */
 
-struct monster Monsters[NUMMONSTERS] = {
+static std::vector<monster> _monsters;
+extern "C" {
+  struct monster Monsters[NUMMONSTERS];
+}
+
+extern "C" void init_monsters(){
+_monsters = {
 { NULL,0,0,0,0,0,0,0,1,1,10,2,4,1,0,1,50,0,1,1,1,-1,-1,COMMON,M_TALK_STUPID,M_MOVE_FLUTTER,M_MELEE_NORMAL,M_NO_OP,M_NO_OP,MOBILE|HOSTILE|FLYING|POISONOUS,0,'h'|CLR(YELLOW),"hornet","dead hornet","AXAX" },
 { NULL,0,0,0,0,0,0,1,30,0,0,0,10,10,0,5,100,2,15,1000,0,-1,-1,COMMON,M_TALK_MP,M_MOVE_FOLLOW,M_MELEE_MP,M_NO_OP,M_SP_MP,MOBILE|NEEDY,0,'@'|CLR(RED),"mendicant priest","dead mendicant priest","BX" },
 { NULL,0,0,0,0,0,0,2,15,0,0,0,10,10,0,7,0,3,5,1000,0,-1,-1,COMMON,M_TALK_IM,M_MOVE_FOLLOW,M_NO_OP,M_NO_OP,M_SP_ESCAPE,MOBILE,0,'@'|CLR(RED),"itinerant merchant","dead itinerant merchant","BX" },
@@ -438,7 +464,7 @@ struct monster Monsters[NUMMONSTERS] = {
 { NULL,0,0,0,0,0,0,148,1500,200,100,300,10,1,10,3,100,0,5000,1000,1,-1,ARTIFACTID+2,UNIQUE_MADE,M_TALK_SILENT,M_MOVE_NORMAL,M_MELEE_FIRE,M_STRIKE_FBALL,M_NO_OP,MOBILE,pow2(FLAME)|pow2(ELECTRICITY)|pow2(POISON)|pow2(ACID)|pow2(FEAR)|pow2(SLEEP)|pow2(NEGENERGY)|pow2(OTHER_MAGIC)|pow2(THEFT)|pow2(GAZE)|pow2(INFECTION),'F'|CLRS(LIGHT_RED,WHITE),"The Elemental Lord of Fire","a spark","A?A?A?R?R?R?R?" },
 { NULL,0,0,0,0,0,0,149,1000,200,200,200,20,20,10,2,0,10,10000,10000,1,-1,ARTIFACTID+0,UNIQUE_MADE,M_TALK_EVIL,M_MOVE_SMART,M_MELEE_MASTER,M_STRIKE_MASTER,M_SP_MASTER,MOBILE|FLYING|SWIMMING,pow2(NORMAL_DAMAGE)|pow2(COLD)|pow2(ELECTRICITY)|pow2(POISON)|pow2(ACID)|pow2(FEAR)|pow2(SLEEP)|pow2(NEGENERGY)|pow2(OTHER_MAGIC)|pow2(THEFT)|pow2(GAZE)|pow2(INFECTION),'M'|CLRS(PURPLE,WHITE),"The Elemental Master","A burning mound of bubbling mud","A?A?A?A?R?R?R?R?" }
 };
-
-void init_monsters(){
-
+for(int i = 0; i < _monsters.size(); i++){
+  Monsters[i] = _monsters[i];
+}
 }

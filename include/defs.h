@@ -688,37 +688,37 @@ on save and restore. */
 #define COMPRESS_OPTION 128
 #define SHOW_COLOUR 256
 
-extern const int NUMSCROLLS;
-extern const int NUMPOTIONS;
-extern const int NUMFOODS;
-extern const int NUMTHINGS;
-extern const int NUMWEAPONS;
-extern const int NUMARMOR;
-extern const int NUMSHIELDS;
-extern const int NUMCLOAKS;
-extern const int NUMBOOTS;
-extern const int NUMRINGS;
-extern const int NUMSTICKS;
-extern const int NUMARTIFACTS;
+extern int NUMSCROLLS;
+extern int NUMPOTIONS;
+extern int NUMFOODS;
+extern int NUMTHINGS;
+extern int NUMWEAPONS;
+extern int NUMARMOR;
+extern int NUMSHIELDS;
+extern int NUMCLOAKS;
+extern int NUMBOOTS;
+extern int NUMRINGS;
+extern int NUMSTICKS;
+extern int NUMARTIFACTS;
 
 /* running sum of itemtypes, for indexing into Objects array */
-extern const int THINGID; 
-extern const int FOODID;
-extern const int SCROLLID;
-extern const int POTIONID;
-extern const int WEAPONID;
-extern const int ARMORID;
-extern const int SHIELDID;
-extern const int CLOAKID;
-extern const int BOOTID;
-extern const int RINGID;
-extern const int STICKID;
-extern const int ARTIFACTID;
-extern const int CASHID;
+extern int THINGID; 
+extern int FOODID;
+extern int SCROLLID;
+extern int POTIONID;
+extern int WEAPONID;
+extern int ARMORID;
+extern int SHIELDID;
+extern int CLOAKID;
+extern int BOOTID;
+extern int RINGID;
+extern int STICKID;
+extern int ARTIFACTID;
+extern int CASHID;
 /* Corpse's aux field is monster id */
-extern const int CORPSEID;
+extern int CORPSEID;
 
-extern const int TOTALITEMS;
+extern int TOTALITEMS;
 
 /* describing unique items and monsters */
 #define COMMON 0

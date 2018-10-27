@@ -107,7 +107,7 @@ void initplayer()
   ScreenOffset = -1000; /* to force a redraw */
 
   newitem = ((pob)checkmalloc(sizeof(objtype)));
-          *newitem = *findObjectWithTrueName("mjolnir");
+          *newitem = *findObjectWithTrueName("Mjolnir");
           gain_item(newitem);
 }
 
