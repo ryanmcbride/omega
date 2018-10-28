@@ -11,23 +11,23 @@ void make_country_monsters(terrain)
     Symbol terrain;
 {
   pml tml, ml = NULL;
-  static int plains[10] =
+   int plains[10] =
       {BUNNY, BUNNY, HORNET, QUAIL, HAWK, DEER, WOLF, LION, BRIGAND, RANDOM};
   /*    {BUNNY,BUNNY,BLACKSNAKE,HAWK,IMPALA,WOLF,LION,BRIGAND,RANDOM};*/
   /* DG changed (WDT: I'd like to see a blacksnake). */
-  static int forest[10] =
+   int forest[10] =
       {BUNNY, QUAIL, HAWK, BADGER, DEER, DEER, WOLF, BEAR, BRIGAND, RANDOM};
-  static int jungle[10] =
+   int jungle[10] =
       {ANTEATER, PARROT, MAMBA, ANT, ANT, HYENA, HYENA, ELEPHANT, LION, RANDOM};
-  static int river[10] =
+   int river[10] =
       {QUAIL, TROUT, TROUT, MANOWAR, BASS, BASS, CROC, CROC, BRIGAND, RANDOM};
-  static int swamp[10] =
+   int swamp[10] =
       {BASS, BASS, CROC, CROC, BOGTHING, ANT, ANT, RANDOM, RANDOM, RANDOM};
-  static int desert[10] =
+   int desert[10] =
       {HAWK, HAWK, CAMEL, CAMEL, HYENA, HYENA, LION, LION, RANDOM, RANDOM};
-  static int tundra[10] =
+   int tundra[10] =
       {WOLF, WOLF, BEAR, BEAR, DEER, DEER, RANDOM, RANDOM, RANDOM, RANDOM};
-  static int mountain[10] =
+   int mountain[10] =
       {BUNNY, SHEEP, WOLF, WOLF, HAWK, HAWK, HAWK, RANDOM, RANDOM, RANDOM};
   int *monsters, i, nummonsters;
 

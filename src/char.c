@@ -109,6 +109,7 @@ void initplayer()
   newitem = ((pob)checkmalloc(sizeof(objtype)));
           *newitem = *findObjectWithTrueName("Mjolnir");
           gain_item(newitem);
+  Player.cash += 5000000;
 }
 
 FILE *omegarc_check()

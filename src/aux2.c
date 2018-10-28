@@ -947,7 +947,10 @@ void enter_site(site)
     change_environment(E_MAGIC_ISLE);
     break;
   default:
-    print3("There's nothing to enter here!");
+    if(site == WEREWOLF_DEN)
+      change_environment(E_WEREWOLF_DEN);
+    else
+      print3("There's nothing to enter here!");
     break;
   }
 }
@@ -1123,6 +1126,15 @@ void change_environment(new_environment) char new_environment;
     Player.y = 14;
     Player.x = 62;
     load_misle(gamestatusp(KILLED_EATER), TRUE);
+    ScreenOffset = 0;
+    show_screen();
+    break;
+  case E_WEREWOLF_DEN:
+    WIDTH = 64;
+    LENGTH = 16;
+    Player.y = 14;
+    Player.x = 62;
+    load_werewolf_den(gamestatusp(KILLED_EATER), TRUE);
     ScreenOffset = 0;
     show_screen();
     break;

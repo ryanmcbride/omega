@@ -728,88 +728,97 @@ void i_corpse(o)
   /* WDT HACK: there are some comments in this function which need
    * to be backed up with assert(). */
   /* object's charge holds the former monster id */
-  switch (o->charge)
-  {
-  case MEND_PRIEST:
-  case ITIN_MERCH:
-  case GUARD:
-  case NPC:
-  case MERCHANT:
-  case ZERO_NPC:
-  case HISCORE_NPC:
-  case APPR_NINJA:
-  case SNEAK_THIEF:
-  case BRIGAND:
-  case GENIN:
-  case MAST_THIEF:
-  case CHUNIN:
-  case JONIN: /* cannibalism */
+  if (o->charge == MEND_PRIEST ||
+      o->charge == ITIN_MERCH ||
+      o->charge == GUARD ||
+      o->charge == NPC ||
+      o->charge == MERCHANT ||
+      o->charge == ZERO_NPC ||
+      o->charge == HISCORE_NPC ||
+      o->charge == APPR_NINJA ||
+      o->charge == SNEAK_THIEF ||
+      o->charge == BRIGAND ||
+      o->charge == GENIN ||
+      o->charge == MAST_THIEF ||
+      o->charge == CHUNIN ||
+      o->charge == JONIN)
+  { /* cannibalism */
     mprint("Yechh! How could you! You didn't even cook him, first!");
     if (Player.alignment > 0)
       Player.food = 25;
     Player.food += 8;
     Player.alignment -= 10;
     foodcheck();
-    break;
-  case FNORD: /* fnord */
+  }
+  else if (o->charge == FNORD)
+  { /* fnord */
     mprint("You feel illuminated!");
     Player.iq++;
-    break;
-  case DENEBIAN: /* denebian slime devil */
+  }
+  else if (o->charge == DENEBIAN)
+  { /* denebian slime devil */
     mprint("I don't believe this. You ate Denebian Slime?");
     mprint("You deserve a horrible wasting death, uncurable by any means!");
-    break;
-  case DRAGONETTE: /* can't get here... i_usef changed to I_FOOD */
+  }
+  else if (o->charge == DRAGONETTE)
+  { /* can't get here... i_usef changed to I_FOOD */
     mprint("Those dragon-steaks were fantastic!");
     Player.food = 24;
     foodcheck();
-    break;
-  case BEHEMOTH:
+  }
+  else if (o->charge == BEHEMOTH)
+  {
     mprint("You feel infinitely more virile now.");
     Player.str = max(Player.str, Player.maxstr + 10);
     Player.food = 24;
     foodcheck();
-    break;
-  case INVIS_SLAY:
+  }
+  else if (o->charge == INVIS_SLAY)
+  {
     mprint("Guess what? You're invisible.");
     if (Player.status[INVISIBLE] < 1000)
       Player.status[INVISIBLE] = 666;
     Player.food += 6;
     foodcheck();
-    break;
-  case UNICORN:
+  }
+  else if (o->charge == UNICORN)
+  {
     mprint("You ATE a unicorn's horn?!?!?");
     Player.immunity[POISON] = 1000;
-    break;
-  case HORNET: /* can't get here... i_usef changed to I_POISON_FOOD */
-  case GRUNT:
-  case TSETSE: /* can't get here... i_usef changed to I_SLEEP_SELF */
-  case AGGRAVATOR:
-  case BLIPPER: /* can't get here... i_usef changed to I_TELEPORT */
-  case GOBLIN:
-  case GEEK:
-  case NIGHT_GAUNT: /* can't get here... i_usef changed to I_POISON_FOOD */
-  case TOVE:
-  case TASMANIAN:
-  case JUBJUB: /* can't get here... i_usef changed to I_FOOD */
-  case CATEAGLE:
+  }
+  else if (o->charge == HORNET || /* can't get here... i_usef changed to I_POISON_FOOD */
+           o->charge == GRUNT ||
+           o->charge == TSETSE || /* can't get here... i_usef changed to I_SLEEP_SELF */
+           o->charge == AGGRAVATOR ||
+           o->charge == BLIPPER || /* can't get here... i_usef changed to I_TELEPORT */
+           o->charge == GOBLIN ||
+           o->charge == GEEK ||
+           o->charge == NIGHT_GAUNT || /* can't get here... i_usef changed to I_POISON_FOOD */
+           o->charge == TOVE ||
+           o->charge == TASMANIAN ||
+           o->charge == JUBJUB || /* can't get here... i_usef changed to I_FOOD */
+           o->charge == CATEAGLE)
+  {
     mprint("Well, you forced it down. Not much nutrition, though.");
     Player.food++;
     foodcheck();
-    break;
-  case SEWER_RAT:
-  case PHANTASTICON: /* can't get here... i_usef changed to I_POISON_FOOD */
-  case EYE:          /* can't get here... i_usef changed to I_CLAIRVOYANCE */
-  case NASTY:        /* can't get here... i_usef changed to I_INVISIBLE */
-  case CATOBLEPAS:
-  case HAUNT: /* can't get here... i_usef changed to I_POISON_FOOD */
-  case ROUS:
-  case DEATHSTAR: /* can't get here... i_usef changed to I_POISON_FOOD */
-  case EATER:
+  }
+  else if (o->charge == SEWER_RAT ||
+           o->charge == PHANTASTICON || /* can't get here... i_usef changed to I_POISON_FOOD */
+           o->charge == EYE ||          /* can't get here... i_usef changed to I_CLAIRVOYANCE */
+           o->charge == NASTY ||        /* can't get here... i_usef changed to I_INVISIBLE */
+           o->charge == CATOBLEPAS ||
+           o->charge == HAUNT || /* can't get here... i_usef changed to I_POISON_FOOD */
+           o->charge == ROUS ||
+           o->charge == DEATHSTAR || /* can't get here... i_usef changed to I_POISON_FOOD */
+           o->charge == EATER)
+  {
     mprint("Oh, yuck. The 'food' seems to be tainted.");
     mprint("You feel very sick. You throw up.");
     Player.food = min(Player.food, 4);
-  default:
+  }
+  else
+  {
     mprint("It proved completely inedible, but you tried anyhow.");
   }
 }

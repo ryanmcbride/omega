@@ -96,40 +96,47 @@ struct monster *m;
   else if (m_statusp(m, POISONOUS))
     new->usef = I_POISON_FOOD;
   /* Special corpse-eating effects */
-  else
-    switch (m->id)
-    {
-    case TSETSE: /*tse tse fly */
-    case TORPOR: /*torpor beast */
-      new->usef = I_SLEEP_SELF;
-      break;
-    case NASTY:
-      new->usef = I_INVISIBLE;
-      break;
-    case BLIPPER:
-      new->usef = I_TELEPORT;
-      break;
-    case EYE: /* floating eye -- it's traditional.... */
-      new->usef = I_CLAIRVOYANCE;
-      break;
-    case FUZZY: /*astral fuzzy */
-      new->usef = I_DISPLACE;
-      break;
-    case SERV_LAW:
-      new->usef = I_CHAOS;
-      break;
-    case SERV_CHAOS:
-      new->usef = I_LAW;
-      break;
-    case ASTRAL_VAMP: /* astral vampire */
-      new->usef = I_ENCHANT;
-      break;
-    case MANABURST:
-      new->usef = I_SPELLS;
-      break;
-    case RAKSHASA:
-      new->usef = I_TRUESIGHT;
-      break;
+  else if (m->id == TSETSE || /*tse tse fly */
+           m->id == TORPOR)   /*torpor beast */
+  {
+    new->usef = I_SLEEP_SELF;
+  }
+  else if (m->id == NASTY)
+  {
+    new->usef = I_INVISIBLE;
+  }
+  else if (m->id == BLIPPER)
+  {
+    new->usef = I_TELEPORT;
+  }
+  else if (m->id == EYE) /* floating eye -- it's traditional.... */
+  {
+    new->usef = I_CLAIRVOYANCE;
+  }
+  else if (m->id == FUZZY) /*astral fuzzy */
+  {
+    new->usef = I_DISPLACE;
+  }
+  else if (m->id == SERV_LAW)
+  {
+    new->usef = I_CHAOS;
+  }
+  else if (m->id == SERV_CHAOS)
+  {
+    new->usef = I_LAW;
+  }
+  else if (m->id == ASTRAL_VAMP) /* astral vampire */
+  {
+    new->usef = I_ENCHANT;
+  }
+  else if (m->id == MANABURST)
+  {
+    new->usef = I_SPELLS;
+  }
+  else if (m->id == RAKSHASA)
+  {
+    new->usef = I_TRUESIGHT;
+
 /* DG fall through to code in I_CORPSE and special case there */
 #if 0 /* WDT HACK? */
   case BEHEMOTH:
@@ -139,16 +146,18 @@ struct monster *m;
     new->usef = I_NEUTRALIZE_POISON;
     break;
 #endif
-    case COMA: /*coma beast */
-      new->usef = I_ALERT;
-      break;
+  }
+  else if (m->id == COMA) /*coma beast */
+  {
+    new->usef = I_ALERT;
+  }
 /* DG I_INEDIBLE not implemented... fall through to code in I_CORPSE */
 #if 0 /* WDT HACK: yawn. */
   default:
     new->usef = I_INEDIBLE; 
     break;
 #endif
-    }
+    
 }
 
 void make_ring(new, id)

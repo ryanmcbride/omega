@@ -604,6 +604,7 @@ int restore_game(savestr) char *savestr;
     case E_DLAIR:
     case E_STARPEAK:
     case E_MAGIC_ISLE:
+    case E_WEREWOLF_DEN:
     case E_TEMPLE:
     case E_VILLAGE:
       LENGTH = 16;
@@ -876,6 +877,9 @@ int version;
     break;
   case E_MAGIC_ISLE:
     load_misle(gamestatusp(KILLED_EATER), FALSE);
+    break;
+  case E_WEREWOLF_DEN:
+    load_werewolf_den(gamestatusp(KILLED_EATER), FALSE);
     break;
   case E_TEMPLE:
     load_temple(Country[LastCountryLocX][LastCountryLocY].aux, FALSE);

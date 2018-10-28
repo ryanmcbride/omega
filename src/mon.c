@@ -207,9 +207,8 @@ void m_death(m) struct monster *m;
       drop_at(m->x, m->y, corpse);
     }
     plotspot(m->x, m->y, FALSE);
-    switch (m->id)
+    if (m->id == HISCORE_NPC)
     {
-    case HISCORE_NPC:
       switch (m->aux2)
       {
       case 0:
@@ -338,39 +337,46 @@ void m_death(m) struct monster *m;
         break;
       }
       save_hiscore_npc(m->aux2);
-      break;
-    case GUARD: /* guard */
+    }
+    else if (m->id == GUARD)
+    { /* guard */
       Player.alignment -= 10;
       if ((Current_Environment == E_CITY) ||
           (Current_Environment == E_VILLAGE))
         alert_guards();
-      break;
-    case GOBLIN_KING:
+    }
+    else if (m->id == GOBLIN_KING)
+    {
       if (!gamestatusp(ATTACKED_ORACLE))
       {
         mprint("You seem to hear a woman's voice from far off:");
         mprint("'Well done! Come to me now....'");
       }
       setgamestatus(COMPLETED_CAVES);
-      break; /* gob king */
-    case GREAT_WYRM:
+    }
+    else if (m->id == GREAT_WYRM)
+    {
       if (!gamestatusp(ATTACKED_ORACLE))
       {
         mprint("A female voice sounds from just behind your ear:");
         mprint("'Well fought! I have some new advice for you....'");
       }
       setgamestatus(COMPLETED_SEWERS);
-      break; /*grt worm */
-    case EATER:
+    }
+    else if (m->id == EATER)
+    {
       setgamestatus(KILLED_EATER);
-      break;
-    case LAWBRINGER:
+    }
+    else if (m->id == LAWBRINGER)
+    {
       setgamestatus(KILLED_LAWBRINGER);
-      break;
-    case DRAGON_LORD:
+    }
+    else if (m->id == DRAGON_LORD)
+    {
       setgamestatus(KILLED_DRAGONLORD);
-      break;
-    case DEMON_EMP:
+    }
+    else if (m->id == DEMON_EMP)
+    {
       setgamestatus(COMPLETED_VOLCANO);
       if (!gamestatusp(ATTACKED_ORACLE))
       {
@@ -379,15 +385,16 @@ void m_death(m) struct monster *m;
         mprint("You turn back and see a note: 'See me soon.'");
         mprint("The note vanishes in a burst of blue fire!");
       }
-      break;
-    case ELEM_MASTER:
+    }
+    else if (m->id == ELEM_MASTER)
+    {
       if (!gamestatusp(ATTACKED_ORACLE))
       {
         mprint("Words appear before you, traced in blue flame!");
         mprint("'Return to the Prime Plane via the Circle of Sorcerors....'");
       }
-      break; /* elem mast */
-    }
+    } /* elem mast */
+
     switch (m->specialf)
     {
     case M_SP_COURT:

@@ -1,3 +1,6 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
 #ifndef __GLOB_H__
 #define __GLOB_H__
 /* omega copyright (c) 1987,1988,1989 by Laurence Raphael Brothers */
@@ -255,4 +258,7 @@ extern int boot_ids[30];
 
 extern int deepest[E_MAX + 1];
 extern int level_seed[E_MAX + 1];
+#endif
+#ifdef __cplusplus
+}
 #endif

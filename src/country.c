@@ -9,7 +9,7 @@
 void load_country()
 {
 	int i, j;
-	char site;
+	unsigned char site;
 
 	FILE *fd;
 
@@ -54,6 +54,10 @@ void load_country()
 			case (MAGIC_ISLE & 0xff):
 				Country[i][j].base_terrain_type = MAGIC_ISLE;
 				Country[i][j].current_terrain_type = CHAOS_SEA;
+				break;
+			case ('W'):
+				Country[i][j].base_terrain_type = WEREWOLF_DEN;
+				Country[i][j].current_terrain_type = PLAINS;
 				break;
 			case 'a':
 			case 'b':
@@ -435,6 +439,106 @@ int populate;
 		for (i = 0; i < WIDTH; i++)
 		{
 			Level->site[i][j].lstatus = 0;
+			Level->site[i][j].roomnumber = RS_MAGIC_ISLE;
+			Level->site[i][j].p_locf = L_NO_OP;
+			site = getc(fd) ^ site;
+			switch (site)
+			{
+			case 'E':
+				Level->site[i][j].locchar = FLOOR;
+				if (!empty)
+					make_site_monster(i, j, EATER); /* eater of magic */
+				break;
+			case 'm':
+				Level->site[i][j].locchar = FLOOR;
+				if (!empty)
+					make_site_monster(i, j, MIL_PRIEST); /* militant priest */
+				break;
+			case 'n':
+				Level->site[i][j].locchar = FLOOR;
+				if (!empty)
+					make_site_monster(i, j, NAZGUL);
+				break;
+			case 'X':
+				Level->site[i][j].locchar = FLOOR;
+				Level->site[i][j].p_locf = L_TACTICAL_EXIT;
+				break;
+			case '#':
+				Level->site[i][j].locchar = WALL;
+				Level->site[i][j].aux = 150;
+				break;
+			case '4':
+				Level->site[i][j].locchar = RUBBLE;
+				Level->site[i][j].p_locf = L_RUBBLE;
+				break;
+			case '~':
+				Level->site[i][j].locchar = WATER;
+				Level->site[i][j].p_locf = L_CHAOS;
+				break;
+			case '=':
+				Level->site[i][j].locchar = WATER;
+				Level->site[i][j].p_locf = L_MAGIC_POOL;
+				break;
+			case '-':
+				Level->site[i][j].locchar = CLOSED_DOOR;
+				break;
+			case '|':
+				Level->site[i][j].locchar = OPEN_DOOR;
+				break;
+			case '.':
+				Level->site[i][j].locchar = FLOOR;
+				break;
+			}
+		}
+		site = getc(fd) ^ site;
+	}
+	fclose(fd);
+}
+
+/* loads the magic isle into Level*/
+void load_werewolf_den(empty, populate) int empty;
+int populate;
+{
+	int i, j;
+	char site;
+
+	FILE *fd;
+
+	if (empty)
+	{
+		mprint("The isle is now devoid of inhabitants and treasure.");
+		morewait();
+	}
+
+	if (!populate)
+		empty = TRUE;
+
+	TempLevel = Level;
+	if (ok_to_free(TempLevel))
+	{
+#ifndef SAVE_LEVELS
+		free_level(TempLevel);
+#endif
+		TempLevel = NULL;
+	}
+#ifndef SAVE_LEVELS
+	Level = ((plv)checkmalloc(sizeof(levtype)));
+#else
+	msdos_changelevel(TempLevel, 0, -1);
+	Level = &TheLevel;
+#endif
+	clear_level(Level);
+	Level->environment = E_WEREWOLF_DEN;
+	strcpy(Str3, Omegalib);
+	strcat(Str3, "wereden.dat");
+	fd = checkfopen(Str3, "rb");
+	site = cryptkey("wereden.dat");
+	for (j = 0; j < LENGTH; j++)
+	{
+		for (i = 0; i < WIDTH; i++)
+		{
+			Level->site[i][j].lstatus = 0;
+			lset(i, j, SEEN);
 			Level->site[i][j].roomnumber = RS_MAGIC_ISLE;
 			Level->site[i][j].p_locf = L_NO_OP;
 			site = getc(fd) ^ site;

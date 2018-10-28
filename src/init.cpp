@@ -197,7 +197,7 @@ void init_weapons()
       {122, 250, 0, 0, 50, -10, 0, 1, 15, 100, 0, 0, 0, STRIKING, COMMON, I_NORMAL_WEAPON, 5, WEAPON, "giant club", "giant club", "giant club"},
       {123, 500, 0, 0, 10000, 1000, 1014, 1, 15, 10000, 0, 0, 0, CUTTING, UNIQUE_MADE, I_NORMAL_WEAPON, 10, WEAPON, "Scythe of Death", "Scythe of Death", "Scythe of Death"},
       {124, 30, 0, 0, 16, 16, 1015, 1, 15, 1000, 0, 0, 0, STRIKING, COMMON, I_NORMAL_WEAPON, 4, WEAPON, "whip", "Acid whip", "Acid whip"},
-      {125, 60, 7, 0, 20, 10, 1016, 1, 15, 2000, 0, 0, 0, STRIKING, COMMON, I_PERM_ENERGY_RESIST, 6, WEAPON, "war-hammer", "Mjolnir", "Mjolnir"},
+      {125, 60, 7, 0, 75, 50, 1016, 1, 15, 2000, 0, 0, 0, STRIKING, COMMON, I_PERM_ENERGY_RESIST, 6, WEAPON, "war-hammer", "Mjolnir", "Mjolnir"},
   };
   _objects.insert(_objects.end(), things.begin(), things.end());
 }
@@ -458,6 +458,183 @@ static std::vector<monster> _monsters;
 extern "C"
 {
   struct monster *Monsters;
+
+  const int ML0 = 0;
+  const int NML_0 = 9;
+  const int ML1 = (ML0 + NML_0); /* 9 */
+  const int NML_1 = 22;
+  const int ML2 = (ML1 + NML_1); /* 31 */
+  const int NML_2 = 14;
+  const int ML3 = (ML2 + NML_2); /* 45 */
+  const int NML_3 = 15;
+  const int ML4 = (ML3 + NML_3); /* 60 */
+  const int NML_4 = 18;
+  const int ML5 = (ML4 + NML_4); /* 78 */
+  const int NML_5 = 14;
+  const int ML6 = (ML5 + NML_5); /* 92 */
+  const int NML_6 = 13;
+  const int ML7 = (ML6 + NML_6); /* 105 */
+  const int NML_7 = 15;
+  const int ML8 = (ML7 + NML_7); /* 120 */
+  const int NML_8 = 12;
+  const int ML9 = (ML8 + NML_8); /* 132 */
+  const int NML_9 = 8;
+  const int ML10 = (ML9 + NML_9); /* 140 */
+  const int NML_10 = 10;
+
+  const int NUMMONSTERS = (ML10 + NML_10); /* 150 */
+
+  const int RANDOM = -1;
+  const int HORNET = (ML0 + 0);
+  const int MEND_PRIEST = (ML0 + 1);
+  const int ITIN_MERCH = (ML0 + 2);
+  const int GUARD = (ML0 + 3);
+  const int NPC = (ML0 + 4);
+  const int SHEEP = (ML0 + 5);
+  const int MERCHANT = (ML0 + 6);
+  const int ZERO_NPC = (ML0 + 7);
+  const int HISCORE_NPC = (ML0 + 8);
+  const int GRUNT = (ML1 + 0);
+  const int TSETSE = (ML1 + 1);
+  const int FNORD = (ML1 + 2);
+  const int SEWER_RAT = (ML1 + 3);
+  const int AGGRAVATOR = (ML1 + 4);
+  const int BLIPPER = (ML1 + 5);
+  const int GOBLIN = (ML1 + 6);
+  const int PHANTASTICON = (ML1 + 7);
+  const int ROBOT = (ML1 + 8);
+  const int GEEK = (ML1 + 9);
+  const int BOROGROVE = (ML1 + 10);
+  const int QUAIL = (ML1 + 11);
+  const int BADGER = (ML1 + 12);
+  const int HAWK = (ML1 + 13);
+  const int DEER = (ML1 + 14);
+  const int CAMEL = (ML1 + 15);
+  const int ANTEATER = (ML1 + 16);
+  const int BUNNY = (ML1 + 17);
+  const int TROUT = (ML1 + 18);
+  const int BASS = (ML1 + 19);
+  const int PARROT = (ML1 + 20);
+  const int HYENA = (ML1 + 21);
+  const int APPR_NINJA = (ML2 + 0);
+  const int NIGHT_GAUNT = (ML2 + 1);
+  const int SNEAK_THIEF = (ML2 + 2);
+  const int EYE = (ML2 + 3);
+  const int TOVE = (ML2 + 4);
+  const int NASTY = (ML2 + 5);
+  const int GHOST = (ML2 + 6);
+  const int ENCHANTOR = (ML2 + 7); /* use 'OR' to avoid conflict with circle rank */
+  const int MURK = (ML2 + 8);
+  const int GOBLIN_CHIEF = (ML2 + 9);
+  const int WOLF = (ML2 + 10);
+  const int ANT = (ML2 + 11);
+  const int ELEPHANT = (ML2 + 12);
+  const int HORSE = (ML2 + 13);
+  const int SALAMANDER = (ML3 + 0);
+  const int CATOBLEPAS = (ML3 + 1);
+  const int L_FDEMON = (ML3 + 2);
+  const int ACID_CLOUD = (ML3 + 3);
+  const int PHANTOM = (ML3 + 4);
+  const int GOBLIN_KING = (ML3 + 5);
+  const int PTERODACTYL = (ML3 + 6);
+  const int GOBLIN_SHAMAN = (ML3 + 7);
+  const int LION = (ML3 + 8);
+  const int BRIGAND = (ML3 + 9);
+  const int BEAR = (ML3 + 10);
+  const int MAMBA = (ML3 + 11);
+  const int MANOWAR = (ML3 + 12);
+  const int WEREHUMAN = (ML3 + 13);
+  const int THOUGHTFORM = (ML3 + 14);
+  const int MANTICORE = (ML4 + 0);
+  const int TASMANIAN = (ML4 + 1);
+  const int AUTO_MINOR = (ML4 + 2);
+  const int DENEBIAN = (ML4 + 3);
+  const int JUBJUB = (ML4 + 4);
+  const int HAUNT = (ML4 + 5);
+  const int INCUBUS = (ML4 + 6);
+  const int SATYR = (ML4 + 7);
+  const int CROC = (ML4 + 8);
+  const int TORPOR = (ML4 + 9);
+  const int DOBERMAN = (ML4 + 10);
+  const int FUZZY = (ML4 + 11);
+  const int SERV_LAW = (ML4 + 12);
+  const int SERV_CHAOS = (ML4 + 13);
+  const int SWARM = (ML4 + 14);
+  const int BAN_SIDHE = (ML4 + 15);
+  const int GRUE = (ML4 + 16);
+  const int GENIN = (ML4 + 17);
+  const int DRAGONETTE = (ML5 + 0);
+  const int TESLA = (ML5 + 1);
+  const int WYVERN = (ML5 + 2);
+  const int CATEAGLE = (ML5 + 3);
+  const int FROST_DEMON = (ML5 + 4);
+  const int SPECTRE = (ML5 + 5);
+  const int NECROMANCER = (ML5 + 6);
+  const int SHADOW = (ML5 + 7);
+  const int BOGTHING = (ML5 + 8);
+  const int ASTRAL_VAMP = (ML5 + 9);
+  const int LAVA_WORM = (ML5 + 10);
+  const int MANABURST = (ML5 + 11);
+  const int OUTER_DEMON = (ML5 + 12);
+  const int MIRRORSHADE = (ML5 + 13);
+  const int FIRE_ELEM = (ML6 + 0);
+  const int AIR_ELEM = (ML6 + 1);
+  const int WATER_ELEM = (ML6 + 2);
+  const int EARTH_ELEM = (ML6 + 3);
+  const int BANDERSNATCH = (ML6 + 4);
+  const int LICHE = (ML6 + 5);
+  const int TRITON = (ML6 + 6);
+  const int MAST_THIEF = (ML6 + 7);
+  const int TRICER = (ML6 + 8);
+  const int RAKSHASA = (ML6 + 9);
+  const int DEMON_SERP = (ML6 + 10);
+  const int ANGEL = (ML6 + 11);
+  const int CHUNIN = (ML6 + 12);
+  const int BEHEMOTH = (ML7 + 0);
+  const int NAZGUL = (ML7 + 1);
+  const int UNICORN = (ML7 + 2);
+  const int ROUS = (ML7 + 3);
+  const int ILL_FIEND = (ML7 + 4);
+  const int GREAT_WYRM = (ML7 + 5);
+  const int FLAME_DEV = (ML7 + 6);
+  const int LURKER = (ML7 + 7);
+  const int SANDMAN = (ML7 + 8);
+  const int MIRRORMAST = (ML7 + 9);
+  const int ELDER_GRUE = (ML7 + 10);
+  const int LOATHLY = (ML7 + 11);
+  const int ZOMBIE = (ML7 + 12);
+  const int RICOCHET = (ML7 + 13);
+  const int INNER_DEMON = (ML7 + 14);
+  const int GOOD_FAIRY = (ML8 + 0);
+  const int BAD_FAIRY = (ML8 + 1);
+  const int AUTO_MAJOR = (ML8 + 2);
+  const int DRAGON = (ML8 + 3);
+  const int JABBERWOCK = (ML8 + 4);
+  const int FDEMON_L = (ML8 + 5);
+  const int TIGERSHARK = (ML8 + 6);
+  const int JONIN = (ML8 + 7);
+  const int SHADOW_SLAY = (ML8 + 8);
+  const int MIL_PRIEST = (ML8 + 9);
+  const int COMA = (ML8 + 10);
+  const int HIGH_ANGEL = (ML8 + 11);
+  const int JOTUN = (ML9 + 0);
+  const int INVIS_SLAY = (ML9 + 1);
+  const int KING_WYV = (ML9 + 2);
+  const int DEATHSTAR = (ML9 + 3);
+  const int THAUMATURGIST = (ML9 + 4);
+  const int VAMP_LORD = (ML9 + 5);
+  const int ARCHANGEL = (ML9 + 6);
+  const int DEMON_PRINCE = (ML9 + 7);
+  const int DEATH = (ML10 + 0);
+  const int EATER = (ML10 + 1);
+  const int LAWBRINGER = (ML10 + 2);
+  const int DRAGON_LORD = (ML10 + 3);
+  const int DEMON_EMP = (ML10 + 4);
+  const int LORD_EARTH = (ML10 + 5);
+  const int LORD_AIR = (ML10 + 6);
+  const int LORD_WATER = (ML10 + 7);
+  const int LORD_FIRE = (ML10 + 8);
+  const int ELEM_MASTER = (ML10 + 9);
 }
 
 extern "C" void init_monsters()
