@@ -184,12 +184,12 @@ void make_sheep(int i, int j)
 
 void make_food_bin(int i, int j)
 {
-  pol tol;
+  Objectlist* tol;
   int k;
 
   for (k = 0; k < 10; k++)
   {
-    tol = ((pol)checkmalloc(sizeof(oltype)));
+    tol = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
     tol->thing = ((pob)checkmalloc(sizeof(objtype)));
     make_food(tol->thing, 15); /* grain */
     tol->next = level->site[i][j].things;

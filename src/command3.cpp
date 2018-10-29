@@ -15,7 +15,7 @@
 /* look at some spot */
 void examine()
 {
-  pol ol;
+  Objectlist* ol;
   int x = player.x, y = player.y, drewmenu = FALSE;
 
   clearmsg();

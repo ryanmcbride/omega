@@ -216,7 +216,7 @@ void make_prime(int i, int j)
 {
   Monsterlist* ml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
   pmt m = ((pmt)checkmalloc(sizeof(montype)));
-  pol ol;
+  Objectlist* ol;
   pob o;
   make_hiscore_npc(m, 10); /* 10 is index for prime */
   m->x = i;
@@ -228,7 +228,7 @@ void make_prime(int i, int j)
 
   if (Objects[ARTIFACTID + 21].uniqueness != UNIQUE_TAKEN)
   {
-    ol = ((pol)checkmalloc(sizeof(oltype)));
+    ol = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
     o = ((pob)checkmalloc(sizeof(objtype)));
     *o = Objects[ARTIFACTID + 21];
     ol->thing = o;

@@ -1395,6 +1395,11 @@ class object {
   char *objstr,*truename,*cursestr;
 };
 
+class Objectlist {
+  public:
+  object *thing;
+  Objectlist *next;
+};
 
 class Spell {
   public:
@@ -1407,7 +1412,7 @@ class Spell {
 class monster {
   public:
   int* named_id;
-  struct objectlist *possessions;
+  Objectlist *possessions;
   unsigned char attacked;
   int aux1,aux2,x,y,click;
   int id,hp,hit,ac,dmg,sense,wakeup,level,speed;
@@ -1456,15 +1461,6 @@ class Player {
   int packptr;
 };
 
-
-class objectlist {
-  public:
-  object *thing;
-  struct objectlist *next;
-};
-
-
-
 /* terrain locations */
 class Terrain {
   public:
@@ -1484,7 +1480,7 @@ class Location {
   Symbol showchar; /*char instantaneously drawn for site */
   int aux; /* signifies various things */
   unsigned char buildaux; /* used in constructing level */
-  struct objectlist *things; 
+  Objectlist *things; 
   struct monster *creature;
  };
 
@@ -1515,9 +1511,6 @@ typedef montype *pmt;
 
 typedef object objtype;
 typedef objtype *pob;
-
-typedef objectlist oltype;
-typedef oltype *pol;
 
 /* random  function declarations from system libraries */
 

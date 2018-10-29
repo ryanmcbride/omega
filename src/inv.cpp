@@ -74,8 +74,8 @@ void pickup_at(int x, int y)
 {
   int quit = FALSE;
   char response;
-  pol ol = level->site[x][y].things;
-  pol temp;
+  Objectlist* ol = level->site[x][y].things;
+  Objectlist* temp;
 
   resetgamestatus(FAST_MOVE);
 
@@ -182,7 +182,7 @@ int aux_slottable(pob o, int slot)
 /* Not necessarily dropped by character; just dropped... */
 void drop_at(int x, int y, pob o)
 {
-  pol tmp;
+  Objectlist* tmp;
   pob cpy;
 
   if (Current_Environment != E_COUNTRYSIDE)
@@ -191,7 +191,7 @@ void drop_at(int x, int y, pob o)
         (level->site[x][y].locchar != ABYSS))
     {
       cpy = ((pob)checkmalloc(sizeof(objtype)));
-      tmp = ((pol)checkmalloc(sizeof(oltype)));
+      tmp = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
       *cpy = *o;
       cpy->used = FALSE;
       tmp->thing = cpy;
@@ -206,12 +206,12 @@ void drop_at(int x, int y, pob o)
 /* put n of o on objlist at x,y on level->depth */
 void p_drop_at(int x, int y, int n, pob o)
 {
-  pol tmp;
+  Objectlist* tmp;
   if (Current_Environment != E_COUNTRYSIDE)
     if ((level->site[x][y].locchar != VOID_CHAR) &&
         (level->site[x][y].locchar != ABYSS))
     {
-      tmp = ((pol)checkmalloc(sizeof(oltype)));
+      tmp = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
       tmp->thing = ((pob)checkmalloc(sizeof(objtype)));
       *(tmp->thing) = *o;
       tmp->thing->used = FALSE;

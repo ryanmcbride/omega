@@ -400,10 +400,10 @@ int save_item(FILE* fd, pob o)
   return ok;
 }
 
-int save_itemlist(FILE* fd, pol ol)
+int save_itemlist(FILE* fd, Objectlist* ol)
 {
   int numitems = 0;
-  pol tol;
+  Objectlist* tol;
   int ok = 1;
 
   for (tol = ol; tol != NULL; tol = tol->next)
@@ -759,14 +759,16 @@ pob restore_item(FILE* fd,int  version)
   return obj;
 }
 
-pol restore_itemlist(FILE* fd, int version)
+Objectlist* restore_itemlist(FILE* fd, int version)
 {
-  pol ol = NULL, cur = NULL, new_obj = NULL;
+  Objectlist* ol = NULL;
+  Objectlist* cur = NULL;
+  Objectlist* new_obj = NULL;
   int i, numitems, firsttime = TRUE;
   fread((char *)&numitems, sizeof(int), 1, fd);
   for (i = 0; i < numitems; i++)
   {
-    new_obj = ((pol)checkmalloc(sizeof(oltype)));
+    new_obj = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
     new_obj->thing = restore_item(fd, version);
     new_obj->next = NULL;
     if (firsttime == TRUE)

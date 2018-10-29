@@ -132,7 +132,7 @@ char Str1[STRING_LEN] = {0}, Str2[STRING_LEN] = {0}, Str3[STRING_LEN] = {0}, Str
 #endif
 /* Some string space, random uses */
 
-pol Condoitems = NULL; /* Items in condo */
+Objectlist* Condoitems = NULL; /* Items in condo */
 
 /* high score names, levels, behavior */
 #ifndef MSDOS_SUPPORTED_ANTIQUE

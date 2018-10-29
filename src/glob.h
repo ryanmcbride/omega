@@ -218,7 +218,7 @@ extern int LastTownLocY;
 extern char Password[64];
 /* autoteller password */
 
-extern pol Condoitems;
+extern Objectlist* Condoitems;
 /* items in condo */
 
 extern char Str1[100],Str2[100],Str3[100],Str4[100];

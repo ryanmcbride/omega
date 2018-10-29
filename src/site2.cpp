@@ -6,7 +6,8 @@
 
 void l_condo()
 {
-  pol ol, prev = NULL;
+  Objectlist* ol = NULL;
+  Objectlist* prev = NULL;
   int i, done = FALSE, over = FALSE, weeksleep = FALSE;
   char response;
 
@@ -72,7 +73,7 @@ void l_condo()
             print2("The item just doesn't want to be stored away...");
           else
           {
-            ol = ((pol)checkmalloc(sizeof(oltype)));
+            ol = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
             ol->thing = player.possessions[i];
             ol->next = Condoitems;
             Condoitems = ol;

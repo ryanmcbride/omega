@@ -11,7 +11,7 @@ void m_pulse(monster* m)
 {
   int range = distance(m->x, m->y, player.x, player.y);
   int STRIKE = FALSE;
-  pol prev;
+  Objectlist* prev;
 
   if (Time % 10 == 0)
     if (m->hp < Monsters[m->id].hp)
@@ -86,7 +86,7 @@ void movemonster(monster* m, int newx, int newy)
 /* give object o to monster m */
 void m_pickup(monster* m, object* o)
 {
-  pol tmp = ((pol)checkmalloc(sizeof(oltype)));
+  Objectlist* tmp = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
   tmp->thing = o;
   tmp->next = m->possessions;
   m->possessions = tmp;
@@ -94,7 +94,7 @@ void m_pickup(monster* m, object* o)
 
 void m_dropstuff(monster* m)
 {
-  pol tmp = m->possessions;
+  Objectlist* tmp = m->possessions;
   if (tmp != NULL)
   {
     while (tmp->next != NULL)
@@ -134,7 +134,8 @@ void m_death(monster* m)
   pob corpse;
   Monsterlist* ml;
   int x, y, found = FALSE;
-  pol curr, prev = NULL;
+  Objectlist* curr = NULL;
+  Objectlist* prev = NULL;
 
   m->hp = -1;
   if (los_p(player.x, player.y, m->x, m->y))
@@ -1399,7 +1400,7 @@ char *mantype()
 
 void strengthen_death(monster* m)
 {
-  pol ol = ((pol)checkmalloc(sizeof(oltype)));
+  Objectlist* ol = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
   pob scythe = ((pob)checkmalloc(sizeof(objtype)));
 #ifdef MSDOS_SUPPORTED_ANTIQUE
   unsigned tmp;

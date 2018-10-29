@@ -630,7 +630,7 @@ void stock_level()
     make_site_treasure(i, j, difficulty());
     i = random_range(WIDTH);
     j = random_range(LENGTH);
-    level->site[i][j].things = ((pol)checkmalloc(sizeof(oltype)));
+    level->site[i][j].things = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
     level->site[i][j].things->thing = ((pob)checkmalloc(sizeof(objtype)));
     make_cash(level->site[i][j].things->thing, difficulty());
     level->site[i][j].things->next = NULL;
@@ -639,13 +639,13 @@ void stock_level()
     {
       i = random_range(WIDTH);
       j = random_range(LENGTH);
-      level->site[i][j].things = ((pol)checkmalloc(sizeof(oltype)));
+      level->site[i][j].things = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
       level->site[i][j].things->thing = ((pob)checkmalloc(sizeof(objtype)));
       make_cash(level->site[i][j].things->thing, difficulty());
       level->site[i][j].things->next = NULL;
       i = random_range(WIDTH);
       j = random_range(LENGTH);
-      level->site[i][j].things = ((pol)checkmalloc(sizeof(oltype)));
+      level->site[i][j].things = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
       level->site[i][j].things->thing = ((pob)checkmalloc(sizeof(objtype)));
       make_cash(level->site[i][j].things->thing, difficulty());
       level->site[i][j].things->next = NULL;
@@ -656,7 +656,7 @@ void stock_level()
 /* make a new object (of at most level itemlevel) at site i,j on level*/
 void make_site_treasure(int i, int j, int itemlevel)
 {
-  pol tmp = ((pol)checkmalloc(sizeof(oltype)));
+  Objectlist* tmp = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
   tmp->thing = ((pob)create_object(itemlevel));
   tmp->next = level->site[i][j].things;
   level->site[i][j].things = tmp;
@@ -665,10 +665,10 @@ void make_site_treasure(int i, int j, int itemlevel)
 /* make a specific new object at site i,j on level*/
 void make_specific_treasure(int i, int j, int itemid)
 {
-  pol tmp;
+  Objectlist* tmp;
   if (Objects[itemid].uniqueness == UNIQUE_TAKEN)
     return;
-  tmp = ((pol)checkmalloc(sizeof(oltype)));
+  tmp = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
   tmp->thing = ((pob)checkmalloc(sizeof(objtype)));
   *(tmp->thing) = Objects[itemid];
   tmp->next = level->site[i][j].things;

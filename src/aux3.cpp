@@ -52,7 +52,7 @@ void hourly_check()
 void indoors_random_event()
 {
   Monsterlist* ml;
-  pol ol;
+  Objectlist* ol;
   switch (random_range(1000))
   {
   case 0:
@@ -107,7 +107,7 @@ void indoors_random_event()
   case 10:
     print3("You trip over something hidden in a shadow...");
     morewait();
-    ol = ((pol)checkmalloc(sizeof(oltype)));
+    ol = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
     ol->thing = create_object(difficulty()); /* FIXED!  12/30/98 */
     assert(ol->thing);                       /* WDT I want to make sure... */
     ol->next = level->site[player.x][player.y].things;

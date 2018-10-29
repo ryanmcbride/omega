@@ -572,7 +572,7 @@ void m_sp_swarm(monster* m)
 void m_sp_raise(monster* m)
 {
   int x, y;
-  pol t;
+  Objectlist* t;
   for (x = m->x - 2; x <= m->x + 2; x++)
     for (y = m->y - 2; y <= m->y + 2; y++)
       if (inbounds(x, y))

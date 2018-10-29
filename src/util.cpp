@@ -780,9 +780,9 @@ int ok_to_free(Level* level)
             (level->environment != Current_Dungeon));
 }
 
-void free_objlist(pol pobjlist)
+void free_objlist(Objectlist* pobjlist)
 {
-  pol tmp;
+  Objectlist* tmp;
 
   while (pobjlist)
   {

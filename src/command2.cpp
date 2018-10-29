@@ -216,7 +216,7 @@ void pickup()
 /* floor inventory */
 void floor_inv()
 {
-  pol ol = level->site[player.x][player.y].things;
+  Objectlist* ol = level->site[player.x][player.y].things;
   setgamestatus(SKIP_MONSTERS);
   menuclear();
   while (ol != NULL)
