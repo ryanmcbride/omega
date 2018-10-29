@@ -51,7 +51,7 @@ void tunnelcheck()
 }
 
 /* displays a room's name */
-void showroom(i) int i;
+void showroom(int i)
 {
   strcpy(Str1, "");
   strcpy(Str2, "");
@@ -161,7 +161,7 @@ int player_on_sanctuary()
 
 /* check a move attempt, maybe attack something, return TRUE if ok to move. */
 /* x y is the proposed place to move to */
-int p_moveable(x, y) int x, y;
+int p_moveable(int x, int y)
 {
   setgamestatus(SKIP_MONSTERS);
   if (!inbounds(x, y))
@@ -261,7 +261,7 @@ int p_moveable(x, y) int x, y;
 }
 
 /* check a move attempt in the countryside */
-int p_country_moveable(x, y) int x, y;
+int p_country_moveable(int x, int y)
 {
   if (!inbounds(x, y))
     return (FALSE);
@@ -278,7 +278,7 @@ int p_country_moveable(x, y) int x, y;
 }
 
 /* search once particular spot */
-void searchat(x, y) int x, y;
+void searchat(int x, int y)
 {
   int i;
   if (inbounds(x, y) && (random_range(3) || Player.status[ALERT]))
@@ -408,7 +408,7 @@ void calc_melee()
 }
 
 /* player attacks monster m */
-void fight_monster(m) struct monster *m;
+void fight_monster(monster* m)
 {
   int hitmod = 0;
   int reallyfight = TRUE;
@@ -458,8 +458,7 @@ void fight_monster(m) struct monster *m;
 }
 
 /* Attempt to break an object o */
-int damage_item(o)
-    pob o;
+int damage_item(pob o)
 {
   int i;
   /* special case -- break star gem */
@@ -566,8 +565,7 @@ int damage_item(o)
 }
 
 /* do dmg points of damage of type dtype, from source fromstring */
-void p_damage(dmg, dtype, fromstring) int dmg, dtype;
-char *fromstring;
+void p_damage(int dmg, int dtype, char* fromstring)
 {
   if (!p_immune(dtype))
   {
@@ -589,7 +587,7 @@ char *fromstring;
 }
 
 /* game over, you lose! */
-void p_death(fromstring) char *fromstring;
+void p_death(char* fromstring)
 {
   Player.hp = -1;
   print3("You died!");
@@ -603,7 +601,7 @@ void p_death(fromstring) char *fromstring;
 }
 
 /* move the cursor around, like for firing a wand, sets x and y to target */
-void setspot(x, y) int *x, *y;
+void setspot(int* x, int* y)
 {
   char c = ' ';
   mprint("Targeting.... ? for help");
@@ -706,7 +704,7 @@ int getdir()
 }
 
 /* functions describes monster m's state for examine function */
-char *mstatus_string(m) struct monster *m;
+char *mstatus_string(monster* m)
 {
   if (m_statusp(m, M_INVISIBLE) && !Player.status[TRUESIGHT])
     strcpy(Str2, "Some invisible creature");
@@ -765,7 +763,7 @@ void describe_player()
 
 /* access to player experience... */
 /* share out experience among guild memberships */
-void gain_experience(amount) int amount;
+void gain_experience(int amount)
 {
   int i, count = 0, share;
   Player.xp += (long)amount;
@@ -800,7 +798,7 @@ int goberserk()
 }
 
 /* identifies a trap for examine() by its aux value */
-char *trapid(trapno) int trapno;
+char *trapid(int trapno)
 {
   switch (trapno)
   {
@@ -917,7 +915,7 @@ void roomcheck()
 }
 
 /* ask for mercy */
-void surrender(m) struct monster *m;
+void surrender(monster* m)
 {
   int i;
   long bestitem, bestvalue;
@@ -1013,7 +1011,7 @@ void surrender(m) struct monster *m;
 }
 
 /* threaten a monster */
-void threaten(m) struct monster *m;
+void threaten(monster* m)
 {
   char response;
   switch (random_range(4))
@@ -1090,7 +1088,7 @@ void threaten(m) struct monster *m;
 }
 
 /* name of the player's experience level */
-char *levelname(level) int level;
+char *levelname(int level)
 {
   switch (level)
   {

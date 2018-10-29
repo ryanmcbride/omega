@@ -5,7 +5,7 @@
 #include "glob.h"
 
 /* loads the city level */
-void load_city(populate) int populate;
+void load_city(int populate)
 {
   int i, j;
   pml ml;
@@ -304,7 +304,7 @@ void load_city(populate) int populate;
   initrand(E_RESTORE, 0);
 }
 
-void assign_city_function(x, y) int x, y;
+void assign_city_function(int x, int y)
 {
   static int setup = 0;
   static int next = 0;
@@ -466,7 +466,7 @@ void assign_city_function(x, y) int x, y;
 }
 
 /* makes a hiscore npc for mansions */
-void make_justiciar(i, j) int i, j;
+void make_justiciar(int i, int j)
 {
   pml ml = ((pml)checkmalloc(sizeof(mltype)));
   ml->m = ((pmt)checkmalloc(sizeof(montype)));
@@ -519,7 +519,7 @@ void resurrect_guards()
   fclose(fd);
 }
 
-void mazesite(i, j, populate) int i, j, populate;
+void mazesite(int i, int j, int populate)
 {
   static FILE *fd = NULL;
   static int k = 0;
@@ -573,7 +573,7 @@ void mazesite(i, j, populate) int i, j, populate;
   lreset(i, j, SEEN);
 }
 
-void randommazesite(i, j, populate) int i, j, populate;
+void randommazesite(int i, int j, int populate)
 {
   switch (random_range(7))
   {
@@ -600,7 +600,7 @@ void randommazesite(i, j, populate) int i, j, populate;
 }
 
 /* undead are not hostile unless disturbed.... */
-void make_minor_undead(i, j) int i, j;
+void make_minor_undead(int i, int j)
 {
   int mid;
   if (random_range(2))
@@ -613,7 +613,7 @@ void make_minor_undead(i, j) int i, j;
 }
 
 /* undead are not hostile unless disturbed.... */
-void make_major_undead(i, j) int i, j;
+void make_major_undead(int i, int j)
 {
   int mid;
   if (random_range(2))

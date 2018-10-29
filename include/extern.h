@@ -188,6 +188,7 @@ void wizard ARGS((void));
 void load_country ARGS((void));
 void load_dlair ARGS((int,int));
 void load_misle ARGS((int,int));
+void load_werewolf_den ARGS((int,int));
 void load_speak ARGS((int,int));
 void load_temple ARGS((int,int));
 void make_high_priest ARGS((int,int,int));

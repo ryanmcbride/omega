@@ -6,7 +6,10 @@
 #include <curses.h>
 #include <stdio.h>
 #include <stdlib.h>
+extern "C" {
 #include "clrgen.h"
+}
+
 void clrgen_init(void)
 {
 	if (25 > COLOR_PAIRS - 1)

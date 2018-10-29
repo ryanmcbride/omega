@@ -1068,8 +1068,7 @@ void tunnel()
   }
 }
 
-void hunt(terrain)
-    Symbol terrain;
+void hunt(Symbol terrain)
 {
   int fertility = 0;
   switch (terrain)

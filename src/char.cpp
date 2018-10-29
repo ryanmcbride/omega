@@ -203,7 +203,7 @@ long calcmana()
 
 status : 1 = dead, 2 = saved, 3 = retired, 4 = still playing
 */
-int fixnpc(status) int status;
+int fixnpc(int status)
 {
   int npcbehavior = 0;
   char response;
@@ -277,7 +277,7 @@ int fixnpc(status) int status;
 }
 
 /* estimates on a 0..9 scale how good a player is at something */
-int competence_check(attack) int attack;
+int competence_check(int attack)
 {
   int ability = 0;
   switch (attack)

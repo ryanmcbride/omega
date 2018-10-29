@@ -2,7 +2,8 @@
     "files.associations": {
         "*.tpp": "cpp",
         "glob.h": "c",
-        "curses.h": "c"
+        "curses.h": "c",
+        "algorithm": "cpp"
     },
     "terminal.integrated.shell.windows": "cmd.exe"
 }

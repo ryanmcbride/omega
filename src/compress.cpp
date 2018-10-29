@@ -20,6 +20,13 @@
  * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  */
+#include <stdio.h>
+#include <string.h>
+#include <strings.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <utime.h>
 
 #ifndef lint
 char copyright[] =
@@ -381,8 +388,14 @@ code_int getcode();
 void compress();
 void decompress();
 void copystat(char *ifname, char *ofname);
+void cl_hash(register count_int hsize);
+void writeerr();
+int output(code_int code);
+void cl_block();
+void prratio(FILE *stream, long int num, long int den);
 
-Usage()
+
+int Usage()
 {
 #ifdef DEBUG
 	fprintf(stderr, "Usage: compress [-dDVfc] [-b maxbits] [file ...]\n");
@@ -464,13 +477,12 @@ FILE *infile, *outfile;
  * procedure needs no input table, but tracks the way the table was built.
  */
 
-void do_compression(decomp, file) int decomp;
-char *file;
+void do_compression(int decomp, char* file)
 {
 	int overwrite = 1; /* Do not overwrite unless given -f flag */
 	char tempname[100];
 	char **fileptr;
-	char *cp, *rindex();
+	char *cp;
 	struct stat statbuf;
 	void onintr(), oops();
 
@@ -847,8 +859,7 @@ char_type lmask[9] = {0xff, 0xfe, 0xfc, 0xf8, 0xf0, 0xe0, 0xc0, 0x80, 0x00};
 char_type rmask[9] = {0x00, 0x01, 0x03, 0x07, 0x0f, 0x1f, 0x3f, 0x7f, 0xff};
 #endif /* vax */
 
-output(code)
-	code_int code;
+int output(code_int code)
 {
 #ifdef DEBUG
 	static int col = 0;
@@ -1080,8 +1091,7 @@ void decompress()
  * 	code or -1 is returned.
  */
 
-code_int
-getcode()
+code_int getcode()
 {
 	/*
      * On the VAX, it is important to have the register declarations
@@ -1158,10 +1168,7 @@ getcode()
 }
 
 #ifndef __GO32__
-char *
-	rindex(s, c) /* For those who don't have it in libc.a */
-	register char *s,
-	c;
+char * rindex(register char *s, register char c) /* For those who don't have it in libc.a */
 {
 	char *p;
 	for (p = NULL; *s; s++)
@@ -1313,18 +1320,18 @@ int
 }
 #endif /* DEBUG */
 
-writeerr()
+void writeerr()
 {
 	perror(ofname);
 	unlink(ofname);
 	exit(1);
 }
 
-void copystat(ifname, ofname) char *ifname, *ofname;
+void copystat(char* ifname, char* ofname)
 {
 	struct stat statbuf;
 	int mode;
-	time_t timep[2];
+	utimbuf timep;
 
 	fclose(outfile);
 	if (stat(ifname, &statbuf))
@@ -1363,9 +1370,9 @@ void copystat(ifname, ofname) char *ifname, *ofname;
 	    perror(ofname);
 #endif
 		chown(ofname, statbuf.st_uid, statbuf.st_gid); /* Copy ownership */
-		timep[0] = statbuf.st_atime;
-		timep[1] = statbuf.st_mtime;
-		utime(ofname, timep); /* Update last accessed and modified times */
+		timep.actime = statbuf.st_atime;
+		timep.modtime = statbuf.st_mtime;
+		utime(ofname, &timep); /* Update last accessed and modified times */
 #if 0
 	if (unlink(ifname))	/* Remove input file */
 	    perror(ifname);
@@ -1397,7 +1404,7 @@ void oops() /* wild pointer -- assume bad input */
 	exit(1);
 }
 
-cl_block() /* table clear for block compress */
+void cl_block() /* table clear for block compress */
 {
 	register long int rat;
 
@@ -1449,8 +1456,7 @@ cl_block() /* table clear for block compress */
 	}
 }
 
-cl_hash(hsize) /* reset code table */
-	register count_int hsize;
+void cl_hash(register count_int hsize) /* reset code table */
 {
 #ifndef XENIX_16 /* Normal machine */
 	register count_int *htab_p = htab + hsize;
@@ -1505,9 +1511,7 @@ cl_hash(hsize) /* reset code table */
 		*--htab_p = m1;
 }
 
-prratio(stream, num, den)
-	FILE *stream;
-long int num, den;
+void prratio(FILE *stream, long int num, long int den)
 {
 	register int q; /* Doesn't need to be long */
 
