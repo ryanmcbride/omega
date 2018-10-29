@@ -203,7 +203,7 @@ void l_abyss()
         print1("The All-In-One must have taken pity on you.");
         print2("A transdimensional portal appears...");
         morewait();
-        change_level(Level->depth, Level->depth + 1, FALSE);
+        change_level(level->depth, level->depth + 1, FALSE);
         gain_experience(2000);
         Player.alignment -= 50;
       }
@@ -224,7 +224,7 @@ void l_abyss()
       i++;
       print1("Finally,you emerge through an interdimensional interstice...");
       morewait();
-      if (Level->depth + i > MaxDungeonLevels)
+      if (level->depth + i > MaxDungeonLevels)
       {
         print2("You emerge high above the ground!!!!");
         print3("Yaaaaaaaah........");
@@ -242,7 +242,7 @@ void l_abyss()
         print2("You built up some velocity during your fall, though....");
         morewait();
         p_damage(i * 5, NORMAL_DAMAGE, "a fall through the abyss");
-        change_level(Level->depth, Level->depth + i, FALSE);
+        change_level(level->depth, level->depth + i, FALSE);
         gain_experience(i * i * 50);
       }
     }
@@ -256,8 +256,8 @@ void l_lift()
   int distance;
   int too_far = 0;
 
-  Level->site[Player.x][Player.y].locchar = FLOOR;
-  Level->site[Player.x][Player.y].p_locf = L_NO_OP;
+  level->site[Player.x][Player.y].locchar = FLOOR;
+  level->site[Player.x][Player.y].p_locf = L_NO_OP;
   lset(Player.x, Player.y, CHANGED);
   print1("You walk onto a shimmering disk....");
   print2("The disk vanishes, and a glow surrounds you.");
@@ -279,9 +279,9 @@ void l_lift()
       too_far = 1;
       levelnum = 6;
     }
-    if (response == 'u' && Level->depth - levelnum < 1)
+    if (response == 'u' && level->depth - levelnum < 1)
     {
-      distance = levelnum - Level->depth;
+      distance = levelnum - level->depth;
       change_environment(E_COUNTRYSIDE); /* "you return to the countryside." */
       if (distance > 0)
       {
@@ -295,10 +295,10 @@ void l_lift()
       }
       return;
     }
-    else if (response == 'd' && Level->depth + levelnum > MaxDungeonLevels)
+    else if (response == 'd' && level->depth + levelnum > MaxDungeonLevels)
     {
       too_far = 1;
-      levelnum = MaxDungeonLevels - Level->depth;
+      levelnum = MaxDungeonLevels - level->depth;
     }
     if (levelnum == 0)
     {
@@ -312,8 +312,8 @@ void l_lift()
     }
     else
       print1("You rematerialize.....");
-    change_level(Level->depth,
-                 (response == 'd' ? Level->depth + levelnum : Level->depth - levelnum),
+    change_level(level->depth,
+                 (response == 'd' ? level->depth + levelnum : level->depth - levelnum),
                  FALSE);
     roomcheck();
   }
@@ -394,8 +394,8 @@ void l_magic_pool()
     Player.str = (Player.maxstr++) * 3;
   }
   print2("The pool seems to have dried up.");
-  Level->site[Player.x][Player.y].locchar = TRAP;
-  Level->site[Player.x][Player.y].p_locf = L_TRAP_PIT;
+  level->site[Player.x][Player.y].locchar = TRAP;
+  level->site[Player.x][Player.y].p_locf = L_TRAP_PIT;
   lset(Player.x, Player.y, CHANGED);
 }
 
@@ -413,8 +413,8 @@ void l_tactical_exit()
       return;
   }
   /* Free up monsters and items, and the level, if not SAVE_LEVELS */
-  free_level(Level);
-  Level = NULL;
+  free_level(level);
+  level = NULL;
   if ((Current_Environment == E_TEMPLE) ||
       (Current_Environment == E_TACTICAL_MAP))
     change_environment(E_COUNTRYSIDE);
@@ -448,10 +448,10 @@ void l_portcullis_trap()
   for (i = max(Player.x - 5, 0); i < min(Player.x + 6, WIDTH); i++)
     for (j = max(Player.y - 5, 0); j < min(Player.y + 6, LENGTH); j++)
     {
-      if ((Level->site[i][j].p_locf == L_PORTCULLIS) &&
-          (Level->site[i][j].locchar != PORTCULLIS))
+      if ((level->site[i][j].p_locf == L_PORTCULLIS) &&
+          (level->site[i][j].locchar != PORTCULLIS))
       {
-        Level->site[i][j].locchar = PORTCULLIS;
+        level->site[i][j].locchar = PORTCULLIS;
         lset(i, j, CHANGED);
         putspot(i, j, PORTCULLIS);
         if ((i == Player.x) && (j == Player.y))
@@ -477,15 +477,15 @@ void l_drop_every_portcullis()
   for (i = 0; i < WIDTH; i++)
     for (j = 0; j < LENGTH; j++)
     {
-      if (Level->site[i][j].p_locf == L_DROP_EVERY_PORTCULLIS)
+      if (level->site[i][j].p_locf == L_DROP_EVERY_PORTCULLIS)
       {
-        Level->site[i][j].p_locf = L_NO_OP;
+        level->site[i][j].p_locf = L_NO_OP;
         lset(i, j, CHANGED);
       }
-      else if ((Level->site[i][j].p_locf == L_PORTCULLIS) &&
-               (Level->site[i][j].locchar != PORTCULLIS))
+      else if ((level->site[i][j].p_locf == L_PORTCULLIS) &&
+               (level->site[i][j].locchar != PORTCULLIS))
       {
-        Level->site[i][j].locchar = PORTCULLIS;
+        level->site[i][j].locchar = PORTCULLIS;
         lset(i, j, CHANGED);
         putspot(i, j, PORTCULLIS);
         if ((i == Player.x) && (j == Player.y))
@@ -507,9 +507,9 @@ void l_raise_portcullis()
   for (i = 0; i < WIDTH; i++)
     for (j = 0; j < LENGTH; j++)
     {
-      if (Level->site[i][j].locchar == PORTCULLIS)
+      if (level->site[i][j].locchar == PORTCULLIS)
       {
-        Level->site[i][j].locchar = FLOOR;
+        level->site[i][j].locchar = FLOOR;
         lset(i, j, CHANGED);
         putspot(i, j, FLOOR);
         open = TRUE;
@@ -523,9 +523,9 @@ void l_arena_exit()
 {
   resetgamestatus(ARENA_MODE);
 #ifndef MSDOS_SUPPORTED_ANTIQUE
-  free_level(Level);
+  free_level(level);
 #endif
-  Level = NULL;
+  level = NULL;
   change_environment(E_CITY);
 }
 
@@ -539,9 +539,9 @@ void l_house_exit()
       return;
   }
 #ifndef MSDOS_SUPPORTED_ANTIQUE
-  free_level(Level);
+  free_level(level);
 #endif
-  Level = NULL;
+  level = NULL;
   change_environment(Last_Environment);
 }
 
@@ -552,7 +552,7 @@ void l_void()
   morewait();
   clearmsg();
   print1("You leap into the void.");
-  if (Level->mlist)
+  if (level->mlist)
   {
     print2("Death peers over the edge and gazes quizzically at you....");
     morewait();
@@ -593,8 +593,8 @@ void l_fire_station()
       {
         print2("That's odd, the flame seems to have cooled down now....");
         print3("A flicker of fire seems to dance above the void nearby.");
-        Level->site[Player.x][Player.y].locchar = FLOOR;
-        Level->site[Player.x][Player.y].p_locf = L_NO_OP;
+        level->site[Player.x][Player.y].locchar = FLOOR;
+        level->site[Player.x][Player.y].p_locf = L_NO_OP;
         stationcheck();
       }
       else
@@ -646,8 +646,8 @@ void l_water_station()
       {
         print1("That's odd, the fluid seems to have been neutralized....");
         print2("A moist miasma wafts above the void nearby.");
-        Level->site[Player.x][Player.y].locchar = FLOOR;
-        Level->site[Player.x][Player.y].p_locf = L_NO_OP;
+        level->site[Player.x][Player.y].locchar = FLOOR;
+        level->site[Player.x][Player.y].p_locf = L_NO_OP;
         stationcheck();
       }
       else
@@ -686,8 +686,8 @@ void l_air_station()
       {
         print1("That's odd, the storm subsides....");
         print2("A gust of wind brushes past the void nearby.");
-        Level->site[Player.x][Player.y].locchar = FLOOR;
-        Level->site[Player.x][Player.y].p_locf = L_NO_OP;
+        level->site[Player.x][Player.y].locchar = FLOOR;
+        level->site[Player.x][Player.y].p_locf = L_NO_OP;
         stationcheck();
       }
       else
@@ -727,8 +727,8 @@ void l_earth_station()
       {
         print1("That's odd, the vine withdraws....");
         print2("A spatter of dirt sprays into the void nearby.");
-        Level->site[Player.x][Player.y].locchar = FLOOR;
-        Level->site[Player.x][Player.y].p_locf = L_NO_OP;
+        level->site[Player.x][Player.y].locchar = FLOOR;
+        level->site[Player.x][Player.y].p_locf = L_NO_OP;
         stationcheck();
       }
       else
@@ -753,10 +753,10 @@ void stationcheck()
   dataprint();
   for (i = 0; i < WIDTH; i++)
     for (j = 0; j < LENGTH; j++)
-      if ((Level->site[i][j].locchar == WATER) ||
-          (Level->site[i][j].locchar == HEDGE) ||
-          (Level->site[i][j].locchar == WHIRLWIND) ||
-          (Level->site[i][j].locchar == FIRE))
+      if ((level->site[i][j].locchar == WATER) ||
+          (level->site[i][j].locchar == HEDGE) ||
+          (level->site[i][j].locchar == WHIRLWIND) ||
+          (level->site[i][j].locchar == FIRE))
         stationsleft = TRUE;
   if (!stationsleft)
   {
@@ -783,7 +783,7 @@ void l_void_station()
   print1("You are at the brink of an endless void. Enter it? [yn] ");
   if (ynq() == 'y')
   {
-    if (Level->mlist == NULL)
+    if (level->mlist == NULL)
     {
       print2("You fall forever. Eventually you die of starvation.");
       morewait();
@@ -851,19 +851,19 @@ void l_void_station()
 void l_voice1()
 {
   print1("A mysterious voice says: The Hunger of the Void must be satiated.");
-  Level->site[Player.x][Player.y].p_locf = L_NO_OP;
+  level->site[Player.x][Player.y].p_locf = L_NO_OP;
 }
 
 void l_voice2()
 {
   print1("A strange voice recites: Enter the Void as you entered the World.");
-  Level->site[Player.x][Player.y].p_locf = L_NO_OP;
+  level->site[Player.x][Player.y].p_locf = L_NO_OP;
 }
 
 void l_voice3()
 {
   print1("An eerie voice resounds: The Void is the fifth Elemental Station.");
-  Level->site[Player.x][Player.y].p_locf = L_NO_OP;
+  level->site[Player.x][Player.y].p_locf = L_NO_OP;
 }
 
 void l_whirlwind()
@@ -1022,8 +1022,8 @@ void l_throne()
           morewait();
           print1("artifact stressed by excessive use....");
           print2("With an odd tinkling sound the throne shatters!");
-          Level->site[Player.x][Player.y].locchar = RUBBLE;
-          Level->site[Player.x][Player.y].p_locf = L_RUBBLE;
+          level->site[Player.x][Player.y].locchar = RUBBLE;
+          level->site[Player.x][Player.y].p_locf = L_RUBBLE;
           lset(Player.x, Player.y, CHANGED);
           if (find_and_remove_item(ARTIFACTID + 22, -1))
           {

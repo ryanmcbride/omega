@@ -475,7 +475,8 @@ static std::vector<monster> _monsters;
   int ML10;
   int NML_10;
   int NUMMONSTERS;
-  int RANDOM;
+  int RANDOM = -1;
+
   int HORNET;
   int MEND_PRIEST;
   int ITIN_MERCH;

@@ -31,7 +31,8 @@ int save_game(int compress, char* savestr)
   int tmpdepth;
 #endif
   int i, writeok = TRUE;
-  plv current, save;
+  Level* current;
+  Level* save;
   char temp[200];
 
 #ifndef MSDOS_SUPPORTED_ANTIQUE
@@ -91,7 +92,7 @@ int save_game(int compress, char* savestr)
     writeok &= save_player(fd);
     writeok &= save_country(fd);
 #ifdef SAVE_LEVELS
-    tmpdepth = Level->depth;
+    tmpdepth = level->depth;
     City = msdos_changelevel(Level, E_CITY, 0);
 #endif
     writeok &= save_level(fd, City);
@@ -101,7 +102,7 @@ int save_game(int compress, char* savestr)
     else if (Current_Environment == Current_Dungeon)
       save = Dungeon;
     else
-      save = Level;
+      save = level;
     for (i = 0, current = save; current; current = current->next, i++)
       ;
     if (!fwrite((char *)&i, sizeof(int), 1, fd))
@@ -110,10 +111,10 @@ int save_game(int compress, char* savestr)
     Level = msdos_changelevel(NULL, Current_Environment, tmpdepth);
 #endif
     for (current = save; current; current = current->next)
-      if (current != Level)
+      if (current != level)
         writeok &= save_level(fd, current);
     if (save)
-      writeok &= save_level(fd, Level); /* put current level last */
+      writeok &= save_level(fd, level); /* put current level last */
     fclose(fd);
     if (writeok)
       print1("Game Saved.");
@@ -164,7 +165,7 @@ void signalsave(int)
   exit(0);
 }
 
-/* also saves some globals like Level->depth... */
+/* also saves some globals like level->depth... */
 
 int save_player(FILE* fd)
 {
@@ -263,7 +264,7 @@ int save_player(FILE* fd)
 }
 
 /* Save whatever is pointed to by level */
-int save_level(FILE* fd, plv level)
+int save_level(FILE* fd, Level* level)
 {
   int i, j, run;
   unsigned long int mask;
@@ -285,7 +286,7 @@ int save_level(FILE* fd, plv level)
         ok &= (fwrite((char *)&j, sizeof(int), 1, fd) > 0);
         ok &= (fwrite((char *)&run, sizeof(int), 1, fd) > 0);
         for (; i < run; i++)
-          ok &= (fwrite((char *)&level->site[i][j], sizeof(struct location), 1, fd) > 0);
+          ok &= (fwrite((char *)&level->site[i][j], sizeof(Location), 1, fd) > 0);
       }
   ok &= (fwrite((char *)&i, sizeof(int), 1, fd) > 0);
   ok &= (fwrite((char *)&j, sizeof(int), 1, fd) > 0); /* signify end */
@@ -426,7 +427,7 @@ int save_country(FILE* fd)
       {
         ok &= (fwrite((char *)&i, sizeof(int), 1, fd) > 0);
         ok &= (fwrite((char *)&j, sizeof(int), 1, fd) > 0);
-        ok &= (fwrite((char *)&Country[i][j], sizeof(struct terrain), 1, fd) > 0);
+        ok &= (fwrite((char *)&Country[i][j], sizeof(Terrain), 1, fd) > 0);
       }
   ok &= (fwrite((char *)&i, sizeof(int), 1, fd) > 0);
   ok &= (fwrite((char *)&j, sizeof(int), 1, fd) > 0);
@@ -569,13 +570,13 @@ int restore_game(char* savestr)
       msdos_changelevel(Level, 0, -1);
 #endif
       restore_level(fd, version);
-      if (Level->environment == Current_Dungeon)
+      if (level->environment == Current_Dungeon)
       {
-        Level->next = Dungeon;
-        Dungeon = Level;
+        level->next = Dungeon;
+        Dungeon = level;
       }
       if (Current_Environment == E_CITY)
-        Level = City;
+        level = City;
     }
     /* this disgusting kludge because LENGTH and WIDTH are globals... */
     WIDTH = 64;
@@ -788,16 +789,16 @@ void restore_level(FILE* fd, int version)
   unsigned long int mask;
   int temp_env;
 
-  Level = (plv)checkmalloc(sizeof(levtype));
-  clear_level(Level);
-  fread((char *)&Level->depth, sizeof(char), 1, fd);
-  fread((char *)&Level->numrooms, sizeof(char), 1, fd);
-  fread((char *)&Level->tunnelled, sizeof(char), 1, fd);
-  fread((char *)&Level->environment, sizeof(int), 1, fd);
-  Level->generated = TRUE;
+  level = (Level*)checkmalloc(sizeof(Level));
+  clear_level(level);
+  fread((char *)&level->depth, sizeof(char), 1, fd);
+  fread((char *)&level->numrooms, sizeof(char), 1, fd);
+  fread((char *)&level->tunnelled, sizeof(char), 1, fd);
+  fread((char *)&level->environment, sizeof(int), 1, fd);
+  level->generated = TRUE;
   temp_env = Current_Environment;
-  Current_Environment = Level->environment;
-  switch (Level->environment)
+  Current_Environment = level->environment;
+  switch (level->environment)
   {
   case E_COUNTRYSIDE:
     load_country();
@@ -809,29 +810,29 @@ void restore_level(FILE* fd, int version)
     load_village(Country[LastCountryLocX][LastCountryLocY].aux, FALSE);
     break;
   case E_CAVES:
-    initrand(Current_Environment, Level->depth);
-    if ((random_range(4) == 0) && (Level->depth < MaxDungeonLevels))
+    initrand(Current_Environment, level->depth);
+    if ((random_range(4) == 0) && (level->depth < MaxDungeonLevels))
       room_level();
     else
       cavern_level();
     break;
   case E_SEWERS:
-    initrand(Current_Environment, Level->depth);
-    if ((random_range(4) == 0) && (Level->depth < MaxDungeonLevels))
+    initrand(Current_Environment, level->depth);
+    if ((random_range(4) == 0) && (level->depth < MaxDungeonLevels))
       room_level();
     else
       sewer_level();
     break;
   case E_CASTLE:
-    initrand(Current_Environment, Level->depth);
+    initrand(Current_Environment, level->depth);
     room_level();
     break;
   case E_ASTRAL:
-    initrand(Current_Environment, Level->depth);
+    initrand(Current_Environment, level->depth);
     maze_level();
     break;
   case E_VOLCANO:
-    initrand(Current_Environment, Level->depth);
+    initrand(Current_Environment, level->depth);
     switch (random_range(3))
     {
     case 0:
@@ -848,7 +849,7 @@ void restore_level(FILE* fd, int version)
   case E_HOVEL:
   case E_MANSION:
   case E_HOUSE:
-    load_house(Level->environment, FALSE);
+    load_house(level->environment, FALSE);
     break;
   case E_DLAIR:
     load_dlair(gamestatusp(KILLED_DRAGONLORD), FALSE);
@@ -875,7 +876,7 @@ void restore_level(FILE* fd, int version)
     print3("This dungeon not implemented!");
     break;
   }
-  if (Level->depth > 0)
+  if (level->depth > 0)
   { /* dungeon... */
     install_traps();
     install_specials();
@@ -891,9 +892,9 @@ void restore_level(FILE* fd, int version)
     fread((char *)&run, sizeof(int), 1, fd);
     for (; i < run; i++)
     {
-      fread((char *)&Level->site[i][j], sizeof(struct location), 1, fd);
-      Level->site[i][j].creature = NULL;
-      Level->site[i][j].things = NULL;
+      fread((char *)&level->site[i][j], sizeof(Location), 1, fd);
+      level->site[i][j].creature = NULL;
+      level->site[i][j].things = NULL;
     }
     fread((char *)&i, sizeof(int), 1, fd);
     fread((char *)&j, sizeof(int), 1, fd);
@@ -912,12 +913,12 @@ void restore_level(FILE* fd, int version)
       mask >>= 1;
       run--;
     }
-  restore_monsters(fd, Level, version);
+  restore_monsters(fd, level, version);
   fread((char *)&i, sizeof(int), 1, fd);
   fread((char *)&j, sizeof(int), 1, fd);
   while (j < MAXLENGTH && i < MAXWIDTH)
   {
-    Level->site[i][j].things = restore_itemlist(fd, version);
+    level->site[i][j].things = restore_itemlist(fd, version);
     fread((char *)&i, sizeof(int), 1, fd);
     fread((char *)&j, sizeof(int), 1, fd);
   }
@@ -1004,7 +1005,7 @@ void restore_hiscore_npc(pmt npc, int npcid)
   }
 }
 
-void restore_monsters(FILE* fd, plv level, int version)
+void restore_monsters(FILE* fd, Level* level, int version)
 {
   Monsterlist* ml = NULL;
   int i, nummonsters;
@@ -1076,7 +1077,7 @@ void restore_country(FILE* fd, int version)
   fread((char *)&j, sizeof(int), 1, fd);
   while (i < MAXWIDTH && j < MAXLENGTH)
   {
-    fread((char *)&Country[i][j], sizeof(struct terrain), 1, fd);
+    fread((char *)&Country[i][j], sizeof(Terrain), 1, fd);
     fread((char *)&i, sizeof(int), 1, fd);
     fread((char *)&j, sizeof(int), 1, fd);
   }

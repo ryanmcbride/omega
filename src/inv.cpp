@@ -74,12 +74,12 @@ void pickup_at(int x, int y)
 {
   int quit = FALSE;
   char response;
-  pol ol = Level->site[x][y].things;
+  pol ol = level->site[x][y].things;
   pol temp;
 
   resetgamestatus(FAST_MOVE);
 
-  Level->site[x][y].things = NULL;
+  level->site[x][y].things = NULL;
 
   while (ol != NULL)
   {
@@ -178,7 +178,7 @@ int aux_slottable(pob o, int slot)
   return (ok);
 }
 
-/* put all of o on objlist at x,y on Level->depth */
+/* put all of o on objlist at x,y on level->depth */
 /* Not necessarily dropped by character; just dropped... */
 void drop_at(int x, int y, pob o)
 {
@@ -187,29 +187,29 @@ void drop_at(int x, int y, pob o)
 
   if (Current_Environment != E_COUNTRYSIDE)
   {
-    if ((Level->site[x][y].locchar != VOID_CHAR) &&
-        (Level->site[x][y].locchar != ABYSS))
+    if ((level->site[x][y].locchar != VOID_CHAR) &&
+        (level->site[x][y].locchar != ABYSS))
     {
       cpy = ((pob)checkmalloc(sizeof(objtype)));
       tmp = ((pol)checkmalloc(sizeof(oltype)));
       *cpy = *o;
       cpy->used = FALSE;
       tmp->thing = cpy;
-      tmp->next = Level->site[x][y].things;
-      Level->site[x][y].things = tmp;
+      tmp->next = level->site[x][y].things;
+      level->site[x][y].things = tmp;
     }
-    else if (Level->site[x][y].p_locf == L_VOID_STATION)
+    else if (level->site[x][y].p_locf == L_VOID_STATION)
       setgamestatus(PREPARED_VOID);
   }
 }
 
-/* put n of o on objlist at x,y on Level->depth */
+/* put n of o on objlist at x,y on level->depth */
 void p_drop_at(int x, int y, int n, pob o)
 {
   pol tmp;
   if (Current_Environment != E_COUNTRYSIDE)
-    if ((Level->site[x][y].locchar != VOID_CHAR) &&
-        (Level->site[x][y].locchar != ABYSS))
+    if ((level->site[x][y].locchar != VOID_CHAR) &&
+        (level->site[x][y].locchar != ABYSS))
     {
       tmp = ((pol)checkmalloc(sizeof(oltype)));
       tmp->thing = ((pob)checkmalloc(sizeof(objtype)));
@@ -219,10 +219,10 @@ void p_drop_at(int x, int y, int n, pob o)
       print2("Dropped ");
       nprint2(itemid(tmp->thing));
       morewait();
-      tmp->next = Level->site[x][y].things;
-      Level->site[x][y].things = tmp;
+      tmp->next = level->site[x][y].things;
+      level->site[x][y].things = tmp;
     }
-    else if (Level->site[x][y].p_locf == L_VOID_STATION)
+    else if (level->site[x][y].p_locf == L_VOID_STATION)
       setgamestatus(PREPARED_VOID);
 }
 
@@ -440,7 +440,7 @@ void givemonster(monster* m, object* o)
       if (m_statusp(m, GREEDY) && (true_item_value(o) < (long)m->level * 100))
         nprint1("...but does not appear satisfied.");
       else if (m_statusp(m, NEEDY) &&
-               (true_item_value(o) < (long)Level->depth * Level->depth))
+               (true_item_value(o) < (long)level->depth * level->depth))
         nprint1("...and looks chasteningly at you.");
       else
       {

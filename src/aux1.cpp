@@ -7,17 +7,17 @@
 /* check to see if too much tunneling has been done in this level */
 void tunnelcheck()
 {
-  if ((Level->depth == 0 && Current_Environment != E_DLAIR) ||
+  if ((level->depth == 0 && Current_Environment != E_DLAIR) ||
       Current_Environment == E_ASTRAL)
     return;
-  Level->tunnelled++;
-  if ((Level->tunnelled) > LENGTH / 4)
+  level->tunnelled++;
+  if ((level->tunnelled) > LENGTH / 4)
     mprint("Dust and stone fragments fall on you from overhead.");
-  if ((Level->tunnelled) > LENGTH / 2)
+  if ((level->tunnelled) > LENGTH / 2)
     mprint("You hear groaning and creaking noises.");
-  if ((Level->tunnelled) > 3 * LENGTH / 4)
+  if ((level->tunnelled) > 3 * LENGTH / 4)
     mprint("The floor trembles and you hear a loud grinding screech.");
-  if ((Level->tunnelled) > LENGTH)
+  if ((level->tunnelled) > LENGTH)
   {
     mprint("With a scream of tortured stone, the entire dungeon caves in!!!");
     gain_experience(5000);
@@ -117,15 +117,15 @@ void showroom(int i)
   if (Current_Environment == Current_Dungeon)
   {
     strcpy(Str1, "Level ");
-    if (Level->depth < 10)
+    if (level->depth < 10)
     {
-      Str1[6] = Level->depth + '0';
+      Str1[6] = level->depth + '0';
       Str1[7] = 0;
     }
     else
     {
-      Str1[6] = (Level->depth / 10) + '0';
-      Str1[7] = (Level->depth % 10) + '0';
+      Str1[6] = (level->depth / 10) + '0';
+      Str1[7] = (level->depth % 10) + '0';
       Str1[8] = 0;
     }
     strcat(Str1, " (");
@@ -148,8 +148,8 @@ int player_on_sanctuary()
   {
     if (Player.patron)
     {
-      if ((Level->site[Player.x][Player.y].locchar == ALTAR) &&
-          (Level->site[Player.x][Player.y].aux == Player.patron))
+      if ((level->site[Player.x][Player.y].locchar == ALTAR) &&
+          (level->site[Player.x][Player.y].aux == Player.patron))
         return (TRUE);
       else
         return (FALSE);
@@ -168,7 +168,7 @@ int p_moveable(int x, int y)
     return (FALSE);
   else if (Player.status[SHADOWFORM])
   {
-    switch (Level->site[x][y].p_locf)
+    switch (level->site[x][y].p_locf)
     {
     case L_CHAOS:
     case L_ABYSS:
@@ -185,31 +185,31 @@ int p_moveable(int x, int y)
       print3("Ouch!");
     return (FALSE);
   }
-  else if (Level->site[x][y].creature != NULL)
+  else if (level->site[x][y].creature != NULL)
   {
     if (!gamestatusp(FAST_MOVE))
     {
-      fight_monster(Level->site[x][y].creature);
+      fight_monster(level->site[x][y].creature);
       resetgamestatus(SKIP_MONSTERS);
       return (FALSE);
     }
     else
       return (FALSE);
   }
-  else if ((Level->site[x][y].locchar == WALL) ||
-           (Level->site[x][y].locchar == STATUE) ||
-           (Level->site[x][y].locchar == PORTCULLIS) ||
-           (Level->site[x][y].locchar == CLOSED_DOOR) ||
+  else if ((level->site[x][y].locchar == WALL) ||
+           (level->site[x][y].locchar == STATUE) ||
+           (level->site[x][y].locchar == PORTCULLIS) ||
+           (level->site[x][y].locchar == CLOSED_DOOR) ||
            (gamestatusp(FAST_MOVE) &&
-            ((Level->site[x][y].locchar == HEDGE) ||
-             (Level->site[x][y].locchar == LAVA) ||
-             (Level->site[x][y].locchar == ABYSS) ||
-             (Level->site[x][y].locchar == VOID_CHAR) ||
-             (Level->site[x][y].locchar == FIRE) ||
-             (Level->site[x][y].locchar == WHIRLWIND) ||
-             (Level->site[x][y].locchar == WATER) ||
-             (Level->site[x][y].locchar == LIFT) ||
-             (Level->site[x][y].locchar == TRAP))))
+            ((level->site[x][y].locchar == HEDGE) ||
+             (level->site[x][y].locchar == LAVA) ||
+             (level->site[x][y].locchar == ABYSS) ||
+             (level->site[x][y].locchar == VOID_CHAR) ||
+             (level->site[x][y].locchar == FIRE) ||
+             (level->site[x][y].locchar == WHIRLWIND) ||
+             (level->site[x][y].locchar == WATER) ||
+             (level->site[x][y].locchar == LIFT) ||
+             (level->site[x][y].locchar == TRAP))))
   {
     if (!gamestatusp(FAST_MOVE))
       print3("Ouch!");
@@ -217,22 +217,22 @@ int p_moveable(int x, int y)
   }
   else if (optionp(CONFIRM))
   {
-    if ((Level->site[x][y].locchar == HEDGE) ||
-        (Level->site[x][y].locchar == LAVA) ||
-        (Level->site[x][y].locchar == FIRE) ||
-        (Level->site[x][y].locchar == WHIRLWIND) ||
-        (Level->site[x][y].locchar == ABYSS) ||
-        (Level->site[x][y].locchar == VOID_CHAR) ||
-        (Level->site[x][y].locchar == WATER) ||
-        (Level->site[x][y].locchar == RUBBLE) ||
-        (Level->site[x][y].locchar == LIFT) ||
-        (Level->site[x][y].locchar == TRAP))
+    if ((level->site[x][y].locchar == HEDGE) ||
+        (level->site[x][y].locchar == LAVA) ||
+        (level->site[x][y].locchar == FIRE) ||
+        (level->site[x][y].locchar == WHIRLWIND) ||
+        (level->site[x][y].locchar == ABYSS) ||
+        (level->site[x][y].locchar == VOID_CHAR) ||
+        (level->site[x][y].locchar == WATER) ||
+        (level->site[x][y].locchar == RUBBLE) ||
+        (level->site[x][y].locchar == LIFT) ||
+        (level->site[x][y].locchar == TRAP))
     {
       /* horses WILL go into water... */
       if (gamestatusp(MOUNTED))
       {
-        if (Level->site[x][y].locchar != WATER ||
-            Level->site[x][y].p_locf != L_WATER)
+        if (level->site[x][y].locchar != WATER ||
+            level->site[x][y].p_locf != L_WATER)
         {
           print1("You can't convince your steed to continue.");
           setgamestatus(SKIP_MONSTERS);
@@ -287,8 +287,8 @@ void searchat(int x, int y)
     {
       lreset(x, y, SECRET);
       lset(x, y, CHANGED);
-      if ((Level->site[x][y].locchar == OPEN_DOOR) ||
-          (Level->site[x][y].locchar == CLOSED_DOOR))
+      if ((level->site[x][y].locchar == OPEN_DOOR) ||
+          (level->site[x][y].locchar == CLOSED_DOOR))
       {
         mprint("You find a secret door!");
         for (i = 0; i <= 8; i++)
@@ -301,11 +301,11 @@ void searchat(int x, int y)
         mprint("You find a secret passage!");
       drawvision(Player.x, Player.y);
     }
-    if ((Level->site[x][y].p_locf >= TRAP_BASE) &&
-        (Level->site[x][y].locchar != TRAP) &&
-        (Level->site[x][y].p_locf <= TRAP_BASE + NUMTRAPS))
+    if ((level->site[x][y].p_locf >= TRAP_BASE) &&
+        (level->site[x][y].locchar != TRAP) &&
+        (level->site[x][y].p_locf <= TRAP_BASE + NUMTRAPS))
     {
-      Level->site[x][y].locchar = TRAP;
+      level->site[x][y].locchar = TRAP;
       lset(x, y, CHANGED);
       mprint("You find a trap!");
       drawvision(Player.x, Player.y);
@@ -787,10 +787,10 @@ int goberserk()
   strcpy(meleestr, Player.meleestr);
   strcpy(Player.meleestr, "lLlClH");
   for (i = 0; i < 8; i++)
-    if (Level->site[Player.x + Dirs[0][i]][Player.y + Dirs[1][i]].creature != NULL)
+    if (level->site[Player.x + Dirs[0][i]][Player.y + Dirs[1][i]].creature != NULL)
     {
       wentberserk = TRUE;
-      fight_monster(Level->site[Player.x + Dirs[0][i]][Player.y + Dirs[1][i]].creature);
+      fight_monster(level->site[Player.x + Dirs[0][i]][Player.y + Dirs[1][i]].creature);
       morewait();
     }
   strcpy(Player.meleestr, meleestr);
@@ -876,9 +876,9 @@ void roomcheck()
 #ifdef MSDOS_SUPPORTED_ANTIQUE
   static int oldlevel = -1;
 #else
-  static plv oldlevel = NULL;
+  static Level* oldlevel = NULL;
 #endif
-  int roomno = Level->site[Player.x][Player.y].roomnumber;
+  int roomno = level->site[Player.x][Player.y].roomnumber;
 
   if ((roomno == RS_CAVERN) ||
       (roomno == RS_SEWER_DUCT) ||
@@ -892,24 +892,24 @@ void roomcheck()
         (!Player.status[BLINDED]) &&
         (Player.status[ILLUMINATION] || (difficulty() < 6)))
     {
-      showroom(Level->site[Player.x][Player.y].roomnumber);
+      showroom(level->site[Player.x][Player.y].roomnumber);
       spreadroomlight(Player.x, Player.y, roomno);
       levelrefresh();
     }
   if ((oldroomno != roomno) ||
 #ifdef MSDOS_SUPPORTED_ANTIQUE
-      (oldlevel != Level->depth))
+      (oldlevel != level->depth))
   {
 #else
-      (oldlevel != Level))
+      (oldlevel != level))
   {
 #endif
     showroom(roomno);
     oldroomno = roomno;
 #ifdef MSDOS_SUPPORTED_ANTIQUE
-    oldlevel = Level->depth;
+    oldlevel = level->depth;
 #else
-    oldlevel = Level;
+    oldlevel = level;
 #endif
   }
 }
@@ -1067,7 +1067,7 @@ void threaten(monster* m)
       print2("It drops its treasure and flees.");
       m_dropstuff(m);
       m->hp = -1;
-      Level->site[m->x][m->y].creature = NULL;
+      level->site[m->x][m->y].creature = NULL;
       putspot(m->x, m->y, getspot(m->x, m->y, FALSE));
     }
     else
@@ -1081,7 +1081,7 @@ void threaten(monster* m)
       }
       print3("It departs with a renewed sense of its own mortality.");
       m->hp = -1;
-      Level->site[m->x][m->y].creature = NULL;
+      level->site[m->x][m->y].creature = NULL;
       putspot(m->x, m->y, getspot(m->x, m->y, FALSE));
     }
   }

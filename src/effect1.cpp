@@ -329,7 +329,7 @@ void bolt(int fx, int fy, int tx, int ty, int hit, int dmg, int dtype)
       }
     }
   }
-  else if (NULL != (target = Level->site[xx][yy].creature))
+  else if (NULL != (target = level->site[xx][yy].creature))
   {
     if (hitp(hit, target->ac))
     {
@@ -388,14 +388,14 @@ void bolt(int fx, int fy, int tx, int ty, int hit, int dmg, int dtype)
       mprint(Str1);
     }
   }
-  else if (Level->site[xx][yy].locchar == HEDGE)
-    if (Level->site[xx][yy].p_locf != L_TRIFID)
+  else if (level->site[xx][yy].locchar == HEDGE)
+    if (level->site[xx][yy].p_locf != L_TRIFID)
     {
       if ((dtype == FLAME) || (dtype == ELECTRICITY))
       {
         mprint("The hedge is blasted away!");
-        Level->site[xx][yy].p_locf = L_NO_OP;
-        Level->site[xx][yy].locchar = FLOOR;
+        level->site[xx][yy].p_locf = L_NO_OP;
+        level->site[xx][yy].locchar = FLOOR;
         plotspot(xx, yy, TRUE);
         lset(xx, yy, CHANGED);
       }
@@ -404,12 +404,12 @@ void bolt(int fx, int fy, int tx, int ty, int hit, int dmg, int dtype)
     }
     else
       mprint("The trifid absorbs the energy and laughs!");
-  else if (Level->site[xx][yy].locchar == WATER)
+  else if (level->site[xx][yy].locchar == WATER)
     if (dtype == FLAME)
     {
       mprint("The water is vaporised!");
-      Level->site[xx][yy].p_locf = L_NO_OP;
-      Level->site[xx][yy].locchar = FLOOR;
+      level->site[xx][yy].p_locf = L_NO_OP;
+      level->site[xx][yy].locchar = FLOOR;
       lset(xx, yy, CHANGED);
     }
 }
@@ -486,7 +486,7 @@ void ball(int fx, int fy, int tx, int ty, int dmg, int dtype)
         break;
       }
     }
-    if (NULL != (target = Level->site[ex][ey].creature))
+    if (NULL != (target = level->site[ex][ey].creature))
     {
       if (los_p(Player.x, Player.y, target->x, target->y))
       {
@@ -517,14 +517,14 @@ void ball(int fx, int fy, int tx, int ty, int dmg, int dtype)
       m_status_set(target, HOSTILE);
       m_damage(target, random_range(dmg), dtype);
     }
-    if (Level->site[ex][ey].locchar == HEDGE)
-      if (Level->site[ex][ey].p_locf != L_TRIFID)
+    if (level->site[ex][ey].locchar == HEDGE)
+      if (level->site[ex][ey].p_locf != L_TRIFID)
       {
         if ((dtype == FLAME) || (dtype == ELECTRICITY))
         {
           mprint("The hedge is blasted away!");
-          Level->site[ex][ey].p_locf = L_NO_OP;
-          Level->site[ex][ey].locchar = FLOOR;
+          level->site[ex][ey].p_locf = L_NO_OP;
+          level->site[ex][ey].locchar = FLOOR;
           plotspot(ex, ey, TRUE);
           lset(ex, ey, CHANGED);
         }
@@ -533,12 +533,12 @@ void ball(int fx, int fy, int tx, int ty, int dmg, int dtype)
       }
       else
         mprint("The trifid absorbs the energy and laughs!");
-    else if (Level->site[ex][ey].locchar == WATER)
+    else if (level->site[ex][ey].locchar == WATER)
       if (dtype == FLAME)
       {
         mprint("The water is vaporised!");
-        Level->site[ex][ey].p_locf = L_NO_OP;
-        Level->site[ex][ey].locchar = FLOOR;
+        level->site[ex][ey].p_locf = L_NO_OP;
+        level->site[ex][ey].locchar = FLOOR;
         plotspot(ex, ey, TRUE);
         lset(ex, ey, CHANGED);
       }
@@ -548,7 +548,7 @@ void ball(int fx, int fy, int tx, int ty, int dmg, int dtype)
 void mondet(int blessing)
 {
   Monsterlist* ml;
-  for (ml = Level->mlist; ml != NULL; ml = ml->next)
+  for (ml = level->mlist; ml != NULL; ml = ml->next)
     if (ml->m->hp > 0) /* FIXED 12/30/98 DG */
       if (blessing > -1)
         plotmon(ml->m);
@@ -565,14 +565,14 @@ void objdet(int blessing)
   int i, j;
   for (i = 0; i < WIDTH; i++)
     for (j = 0; j < LENGTH; j++)
-      if (Level->site[i][j].things != NULL)
+      if (level->site[i][j].things != NULL)
       {
         if (blessing < 0)
           putspot(random_range(WIDTH),
                   random_range(LENGTH),
-                  Level->site[i][j].things->thing->objchar);
+                  level->site[i][j].things->thing->objchar);
         else
-          putspot(i, j, Level->site[i][j].things->thing->objchar);
+          putspot(i, j, level->site[i][j].things->thing->objchar);
       }
   levelrefresh();
   morewait();

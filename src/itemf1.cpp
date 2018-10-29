@@ -612,23 +612,23 @@ void i_pick(pob o)
     {
       ox = Player.x + Dirs[0][dir];
       oy = Player.y + Dirs[1][dir];
-      if ((Level->site[ox][oy].locchar != CLOSED_DOOR) ||
+      if ((level->site[ox][oy].locchar != CLOSED_DOOR) ||
           loc_statusp(ox, oy, SECRET))
       {
         mprint("You can't unlock that!");
         resetgamestatus(SKIP_MONSTERS);
       }
-      else if (Level->site[ox][oy].aux == LOCKED)
+      else if (level->site[ox][oy].aux == LOCKED)
       {
-        if (Level->depth == MaxDungeonLevels - 1)
+        if (level->depth == MaxDungeonLevels - 1)
           mprint("The lock is too complicated for you!!!");
-        else if (Level->depth * 2 + random_range(50) <
+        else if (level->depth * 2 + random_range(50) <
                  Player.dex + Player.level + Player.rank[THIEVES] * 10)
         {
           mprint("You picked the lock!");
-          Level->site[ox][oy].aux = UNLOCKED;
+          level->site[ox][oy].aux = UNLOCKED;
           lset(ox, oy, CHANGED);
-          gain_experience(max(3, Level->depth));
+          gain_experience(max(3, level->depth));
         }
         else
           mprint("You failed to pick the lock.");
@@ -653,19 +653,19 @@ void i_key(pob o)
   {
     ox = Player.x + Dirs[0][dir];
     oy = Player.y + Dirs[1][dir];
-    if ((Level->site[ox][oy].locchar != CLOSED_DOOR) ||
+    if ((level->site[ox][oy].locchar != CLOSED_DOOR) ||
         loc_statusp(ox, oy, SECRET))
     {
       mprint("You can't unlock that!");
       resetgamestatus(SKIP_MONSTERS);
     }
-    else if (Level->site[ox][oy].aux == LOCKED)
+    else if (level->site[ox][oy].aux == LOCKED)
     {
       mprint("The lock clicks open!");
-      Level->site[ox][oy].aux = UNLOCKED;
+      level->site[ox][oy].aux = UNLOCKED;
       lset(ox, oy, CHANGED);
       o->blessing--;
-      if ((o->blessing < 0) || (Level->depth == MaxDungeonLevels - 1))
+      if ((o->blessing < 0) || (level->depth == MaxDungeonLevels - 1))
       {
         mprint("The key disintegrates!");
         conform_lost_objects(1, o);
@@ -1001,8 +1001,8 @@ void i_trap(pob o)
 {
   Objects[o->id].known = 1;
 
-  if ((Level->site[Player.x][Player.y].locchar != FLOOR) ||
-      (Level->site[Player.x][Player.y].p_locf != L_NO_OP))
+  if ((level->site[Player.x][Player.y].locchar != FLOOR) ||
+      (level->site[Player.x][Player.y].p_locf != L_NO_OP))
     mprint("Your attempt fails.");
   else if (!o->known)
   {
@@ -1012,7 +1012,7 @@ void i_trap(pob o)
   else
   {
     mprint("You successfully set a trap at your location.");
-    Level->site[Player.x][Player.y].p_locf = o->aux;
+    level->site[Player.x][Player.y].p_locf = o->aux;
     lset(Player.x, Player.y, CHANGED);
   }
   dispose_lost_objects(1, o);

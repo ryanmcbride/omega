@@ -728,13 +728,13 @@ void l_order()
 		print1("The previous Justiciar steps down in your favor.");
 		print2("You are now the Justiciar of Rampart and the Order!");
 		strcpy(Justiciar, Player.name);
-		for (ml = Level->mlist; ml && (ml->m->id != HISCORE_NPC ||
+		for (ml = level->mlist; ml && (ml->m->id != HISCORE_NPC ||
 																	 ml->m->aux2 != 15);
 				 ml = ml->next)
 			/* just scan for current Justicar */;
 		if (ml)
 		{
-			Level->site[ml->m->x][ml->m->y].creature = NULL;
+			level->site[ml->m->x][ml->m->y].creature = NULL;
 			erase_monster(ml->m);
 			ml->m->hp = -1; /* signals "death" -- no credit to player, though */
 		}

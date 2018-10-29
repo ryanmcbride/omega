@@ -90,7 +90,7 @@ void m_talk_druid(monster* m)
     if (ynq())
     {
       mprint("'I certainly hope so!' says the ArchDruid.");
-      for (curr = Level->mlist; curr; curr = curr->next)
+      for (curr = level->mlist; curr; curr = curr->next)
         m_status_reset(curr->m, HOSTILE);
       m_vanish(m);
     }
@@ -690,7 +690,7 @@ void m_talk_horse(monster* m)
     if (ynq() == 'y')
     {
       m->hp = -1;
-      Level->site[m->x][m->y].creature = NULL;
+      level->site[m->x][m->y].creature = NULL;
       putspot(m->x, m->y, getspot(m->x, m->y, FALSE));
       setgamestatus(MOUNTED);
       calc_melee();
@@ -730,19 +730,19 @@ void m_talk_servant(monster* m)
     show_screen();
     drawmonsters(TRUE);
     setspot(&x, &y);
-    if (Level->site[x][y].creature != NULL)
+    if (level->site[x][y].creature != NULL)
     {
-      if (Level->site[x][y].creature->id == target)
+      if (level->site[x][y].creature->id == target)
       {
         mprint("The Servant launches itself towards its enemy.");
         mprint("In a blaze of combat, the Servants annihilate each other!");
         gain_experience(m->xpv);
-        m_death(Level->site[x][y].creature);
-        Level->site[m->x][m->y].creature = NULL;
+        m_death(level->site[x][y].creature);
+        level->site[m->x][m->y].creature = NULL;
         m->x = x;
         m->y = y;
-        Level->site[x][y].creature = m;
-        m_death(Level->site[x][y].creature);
+        level->site[x][y].creature = m;
+        m_death(level->site[x][y].creature);
       }
       else
         mprint("Right. Tell me about it. Idiot!");
@@ -794,7 +794,7 @@ void m_talk_archmage(monster* m)
     mprint("He invites you to attempt the Throne of High Magic");
     mprint("but warns you that it is important to wield the Sceptre");
     mprint("before sitting on the throne.");
-    if (Level->site[m->x][m->y].p_locf == L_THRONE)
+    if (level->site[m->x][m->y].p_locf == L_THRONE)
     {
       mprint("The Archmage smiles and makes an arcane gesture....");
       m_vanish(m);

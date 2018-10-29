@@ -134,27 +134,27 @@ void i_juggernaut(pob o)
         y += Dirs[1][d];
         if (!view_unblocked(x, y) || offscreen(y))
           seen = 0;
-        if (Level->site[x][y].locchar == WALL)
+        if (level->site[x][y].locchar == WALL)
           tunneled++;
-        if (Level->site[x][y].locchar != WATER &&
-            Level->site[x][y].locchar != VOID_CHAR &&
-            Level->site[x][y].locchar != ABYSS &&
-            Level->site[x][y].locchar != SPACE &&
-            Level->site[x][y].locchar != LAVA)
+        if (level->site[x][y].locchar != WATER &&
+            level->site[x][y].locchar != VOID_CHAR &&
+            level->site[x][y].locchar != ABYSS &&
+            level->site[x][y].locchar != SPACE &&
+            level->site[x][y].locchar != LAVA)
         {
-          Level->site[x][y].locchar = FLOOR;
-          Level->site[x][y].p_locf = L_NO_OP;
+          level->site[x][y].locchar = FLOOR;
+          level->site[x][y].p_locf = L_NO_OP;
         }
         lreset(x, y, SECRET);
         lset(x, y, CHANGED);
-        if (Level->site[x][y].creature != NULL)
+        if (level->site[x][y].creature != NULL)
         {
           if (seen)
             nprint1("Splat! ");
           else
             not_seen++;
           setgamestatus(SUPPRESS_PRINTING);
-          m_death(Level->site[x][y].creature);
+          m_death(level->site[x][y].creature);
           resetgamestatus(SUPPRESS_PRINTING);
         }
         plotspot(x, y, FALSE);
@@ -170,7 +170,7 @@ void i_juggernaut(pob o)
         print2("You hear a distant scream...");
       gain_experience(1000);
       dispose_lost_objects(1, o);
-      Level->tunnelled += tunneled - 1;
+      level->tunnelled += tunneled - 1;
       tunnelcheck();
     }
   }
@@ -265,7 +265,7 @@ void i_antioch(pob o)
     morewait();
     print1("What do you count up to? ");
     count = (int)parsenum();
-    if ((count < 3) && (Level->site[x][y].creature != NULL))
+    if ((count < 3) && (level->site[x][y].creature != NULL))
     {
       print1("`Three shall be the number of thy counting....");
       print2("And the number of thy counting shall be three.'");
@@ -288,15 +288,15 @@ void i_antioch(pob o)
     {
       print1("Ka-Boom!");
       gain_experience(1000);
-      Level->site[x][y].locchar = TRAP;
-      Level->site[x][y].p_locf = L_TRAP_DOOR;
+      level->site[x][y].locchar = TRAP;
+      level->site[x][y].p_locf = L_TRAP_DOOR;
       lset(x, y, CHANGED);
-      if (Level->site[x][y].creature != NULL)
+      if (level->site[x][y].creature != NULL)
       {
-        m_death(Level->site[x][y].creature);
+        m_death(level->site[x][y].creature);
         print2("You are covered with gore.");
       }
-      Level->site[x][y].things = NULL;
+      level->site[x][y].things = NULL;
     }
   }
   dispose_lost_objects(1, o);

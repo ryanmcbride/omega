@@ -402,8 +402,8 @@ void statue_random(int x, int y)
 		break;
 	case 0:
 		print1("The statue crumbles with a clatter of gravel.");
-		Level->site[x][y].locchar = RUBBLE;
-		Level->site[x][y].p_locf = L_RUBBLE;
+		level->site[x][y].locchar = RUBBLE;
+		level->site[x][y].p_locf = L_RUBBLE;
 		plotspot(x, y, TRUE);
 		lset(x, y, CHANGED);
 		break;
@@ -412,8 +412,8 @@ void statue_random(int x, int y)
 		break;
 	case 2:
 		print1("The statue crumbles with a clatter of gravel.");
-		Level->site[x][y].locchar = RUBBLE;
-		Level->site[x][y].p_locf = L_RUBBLE;
+		level->site[x][y].locchar = RUBBLE;
+		level->site[x][y].p_locf = L_RUBBLE;
 		plotspot(x, y, TRUE);
 		lset(x, y, CHANGED);
 		make_site_treasure(x, y, difficulty());
@@ -437,8 +437,8 @@ void statue_random(int x, int y)
 			/* WDT HACK: I shouldn't be making this choice on a level
        * where no stairs can be (or perhaps I should, and I should
        * implement a bonus level!). */
-			Level->site[x][y].locchar = STAIRS_DOWN;
-			Level->site[x][y].p_locf = L_NO_OP;
+			level->site[x][y].locchar = STAIRS_DOWN;
+			level->site[x][y].p_locf = L_NO_OP;
 			lset(x, y, CHANGED | STOPS);
 		}
 		break;
@@ -490,20 +490,20 @@ void wake_statue(int x, int y, int first)
 {
 	int i;
 	Monsterlist* tml;
-	if (Level->site[x][y].locchar == STATUE)
+	if (level->site[x][y].locchar == STATUE)
 	{
 		if (!first)
 			mprint("Another statue awakens!");
 		else
 			mprint("A statue springs to life!");
-		Level->site[x][y].locchar = FLOOR;
+		level->site[x][y].locchar = FLOOR;
 		lset(x, y, CHANGED);
 		tml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
 		tml->m =
-				(Level->site[x][y].creature = m_create(x, y, 0, difficulty() + 1));
-		m_status_set(Level->site[x][y].creature, HOSTILE);
-		tml->next = Level->mlist;
-		Level->mlist = tml;
+				(level->site[x][y].creature = m_create(x, y, 0, difficulty() + 1));
+		m_status_set(level->site[x][y].creature, HOSTILE);
+		tml->next = level->mlist;
+		level->mlist = tml;
 		for (i = 0; i < 8; i++)
 			wake_statue(x + Dirs[0][i], y + Dirs[1][i], FALSE);
 	}

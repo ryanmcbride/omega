@@ -54,13 +54,13 @@ void time_clock(int reset)
   if (Current_Environment != E_COUNTRYSIDE)
   {
 
-    prev = &(Level->mlist);
+    prev = &(level->mlist);
     ml = *prev;
     while (ml)
       if (ml->m->hp > 0)
       {
         /* following is a hack until I discover source of phantom monsters */
-        if (Level->site[ml->m->x][ml->m->y].creature != ml->m)
+        if (level->site[ml->m->x][ml->m->y].creature != ml->m)
           fix_phantom(ml->m);
         if (Tick == ml->m->click)
         {
@@ -87,16 +87,16 @@ void time_clock(int reset)
 /* remedies occasional defective monsters */
 void fix_phantom(monster* m)
 {
-  if (Level->site[m->x][m->y].creature == NULL)
+  if (level->site[m->x][m->y].creature == NULL)
   {
     mprint("You hear a sound like a sigh of relief....");
-    Level->site[m->x][m->y].creature = m;
+    level->site[m->x][m->y].creature = m;
   }
   else
   {
     mprint("You hear a puff of displaced air....");
     findspace(&(m->x), &(m->y), -1);
-    Level->site[m->x][m->y].creature = m;
+    level->site[m->x][m->y].creature = m;
     m_death(m);
   }
 }

@@ -77,19 +77,19 @@ void make_country_monsters(Symbol terrain)
       tml->m->x = random_range(WIDTH);
       tml->m->y = random_range(LENGTH);
     }
-    Level->site[tml->m->x][tml->m->y].creature = tml->m;
+    level->site[tml->m->x][tml->m->y].creature = tml->m;
     tml->m->sense = WIDTH;
     if (m_statusp(tml->m, ONLYSWIM))
     {
-      Level->site[tml->m->x][tml->m->y].locchar = WATER;
-      Level->site[tml->m->x][tml->m->y].p_locf = L_WATER;
+      level->site[tml->m->x][tml->m->y].locchar = WATER;
+      level->site[tml->m->x][tml->m->y].p_locf = L_WATER;
       lset(tml->m->x, tml->m->y, CHANGED);
     }
 
     tml->next = ml;
     ml = tml;
   }
-  Level->mlist = ml;
+  level->mlist = ml;
 }
 
 /* monstertype is more or less Current_Dungeon */
@@ -119,9 +119,9 @@ void populate_level(int monstertype)
     switch (monstertype)
     {
     case E_CAVES:
-      if (Level->depth * 10 + random_range(100) > 150)
+      if (level->depth * 10 + random_range(100) > 150)
         monsterid = GOBLIN_SHAMAN;
-      else if (Level->depth * 10 + random_range(100) > 100)
+      else if (level->depth * 10 + random_range(100) > 100)
         monsterid = GOBLIN_CHIEF; /* Goblin Chieftain */
       else if (random_range(100) > 50)
         monsterid = GOBLIN;
@@ -132,7 +132,7 @@ void populate_level(int monstertype)
       if (!random_range(3))
         monsterid = -1;
       else
-        switch (random_range(Level->depth + 3))
+        switch (random_range(level->depth + 3))
         {
         case 0:
           monsterid = SEWER_RAT;
@@ -228,15 +228,15 @@ void populate_level(int monstertype)
           monsterid = SHADOW_SLAY;
           break; /* shadow slayer */
         }
-      else if (random_range(2) && (Level->depth == 1)) /* plane of earth */
+      else if (random_range(2) && (level->depth == 1)) /* plane of earth */
         monsterid = EARTH_ELEM;                        /* earth elemental */
-      else if (random_range(2) && (Level->depth == 2)) /* plane of air */
+      else if (random_range(2) && (level->depth == 2)) /* plane of air */
         monsterid = AIR_ELEM;                          /* air elemental */
-      else if (random_range(2) && (Level->depth == 3)) /* plane of water */
+      else if (random_range(2) && (level->depth == 3)) /* plane of water */
         monsterid = WATER_ELEM;                        /* water elemental */
-      else if (random_range(2) && (Level->depth == 4)) /* plane of fire */
+      else if (random_range(2) && (level->depth == 4)) /* plane of fire */
         monsterid = FIRE_ELEM;                         /* fire elemental */
-      else if (random_range(2) && (Level->depth == 5)) /* deep astral */
+      else if (random_range(2) && (level->depth == 5)) /* deep astral */
         switch (random_range(12))
         {
         case 0:
@@ -287,7 +287,7 @@ void populate_level(int monstertype)
         while (Monsters[monsterid].uniqueness != COMMON);
       }
       else
-        switch (random_range(Level->depth / 2 + 2))
+        switch (random_range(level->depth / 2 + 2))
         { /* evil & fire creatures */
         case 0:
           monsterid = HAUNT;
@@ -384,34 +384,34 @@ void populate_level(int monstertype)
     assert(RANDOM == -1); /* WDT: the following test slightly assumes
                              * this. */
     if (monsterid > RANDOM)
-      Level->site[i][j].creature = make_creature(monsterid);
+      level->site[i][j].creature = make_creature(monsterid);
     else
-      Level->site[i][j].creature = m_create(i, j, TRUE, difficulty());
+      level->site[i][j].creature = m_create(i, j, TRUE, difficulty());
 
-    Level->site[i][j].creature->x = i;
-    Level->site[i][j].creature->y = j;
+    level->site[i][j].creature->x = i;
+    level->site[i][j].creature->y = j;
 
-    if (m_statusp(Level->site[i][j].creature, ONLYSWIM))
+    if (m_statusp(level->site[i][j].creature, ONLYSWIM))
     {
-      Level->site[i][j].locchar = WATER;
-      Level->site[i][j].p_locf = L_WATER;
+      level->site[i][j].locchar = WATER;
+      level->site[i][j].p_locf = L_WATER;
       lset(i, j, CHANGED);
     }
 
     tml->next = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
-    tml->next->m = Level->site[i][j].creature;
+    tml->next->m = level->site[i][j].creature;
     tml = tml->next;
   }
 
-  if (Level->mlist == NULL)
+  if (level->mlist == NULL)
   {
     tml->next = NULL;
-    Level->mlist = head->next;
+    level->mlist = head->next;
   }
   else
   {
-    tml->next = Level->mlist;
-    Level->mlist = head->next;
+    tml->next = level->mlist;
+    level->mlist = head->next;
   }
 }
 
@@ -424,26 +424,26 @@ void wandercheck()
   {
     findspace(&x, &y, -1);
     tml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
-    tml->next = Level->mlist;
-    tml->m = Level->site[x][y].creature = m_create(x, y, WANDERING, difficulty());
-    Level->mlist = tml;
+    tml->next = level->mlist;
+    tml->m = level->site[x][y].creature = m_create(x, y, WANDERING, difficulty());
+    level->mlist = tml;
   }
 }
 
-/* call make_creature and place created monster on Level->mlist and Level */
+/* call make_creature and place created monster on level->mlist and Level */
 void make_site_monster(int i, int j, int mid)
 {
   Monsterlist* ml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
   pmt m;
   if (mid > -1)
-    Level->site[i][j].creature = (m = make_creature(mid));
+    level->site[i][j].creature = (m = make_creature(mid));
   else
-    Level->site[i][j].creature = (m = m_create(i, j, WANDERING, difficulty()));
+    level->site[i][j].creature = (m = m_create(i, j, WANDERING, difficulty()));
   m->x = i;
   m->y = j;
   ml->m = m;
-  ml->next = Level->mlist;
-  Level->mlist = ml;
+  ml->next = level->mlist;
+  level->mlist = ml;
 }
 
 /* make and return an appropriate monster for the level and depth*/
@@ -626,29 +626,29 @@ void stock_level()
     {
       i = random_range(WIDTH);
       j = random_range(LENGTH);
-    } while (Level->site[i][j].locchar != FLOOR);
+    } while (level->site[i][j].locchar != FLOOR);
     make_site_treasure(i, j, difficulty());
     i = random_range(WIDTH);
     j = random_range(LENGTH);
-    Level->site[i][j].things = ((pol)checkmalloc(sizeof(oltype)));
-    Level->site[i][j].things->thing = ((pob)checkmalloc(sizeof(objtype)));
-    make_cash(Level->site[i][j].things->thing, difficulty());
-    Level->site[i][j].things->next = NULL;
+    level->site[i][j].things = ((pol)checkmalloc(sizeof(oltype)));
+    level->site[i][j].things->thing = ((pob)checkmalloc(sizeof(objtype)));
+    make_cash(level->site[i][j].things->thing, difficulty());
+    level->site[i][j].things->next = NULL;
     /* caves have more random cash strewn around */
     if (Current_Dungeon == E_CAVES)
     {
       i = random_range(WIDTH);
       j = random_range(LENGTH);
-      Level->site[i][j].things = ((pol)checkmalloc(sizeof(oltype)));
-      Level->site[i][j].things->thing = ((pob)checkmalloc(sizeof(objtype)));
-      make_cash(Level->site[i][j].things->thing, difficulty());
-      Level->site[i][j].things->next = NULL;
+      level->site[i][j].things = ((pol)checkmalloc(sizeof(oltype)));
+      level->site[i][j].things->thing = ((pob)checkmalloc(sizeof(objtype)));
+      make_cash(level->site[i][j].things->thing, difficulty());
+      level->site[i][j].things->next = NULL;
       i = random_range(WIDTH);
       j = random_range(LENGTH);
-      Level->site[i][j].things = ((pol)checkmalloc(sizeof(oltype)));
-      Level->site[i][j].things->thing = ((pob)checkmalloc(sizeof(objtype)));
-      make_cash(Level->site[i][j].things->thing, difficulty());
-      Level->site[i][j].things->next = NULL;
+      level->site[i][j].things = ((pol)checkmalloc(sizeof(oltype)));
+      level->site[i][j].things->thing = ((pob)checkmalloc(sizeof(objtype)));
+      make_cash(level->site[i][j].things->thing, difficulty());
+      level->site[i][j].things->next = NULL;
     }
   }
 }
@@ -658,8 +658,8 @@ void make_site_treasure(int i, int j, int itemlevel)
 {
   pol tmp = ((pol)checkmalloc(sizeof(oltype)));
   tmp->thing = ((pob)create_object(itemlevel));
-  tmp->next = Level->site[i][j].things;
-  Level->site[i][j].things = tmp;
+  tmp->next = level->site[i][j].things;
+  level->site[i][j].things = tmp;
 }
 
 /* make a specific new object at site i,j on level*/
@@ -671,8 +671,8 @@ void make_specific_treasure(int i, int j, int itemid)
   tmp = ((pol)checkmalloc(sizeof(oltype)));
   tmp->thing = ((pob)checkmalloc(sizeof(objtype)));
   *(tmp->thing) = Objects[itemid];
-  tmp->next = Level->site[i][j].things;
-  Level->site[i][j].things = tmp;
+  tmp->next = level->site[i][j].things;
+  level->site[i][j].things = tmp;
 }
 
 #ifndef MSDOS_SUPPORTED_ANTIQUE
@@ -683,8 +683,8 @@ void make_specific_treasure(int i, int j, int itemid)
 int difficulty()
 {
   int depth = 1;
-  if (Level != NULL)
-    depth = Level->depth;
+  if (level != NULL)
+    depth = level->depth;
   switch (Current_Environment)
   {
   case E_COUNTRYSIDE:

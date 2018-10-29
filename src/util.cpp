@@ -62,12 +62,12 @@ int distance(int x1, int y1, int x2, int y2)
 int unblocked(int x, int y)
 {
   if ((!inbounds(x, y)) ||
-      (Level->site[x][y].creature != NULL) ||
-      (Level->site[x][y].locchar == WALL) ||
-      (Level->site[x][y].locchar == PORTCULLIS) ||
-      (Level->site[x][y].locchar == STATUE) ||
-      (Level->site[x][y].locchar == HEDGE) ||
-      (Level->site[x][y].locchar == CLOSED_DOOR) ||
+      (level->site[x][y].creature != NULL) ||
+      (level->site[x][y].locchar == WALL) ||
+      (level->site[x][y].locchar == PORTCULLIS) ||
+      (level->site[x][y].locchar == STATUE) ||
+      (level->site[x][y].locchar == HEDGE) ||
+      (level->site[x][y].locchar == CLOSED_DOOR) ||
       loc_statusp(x, y, SECRET) ||
       ((x == Player.x) && (y == Player.y)))
     return (FALSE);
@@ -80,11 +80,11 @@ int m_unblocked(monster* m, int x, int y)
 {
   if ((!inbounds(x, y)) || ((x == Player.x) && (y == Player.y)))
     return (FALSE);
-  else if ((Level->site[x][y].creature != NULL) ||
-           (Level->site[x][y].locchar == SPACE))
+  else if ((level->site[x][y].creature != NULL) ||
+           (level->site[x][y].locchar == SPACE))
     return (FALSE);
   else if (m_statusp(m, ONLYSWIM))
-    return (Level->site[x][y].locchar == WATER);
+    return (level->site[x][y].locchar == WATER);
   else if (loc_statusp(x, y, SECRET))
   {
     if (m->movef == M_MOVE_SMART)
@@ -104,48 +104,48 @@ int m_unblocked(monster* m, int x, int y)
     else
       return (m_statusp(m, INTANGIBLE));
   }
-  else if ((Level->site[x][y].locchar == FLOOR) ||
-           (Level->site[x][y].locchar == OPEN_DOOR))
+  else if ((level->site[x][y].locchar == FLOOR) ||
+           (level->site[x][y].locchar == OPEN_DOOR))
     return (TRUE);
-  else if ((Level->site[x][y].locchar == PORTCULLIS) ||
-           (Level->site[x][y].locchar == WALL) ||
-           (Level->site[x][y].locchar == STATUE))
+  else if ((level->site[x][y].locchar == PORTCULLIS) ||
+           (level->site[x][y].locchar == WALL) ||
+           (level->site[x][y].locchar == STATUE))
     return (m_statusp(m, INTANGIBLE));
-  else if (Level->site[x][y].locchar == WATER)
+  else if (level->site[x][y].locchar == WATER)
     return (m_statusp(m, SWIMMING) ||
             m_statusp(m, ONLYSWIM) ||
             m_statusp(m, INTANGIBLE) ||
             m_statusp(m, FLYING));
-  else if (Level->site[x][y].locchar == CLOSED_DOOR)
+  else if (level->site[x][y].locchar == CLOSED_DOOR)
   {
     if (m->movef == M_MOVE_SMART)
     {
       mprint("You hear a door creak open.");
-      Level->site[x][y].locchar = OPEN_DOOR;
+      level->site[x][y].locchar = OPEN_DOOR;
       lset(x, y, CHANGED);
       return (TRUE);
     }
     else if (random_range(m->dmg) > random_range(100))
     {
       mprint("You hear a door shattering.");
-      Level->site[x][y].locchar = RUBBLE;
+      level->site[x][y].locchar = RUBBLE;
       lset(x, y, CHANGED);
       return (TRUE);
     }
     else
       return (m_statusp(m, INTANGIBLE));
   }
-  else if (Level->site[x][y].locchar == LAVA)
+  else if (level->site[x][y].locchar == LAVA)
     return ((m_immunityp(m, FLAME) &&
              m_statusp(m, SWIMMING)) ||
             m_statusp(m, INTANGIBLE) ||
             m_statusp(m, FLYING));
-  else if (Level->site[x][y].locchar == FIRE)
+  else if (level->site[x][y].locchar == FIRE)
     return (m_statusp(m, INTANGIBLE) ||
             m_immunityp(m, FLAME));
-  else if ((Level->site[x][y].locchar == TRAP) ||
-           (Level->site[x][y].locchar == HEDGE) ||
-           (Level->site[x][y].locchar == ABYSS))
+  else if ((level->site[x][y].locchar == TRAP) ||
+           (level->site[x][y].locchar == HEDGE) ||
+           (level->site[x][y].locchar == ABYSS))
     return ((m->movef == M_MOVE_CONFUSED) ||
             m_statusp(m, INTANGIBLE) ||
             m_statusp(m, FLYING));
@@ -158,11 +158,11 @@ int view_unblocked(int x, int y)
 {
   if (!inbounds(x, y))
     return (FALSE);
-  else if ((Level->site[x][y].locchar == WALL) ||
-           (Level->site[x][y].locchar == STATUE) ||
-           (Level->site[x][y].locchar == HEDGE) ||
-           (Level->site[x][y].locchar == FIRE) ||
-           (Level->site[x][y].locchar == CLOSED_DOOR) ||
+  else if ((level->site[x][y].locchar == WALL) ||
+           (level->site[x][y].locchar == STATUE) ||
+           (level->site[x][y].locchar == HEDGE) ||
+           (level->site[x][y].locchar == FIRE) ||
+           (level->site[x][y].locchar == CLOSED_DOOR) ||
            loc_statusp(x, y, SECRET))
     return (FALSE);
   else
@@ -254,7 +254,7 @@ void do_los(Symbol pyx, int* x1, int* y1, int x2, int y2)
       error += 2 * step;
       blocked = !unblocked(*x1, *y1);
     }
-    Level->site[*x1][*y1].showchar = pyx;
+    level->site[*x1][*y1].showchar = pyx;
     plotchar(pyx, *x1, *y1);
     plotspot(ox, oy, TRUE);
     usleep(50000);
@@ -326,11 +326,11 @@ void do_object_los(Symbol pyx, int* x1, int* y1, int x2, int y2)
     if (unblocked(*x1, *y1))
     {
       plotchar(pyx, *x1, *y1);
-      Level->site[*x1][*y1].showchar = pyx;
+      level->site[*x1][*y1].showchar = pyx;
       usleep(50000);
     }
   } while ((*x1 != x2 || *y1 != y2) && !blocked);
-  if (Level->site[*x1][*y1].creature == NULL && blocked)
+  if (level->site[*x1][*y1].creature == NULL && blocked)
   {
     *x1 = ox;
     *y1 = oy;
@@ -647,10 +647,10 @@ char *month()
 sets x,y there. There must *be* floor space somewhere on level.... */
 int spaceok(int i, int j, int baux)
 {
-  return ((Level->site[i][j].locchar == FLOOR) &&
-          (Level->site[i][j].creature == NULL) &&
+  return ((level->site[i][j].locchar == FLOOR) &&
+          (level->site[i][j].creature == NULL) &&
           (!loc_statusp(i, j, SECRET)) &&
-          (Level->site[i][j].buildaux != baux));
+          (level->site[i][j].buildaux != baux));
 }
 
 void findspace(int *x, int *y, int baux)
@@ -770,7 +770,7 @@ void calc_weight()
 }
 
 /* returns true if its ok to get rid of a level */
-int ok_to_free(plv level)
+int ok_to_free(Level* level)
 {
   if (level == NULL)
     return (FALSE);
@@ -806,7 +806,7 @@ void free_mons_and_objs(Monsterlist* mlist)
 }
 
 /* Free up monsters and items on a level*/
-void free_level(plv level)
+void free_level(Level* level)
 {
   int i, j;
 
@@ -828,7 +828,9 @@ void free_level(plv level)
 void *checkmalloc(unsigned int bytes)
 {
   void *ptr = malloc(bytes);
-  struct level *curr, **prev, **oldest;
+  Level *curr;
+  Level **prev;
+  Level **oldest;
 
   if (ptr)
     return ptr;
@@ -838,7 +840,7 @@ void *checkmalloc(unsigned int bytes)
       oldest = prev;
     prev = &(curr->next);
   }
-  if (*oldest && *oldest != Level)
+  if (*oldest && *oldest != level)
   {
     curr = *oldest;
     *oldest = (*oldest)->next;
@@ -898,7 +900,7 @@ int difficulty()
 {
   int depth = 1;
   if (Level != NULL)
-    depth = Level->depth;
+    depth = level->depth;
   switch (Current_Environment)
   {
   case E_COUNTRYSIDE:

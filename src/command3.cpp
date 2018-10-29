@@ -52,14 +52,14 @@ void examine()
     else
     {
       clearmsg();
-      if (Level->site[x][y].creature != NULL)
-        mprint(mstatus_string(Level->site[x][y].creature));
+      if (level->site[x][y].creature != NULL)
+        mprint(mstatus_string(level->site[x][y].creature));
       else if ((Player.x == x) && (Player.y == y))
         describe_player();
       if (loc_statusp(x, y, SECRET))
         print2("An age-worn stone wall.");
       else
-        switch (Level->site[x][y].locchar)
+        switch (level->site[x][y].locchar)
         {
         case SPACE:
           print2("An infinite void.");
@@ -77,19 +77,19 @@ void examine()
             print2("The ground.");
           break;
         case WALL:
-          if (Level->site[x][y].aux == 0)
+          if (level->site[x][y].aux == 0)
             print2("A totally impervious wall.");
-          else if (Level->site[x][y].aux < 10)
+          else if (level->site[x][y].aux < 10)
             print2("A pitted concrete wall.");
-          else if (Level->site[x][y].aux < 30)
+          else if (level->site[x][y].aux < 30)
             print2("An age-worn sandstone wall.");
-          else if (Level->site[x][y].aux < 50)
+          else if (level->site[x][y].aux < 50)
             print2("A smooth basalt wall.");
-          else if (Level->site[x][y].aux < 70)
+          else if (level->site[x][y].aux < 70)
             print2("A solid granite wall.");
-          else if (Level->site[x][y].aux < 90)
+          else if (level->site[x][y].aux < 90)
             print2("A wall of steel.");
-          else if (Level->site[x][y].aux < 210)
+          else if (level->site[x][y].aux < 210)
           {
             if (Current_Environment == E_CITY)
               print2("A thick wall of Rampart bluestone");
@@ -121,10 +121,10 @@ void examine()
           print2("A stairway leading down....");
           break;
         case TRAP:
-          print2(trapid(Level->site[x][y].p_locf));
+          print2(trapid(level->site[x][y].p_locf));
           break;
         case HEDGE:
-          if (Level->site[x][y].p_locf == L_EARTH_STATION)
+          if (level->site[x][y].p_locf == L_EARTH_STATION)
             print2("A weird fibrillation of oozing tendrils.");
           else
             print2("A brambly, thorny hedge.");
@@ -145,11 +145,11 @@ void examine()
           print2("A strange cyclonic electrical storm.");
           break;
         case WATER:
-          if (Level->site[x][y].p_locf == L_WATER)
+          if (level->site[x][y].p_locf == L_WATER)
             print2("A deep pool of water.");
-          else if (Level->site[x][y].p_locf == L_CHAOS)
+          else if (level->site[x][y].p_locf == L_CHAOS)
             print2("A pool of primal chaos.");
-          else if (Level->site[x][y].p_locf == L_WATER_STATION)
+          else if (level->site[x][y].p_locf == L_WATER_STATION)
             print2("A bubbling pool of acid.");
           else
             print2("An eerie pool of water.");
@@ -161,7 +161,7 @@ void examine()
           print2("Wow, I haven't the faintest idea!");
           break;
         }
-      if ((ol = Level->site[x][y].things) != NULL && !loc_statusp(x, y, SECRET))
+      if ((ol = level->site[x][y].things) != NULL && !loc_statusp(x, y, SECRET))
       {
         if (ol->next == NULL)
           print3(itemid(ol->thing));
@@ -316,7 +316,7 @@ void fire()
     else
     {
       do_object_los(obj->objchar, &x1, &y1, x2, y2);
-      if ((m = Level->site[x1][y1].creature) != NULL)
+      if ((m = level->site[x1][y1].creature) != NULL)
       {
         if (obj->dmg == 0)
         {
@@ -652,7 +652,7 @@ void vault()
     else if (distance(x, y, Player.x, Player.y) >
              max(2, statmod(Player.agi) + 2) + jumper)
       print3("The jump is too far for you.");
-    else if (Level->site[x][y].creature != NULL)
+    else if (level->site[x][y].creature != NULL)
       print3("You can't jump on another creature.");
     else if (!p_moveable(x, y))
       print3("You can't jump there.");
@@ -667,9 +667,9 @@ void vault()
         setgamestatus(SKIP_PLAYER);
         p_damage((Player.itemweight / 250), UNSTOPPABLE, "clumsiness");
       }
-      p_movefunction(Level->site[Player.x][Player.y].p_locf);
+      p_movefunction(level->site[Player.x][Player.y].p_locf);
       if (Current_Environment != E_COUNTRYSIDE)
-        if ((Level->site[Player.x][Player.y].things != NULL) &&
+        if ((level->site[Player.x][Player.y].things != NULL) &&
             (optionp(PICKUP)))
           pickup();
     }
@@ -905,14 +905,14 @@ void pickpocket()
     dy = Dirs[1][index];
 
     if ((!inbounds(Player.x + dx, Player.y + dy)) ||
-        (Level->site[Player.x + dx][Player.y + dy].creature == NULL))
+        (level->site[Player.x + dx][Player.y + dy].creature == NULL))
     {
       print3("There's nothing there to steal from!!!");
       setgamestatus(SKIP_MONSTERS);
     }
     else
     {
-      m = Level->site[Player.x + dx][Player.y + dy].creature;
+      m = level->site[Player.x + dx][Player.y + dy].creature;
       if (m->id == GUARD)
       {
         mprint("Trying to steal from a guardsman, eh?");
@@ -999,14 +999,14 @@ void tunnel()
     oy = Player.y + Dirs[1][dir];
     if (loc_statusp(ox, oy, SECRET))
       mprint("You have no success as yet.");
-    else if (Level->site[ox][oy].locchar != WALL)
+    else if (level->site[ox][oy].locchar != WALL)
     {
       print3("You can't tunnel through that!");
       setgamestatus(SKIP_MONSTERS);
     }
     else
     {
-      aux = Level->site[ox][oy].aux;
+      aux = level->site[ox][oy].aux;
       if (random_range(20) == 1)
       {
         if (Player.possessions[O_WEAPON_HAND] == NULL)
@@ -1031,8 +1031,8 @@ void tunnel()
         {
           mprint("You carve a tunnel through the stone!");
           tunnelcheck();
-          Level->site[ox][oy].locchar = RUBBLE;
-          Level->site[ox][oy].p_locf = L_RUBBLE;
+          level->site[ox][oy].locchar = RUBBLE;
+          level->site[ox][oy].p_locf = L_RUBBLE;
           lset(ox, oy, CHANGED);
         }
         else
@@ -1046,8 +1046,8 @@ void tunnel()
         {
           mprint("You carve a tunnel through the stone!");
           tunnelcheck();
-          Level->site[ox][oy].locchar = RUBBLE;
-          Level->site[ox][oy].p_locf = L_RUBBLE;
+          level->site[ox][oy].locchar = RUBBLE;
+          level->site[ox][oy].p_locf = L_RUBBLE;
           lset(ox, oy, CHANGED);
         }
         else
@@ -1058,8 +1058,8 @@ void tunnel()
       {
         mprint("You carve a tunnel through the stone!");
         tunnelcheck();
-        Level->site[ox][oy].locchar = RUBBLE;
-        Level->site[ox][oy].p_locf = L_RUBBLE;
+        level->site[ox][oy].locchar = RUBBLE;
+        level->site[ox][oy].p_locf = L_RUBBLE;
         lset(ox, oy, CHANGED);
       }
       else
@@ -1177,9 +1177,9 @@ void dismount_steed()
     ml->m->x = Player.x;
     ml->m->y = Player.y;
     ml->m->status = MOBILE + SWIMMING;
-    ml->next = Level->mlist;
-    Level->site[Player.x][Player.y].creature = ml->m;
-    Level->mlist = ml;
+    ml->next = level->mlist;
+    level->site[Player.x][Player.y].creature = ml->m;
+    level->mlist = ml;
   }
   calc_melee();
 }
@@ -1200,7 +1200,7 @@ void city_move()
     setgamestatus(SKIP_MONSTERS);
     print3("You can't move this way with hostile monsters around!");
   }
-  else if (Level->site[Player.x][Player.y].aux == NOCITYMOVE)
+  else if (level->site[Player.x][Player.y].aux == NOCITYMOVE)
     print3("You can't use the 'M' command from this location.");
   else
   {
@@ -1232,7 +1232,7 @@ void city_move()
       mprint("Made it!");
       drawvision(Player.x, Player.y);
       morewait();
-      p_movefunction(Level->site[x][y].p_locf);
+      p_movefunction(level->site[x][y].p_locf);
     }
   }
 }

@@ -55,17 +55,17 @@ struct player Player; /* the player */
 struct player Player = {0};                        /* the player */
 #endif
 #ifndef MSDOS_SUPPORTED_ANTIQUE
-struct terrain Country[MAXWIDTH][MAXLENGTH]; /* The countryside */
+Terrain Country[MAXWIDTH][MAXLENGTH]; /* The countryside */
 #else
-struct terrain Country[MAXWIDTH][MAXLENGTH] = {0}; /* The countryside */
+Terrain Country[MAXWIDTH][MAXLENGTH] = {0}; /* The countryside */
 #endif
 #ifdef SAVE_LEVELS
-struct level TheLevel;
+Level TheLevel;
 #endif
-struct level *City = NULL;            /* The city of Rampart */
-struct level *TempLevel = NULL;       /* Place holder */
-struct level *Level = NULL;           /* Pointer to current Level */
-struct level *Dungeon = NULL;         /* Pointer to current Dungeon */
+Level *City = NULL;            /* The city of Rampart */
+Level *tempLevel = NULL;       /* Place holder */
+Level *level = NULL;           /* Pointer to current Level */
+Level *Dungeon = NULL;         /* Pointer to current Dungeon */
 int Villagenum = 0;                   /* Current Village number */
 int ScreenOffset = 0;                 /* Offset of displayed screen to level */
 int MaxDungeonLevels = 0;             /* Deepest level allowed in dungeon */
@@ -337,7 +337,7 @@ int main(int argc, char* argv[])
   timeprint();
   calc_melee();
   if (Current_Environment != E_COUNTRYSIDE)
-    showroom(Level->site[Player.x][Player.y].roomnumber);
+    showroom(level->site[Player.x][Player.y].roomnumber);
   else
     terrain_check(FALSE);
 
@@ -385,7 +385,7 @@ void init_world()
 {
   int env, i;
 
-  City = Level = TempLevel = Dungeon = NULL;
+  City = level = tempLevel = Dungeon = NULL;
   for (env = 0; env <= E_MAX; env++)
     level_seed[env] = RANDFUNCTION();
   load_country();
@@ -396,7 +396,7 @@ void init_world()
   LENGTH = 64;
   Player.x = 62;
   Player.y = 21;
-  Level = City;
+  level = City;
   Current_Environment = E_CITY;
   print1("You pass through the massive gates of Rampart, the city.");
 }

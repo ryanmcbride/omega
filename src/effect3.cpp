@@ -25,26 +25,26 @@ void summon(int blessing, int id)
     x = Player.x + Dirs[0][i];
     y = Player.y + Dirs[1][i];
     looking = ((!inbounds(x, y)) ||
-               (Level->site[x][y].locchar != FLOOR) ||
-               (Level->site[x][y].creature != NULL));
+               (level->site[x][y].locchar != FLOOR) ||
+               (level->site[x][y].creature != NULL));
   }
 
   if (!looking)
   {
     if ((blessing == 0) && (id < 0))
-      Level->site[x][y].creature = m_create(x, y, WANDERING, difficulty());
+      level->site[x][y].creature = m_create(x, y, WANDERING, difficulty());
     else
-      Level->site[x][y].creature = make_creature(id);
-    Level->site[x][y].creature->x = x;
-    Level->site[x][y].creature->y = y;
+      level->site[x][y].creature = make_creature(id);
+    level->site[x][y].creature->x = x;
+    level->site[x][y].creature->y = y;
     tml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
-    tml->m = Level->site[x][y].creature;
+    tml->m = level->site[x][y].creature;
     if (blessing > 0)
       m_status_reset(tml->m, HOSTILE);
     else if (blessing < 0)
       m_status_set(tml->m, HOSTILE);
-    tml->next = Level->mlist;
-    Level->mlist = tml;
+    tml->next = level->mlist;
+    level->mlist = tml;
   }
 }
 
@@ -157,9 +157,9 @@ void annihilate(int blessing)
   {
     mprint("Lightning strikes flash all around you!!!");
     for (i = 0; i < 9; i++)
-      if (Level->site[Player.x + Dirs[0][i]][Player.y + Dirs[1][i]].creature !=
+      if (level->site[Player.x + Dirs[0][i]][Player.y + Dirs[1][i]].creature !=
           NULL)
-        m_death(Level->site[Player.x + Dirs[0][i]][Player.y + Dirs[1][i]].creature);
+        m_death(level->site[Player.x + Dirs[0][i]][Player.y + Dirs[1][i]].creature);
   }
   if (blessing > 0)
   {
@@ -175,7 +175,7 @@ void annihilate(int blessing)
     else
     {
       mprint("Thousands of bolts of lightning flash throughout the level!!!");
-      for (ml = Level->mlist; ml != NULL; ml = ml->next)
+      for (ml = level->mlist; ml != NULL; ml = ml->next)
         if (ml->m != NULL && ml->m->hp > 0)
           m_death(ml->m);
     }
@@ -201,7 +201,7 @@ void sleep_monster(int blessing)
   else if (blessing > 0)
   {
     mprint("A silence pervades the area.");
-    for (ml = Level->mlist; ml != NULL; ml = ml->next)
+    for (ml = level->mlist; ml != NULL; ml = ml->next)
     {
       m_status_reset(ml->m, AWAKE);
       ml->m->wakeup = 0;
@@ -209,7 +209,7 @@ void sleep_monster(int blessing)
   }
   else
   {
-    target = Level->site[x][y].creature;
+    target = level->site[x][y].creature;
     if (target != NULL)
     {
       if (target->uniqueness == COMMON)
@@ -270,7 +270,7 @@ void clairvoyance(int vision)
     {
       if (inbounds(i, j))
       {
-        Level->site[i][j].showchar = SPACE;
+        level->site[i][j].showchar = SPACE;
         lreset(i, j, SECRET);
         lset(i, j, CHANGED);
         dodrawspot(i, j);
@@ -283,7 +283,7 @@ void aggravate()
 {
   Monsterlist* tm;
 
-  for (tm = Level->mlist; tm != NULL; tm = tm->next)
+  for (tm = level->mlist; tm != NULL; tm = tm->next)
   {
     m_status_set(tm->m, AWAKE);
     m_status_set(tm->m, HOSTILE);
@@ -370,7 +370,7 @@ void disrupt(int x, int y, int amount)
   }
   else
   {
-    target = Level->site[x][y].creature;
+    target = level->site[x][y].creature;
     if (target != NULL)
     {
       if (target->uniqueness == COMMON)
@@ -424,7 +424,7 @@ void disintegrate(int x, int y)
   {
     if (!view_los_p(Player.x, Player.y, x, y))
       setgamestatus(SUPPRESS_PRINTING);
-    if ((target = Level->site[x][y].creature) != NULL)
+    if ((target = level->site[x][y].creature) != NULL)
     {
       if (target->uniqueness == COMMON)
       {
@@ -439,71 +439,71 @@ void disintegrate(int x, int y)
       if (target->hp > 0)
         mprint("It was partially protected by its armor.");
     }
-    else if (Level->site[x][y].locchar == ALTAR)
+    else if (level->site[x][y].locchar == ALTAR)
     {
       mprint("Zzzzap! the altar seems unaffected...");
       mprint("But an angry deity retaliates....");
       disintegrate(Player.x, Player.y);
     }
-    else if (Level->site[x][y].p_locf == L_TRAP_PIT)
+    else if (level->site[x][y].p_locf == L_TRAP_PIT)
     {
       if (Current_Environment == Current_Dungeon)
       {
         mprint("A hole is blasted in the base of the pit!");
-        Level->site[x][y].locchar = TRAP;
-        Level->site[x][y].p_locf = L_TRAP_DOOR;
-        Level->site[x][y].aux = S_DISINTEGRATE;
+        level->site[x][y].locchar = TRAP;
+        level->site[x][y].p_locf = L_TRAP_DOOR;
+        level->site[x][y].aux = S_DISINTEGRATE;
         lset(x, y, CHANGED);
       }
       else
         mprint("The hole just gets deeper....");
     }
-    else if (Level->site[x][y].locchar == FLOOR)
+    else if (level->site[x][y].locchar == FLOOR)
     {
       mprint("You zap a hole in the floor!");
-      Level->site[x][y].locchar = TRAP;
-      Level->site[x][y].p_locf = L_TRAP_PIT;
+      level->site[x][y].locchar = TRAP;
+      level->site[x][y].p_locf = L_TRAP_PIT;
       lset(x, y, CHANGED);
     }
-    else if ((Level->site[x][y].locchar == WALL) ||
-             (Level->site[x][y].locchar == OPEN_DOOR) ||
-             (Level->site[x][y].locchar == CLOSED_DOOR) ||
-             (Level->site[x][y].locchar == PORTCULLIS) ||
-             (Level->site[x][y].locchar == STATUE))
+    else if ((level->site[x][y].locchar == WALL) ||
+             (level->site[x][y].locchar == OPEN_DOOR) ||
+             (level->site[x][y].locchar == CLOSED_DOOR) ||
+             (level->site[x][y].locchar == PORTCULLIS) ||
+             (level->site[x][y].locchar == STATUE))
     {
       mprint("The site is reduced to rubble!");
-      if (Level->site[x][y].locchar == WALL)
+      if (level->site[x][y].locchar == WALL)
         tunnelcheck();
-      Level->site[x][y].p_locf = L_RUBBLE;
-      Level->site[x][y].locchar = RUBBLE;
+      level->site[x][y].p_locf = L_RUBBLE;
+      level->site[x][y].locchar = RUBBLE;
       lreset(x, y, SECRET);
       lset(x, y, CHANGED);
     }
-    else if ((Level->site[x][y].locchar == RUBBLE) ||
-             (Level->site[x][y].locchar == TRAP))
+    else if ((level->site[x][y].locchar == RUBBLE) ||
+             (level->site[x][y].locchar == TRAP))
     {
       mprint("The site is blasted clear!");
-      Level->site[x][y].p_locf = L_NO_OP;
-      Level->site[x][y].locchar = FLOOR;
+      level->site[x][y].p_locf = L_NO_OP;
+      level->site[x][y].locchar = FLOOR;
       lreset(x, y, SECRET);
       lset(x, y, CHANGED);
     }
-    else if (Level->site[x][y].locchar == HEDGE)
+    else if (level->site[x][y].locchar == HEDGE)
     {
-      if (Level->site[x][y].p_locf == L_TRIFID)
+      if (level->site[x][y].p_locf == L_TRIFID)
       {
         mprint("The trifid screams as it disintgrates!");
         gain_experience(50);
-        Level->site[x][y].p_locf = L_NO_OP;
-        Level->site[x][y].locchar = FLOOR;
+        level->site[x][y].p_locf = L_NO_OP;
+        level->site[x][y].locchar = FLOOR;
         lreset(x, y, SECRET);
         lset(x, y, CHANGED);
       }
       else
       {
         mprint("The hedge is blasted away!");
-        Level->site[x][y].p_locf = L_NO_OP;
-        Level->site[x][y].locchar = FLOOR;
+        level->site[x][y].p_locf = L_NO_OP;
+        level->site[x][y].locchar = FLOOR;
         lreset(x, y, SECRET);
         lset(x, y, CHANGED);
       }
@@ -553,8 +553,8 @@ void p_teleport(int type)
   {
     x = random_range(WIDTH);
     y = random_range(LENGTH);
-    if ((Level->site[x][y].locchar != FLOOR) &&
-        (Level->site[x][y].locchar != OPEN_DOOR))
+    if ((level->site[x][y].locchar != FLOOR) &&
+        (level->site[x][y].locchar != OPEN_DOOR))
     {
       mprint("You teleported into a solid object....");
       mprint("You are dead!");
@@ -571,8 +571,8 @@ void p_teleport(int type)
   else
   {
     setspot(&Player.x, &Player.y);
-    if ((Level->site[Player.x][Player.y].locchar != FLOOR) ||
-        (Level->site[Player.x][Player.y].creature != NULL))
+    if ((level->site[Player.x][Player.y].locchar != FLOOR) ||
+        (level->site[Player.x][Player.y].creature != NULL))
     {
       mprint("You feel deflected.");
       p_teleport(0);
@@ -599,7 +599,7 @@ void apport(int blessing)
   {
     mprint("Apport from:");
     setspot(&x, &y);
-    if (Level->site[x][y].things != NULL)
+    if (level->site[x][y].things != NULL)
     {
       pickup_at(x, y);
       plotspot(x, y, TRUE);
@@ -808,10 +808,10 @@ void level_return()
   if (Current_Environment == Current_Dungeon)
   {
     mprint("The vortex of mana carries you off!");
-    if (Level->depth > 1)
-      change_level(Level->depth, 1, FALSE);
+    if (level->depth > 1)
+      change_level(level->depth, 1, FALSE);
     else
-      change_level(Level->depth, deepest[Current_Environment], FALSE);
+      change_level(level->depth, deepest[Current_Environment], FALSE);
   }
   else if (Current_Environment == E_COUNTRYSIDE)
   {
@@ -926,33 +926,33 @@ void dispel(int blessing)
           }
       }
     }
-    else if (Level->site[x][y].creature != NULL)
+    else if (level->site[x][y].creature != NULL)
     {
-      if (Level->site[x][y].creature->level < blessing * 3)
+      if (level->site[x][y].creature->level < blessing * 3)
       {
-        Level->site[x][y].creature->specialf = M_NO_OP;
-        if (Level->site[x][y].creature->meleef != M_NO_OP)
-          Level->site[x][y].creature->meleef = M_MELEE_NORMAL;
-        Level->site[x][y].creature->strikef = M_NO_OP;
-        Level->site[x][y].creature->immunity = 0;
-        m_status_reset(Level->site[x][y].creature, M_INVISIBLE);
-        m_status_reset(Level->site[x][y].creature, INTANGIBLE);
+        level->site[x][y].creature->specialf = M_NO_OP;
+        if (level->site[x][y].creature->meleef != M_NO_OP)
+          level->site[x][y].creature->meleef = M_MELEE_NORMAL;
+        level->site[x][y].creature->strikef = M_NO_OP;
+        level->site[x][y].creature->immunity = 0;
+        m_status_reset(level->site[x][y].creature, M_INVISIBLE);
+        m_status_reset(level->site[x][y].creature, INTANGIBLE);
       }
       else
         mprint("The monster ignores the effect!");
     }
-    else if ((Level->site[x][y].p_locf == L_TRAP_FIRE) ||
-             (Level->site[x][y].p_locf == L_STATUE_WAKE) ||
-             (Level->site[x][y].p_locf == L_TRAP_TELEPORT) ||
-             (Level->site[x][y].p_locf == L_TRAP_DISINTEGRATE))
+    else if ((level->site[x][y].p_locf == L_TRAP_FIRE) ||
+             (level->site[x][y].p_locf == L_STATUE_WAKE) ||
+             (level->site[x][y].p_locf == L_TRAP_TELEPORT) ||
+             (level->site[x][y].p_locf == L_TRAP_DISINTEGRATE))
     {
-      Level->site[x][y].p_locf = L_NO_OP;
-      if (Level->site[x][y].locchar == TRAP)
-        Level->site[x][y].locchar = FLOOR;
+      level->site[x][y].p_locf = L_NO_OP;
+      if (level->site[x][y].locchar == TRAP)
+        level->site[x][y].locchar = FLOOR;
       lset(x, y, CHANGED);
     }
-    else if (Level->site[x][y].p_locf == L_MAGIC_POOL)
-      Level->site[x][y].p_locf = L_WATER;
+    else if (level->site[x][y].p_locf == L_MAGIC_POOL)
+      level->site[x][y].p_locf = L_WATER;
     else
       mprint("Nothing much seems to happen.");
   }
@@ -1001,7 +1001,7 @@ void polymorph(int blessing)
     mprint("But your game is over....");
     p_death("polymorphing oneself");
   }
-  else if ((m = Level->site[x][y].creature) == NULL)
+  else if ((m = level->site[x][y].creature) == NULL)
     mprint("Nothing happens.");
   else
   {
@@ -1073,7 +1073,7 @@ void hellfire(int x, int y, int blessing)
     mprint("You have been completely annihilated. Congratulations.");
     p_death("hellfire");
   }
-  else if ((m = Level->site[x][y].creature) == NULL)
+  else if ((m = level->site[x][y].creature) == NULL)
   {
     mprint("The gods are angry over your waste of power...");
     level_drain(5, "indiscriminate use of hellfire");
@@ -1120,7 +1120,7 @@ void drain(int blessing)
     mprint("Uh, oh, positive feedback....");
     level_drain(Player.level, "self-vampirism");
   }
-  else if ((m = Level->site[x][y].creature) != NULL)
+  else if ((m = level->site[x][y].creature) != NULL)
   {
     if ((blessing > -1) && (!m_immunityp(m, NEGENERGY)))
     {
@@ -1153,11 +1153,11 @@ void drain(int blessing)
     mprint("You seem to lose energy, instead of gaining it!");
     level_drain(3, "reversed energy drain");
   }
-  else if (Level->site[x][y].locchar == ALTAR)
+  else if (level->site[x][y].locchar == ALTAR)
   {
     mprint("The altar collapses in on itself....");
-    Level->site[x][y].locchar = ABYSS;
-    Level->site[x][y].p_locf = L_ABYSS;
+    level->site[x][y].locchar = ABYSS;
+    level->site[x][y].p_locf = L_ABYSS;
     lset(x, y, CHANGED);
     if (!Player.patron)
     {
@@ -1166,7 +1166,7 @@ void drain(int blessing)
       Player.hp += 20;
       Player.pow += 2;
     }
-    if (Level->site[x][y].aux == Player.patron)
+    if (level->site[x][y].aux == Player.patron)
     {
       mprint("Your deity is enraged.");
       mprint("You are struck by godsfire.");
@@ -1195,7 +1195,7 @@ void drain(int blessing)
 
 void sanctuary()
 {
-  if (Level->environment == E_TEMPLE)
+  if (level->environment == E_TEMPLE)
     mprint("Odd, the spell has no effect. I wonder why.");
   else
   {
@@ -1228,7 +1228,7 @@ void shadowform()
 
 void illuminate(int blessing)
 {
-  int r = Level->site[Player.x][Player.y].roomnumber;
+  int r = level->site[Player.x][Player.y].roomnumber;
   if (blessing > -1)
   {
     if (r > ROOMBASE)
@@ -1241,7 +1241,7 @@ void illuminate(int blessing)
         Player.status[ILLUMINATION] += blessing + 3;
         spreadroomlight(Player.x,
                         Player.y,
-                        Level->site[Player.x][Player.y].roomnumber);
+                        level->site[Player.x][Player.y].roomnumber);
       }
     }
     else
@@ -1258,7 +1258,7 @@ void illuminate(int blessing)
         mprint("The room darkens!");
         spreadroomdark(Player.x,
                        Player.y,
-                       Level->site[Player.x][Player.y].roomnumber);
+                       level->site[Player.x][Player.y].roomnumber);
       }
     }
     else
@@ -1310,7 +1310,7 @@ void inflict_fear(int x, int y)
       Player.status[AFRAID] += 10;
     }
   }
-  else if ((m = Level->site[x][y].creature) != NULL)
+  else if ((m = level->site[x][y].creature) != NULL)
   {
     if (m->uniqueness == COMMON)
     {

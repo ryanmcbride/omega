@@ -21,22 +21,22 @@ void load_abyss()
 
     FILE *fd;
 
-    TempLevel = Level;
-    if (ok_to_free(TempLevel))
+    tempLevel = level;
+    if (ok_to_free(tempLevel))
     {
 #ifndef SAVE_LEVELS
-        free_level(TempLevel);
+        free_level(tempLevel);
 #endif
-        TempLevel = NULL;
+        tempLevel = NULL;
     }
 #ifndef SAVE_LEVELS
-    Level = ((plv)checkmalloc(sizeof(levtype)));
+    level = ((Level*)checkmalloc(sizeof(Level)));
 #else
     msdos_changelevel(TempLevel, 0, -1);
     Level = &TheLevel;
 #endif
 
-    clear_level(Level);
+    clear_level(level);
 
     strcpy(Str3, Omegalib);
     strcat(Str3, "abyss.dat");
@@ -47,50 +47,50 @@ void load_abyss()
         for (i = 0; i < WIDTH; i++)
         {
             site = getc(fd) ^ site;
-            Level->site[i][j].roomnumber = RS_ADEPT;
+            level->site[i][j].roomnumber = RS_ADEPT;
             switch (site)
             {
             case '0':
-                Level->site[i][j].locchar = VOID_CHAR;
-                Level->site[i][j].p_locf = L_VOID;
+                level->site[i][j].locchar = VOID_CHAR;
+                level->site[i][j].p_locf = L_VOID;
                 break;
             case 'V':
-                Level->site[i][j].locchar = VOID_CHAR;
-                Level->site[i][j].p_locf = L_VOID_STATION;
+                level->site[i][j].locchar = VOID_CHAR;
+                level->site[i][j].p_locf = L_VOID_STATION;
                 break;
             case '1':
-                Level->site[i][j].locchar = FLOOR;
-                Level->site[i][j].p_locf = L_VOICE1;
+                level->site[i][j].locchar = FLOOR;
+                level->site[i][j].p_locf = L_VOICE1;
                 break;
             case '2':
-                Level->site[i][j].locchar = FLOOR;
-                Level->site[i][j].p_locf = L_VOICE2;
+                level->site[i][j].locchar = FLOOR;
+                level->site[i][j].p_locf = L_VOICE2;
                 break;
             case '3':
-                Level->site[i][j].locchar = FLOOR;
-                Level->site[i][j].p_locf = L_VOICE3;
+                level->site[i][j].locchar = FLOOR;
+                level->site[i][j].p_locf = L_VOICE3;
                 break;
             case '~':
-                Level->site[i][j].locchar = WATER;
-                Level->site[i][j].p_locf = L_WATER_STATION;
+                level->site[i][j].locchar = WATER;
+                level->site[i][j].p_locf = L_WATER_STATION;
                 break;
             case ';':
-                Level->site[i][j].locchar = FIRE;
-                Level->site[i][j].p_locf = L_FIRE_STATION;
+                level->site[i][j].locchar = FIRE;
+                level->site[i][j].p_locf = L_FIRE_STATION;
                 break;
             case '"':
-                Level->site[i][j].locchar = HEDGE;
-                Level->site[i][j].p_locf = L_EARTH_STATION;
+                level->site[i][j].locchar = HEDGE;
+                level->site[i][j].p_locf = L_EARTH_STATION;
                 break;
             case '6':
-                Level->site[i][j].locchar = WHIRLWIND;
-                Level->site[i][j].p_locf = L_AIR_STATION;
+                level->site[i][j].locchar = WHIRLWIND;
+                level->site[i][j].p_locf = L_AIR_STATION;
                 break;
             case '#':
-                Level->site[i][j].locchar = WALL;
+                level->site[i][j].locchar = WALL;
                 break;
             case '.':
-                Level->site[i][j].locchar = FLOOR;
+                level->site[i][j].locchar = FLOOR;
                 break;
             }
         }
@@ -108,7 +108,7 @@ void msdos_init()
 
     /* Allocate the inner level of pointers for TheLevel */
     for (i = 0; i < MAXWIDTH; i++)
-        TheLevel.site[i] = (plc)checkmalloc(MAXLENGTH * sizeof(loctype));
+        TheLevel.site[i] = (Location*)checkmalloc(MAXLENGTH * sizeof(loctype));
 
     /* Remove old level files */
     kill_all_levels();
@@ -172,8 +172,8 @@ static FILE *open_levfile(env, depth, rw) int env, depth, rw;
 
 /* Saves oldlevel (unless NULL), and reads in the new level,
    unless depth is < 0. */
-plv msdos_changelevel(oldlevel, newenv, newdepth)
-    plv oldlevel;
+Level* msdos_changelevel(oldlevel, newenv, newdepth)
+    Level* oldlevel;
 int newenv, newdepth;
 {
     FILE *fp;

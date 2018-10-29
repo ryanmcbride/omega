@@ -235,7 +235,7 @@ void m_vanish(monster* m)
     strcpy(Str2, m->monstring);
   strcat(Str2, " vanishes in the twinkling of an eye!");
   mprint(Str2);
-  Level->site[m->x][m->y].creature = NULL;
+  level->site[m->x][m->y].creature = NULL;
   erase_monster(m);
   m->hp = -1; /* signals "death" -- no credit to player, though */
 }
@@ -246,10 +246,10 @@ void m_teleport(monster* m)
   erase_monster(m);
   if (m_statusp(m, AWAKE))
   {
-    Level->site[m->x][m->y].creature = NULL;
+    level->site[m->x][m->y].creature = NULL;
     putspot(m->x, m->y, getspot(m->x, m->y, FALSE));
     findspace(&(m->x), &(m->y), -1);
-    Level->site[m->x][m->y].creature = m;
+    level->site[m->x][m->y].creature = m;
   }
 }
 
@@ -263,18 +263,18 @@ void m_move_leash(monster* m)
   }
   else if (distance(m->x, m->y, m->aux1, m->aux2) > 5)
   {
-    if (Level->site[m->aux1][m->aux2].creature != NULL)
+    if (level->site[m->aux1][m->aux2].creature != NULL)
     {
       if (los_p(Player.x, Player.y, m->aux1, m->aux2))
       {
         /* some other monster is where the chain starts */
-        if (Level->site[m->aux1][m->aux2].creature->uniqueness == COMMON)
+        if (level->site[m->aux1][m->aux2].creature->uniqueness == COMMON)
         {
           strcpy(Str1, "The ");
-          strcat(Str1, Level->site[m->aux1][m->aux2].creature->monstring);
+          strcat(Str1, level->site[m->aux1][m->aux2].creature->monstring);
         }
         else
-          strcpy(Str1, Level->site[m->aux1][m->aux2].creature->monstring);
+          strcpy(Str1, level->site[m->aux1][m->aux2].creature->monstring);
         strcat(Str1, " releases the dog's chain!");
         mprint(Str1);
       }
@@ -288,9 +288,9 @@ void m_move_leash(monster* m)
     }
     else
       mprint("You hear a strangled sort of yelp!");
-    Level->site[m->x][m->y].creature = NULL;
+    level->site[m->x][m->y].creature = NULL;
     m->x = m->aux1;
     m->y = m->aux2;
-    Level->site[m->x][m->y].creature = m;
+    level->site[m->x][m->y].creature = m;
   }
 }

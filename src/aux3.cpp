@@ -74,7 +74,7 @@ void indoors_random_event()
   case 4:
     print3("A mysterious healing flux settles over the level.");
     morewait();
-    for (ml = Level->mlist; ml != NULL; ml = ml->next)
+    for (ml = level->mlist; ml != NULL; ml = ml->next)
       if (ml->m->hp > 0)
         ml->m->hp = Monsters[ml->m->id].hp;
     Player.hp = max(Player.hp, Player.maxhp);
@@ -110,8 +110,8 @@ void indoors_random_event()
     ol = ((pol)checkmalloc(sizeof(oltype)));
     ol->thing = create_object(difficulty()); /* FIXED!  12/30/98 */
     assert(ol->thing);                       /* WDT I want to make sure... */
-    ol->next = Level->site[Player.x][Player.y].things;
-    Level->site[Player.x][Player.y].things = ol;
+    ol->next = level->site[Player.x][Player.y].things;
+    level->site[Player.x][Player.y].things = ol;
     pickup();
     break;
   case 11:
@@ -1052,8 +1052,8 @@ int hostilemonstersnear()
   for (i = Player.x - 2; ((i < Player.x + 3) && (!hostile)); i++)
     for (j = Player.y - 2; ((j < Player.y + 3) && (!hostile)); j++)
       if (inbounds(i, j))
-        if (Level->site[i][j].creature != NULL)
-          hostile = m_statusp(Level->site[i][j].creature, HOSTILE);
+        if (level->site[i][j].creature != NULL)
+          hostile = m_statusp(level->site[i][j].creature, HOSTILE);
 
   return (hostile);
 }
@@ -1264,7 +1264,7 @@ void alert_guards()
   int foundguard = FALSE;
   Monsterlist* ml;
   int suppress = 0;
-  for (ml = Level->mlist; ml != NULL; ml = ml->next)
+  for (ml = level->mlist; ml != NULL; ml = ml->next)
     if (((ml->m->id == GUARD) ||
          ((ml->m->id == HISCORE_NPC) && (ml->m->aux2 == 15))) && /*justiciar*/
         (ml->m->hp > 0))
@@ -1277,7 +1277,7 @@ void alert_guards()
   {
     mprint("You hear a whistle and the sound of running feet!");
     if (Current_Environment == E_CITY)
-      Level->site[40][60].p_locf = L_NO_OP; /* pacify_guards restores this */
+      level->site[40][60].p_locf = L_NO_OP; /* pacify_guards restores this */
   }
   if ((!foundguard) && (Current_Environment == E_CITY) &&
       !gamestatusp(DESTROYED_ORDER))
@@ -1328,7 +1328,7 @@ void destroy_order()
 {
   int i, j;
   setgamestatus(DESTROYED_ORDER);
-  if (Level != City)
+  if (level != City)
     print1("Zounds! A Serious Mistake!");
   else
     for (i = 35; i < 46; i++)
@@ -1337,24 +1337,24 @@ void destroy_order()
         if (i == 40 && (j == 60 || j == 61))
         {
           lreset(i, j, SECRET);
-          Level->site[i][j].locchar = FLOOR;
-          Level->site[i][j].p_locf = L_NO_OP;
+          level->site[i][j].locchar = FLOOR;
+          level->site[i][j].p_locf = L_NO_OP;
           lset(i, j, CHANGED);
         }
         else
         {
-          Level->site[i][j].locchar = RUBBLE;
-          Level->site[i][j].p_locf = L_RUBBLE;
+          level->site[i][j].locchar = RUBBLE;
+          level->site[i][j].p_locf = L_RUBBLE;
           lset(i, j, CHANGED);
         }
-        if (Level->site[i][j].creature != NULL)
+        if (level->site[i][j].creature != NULL)
         {
-          Level->site[i][j].creature->hp = -1;
-          Level->site[i][j].creature = NULL;
+          level->site[i][j].creature->hp = -1;
+          level->site[i][j].creature = NULL;
         }
         make_site_monster(i, j, GHOST);
-        Level->site[i][j].creature->monstring = "ghost of a Paladin";
-        m_status_set(Level->site[i][j].creature, HOSTILE);
+        level->site[i][j].creature->monstring = "ghost of a Paladin";
+        m_status_set(level->site[i][j].creature, HOSTILE);
       }
 }
 

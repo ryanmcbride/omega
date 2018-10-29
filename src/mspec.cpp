@@ -403,7 +403,7 @@ void m_sp_blackout(monster* m)
     torch_check();
     torch_check();
     torch_check();
-    spreadroomdark(m->x, m->y, Level->site[m->x][m->y].roomnumber);
+    spreadroomdark(m->x, m->y, level->site[m->x][m->y].roomnumber);
     levelrefresh();
   }
 }
@@ -497,16 +497,16 @@ void m_sp_lw(monster* m)
 {
   if (random_range(2))
   {
-    if (Level->site[m->x][m->y].locchar == FLOOR)
+    if (level->site[m->x][m->y].locchar == FLOOR)
     {
-      Level->site[m->x][m->y].locchar = LAVA;
-      Level->site[m->x][m->y].p_locf = L_LAVA;
+      level->site[m->x][m->y].locchar = LAVA;
+      level->site[m->x][m->y].p_locf = L_LAVA;
       lset(m->x, m->y, CHANGED);
     }
-    else if (Level->site[m->x][m->y].locchar == WATER)
+    else if (level->site[m->x][m->y].locchar == WATER)
     {
-      Level->site[m->x][m->y].locchar = FLOOR;
-      Level->site[m->x][m->y].p_locf = L_NO_OP;
+      level->site[m->x][m->y].locchar = FLOOR;
+      level->site[m->x][m->y].p_locf = L_NO_OP;
       lset(m->x, m->y, CHANGED);
     }
   }
@@ -576,13 +576,13 @@ void m_sp_raise(monster* m)
   for (x = m->x - 2; x <= m->x + 2; x++)
     for (y = m->y - 2; y <= m->y + 2; y++)
       if (inbounds(x, y))
-        if (Level->site[x][y].things != NULL)
-          if (Level->site[x][y].things->thing->id == CORPSEID)
+        if (level->site[x][y].things != NULL)
+          if (level->site[x][y].things->thing->id == CORPSEID)
           {
             mprint("The Zombie Overlord makes a mystical gesture...");
-            summon(-1, Level->site[x][y].things->thing->charge);
-            t = Level->site[x][y].things;
-            Level->site[x][y].things = Level->site[x][y].things->next;
+            summon(-1, level->site[x][y].things->thing->charge);
+            t = level->site[x][y].things;
+            level->site[x][y].things = level->site[x][y].things->next;
             free((char *)t);
           }
 }
@@ -633,7 +633,7 @@ void m_sp_mirror(monster* m)
         y = m->y + random_range(13) - 6;
         if (inbounds(x, y))
         {
-          Level->site[x][y].showchar = m->monchar;
+          level->site[x][y].showchar = m->monchar;
           putspot(x, y, m->monchar);
         }
       }
@@ -744,7 +744,7 @@ void m_sp_merchant(monster* m)
     {
       mprint("The merchant screams: 'Help! Murder! Guards! Help!'");
       mprint("You hear the sound of police whistles and running feet.");
-      for (ml = Level->mlist; ml != NULL; ml = ml->next)
+      for (ml = level->mlist; ml != NULL; ml = ml->next)
       {
         m_status_set(ml->m, AWAKE);
         m_status_set(ml->m, HOSTILE);
@@ -761,7 +761,7 @@ void m_sp_court(monster* m)
   if (m_statusp(m, HOSTILE))
   {
     mprint("A storm of spells hits you!");
-    for (ml = Level->mlist; ml != NULL; ml = ml->next)
+    for (ml = level->mlist; ml != NULL; ml = ml->next)
     {
       m_status_set(ml->m, HOSTILE);
       m_sp_spell(ml->m);
@@ -780,7 +780,7 @@ void m_sp_lair(monster* m)
     mprint("You notice a number of dragons waking up....");
     mprint("You are struck by a quantity of firebolts.");
     morewait();
-    for (ml = Level->mlist; ml != NULL; ml = ml->next)
+    for (ml = level->mlist; ml != NULL; ml = ml->next)
       if (ml->m->hp > 0 && ml->m->specialf == M_SP_LAIR)
       {
         m_status_set(ml->m, HOSTILE);

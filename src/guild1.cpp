@@ -311,9 +311,9 @@ void l_castle()
         for (y = 52; y < 63; y++)
           for (x = 2; x < 52; x++)
           {
-            if (Level->site[x][y].p_locf == L_TRAP_SIREN)
+            if (level->site[x][y].p_locf == L_TRAP_SIREN)
             {
-              Level->site[x][y].p_locf = L_NO_OP;
+              level->site[x][y].p_locf = L_NO_OP;
               lset(x, y, CHANGED);
             }
             if (x >= 12 && loc_statusp(x, y, SECRET))
@@ -323,7 +323,7 @@ void l_castle()
             }
             if (x >= 20 && x <= 23 && y == 56)
             {
-              Level->site[x][y].locchar = FLOOR;
+              level->site[x][y].locchar = FLOOR;
               lset(x, y, CHANGED);
             }
           }

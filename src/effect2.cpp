@@ -372,9 +372,9 @@ void flux(int blessing)
   {
     mprint("You stagger as the very nature of reality warps!");
     erase_level();
-    Level->generated = FALSE;
+    level->generated = FALSE;
     mprint("The fabric of spacetime reknits....");
-    change_level(Level->depth - 1, Level->depth, TRUE);
+    change_level(level->depth - 1, level->depth, TRUE);
   }
 }
 
@@ -423,7 +423,7 @@ void warp(int blessing)
       newlevel = random_range(MaxDungeonLevels - 1) + 1;
     }
     mprint("You dematerialize...");
-    change_level(Level->depth, newlevel, FALSE);
+    change_level(level->depth, newlevel, FALSE);
   }
   roomcheck();
 }
@@ -625,44 +625,44 @@ void sanctify(int blessing)
 {
   if (blessing > -1)
   {
-    if (Level->environment == E_TEMPLE)
+    if (level->environment == E_TEMPLE)
       mprint("Odd, the spell has no effect. I wonder why.");
-    else if (Level->site[Player.x][Player.y].locchar == ALTAR)
+    else if (level->site[Player.x][Player.y].locchar == ALTAR)
       mprint("This site can't get any holier!");
     else if (Player.patron == 0)
     {
       mprint("The gods are angered!");
-      Level->site[Player.x][Player.y].locchar = LAVA;
-      Level->site[Player.x][Player.y].p_locf = L_LAVA;
+      level->site[Player.x][Player.y].locchar = LAVA;
+      level->site[Player.x][Player.y].p_locf = L_LAVA;
       lset(Player.x, Player.y, CHANGED);
       p_movefunction(L_LAVA);
     }
     else
     {
-      Level->site[Player.x][Player.y].locchar = ALTAR;
-      Level->site[Player.x][Player.y].aux = Player.patron;
-      Level->site[Player.x][Player.y].p_locf = L_ALTAR;
+      level->site[Player.x][Player.y].locchar = ALTAR;
+      level->site[Player.x][Player.y].aux = Player.patron;
+      level->site[Player.x][Player.y].p_locf = L_ALTAR;
       lset(Player.x, Player.y, CHANGED);
       mprint("You are standing on sacred ground!");
     }
   }
   else
   {
-    if (Level->site[Player.x][Player.y].locchar == ALTAR)
+    if (level->site[Player.x][Player.y].locchar == ALTAR)
     {
       mprint("The altar crumbles before your unholy blast....");
-      Level->site[Player.x][Player.y].locchar = FLOOR;
-      Level->site[Player.x][Player.y].p_locf = L_NO_OP;
+      level->site[Player.x][Player.y].locchar = FLOOR;
+      level->site[Player.x][Player.y].p_locf = L_NO_OP;
       lset(Player.x, Player.y, CHANGED);
-      if (Level->site[Player.x][Player.y].aux == Player.patron)
+      if (level->site[Player.x][Player.y].aux == Player.patron)
       {
         mprint("Your deity is not amused....");
         p_damage(Player.hp - 1, UNSTOPPABLE, "Divine Wrath");
       }
       else if ((Player.patron == ATHENA) || (Player.patron == ODIN))
       {
-        if ((Level->site[Player.x][Player.y].aux == SET) ||
-            (Level->site[Player.x][Player.y].aux == HECATE))
+        if ((level->site[Player.x][Player.y].aux == SET) ||
+            (level->site[Player.x][Player.y].aux == HECATE))
         {
           mprint("Your deity applauds the eradication of Chaos' taint");
           gain_experience(1000);
@@ -675,8 +675,8 @@ void sanctify(int blessing)
       }
       else if ((Player.patron == SET) || (Player.patron == HECATE))
       {
-        if ((Level->site[Player.x][Player.y].aux == ODIN) ||
-            (Level->site[Player.x][Player.y].aux == ATHENA))
+        if ((level->site[Player.x][Player.y].aux == ODIN) ||
+            (level->site[Player.x][Player.y].aux == ATHENA))
         {
           mprint("Your deity applauds the obliteration of Law");
           gain_experience(1000);

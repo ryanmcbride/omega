@@ -536,7 +536,7 @@ void i_desecrate(pob o)
     mprint("The structure of reality cannot permit such a thing....");
     dispose_lost_objects(1, o);
   }
-  else if (Level->site[Player.x][Player.y].locchar == ALTAR)
+  else if (level->site[Player.x][Player.y].locchar == ALTAR)
     sanctify(-1);
 }
 

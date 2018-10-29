@@ -49,23 +49,23 @@ extern long GameStatus;
 extern int ScreenLength;
 /* How large is level window */
 
-extern struct terrain Country[MAXWIDTH][MAXLENGTH];
+extern Terrain Country[MAXWIDTH][MAXLENGTH];
 /* The countryside */
 
 #ifdef MSDOS_SUPPORTED_ANTIQUE
-extern struct level TheLevel;
+extern Level TheLevel;
 #endif
 
-extern struct level *City;
+extern Level *City;
 /* The city of Rampart */
 
-extern struct level *TempLevel;
+extern Level *tempLevel;
 /* Place holder */
 
-extern struct level *Dungeon;
+extern Level *Dungeon;
 /* Pointer to current Dungeon */
 
-extern struct level *Level;
+extern Level *level;
 /* Pointer to current Level */
 
 extern int Current_Dungeon;

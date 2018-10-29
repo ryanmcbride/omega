@@ -223,7 +223,7 @@ void s_ritual()
       mprint("Appreciative citizens throw you spare change.");
       Player.cash += random_range(50);
     }
-    else if ((roomno = Level->site[Player.x][Player.y].roomnumber) >= 0)
+    else if ((roomno = level->site[Player.x][Player.y].roomnumber) >= 0)
     {
       if (RitualRoom == roomno)
         mprint("For some reason the ritual doesn't work this time...");
@@ -236,9 +236,9 @@ void s_ritual()
           mprint("Your spell sets off frenetic growth all around you!");
           for (i = 0; i < 8; i++)
           {
-            Level->site[Player.x + Dirs[0][i]][Player.y + Dirs[1][i]].locchar =
+            level->site[Player.x + Dirs[0][i]][Player.y + Dirs[1][i]].locchar =
                 HEDGE;
-            Level->site[Player.x + Dirs[0][i]][Player.y + Dirs[1][i]].p_locf =
+            level->site[Player.x + Dirs[0][i]][Player.y + Dirs[1][i]].p_locf =
                 L_TRIFID;
             lset(Player.x + Dirs[0][i], Player.y + Dirs[1][i], CHANGED);
           }
@@ -262,16 +262,16 @@ void s_ritual()
             mprint("The mana fades away to nothingness.");
           x = Player.x;
           y = Player.y;
-          while (x >= 0 && Level->site[x - 1][y].roomnumber == ROOMBASE + 26)
+          while (x >= 0 && level->site[x - 1][y].roomnumber == ROOMBASE + 26)
             x--;
-          while (y >= 0 && Level->site[x][y - 1].roomnumber == ROOMBASE + 26)
+          while (y >= 0 && level->site[x][y - 1].roomnumber == ROOMBASE + 26)
             y--;
-          for (i = 0; Level->site[x][y].roomnumber == ROOMBASE + 26;)
+          for (i = 0; level->site[x][y].roomnumber == ROOMBASE + 26;)
           {
-            Level->site[x][y].roomnumber = RS_ZORCH;
+            level->site[x][y].roomnumber = RS_ZORCH;
             x++;
             i++;
-            if (Level->site[x][y].roomnumber != ROOMBASE + 26)
+            if (level->site[x][y].roomnumber != ROOMBASE + 26)
             {
               x -= i;
               i = 0;
@@ -288,7 +288,7 @@ void s_ritual()
           mprint("A smoky form begins to coalesce....");
           summon(-1, -1);
           mprint("Fortunately, it seems confined to the pentagram.");
-          m_status_reset(Level->mlist->m, MOBILE);
+          m_status_reset(level->mlist->m, MOBILE);
           break;
         case ROOMBASE + 29: /* blue omega room */
           mprint("The Lords of Destiny look upon you....");
@@ -342,12 +342,12 @@ void s_ritual()
     }
     else
     {
-      if (RitualRoom == Level->site[Player.x][Player.y].roomnumber)
+      if (RitualRoom == level->site[Player.x][Player.y].roomnumber)
         mprint("The ritual fails for some unexplainable reason.");
       else
       {
         mprint("The ritual seems to be generating some spell effect.");
-        RitualRoom = Level->site[Player.x][Player.y].roomnumber;
+        RitualRoom = level->site[Player.x][Player.y].roomnumber;
         switch (RitualRoom)
         {
         case RS_WALLSPACE:

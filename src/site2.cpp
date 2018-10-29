@@ -216,7 +216,7 @@ void pacify_guards()
 {
   Monsterlist* ml;
 
-  for (ml = Level->mlist; ml != NULL; ml = ml->next)
+  for (ml = level->mlist; ml != NULL; ml = ml->next)
     if ((ml->m->id == GUARD) || /*guard*/
         ((ml->m->id == HISCORE_NPC) && (ml->m->aux2 == 15)))
     { /* justiciar */
@@ -224,24 +224,24 @@ void pacify_guards()
       ml->m->specialf = M_NO_OP;
       if (ml->m->id == GUARD && ml->m->hp > 0 && ml->m->aux1 > 0)
       {
-        if (Level->site[ml->m->x][ml->m->y].creature == ml->m)
-          Level->site[ml->m->x][ml->m->y].creature = NULL;
+        if (level->site[ml->m->x][ml->m->y].creature == ml->m)
+          level->site[ml->m->x][ml->m->y].creature = NULL;
         ml->m->x = ml->m->aux1;
         ml->m->y = ml->m->aux2;
-        Level->site[ml->m->x][ml->m->y].creature = ml->m;
+        level->site[ml->m->x][ml->m->y].creature = ml->m;
       }
       else if (ml->m->id == HISCORE_NPC && ml->m->hp > 0 &&
                Current_Environment == E_CITY)
       {
-        if (Level->site[ml->m->x][ml->m->y].creature == ml->m)
-          Level->site[ml->m->x][ml->m->y].creature = NULL;
+        if (level->site[ml->m->x][ml->m->y].creature == ml->m)
+          level->site[ml->m->x][ml->m->y].creature = NULL;
         ml->m->x = 40;
         ml->m->y = 62;
-        Level->site[ml->m->x][ml->m->y].creature = ml->m;
+        level->site[ml->m->x][ml->m->y].creature = ml->m;
       }
     }
   if (Current_Environment == E_CITY)
-    Level->site[40][60].p_locf = L_ORDER; /* undoes action in alert_guards */
+    level->site[40][60].p_locf = L_ORDER; /* undoes action in alert_guards */
 }
 
 void send_to_jail()
@@ -413,15 +413,15 @@ void l_trifid()
   while (stuck)
   {
     dataprint();
-    damage += Level->depth / 2 + 1;
+    damage += level->depth / 2 + 1;
     print2("Razor-edged vines covered in suckers attach themselves to you.");
     morewait();
     if (find_and_remove_item(THINGID + 6, -1))
     {
       print1("Thinking fast, you toss salt water on the trifid...");
       print2("The trifid disintegrates with a frustrated sigh.");
-      Level->site[Player.x][Player.y].locchar = FLOOR;
-      Level->site[Player.x][Player.y].p_locf = L_NO_OP;
+      level->site[Player.x][Player.y].locchar = FLOOR;
+      level->site[Player.x][Player.y].p_locf = L_NO_OP;
       lset(Player.x, Player.y, CHANGED);
       gain_experience(1000);
       stuck = FALSE;
@@ -486,12 +486,12 @@ void l_vault()
   if ((hour() == 23))
   {
     print2("The door is open.");
-    Level->site[12][56].locchar = FLOOR;
+    level->site[12][56].locchar = FLOOR;
   }
   else
   {
     print2("The door is closed.");
-    Level->site[12][56].locchar = WALL;
+    level->site[12][56].locchar = WALL;
     morewait();
     clearmsg();
     print1("Try to crack it? [yn] ");
@@ -501,7 +501,7 @@ void l_vault()
       {
         print2("The lock clicks open!!!");
         gain_experience(5000);
-        Level->site[12][56].locchar = FLOOR;
+        level->site[12][56].locchar = FLOOR;
       }
       else
       {
@@ -700,10 +700,10 @@ void l_brothel()
 /* if signp is true, always print message, otherwise do so only sometimes */
 void sign_print(int x, int y, int signp)
 {
-  if ((Level->site[x][y].p_locf >= CITYSITEBASE) &&
-      (Level->site[x][y].p_locf < CITYSITEBASE + NUMCITYSITES))
-    CitySiteList[Level->site[x][y].p_locf - CITYSITEBASE][0] = TRUE;
-  switch (Level->site[x][y].p_locf)
+  if ((level->site[x][y].p_locf >= CITYSITEBASE) &&
+      (level->site[x][y].p_locf < CITYSITEBASE + NUMCITYSITES))
+    CitySiteList[level->site[x][y].p_locf - CITYSITEBASE][0] = TRUE;
+  switch (level->site[x][y].p_locf)
   {
   case L_CHARITY:
     print1("You notice a sign: The Rampart Orphanage And Hospice For The Needy.");
@@ -718,7 +718,7 @@ void sign_print(int x, int y, int signp)
     print2("Public Granary: Entrance Strictly Forbidden.");
     break;
   case L_PORTCULLIS:
-    if (Level->site[x][y].locchar == FLOOR)
+    if (level->site[x][y].locchar == FLOOR)
       print1("You see a groove in the floor and slots above you.");
     break;
   case L_STABLES:
@@ -1024,8 +1024,8 @@ void l_safe()
     Player.alignment -= 4;
     gain_experience(50);
     print2("The door springs open!");
-    Level->site[Player.x][Player.y].locchar = FLOOR;
-    Level->site[Player.x][Player.y].p_locf = L_NO_OP;
+    level->site[Player.x][Player.y].locchar = FLOOR;
+    level->site[Player.x][Player.y].p_locf = L_NO_OP;
     lset(Player.x, Player.y, CHANGED);
     if (random_range(2) == 1)
     {
@@ -1061,8 +1061,8 @@ void l_safe()
       print1("There is a sudden flash!");
       p_damage(random_range(25), FLAME, "a safe");
       print2("The safe has self-destructed.");
-      Level->site[Player.x][Player.y].locchar = RUBBLE;
-      Level->site[Player.x][Player.y].p_locf = L_RUBBLE;
+      level->site[Player.x][Player.y].locchar = RUBBLE;
+      level->site[Player.x][Player.y].p_locf = L_RUBBLE;
       lset(Player.x, Player.y, CHANGED);
     }
     else if (attempt == -3)

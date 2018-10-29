@@ -526,7 +526,7 @@ void setlastxy(int new_x, int new_y) /* used when changing environments */
 
 int litroom(int x, int y)
 {
-  if (Level->site[x][y].roomnumber < ROOMBASE)
+  if (level->site[x][y].roomnumber < ROOMBASE)
     return (FALSE);
   else
     return (loc_statusp(x, y, LIT) ||
@@ -614,11 +614,11 @@ void drawspot(int x, int y)
   if (inbounds(x, y))
   {
     c = getspot(x, y, FALSE);
-    if (c != Level->site[x][y].showchar)
+    if (c != level->site[x][y].showchar)
       if (view_los_p(Player.x, Player.y, x, y))
       {
         lset(x, y, SEEN);
-        Level->site[x][y].showchar = c;
+        level->site[x][y].showchar = c;
         putspot(x, y, c);
       }
   }
@@ -631,10 +631,10 @@ void dodrawspot(int x, int y)
   if (inbounds(x, y))
   {
     c = getspot(x, y, FALSE);
-    if (c != Level->site[x][y].showchar)
+    if (c != level->site[x][y].showchar)
     {
       lset(x, y, SEEN);
-      Level->site[x][y].showchar = c;
+      level->site[x][y].showchar = c;
       putspot(x, y, c);
     }
   }
@@ -647,9 +647,9 @@ void blankoutspot(int i, int j)
   {
     lreset(i, j, LIT);
     lset(i, j, CHANGED);
-    if (Level->site[i][j].locchar == FLOOR)
+    if (level->site[i][j].locchar == FLOOR)
     {
-      Level->site[i][j].showchar = SPACE;
+      level->site[i][j].showchar = SPACE;
       putspot(i, j, SPACE);
     }
   }
@@ -661,7 +661,7 @@ void blotspot(int i, int j)
   if (inbounds(i, j))
   {
     lreset(i, j, SEEN);
-    Level->site[i][j].showchar = SPACE;
+    level->site[i][j].showchar = SPACE;
     if (!offscreen(j))
     {
       wmove(Levelw, screenmod(j), i);
@@ -708,7 +708,7 @@ void plotmon(monster* m)
 void drawmonsters(int display)
 {
   Monsterlist* ml;
-  for (ml = Level->mlist; ml != NULL; ml = ml->next)
+  for (ml = level->mlist; ml != NULL; ml = ml->next)
   {
     if (ml->m->hp > 0)
     {
@@ -750,15 +750,15 @@ Symbol getspot(int x, int y, int showmonster)
   if (loc_statusp(x, y, SECRET))
     return (WALL);
   else
-    switch (Level->site[x][y].locchar)
+    switch (level->site[x][y].locchar)
     {
     case WATER:
-      if (Level->site[x][y].creature == NULL)
+      if (level->site[x][y].creature == NULL)
         return (WATER);
-      else if (m_statusp(Level->site[x][y].creature, SWIMMING))
+      else if (m_statusp(level->site[x][y].creature, SWIMMING))
         return (WATER);
       else if (showmonster)
-        return (Level->site[x][y].creature->monchar);
+        return (level->site[x][y].creature->monchar);
       else
         return (WATER);
     /* these sites never show anything but their location char's */
@@ -766,40 +766,40 @@ Symbol getspot(int x, int y, int showmonster)
     case LAVA:
     case FIRE:
     case ABYSS:
-      return (Level->site[x][y].locchar);
+      return (level->site[x][y].locchar);
     /* rubble and hedge don't show items on their location */
     case RUBBLE:
     case HEDGE:
-      if (showmonster && (Level->site[x][y].creature != NULL))
+      if (showmonster && (level->site[x][y].creature != NULL))
       {
-        if ((m_statusp(Level->site[x][y].creature, M_INVISIBLE)) &&
+        if ((m_statusp(level->site[x][y].creature, M_INVISIBLE)) &&
             (!Player.status[TRUESIGHT]))
           return (getspot(x, y, FALSE));
         else
-          return (Level->site[x][y].creature->monchar);
+          return (level->site[x][y].creature->monchar);
       }
       else
-        return (Level->site[x][y].locchar);
+        return (level->site[x][y].locchar);
     /* everywhere else, first try to show monster, next show items, next show
      location char */
     default:
-      if (showmonster && (Level->site[x][y].creature != NULL))
+      if (showmonster && (level->site[x][y].creature != NULL))
       {
-        if ((m_statusp(Level->site[x][y].creature, M_INVISIBLE)) &&
+        if ((m_statusp(level->site[x][y].creature, M_INVISIBLE)) &&
             (!Player.status[TRUESIGHT]))
           return (getspot(x, y, FALSE));
         else
-          return (Level->site[x][y].creature->monchar);
+          return (level->site[x][y].creature->monchar);
       }
-      else if (Level->site[x][y].things != NULL)
+      else if (level->site[x][y].things != NULL)
       {
-        if (Level->site[x][y].things->next != NULL)
+        if (level->site[x][y].things->next != NULL)
           return (PILE);
         else
-          return (Level->site[x][y].things->thing->objchar);
+          return (level->site[x][y].things->thing->objchar);
       }
       else
-        return (Level->site[x][y].locchar);
+        return (level->site[x][y].locchar);
     }
 }
 
@@ -1460,7 +1460,7 @@ void screencheck(int y)
 void spreadroomlight(int x, int y, int roomno)
 {
   if (inbounds(x, y) && !loc_statusp(x, y, LIT) &&
-      Level->site[x][y].roomnumber == roomno)
+      level->site[x][y].roomnumber == roomno)
   {
     lightspot(x, y);
     spreadroomlight(x + 1, y, roomno);
@@ -1478,14 +1478,14 @@ void lightspot(int x, int y)
   lset(x, y, SEEN);
   lset(x, y, CHANGED);
   c = getspot(x, y, FALSE);
-  Level->site[x][y].showchar = c;
+  level->site[x][y].showchar = c;
   putspot(x, y, c);
 }
 
 void spreadroomdark(int x, int y, int roomno)
 {
   if (inbounds(x, y))
-    if (loc_statusp(x, y, LIT) && (Level->site[x][y].roomnumber == roomno))
+    if (loc_statusp(x, y, LIT) && (level->site[x][y].roomnumber == roomno))
     {
       blankoutspot(x, y);
       spreadroomdark(x + 1, y, roomno);

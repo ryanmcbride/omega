@@ -1466,7 +1466,7 @@ class objectlist {
 
 
 /* terrain locations */
-class terrain {
+class Terrain {
   public:
   Symbol base_terrain_type;
   Symbol current_terrain_type;
@@ -1475,7 +1475,7 @@ class terrain {
 };
 
 /* dungeon locations */
-class location {
+class Location {
   public:
   char p_locf; /* function executed when moved on */
   unsigned char lstatus; /* seen,stopsrun,lit,secret, */
@@ -1489,15 +1489,15 @@ class location {
  };
 
 
-class level {
+class Level {
   public:
   char depth; /* which level is this */
-  struct level *next; /* pointer to next level in dungeon */
+  Level *next; /* pointer to next level in dungeon */
 #ifndef SAVE_LEVELS
-  struct location site[MAXWIDTH][MAXLENGTH]; /* dungeon data */
+  Location site[MAXWIDTH][MAXLENGTH]; /* dungeon data */
 #else
   /* Over 64K worth of data! */
-  struct location *site[MAXWIDTH]; /* dungeon data */
+  Location *site[MAXWIDTH]; /* dungeon data */
 #endif
   char generated; /* has the level been made (visited) yet? */
   char numrooms; /* number of rooms on level */
@@ -1512,12 +1512,6 @@ class level {
 
 typedef monster montype;
 typedef montype *pmt;
-
-typedef location loctype;
-typedef loctype *plc;
-
-typedef level levtype;
-typedef levtype *plv;
 
 typedef object objtype;
 typedef objtype *pob;
@@ -1564,9 +1558,9 @@ typedef oltype *pol;
 
 /* these bit operations were functions, but are faster as macros... */
 
-#define loc_statusp(x,y,stat) ((Level->site[x][y].lstatus&(stat))?1:0)
-#define lset(x,y,stat) (Level->site[x][y].lstatus |= (stat))
-#define lreset(x,y,stat) (Level->site[x][y].lstatus &= ~(stat))
+#define loc_statusp(x,y,stat) ((level->site[x][y].lstatus&(stat))?1:0)
+#define lset(x,y,stat) (level->site[x][y].lstatus |= (stat))
+#define lreset(x,y,stat) (level->site[x][y].lstatus &= ~(stat))
 
 #define c_statusp(x,y,stat) ((Country[x][y].status&(stat))?1:0)
 #define c_set(x,y,stat) (Country[x][y].status |= (stat))
@@ -1604,6 +1598,6 @@ typedef oltype *pol;
 #endif
 
 #ifdef SAVE_LEVELS
-plv msdos_changelevel();
+Level* msdos_changelevel();
 #endif
 #endif

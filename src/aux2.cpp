@@ -646,11 +646,11 @@ void p_drown()
       {
       case 'a':
         drop();
-        if (Level->site[Player.x][Player.y].p_locf == L_WATER && Level->site[Player.x][Player.y].things)
+        if (level->site[Player.x][Player.y].p_locf == L_WATER && level->site[Player.x][Player.y].things)
         {
           mprint("It sinks without a trace.");
-          free_objlist(Level->site[Player.x][Player.y].things);
-          Level->site[Player.x][Player.y].things = NULL;
+          free_objlist(level->site[Player.x][Player.y].things);
+          level->site[Player.x][Player.y].things = NULL;
         }
         break;
       case 'b':
@@ -661,12 +661,12 @@ void p_drown()
         for (i = 0; i < MAXPACK; i++)
         {
           if (Player.pack[i] != NULL)
-            if (Level->site[Player.x][Player.y].p_locf != L_WATER)
+            if (level->site[Player.x][Player.y].p_locf != L_WATER)
               p_drop_at(Player.x, Player.y, Player.pack[i]->number, Player.pack[i]);
           free((char *)Player.pack[i]);
           Player.pack[i] = NULL;
         }
-        if (Level->site[Player.x][Player.y].p_locf == L_WATER)
+        if (level->site[Player.x][Player.y].p_locf == L_WATER)
           mprint("It sinks without a trace.");
         Player.packptr = 0;
         resetgamestatus(SUPPRESS_PRINTING);
@@ -1156,7 +1156,7 @@ void change_environment(char new_environment)
     else
       msdos_changelevel(Level, new_environment, 0);
 #endif
-    Level = City;
+    level = City;
     ScreenOffset = Player.y - (ScreenLength / 2);
     show_screen();
     break;
@@ -1202,18 +1202,18 @@ void change_environment(char new_environment)
         break;
       }
     }
-    if ((!emerging) || (TempLevel == NULL))
+    if ((!emerging) || (tempLevel == NULL))
       load_village(Villagenum, TRUE);
-    else if (TempLevel->environment != E_VILLAGE)
+    else if (tempLevel->environment != E_VILLAGE)
       load_village(Villagenum, TRUE);
 #ifndef SAVE_LEVELS
     else
-      Level = TempLevel;
+      level = tempLevel;
 #else
     else
     {
       msdos_changelevel(Level, new_environment, 0);
-      Level = TempLevel;
+      level = tempLevel;
     }
 #endif
     if (emerging)
@@ -1247,7 +1247,7 @@ void change_environment(char new_environment)
 #endif
       free_dungeon();
       Dungeon = NULL;
-      Level = NULL;
+      level = NULL;
       Current_Dungeon = E_CAVES;
     }
     change_level(0, 1, FALSE);
@@ -1272,7 +1272,7 @@ void change_environment(char new_environment)
 #endif
       free_dungeon();
       Dungeon = NULL;
-      Level = NULL;
+      level = NULL;
       Current_Dungeon = E_VOLCANO;
     }
     change_level(0, 1, FALSE);
@@ -1295,7 +1295,7 @@ void change_environment(char new_environment)
 #endif
       free_dungeon();
       Dungeon = NULL;
-      Level = NULL;
+      level = NULL;
       Current_Dungeon = E_ASTRAL;
     }
     change_level(0, 1, FALSE);
@@ -1319,7 +1319,7 @@ void change_environment(char new_environment)
 #endif
       free_dungeon();
       Dungeon = NULL;
-      Level = NULL;
+      level = NULL;
       Current_Dungeon = E_CASTLE;
     }
     change_level(0, 1, FALSE);
@@ -1341,7 +1341,7 @@ void change_environment(char new_environment)
 #endif
       free_dungeon();
       Dungeon = NULL;
-      Level = NULL;
+      level = NULL;
       Current_Dungeon = E_SEWERS;
     }
     change_level(0, 1, FALSE);
@@ -1373,7 +1373,7 @@ void change_environment(char new_environment)
     make_country_monsters(Country[Player.x][Player.y].current_terrain_type);
     Player.x = WIDTH / 2;
     Player.y = LENGTH / 2;
-    while (Level->site[Player.x][Player.y].locchar == WATER)
+    while (level->site[Player.x][Player.y].locchar == WATER)
     {
       if (Player.y < LENGTH / 2 + 5)
         Player.y++;
@@ -1384,9 +1384,9 @@ void change_environment(char new_environment)
       }
       else
       {
-        Level->site[Player.x][Player.y].locchar =
-            Level->site[Player.x][Player.y].showchar = FLOOR;
-        Level->site[Player.x][Player.y].p_locf = L_NO_OP;
+        level->site[Player.x][Player.y].locchar =
+            level->site[Player.x][Player.y].showchar = FLOOR;
+        level->site[Player.x][Player.y].p_locf = L_NO_OP;
       }
     }
     ScreenOffset = 0;
@@ -1402,7 +1402,7 @@ void change_environment(char new_environment)
   }
   setlastxy(Player.x, Player.y);
   if (Current_Environment != E_COUNTRYSIDE)
-    showroom(Level->site[Player.x][Player.y].roomnumber);
+    showroom(level->site[Player.x][Player.y].roomnumber);
   else
     terrain_check(FALSE);
 }

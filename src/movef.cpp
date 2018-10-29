@@ -473,10 +473,10 @@ void m_movefunction(monster* m, int movef)
 /* if signp is true, always print message, otherwise do so only sometimes */
 void sign_print(x, y, signp) int x, y, signp;
 {
-  if ((Level->site[x][y].p_locf >= CITYSITEBASE) &&
-      (Level->site[x][y].p_locf < CITYSITEBASE + NUMCITYSITES))
-    CitySiteList[Level->site[x][y].p_locf - CITYSITEBASE][0] = TRUE;
-  switch (Level->site[x][y].p_locf)
+  if ((level->site[x][y].p_locf >= CITYSITEBASE) &&
+      (level->site[x][y].p_locf < CITYSITEBASE + NUMCITYSITES))
+    CitySiteList[level->site[x][y].p_locf - CITYSITEBASE][0] = TRUE;
+  switch (level->site[x][y].p_locf)
   {
   case L_CHARITY:
     print1("You notice a sign: The Rampart Orphanage And Hospice For The Needy.");
@@ -491,7 +491,7 @@ void sign_print(x, y, signp) int x, y, signp;
     print2("Public Granary: Entrance Strictly Forbidden.");
     break;
   case L_PORTCULLIS:
-    if (Level->site[x][y].locchar == FLOOR)
+    if (level->site[x][y].locchar == FLOOR)
       print1("You see a groove in the floor and slots above you.");
     break;
   case L_STABLES:

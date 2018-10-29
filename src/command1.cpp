@@ -235,7 +235,7 @@ void p_process()
       upstairs();
       break;
     case '@':
-      p_movefunction(Level->site[Player.x][Player.y].p_locf);
+      p_movefunction(level->site[Player.x][Player.y].p_locf);
       Command_Duration = 5;
       break;
     case '/':

@@ -55,12 +55,12 @@ void m_pulse(monster* m)
     }
     /* if monster is greedy, picks up treasure it finds */
     if (m_statusp(m, GREEDY) && (m->hp > 0))
-      while (Level->site[m->x][m->y].things != NULL)
+      while (level->site[m->x][m->y].things != NULL)
       {
-        m_pickup(m, Level->site[m->x][m->y].things->thing);
-        prev = Level->site[m->x][m->y].things;
-        Level->site[m->x][m->y].things =
-            Level->site[m->x][m->y].things->next;
+        m_pickup(m, level->site[m->x][m->y].things->thing);
+        prev = level->site[m->x][m->y].things;
+        level->site[m->x][m->y].things =
+            level->site[m->x][m->y].things->next;
         free((char *)prev);
       }
     /* prevents monsters from casting spells from other side of dungeon */
@@ -73,14 +73,14 @@ void m_pulse(monster* m)
 /* actually make a move */
 void movemonster(monster* m, int newx, int newy)
 {
-  if (Level->site[newx][newy].creature != NULL)
+  if (level->site[newx][newy].creature != NULL)
     return;
-  if (Level->site[m->x][m->y].creature == m)
-    Level->site[m->x][m->y].creature = NULL;
+  if (level->site[m->x][m->y].creature == m)
+    level->site[m->x][m->y].creature = NULL;
   m->x = newx;
   m->y = newy;
-  Level->site[m->x][m->y].creature = m;
-  m_movefunction(m, Level->site[m->x][m->y].p_locf);
+  level->site[m->x][m->y].creature = m;
+  m_movefunction(m, level->site[m->x][m->y].p_locf);
 }
 
 /* give object o to monster m */
@@ -100,8 +100,8 @@ void m_dropstuff(monster* m)
     while (tmp->next != NULL)
       tmp = tmp->next;
 
-    tmp->next = Level->site[m->x][m->y].things;
-    Level->site[m->x][m->y].things = m->possessions;
+    tmp->next = level->site[m->x][m->y].things;
+    level->site[m->x][m->y].things = m->possessions;
     m->possessions = NULL;
   }
 }
@@ -194,7 +194,7 @@ void m_death(monster* m)
   }
   else
   {
-    Level->site[m->x][m->y].creature = NULL;
+    level->site[m->x][m->y].creature = NULL;
     if (m == Arena_Monster)
       Arena_Victory = TRUE; /* won this round of arena combat */
     if (random_range(2) || (m->uniqueness != COMMON))
@@ -277,7 +277,7 @@ void m_death(monster* m)
         Player.alignment -= 100;
         if (!gamestatusp(DESTROYED_ORDER))
         {
-          curr = Level->site[m->x][m->y].things;
+          curr = level->site[m->x][m->y].things;
           while (curr && curr->thing->id != THINGID + 16)
           {
             prev = curr;
@@ -303,7 +303,7 @@ void m_death(monster* m)
               if (prev)
                 prev->next = curr->next;
               else
-                Level->site[m->x][m->y].things = curr->next;
+                level->site[m->x][m->y].things = curr->next;
               free(curr);
             }
             else
@@ -978,7 +978,7 @@ void m_trap_dart(monster* m)
     }
     strcat(Str1, " was hit by a dart!");
     mprint(Str1);
-    Level->site[m->x][m->y].locchar = TRAP;
+    level->site[m->x][m->y].locchar = TRAP;
     lset(m->x, m->y, CHANGED);
   }
   m_damage(m, difficulty() * 2, NORMAL_DAMAGE);
@@ -997,7 +997,7 @@ void m_trap_pit(monster* m)
     }
     strcat(Str1, " fell into a pit!");
     mprint(Str1);
-    Level->site[m->x][m->y].locchar = TRAP;
+    level->site[m->x][m->y].locchar = TRAP;
     lset(m->x, m->y, CHANGED);
   }
   if (!m_statusp(m, INTANGIBLE))
@@ -1018,7 +1018,7 @@ void m_trap_door(monster* m)
     }
     strcat(Str1, " fell into a trap door!");
     mprint(Str1);
-    Level->site[m->x][m->y].locchar = TRAP;
+    level->site[m->x][m->y].locchar = TRAP;
     lset(m->x, m->y, CHANGED);
   }
   m_vanish(m);
@@ -1038,9 +1038,9 @@ void m_trap_abyss(monster* m)
     }
     strcat(Str1, " fell into the infinite abyss!");
     mprint(Str1);
-    Level->site[m->x][m->y].locchar = ABYSS;
+    level->site[m->x][m->y].locchar = ABYSS;
     lset(m->x, m->y, CHANGED);
-    Level->site[m->x][m->y].p_locf = L_ABYSS;
+    level->site[m->x][m->y].p_locf = L_ABYSS;
     lset(m->x, m->y, CHANGED);
   }
   setgamestatus(SUPPRESS_PRINTING);
@@ -1051,7 +1051,7 @@ void m_trap_abyss(monster* m)
 void m_trap_snare(monster* m)
 {
   char Str1[80];
-  Level->site[m->x][m->y].locchar = TRAP;
+  level->site[m->x][m->y].locchar = TRAP;
   lset(m->x, m->y, CHANGED);
   if (los_p(m->x, m->y, Player.x, Player.y))
   {
@@ -1072,7 +1072,7 @@ void m_trap_snare(monster* m)
 void m_trap_blade(monster* m)
 {
   char Str1[80];
-  Level->site[m->x][m->y].locchar = TRAP;
+  level->site[m->x][m->y].locchar = TRAP;
   lset(m->x, m->y, CHANGED);
   if (los_p(m->x, m->y, Player.x, Player.y))
   {
@@ -1092,7 +1092,7 @@ void m_trap_blade(monster* m)
 void m_trap_fire(monster* m)
 {
   char Str1[80];
-  Level->site[m->x][m->y].locchar = TRAP;
+  level->site[m->x][m->y].locchar = TRAP;
   lset(m->x, m->y, CHANGED);
   if (los_p(m->x, m->y, Player.x, Player.y))
   {
@@ -1130,7 +1130,7 @@ void m_fire(monster* m)
 void m_trap_teleport(monster* m)
 {
   char Str1[80];
-  Level->site[m->x][m->y].locchar = TRAP;
+  level->site[m->x][m->y].locchar = TRAP;
   lset(m->x, m->y, CHANGED);
   if (los_p(m->x, m->y, Player.x, Player.y))
   {
@@ -1161,7 +1161,7 @@ void m_trap_disintegrate(monster* m)
     }
     strcat(Str1, " walked into a disintegration trap!");
     mprint(Str1);
-    Level->site[m->x][m->y].locchar = TRAP;
+    level->site[m->x][m->y].locchar = TRAP;
     lset(m->x, m->y, CHANGED);
   }
   disintegrate(m->x, m->y);
@@ -1181,7 +1181,7 @@ void m_trap_sleepgas(monster* m)
     }
     strcat(Str1, " walked into a sleepgas trap!");
     mprint(Str1);
-    Level->site[m->x][m->y].locchar = TRAP;
+    level->site[m->x][m->y].locchar = TRAP;
     lset(m->x, m->y, CHANGED);
   }
   if (!m_immunityp(m, SLEEP))
@@ -1202,7 +1202,7 @@ void m_trap_acid(monster* m)
     }
     strcat(Str1, " walked into an acid bath trap!");
     mprint(Str1);
-    Level->site[m->x][m->y].locchar = TRAP;
+    level->site[m->x][m->y].locchar = TRAP;
     lset(m->x, m->y, CHANGED);
   }
   m_damage(m, random_range(difficulty() * difficulty()), ACID);
@@ -1222,7 +1222,7 @@ void m_trap_manadrain(monster* m)
     }
     strcat(Str1, " walked into a manadrain trap!");
     mprint(Str1);
-    Level->site[m->x][m->y].locchar = TRAP;
+    level->site[m->x][m->y].locchar = TRAP;
     lset(m->x, m->y, CHANGED);
   }
   if (m->specialf == M_SP_SPELL)
@@ -1296,7 +1296,7 @@ void m_altar(monster* m)
 {
   int visible = view_los_p(Player.x, Player.y, m->x, m->y);
   int reaction = 0;
-  int altar = Level->site[m->x][m->y].aux;
+  int altar = level->site[m->x][m->y].aux;
 
   if (visible)
   {
