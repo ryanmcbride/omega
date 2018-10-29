@@ -37,7 +37,7 @@ void summon(int blessing, int id)
       level->site[x][y].creature = make_creature(id);
     level->site[x][y].creature->x = x;
     level->site[x][y].creature->y = y;
-    tml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
+    tml = Monsterlist::create();
     tml->m = level->site[x][y].creature;
     if (blessing > 0)
       m_status_reset(tml->m, HOSTILE);

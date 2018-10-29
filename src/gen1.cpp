@@ -15,7 +15,7 @@ void free_dungeon()
   {
     tlv = Dungeon;
     Dungeon = Dungeon->next;
-    free_level(tlv);
+    tlv->free();
   }
 #else
   if (Dungeon != NULL)
@@ -71,7 +71,7 @@ void change_level(char fromlevel, char tolevel, char rewrite_level)
   deepest[Current_Environment] = max(deepest[Current_Environment], tolevel);
   if (thislevel == NULL)
   {
-    thislevel = ((Level*)checkmalloc(sizeof(Level)));
+    thislevel = Level::create();
 #else
   thislevel = msdos_changelevel(Level, Current_Environment, tolevel);
   deepest[Current_Environment] = max(deepest[Current_Environment], tolevel);
@@ -555,7 +555,7 @@ void cavern_level()
     if ((level->depth == CAVELEVELS) && (!gamestatusp(COMPLETED_CAVES)))
     {
       findspace(&tx, &ty, -1);
-      level->mlist = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
+      level->mlist = Monsterlist::create();
       level->mlist->next = NULL;
       level->mlist->m =
           level->site[tx][ty].creature =
@@ -569,7 +569,7 @@ void cavern_level()
     if (level->depth == VOLCANOLEVELS)
     {
       findspace(&tx, &ty, -1);
-      level->mlist = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
+      level->mlist = Monsterlist::create();
       level->mlist->next = NULL;
       level->mlist->m =
           level->site[tx][ty].creature =
@@ -620,7 +620,7 @@ void sewer_level()
     if ((level->depth == SEWERLEVELS) && (!gamestatusp(COMPLETED_SEWERS)))
     {
       findspace(&tx, &ty, -1);
-      level->mlist = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
+      level->mlist = Monsterlist::create();
       level->mlist->next = NULL;
       level->mlist->m =
           level->site[tx][ty].creature =

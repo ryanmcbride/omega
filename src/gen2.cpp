@@ -48,12 +48,12 @@ void make_country_screen(Symbol terrain)
   if (ok_to_free(tempLevel))
   {
 #ifndef SAVE_LEVELS
-    free_level(tempLevel);
+    tempLevel->free();
 #endif
     tempLevel = NULL;
   }
 #ifndef SAVE_LEVELS
-  level = ((Level*)checkmalloc(sizeof(Level)));
+  level = Level::create();
 #else
   msdos_changelevel(TempLevel, 0, -1);
   Level = &TheLevel;
@@ -327,7 +327,7 @@ void room_level()
     if (level->depth == SEWERLEVELS)
     {
       findspace(&tx, &ty, -1);
-      level->mlist = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
+      level->mlist = Monsterlist::create();
       level->mlist->next = NULL;
       level->mlist->m =
           level->site[tx][ty].creature =
@@ -350,7 +350,7 @@ void room_level()
     if (level->depth == VOLCANOLEVELS && !gamestatusp(COMPLETED_VOLCANO))
     {
       findspace(&tx, &ty, -1);
-      level->mlist = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
+      level->mlist = Monsterlist::create();
       level->mlist->next = NULL;
       level->mlist->m =
           level->site[tx][ty].creature =
@@ -482,7 +482,7 @@ void maze_level()
     if (!gamestatusp(COMPLETED_ASTRAL))
     {
       findspace(&tx, &ty, -1);
-      level->mlist = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
+      level->mlist = Monsterlist::create();
       level->mlist->next = NULL;
       level->mlist->m =
           level->site[tx][ty].creature =
@@ -496,7 +496,7 @@ void maze_level()
     if (level->depth == VOLCANOLEVELS && !gamestatusp(COMPLETED_VOLCANO))
     {
       findspace(&tx, &ty, -1);
-      level->mlist = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
+      level->mlist = Monsterlist::create();
       level->mlist->next = NULL;
       level->mlist->m =
           level->site[tx][ty].creature =

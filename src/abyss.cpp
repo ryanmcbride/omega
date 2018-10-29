@@ -25,12 +25,12 @@ void load_abyss()
     if (ok_to_free(tempLevel))
     {
 #ifndef SAVE_LEVELS
-        free_level(tempLevel);
+        tempLevel->free();
 #endif
         tempLevel = NULL;
     }
 #ifndef SAVE_LEVELS
-    level = ((Level*)checkmalloc(sizeof(Level)));
+    level = Level::create();
 #else
     msdos_changelevel(TempLevel, 0, -1);
     Level = &TheLevel;
@@ -191,7 +191,7 @@ int newenv, newdepth;
         else
             mprint("Cannot save level!!!");
         /* Free up monsters and items */
-        free_level(oldlevel);
+        oldlevel->free();
     }
     if (newdepth >= 0)
     {

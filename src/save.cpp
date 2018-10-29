@@ -1021,7 +1021,7 @@ void restore_monsters(FILE* fd, Level* level, int version)
 
   for (i = 0; i < nummonsters; i++)
   {
-    ml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
+    ml = Monsterlist::create();
     ml->m = ((pmt)checkmalloc(sizeof(montype)));
     ml->next = NULL;
     fread((char *)ml->m, sizeof(montype), 1, fd);

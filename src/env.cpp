@@ -18,12 +18,12 @@ void load_arena()
   if (ok_to_free(tempLevel))
   {
 #ifndef SAVE_LEVELS
-    free_level(tempLevel);
+    tempLevel->free();
 #endif
     tempLevel = NULL;
   }
 #ifndef SAVE_LEVELS
-  level = ((Level*)checkmalloc(sizeof(Level)));
+  level = Level::create();
 #else
   msdos_changelevel(TempLevel, 0, -1);
   Level = &TheLevel;
@@ -92,12 +92,12 @@ void load_circle(int populate)
   if (ok_to_free(tempLevel))
   {
 #ifndef SAVE_LEVELS
-    free_level(tempLevel);
+    tempLevel->free();
 #endif
     tempLevel = NULL;
   }
 #ifndef SAVE_LEVELS
-  level = ((Level*)checkmalloc(sizeof(Level)));
+  level = Level::create();
 #else
   msdos_changelevel(TempLevel, 0, -1);
   Level = &TheLevel;
@@ -214,7 +214,7 @@ void load_circle(int populate)
 /* make the prime sorceror */
 void make_prime(int i, int j)
 {
-  Monsterlist* ml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
+  Monsterlist* ml = Monsterlist::create();
   pmt m = ((pmt)checkmalloc(sizeof(montype)));
   Objectlist* ol;
   Object* o;
@@ -248,12 +248,12 @@ void load_court(int populate)
   if (ok_to_free(tempLevel))
   {
 #ifndef SAVE_LEVELS
-    free_level(tempLevel);
+    tempLevel->free();
 #endif
     tempLevel = NULL;
   }
 #ifndef SAVE_LEVELS
-  level = ((Level*)checkmalloc(sizeof(Level)));
+  level = Level::create();
 #else
   msdos_changelevel(TempLevel, 0, -1);
   Level = &TheLevel;
@@ -342,7 +342,7 @@ void load_court(int populate)
 /* make the archmage */
 void make_archmage(int i, int j)
 {
-  Monsterlist* ml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
+  Monsterlist* ml = Monsterlist::create();
   pmt m = ((pmt)checkmalloc(sizeof(montype)));
   make_hiscore_npc(m, 9); /* 9 is index for archmage */
   m->x = i;

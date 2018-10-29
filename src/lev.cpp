@@ -66,7 +66,7 @@ void make_country_monsters(Symbol terrain)
   }
   for (i = 0; i < nummonsters; i++)
   {
-    tml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
+    tml = Monsterlist::create();
     tml->m = ((pmt)checkmalloc(sizeof(montype)));
     if (monsters == NULL)
       tml->m =
@@ -109,7 +109,7 @@ void populate_level(int monstertype)
   else if (monstertype == E_VOLCANO)
     nummonsters += 20;
 
-  head = tml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
+  head = tml = Monsterlist::create();
 
   for (k = 0; k < nummonsters; k++)
   {
@@ -398,7 +398,7 @@ void populate_level(int monstertype)
       lset(i, j, CHANGED);
     }
 
-    tml->next = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
+    tml->next = Monsterlist::create();
     tml->next->m = level->site[i][j].creature;
     tml = tml->next;
   }
@@ -423,7 +423,7 @@ void wandercheck()
   if (random_range(MaxDungeonLevels) < difficulty())
   {
     findspace(&x, &y, -1);
-    tml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
+    tml = Monsterlist::create();
     tml->next = level->mlist;
     tml->m = level->site[x][y].creature = m_create(x, y, WANDERING, difficulty());
     level->mlist = tml;
@@ -433,7 +433,7 @@ void wandercheck()
 /* call make_creature and place created monster on level->mlist and Level */
 void make_site_monster(int i, int j, int mid)
 {
-  Monsterlist* ml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
+  Monsterlist* ml = Monsterlist::create();
   pmt m;
   if (mid > -1)
     level->site[i][j].creature = (m = make_creature(mid));

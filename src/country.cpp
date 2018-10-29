@@ -150,12 +150,12 @@ void load_dlair(int empty, int populate)
 	if (ok_to_free(tempLevel))
 	{
 #ifndef SAVE_LEVELS
-		free_level(tempLevel);
+		tempLevel->free();
 #endif
 		tempLevel = NULL;
 	}
 #ifndef SAVE_LEVELS
-	level = ((Level*)checkmalloc(sizeof(Level)));
+	level = Level::create();
 #else
 	msdos_changelevel(TempLevel, 0, -1);
 	Level = &TheLevel;
@@ -282,12 +282,12 @@ void load_speak(int empty, int populate)
 	if (ok_to_free(tempLevel))
 	{
 #ifndef SAVE_LEVELS
-		free_level(tempLevel);
+		tempLevel->free();
 #endif
 		tempLevel = NULL;
 	}
 #ifndef SAVE_LEVELS
-	level = ((Level*)checkmalloc(sizeof(Level)));
+	level = Level::create();
 #else
 	msdos_changelevel(TempLevel, 0, -1);
 	Level = &TheLevel;
@@ -415,12 +415,12 @@ void load_misle(int empty, int populate)
 	if (ok_to_free(tempLevel))
 	{
 #ifndef SAVE_LEVELS
-		free_level(tempLevel);
+		tempLevel->free();
 #endif
 		tempLevel = NULL;
 	}
 #ifndef SAVE_LEVELS
-	level = ((Level*)checkmalloc(sizeof(Level)));
+	level = Level::create();
 #else
 	msdos_changelevel(TempLevel, 0, -1);
 	Level = &TheLevel;
@@ -513,12 +513,12 @@ void load_werewolf_den(int empty, int populate)
 	if (ok_to_free(tempLevel))
 	{
 #ifndef SAVE_LEVELS
-		free_level(tempLevel);
+		tempLevel->free();
 #endif
 		tempLevel = NULL;
 	}
 #ifndef SAVE_LEVELS
-	level = ((Level*)checkmalloc(sizeof(Level)));
+	level = Level::create();
 #else
 	msdos_changelevel(TempLevel, 0, -1);
 	Level = &TheLevel;
@@ -607,12 +607,12 @@ void load_temple(int deity, int populate)
 	if (ok_to_free(tempLevel))
 	{
 #ifndef SAVE_LEVELS
-		free_level(tempLevel);
+		tempLevel->free();
 #endif
 		tempLevel = NULL;
 	}
 #ifndef SAVE_LEVELS
-	level = ((Level*)checkmalloc(sizeof(Level)));
+	level = Level::create();
 #else
 	msdos_changelevel(TempLevel, 0, -1);
 	Level = &TheLevel;
@@ -767,7 +767,7 @@ void random_temple_site(int i, int j, int deity, int populate)
 
 void make_high_priest(int i, int j, int deity)
 {
-	Monsterlist* ml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
+	Monsterlist* ml = Monsterlist::create();
 	pmt m = ((pmt)checkmalloc(sizeof(montype)));
 	make_hiscore_npc(m, deity);
 	m->x = i;

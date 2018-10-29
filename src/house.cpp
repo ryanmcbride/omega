@@ -18,12 +18,12 @@ void load_house(int kind, int populate)
       if (ok_to_free(tempLevel))
       {
 #ifndef SAVE_LEVELS
-            free_level(tempLevel);
+            tempLevel->free();
 #endif
             tempLevel = NULL;
       }
 #ifndef SAVE_LEVELS
-      level = ((Level*)checkmalloc(sizeof(Level)));
+      level = Level::create();
 #else
       msdos_changelevel(TempLevel, 0, -1);
       Level = &TheLevel;
@@ -196,7 +196,7 @@ void load_house(int kind, int populate)
 /* makes a log npc for houses and hovels */
 void make_house_npc(int i, int j)
 {
-      Monsterlist* ml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
+      Monsterlist* ml = Monsterlist::create();
       Object* ob;
       ml->m = ((pmt)checkmalloc(sizeof(montype)));
       *(ml->m) = Monsters[NPC];
@@ -228,7 +228,7 @@ void make_house_npc(int i, int j)
 /* makes a hiscore npc for mansions */
 void make_mansion_npc(int i, int j)
 {
-      Monsterlist* ml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
+      Monsterlist* ml = Monsterlist::create();
       ml->m = ((pmt)checkmalloc(sizeof(montype)));
       *(ml->m) = Monsters[NPC];
       make_hiscore_npc(ml->m, random_range(14) + 1);

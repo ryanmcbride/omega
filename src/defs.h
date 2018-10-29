@@ -1488,6 +1488,8 @@ class Location {
 
 class Level {
   public:
+  static Level* create();
+  void free();
   char depth; /* which level is this */
   Level *next; /* pointer to next level in dungeon */
 #ifndef SAVE_LEVELS

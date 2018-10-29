@@ -24,12 +24,12 @@ void load_city(int populate)
   if (ok_to_free(tempLevel))
   {
 #ifndef SAVE_LEVELS
-    free_level(tempLevel);
+    tempLevel->free();
 #endif
     tempLevel = NULL;
   }
 #ifndef SAVE_LEVELS
-  level = ((Level*)checkmalloc(sizeof(Level)));
+  level = Level::create();
 #else
   msdos_changelevel(TempLevel, 0, -1);
   Level = &TheLevel;
@@ -468,7 +468,7 @@ void assign_city_function(int x, int y)
 /* makes a hiscore npc for mansions */
 void make_justiciar(int i, int j)
 {
-  Monsterlist* ml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
+  Monsterlist* ml = Monsterlist::create();
   ml->m = ((pmt)checkmalloc(sizeof(montype)));
   *(ml->m) = Monsters[NPC];
   make_hiscore_npc(ml->m, 15);

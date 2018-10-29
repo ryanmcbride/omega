@@ -817,7 +817,7 @@ void Monsterlist::free(){
     tmp = mlist;
     ::free(tmp->m);
     mlist = mlist->next;
-    ::free(tmp);
+    delete tmp;
   }
 }
 void free_mons_and_objs(Monsterlist* mlist)
@@ -833,19 +833,43 @@ void free_mons_and_objs(Monsterlist* mlist)
   }
 }
 
-/* Free up monsters and items on a level*/
-void free_level(Level* level)
-{
-  int i, j;
-
-  free_mons_and_objs(level->mlist);
-  for (i = 0; i < MAXWIDTH; i++)
-    for (j = 0; j < MAXLENGTH; j++)
-      if (level->site[i][j].things)
+  Level* Level::create(){
+    return new Level;
+  }
+  void Level::free()
+  {
+    int i, j;
+    auto level = this;
+    level->mlist->free();
+    for (i = 0; i < MAXWIDTH; i++)
+    {
+      for (j = 0; j < MAXLENGTH; j++)
       {
-        level->site[i][j].things->free();
-        level->site[i][j].things = NULL;
+        if (level->site[i][j].things)
+        {
+          level->site[i][j].things->free();
+          level->site[i][j].things = NULL;
+        }
       }
+    }
+#ifndef SAVE_LEVELS
+    delete level;
+#endif
+  }
+
+  /* Free up monsters and items on a level*/
+  void free_level(Level *level)
+  {
+    int i, j;
+
+    level->mlist->free();
+    for (i = 0; i < MAXWIDTH; i++)
+      for (j = 0; j < MAXLENGTH; j++)
+        if (level->site[i][j].things)
+        {
+          level->site[i][j].things->free();
+          level->site[i][j].things = NULL;
+        }
 #ifndef SAVE_LEVELS
   free(level);
 #endif
@@ -872,7 +896,7 @@ void *checkmalloc(unsigned int bytes)
   {
     curr = *oldest;
     *oldest = (*oldest)->next;
-    free_level(curr);
+    curr->free();
     ptr = malloc(bytes);
   }
   if (ptr)

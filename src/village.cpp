@@ -16,7 +16,7 @@ void load_village(int villagenum, int populate)
   if (ok_to_free(tempLevel))
   {
 #ifndef SAVE_LEVELS
-    free_level(tempLevel);
+    tempLevel->free();
 #endif
     tempLevel = NULL;
   }
@@ -26,7 +26,7 @@ void load_village(int villagenum, int populate)
   assign_village_function(0, 0, TRUE);
 
 #ifndef SAVE_LEVELS
-  level = ((Level*)checkmalloc(sizeof(Level)));
+  level = Level::create();
 #else
   msdos_changelevel(TempLevel, 0, -1);
   Level = &TheLevel;
@@ -164,7 +164,7 @@ void load_village(int villagenum, int populate)
 
 void make_guard(int i, int j)
 {
-  Monsterlist* tml = ((Monsterlist*)(checkmalloc(sizeof(Monsterlist))));
+  Monsterlist* tml = Monsterlist::create();
   tml->m = (level->site[i][j].creature = make_creature(GUARD));
   tml->m->x = i;
   tml->m->y = j;
@@ -174,7 +174,7 @@ void make_guard(int i, int j)
 
 void make_sheep(int i, int j)
 {
-  Monsterlist* tml = ((Monsterlist*)(checkmalloc(sizeof(Monsterlist))));
+  Monsterlist* tml = Monsterlist::create();
   tml->m = (level->site[i][j].creature = make_creature(SHEEP));
   tml->m->x = i;
   tml->m->y = j;
@@ -199,7 +199,7 @@ void make_food_bin(int i, int j)
 
 void make_horse(int i, int j)
 {
-  Monsterlist* tml = ((Monsterlist*)(checkmalloc(sizeof(Monsterlist))));
+  Monsterlist* tml = Monsterlist::create();
   tml->m = (level->site[i][j].creature = make_creature(HORSE));
   tml->m->x = i;
   tml->m->y = j;
@@ -209,7 +209,7 @@ void make_horse(int i, int j)
 
 void make_merchant(int i, int j)
 {
-  Monsterlist* tml = ((Monsterlist*)(checkmalloc(sizeof(Monsterlist))));
+  Monsterlist* tml = Monsterlist::create();
   tml->m = (level->site[i][j].creature = make_creature(MERCHANT));
   tml->m->x = i;
   tml->m->y = j;
