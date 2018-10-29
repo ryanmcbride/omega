@@ -16,8 +16,8 @@ int game_restore ARGS((int,char *[]));
 void init_world ARGS((void));
 void inititem ARGS((int));
 void initrand ARGS((int, int));
-void signalexit ARGS((void));
-void signalsave ARGS((void));
+void signalexit ARGS((int));
+void signalsave ARGS((int));
 
 /* abyss.c functions */
 
@@ -175,7 +175,7 @@ void help ARGS((void));
 void hunt ARGS((Symbol));
 void nap ARGS((void));
 void pickpocket ARGS((void));
-void quit ARGS((void));
+void quit ARGS((int));
 void rename_player ARGS((void));
 void tacoptions ARGS((void));
 void tunnel ARGS((void));
@@ -830,7 +830,7 @@ int save_itemlist ARGS((FILE *,pol));
 int save_level ARGS((FILE *,plv));
 int save_monsters ARGS((FILE *,pml));
 int save_player ARGS((FILE *));
-void signalsave ARGS((void));
+void signalsave ARGS((int));
 
 /* scr.c functions */
 

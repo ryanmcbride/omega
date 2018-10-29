@@ -378,7 +378,7 @@ void fire()
   }
 }
 
-void quit()
+void quit(int)
 {
   clearmsg();
   change_to_game_perms();

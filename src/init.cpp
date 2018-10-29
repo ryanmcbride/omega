@@ -347,7 +347,7 @@ void init_corpse()
   };
   _objects.insert(_objects.end(), things.begin(), things.end());
 }
-extern "C" void init_items()
+void init_items()
 {
   //order is an issue
   init_things();
@@ -850,7 +850,7 @@ void init_mon_lvl_10()
       {&ELEM_MASTER, NULL, 0, 0, 0, 0, 0, 0, 149, 1000, 200, 200, 200, 20, 20, 10, 2, 0, 10, 10000, 10000, 1, -1, ARTIFACTID + 0, UNIQUE_MADE, M_TALK_EVIL, M_MOVE_SMART, M_MELEE_MASTER, M_STRIKE_MASTER, M_SP_MASTER, MOBILE | FLYING | SWIMMING, pow2(NORMAL_DAMAGE) | pow2(COLD) | pow2(ELECTRICITY) | pow2(POISON) | pow2(ACID) | pow2(FEAR) | pow2(SLEEP) | pow2(NEGENERGY) | pow2(OTHER_MAGIC) | pow2(THEFT) | pow2(GAZE) | pow2(INFECTION), 'M' | CLRS(PURPLE, WHITE), "The Elemental Master", "A burning mound of bubbling mud", "A?A?A?A?R?R?R?R?"}};
   _monsters.insert(_monsters.end(), mon.begin(), mon.end());
 }
-extern "C" void init_monsters()
+void init_monsters()
 {
   ML0 = _monsters.size();
   init_mon_lvl_0();

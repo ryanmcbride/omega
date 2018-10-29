@@ -196,7 +196,7 @@ void p_process()
       show_license();
       break; /* actually show_license is in file.c */
     case 'Q':
-      quit();
+      quit(0);
       break;
     case 'R':
       rename_player();
@@ -443,7 +443,7 @@ void p_country_process()
       show_license();
       break; /* actually show_license is in file.c */
     case 'Q':
-      quit();
+      quit(0);
       break;
     case 'R':
       rename_player();

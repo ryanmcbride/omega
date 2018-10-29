@@ -36,8 +36,8 @@ $(BIN)/$(OMEGAC): $(SRC)/*.c
 	ar rvs $(BIN)/$(OMEGAC) $(^:.c=.o)
 	rm -rf $(SRC)/*.o
 
-$(BIN)/$(EXECUTABLE): $(SRC)/*.cpp $(BIN)/$(OMEGAC)
-	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) $(BIN)/$(OMEGAC) $^ -o $@ $(LIBRARIES)
+$(BIN)/$(EXECUTABLE): $(SRC)/*.cpp
+	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) $^ -o $@ $(LIBRARIES)
 	./encryptall.sh
 	cp -rf omegalib $(BIN)/omegalib
 

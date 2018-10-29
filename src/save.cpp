@@ -149,7 +149,7 @@ int save_game(int compress, char* savestr)
 
 /* saves game on SIGHUP */
 /* no longer tries to compress, which hangs */
-void signalsave()
+void signalsave(int)
 {
   change_to_user_perms();
   save_game(FALSE, "Omega.Sav");

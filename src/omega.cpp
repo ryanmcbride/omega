@@ -198,8 +198,7 @@ void initrand(int environment, int level)
   SRANDFUNCTION(seed);
 }
 
-int game_restore(argc, argv) int argc;
-char *argv[];
+int game_restore(int argc, char* argv[])
 {
   char savestr[80];
   int ok;
@@ -232,8 +231,7 @@ char *argv[];
     return (FALSE);
 }
 
-int main(argc, argv) int argc;
-char *argv[];
+int main(int argc, char* argv[])
 {
   int continuing;
   int count;
@@ -241,41 +239,41 @@ char *argv[];
   /* always catch ^c and hang-up signals */
 
 #ifdef SIGINT
-  signal(SIGINT, (void *)quit);
+  signal(SIGINT, quit);
 #endif
 #ifdef SIGHUP
-  signal(SIGHUP, (void *)signalsave);
+  signal(SIGHUP, signalsave);
 #endif
 
 #ifndef MSDOS
   if (CATCH_SIGNALS)
   {
-    signal(SIGQUIT, (void *)signalexit);
-    signal(SIGILL, (void *)signalexit);
+    signal(SIGQUIT, signalexit);
+    signal(SIGILL, signalexit);
 #ifdef DEBUG
     if (DG_debug_flag)
     {
 #endif
-      signal(SIGTRAP, (void *)signalexit);
-      signal(SIGFPE, (void *)signalexit);
-      signal(SIGSEGV, (void *)signalexit);
+      signal(SIGTRAP, signalexit);
+      signal(SIGFPE, signalexit);
+      signal(SIGSEGV, signalexit);
 #ifdef DEBUG
     }
 #endif
 #ifdef SIGIOT
-    signal(SIGIOT, (void *)signalexit);
+    signal(SIGIOT, signalexit);
 #endif
 #ifdef SIGABRT
-    signal(SIGABRT, (void *)signalexit);
+    signal(SIGABRT, signalexit);
 #endif
 #ifdef SIGEMT
-    signal(SIGEMT, (void *)signalexit);
+    signal(SIGEMT, signalexit);
 #endif
 #ifdef SIGBUS
-    signal(SIGBUS, (void *)signalexit);
+    signal(SIGBUS, signalexit);
 #endif
 #ifdef SIGSYS
-    signal(SIGSYS, (void *)signalexit);
+    signal(SIGSYS, signalexit);
 #endif
   }
 #endif
@@ -363,7 +361,7 @@ char *argv[];
 }
 
 #ifndef MSDOS
-void signalexit()
+void signalexit(int)
 {
   int reply;
   clearmsg();
@@ -375,7 +373,7 @@ void signalexit()
   if (reply == 'y')
     save(FALSE, TRUE); /* don't compress, force save */
   else if (reply == EOF)
-    signalsave();
+    signalsave(0);
   mprint("Bye!");
   endgraf();
   exit(0);
@@ -404,7 +402,7 @@ void init_world()
 }
 
 /* set variable item names */
-void inititem(reset) int reset;
+void inititem(int reset)
 {
   int i;
 
