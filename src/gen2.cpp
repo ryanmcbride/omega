@@ -21,8 +21,8 @@ void make_stairs(int fromlevel)
     lset(i, j, STOPS);
     if (fromlevel >= 0 && fromlevel < level->depth)
     {
-      Player.x = i;
-      Player.y = j;
+      player.x = i;
+      player.y = j;
     }
   }
   if (level->depth < MaxDungeonLevels)
@@ -33,8 +33,8 @@ void make_stairs(int fromlevel)
     lset(i, j, STOPS);
     if (fromlevel > level->depth)
     {
-      Player.x = i;
-      Player.y = j;
+      player.x = i;
+      player.y = j;
     }
   }
 }

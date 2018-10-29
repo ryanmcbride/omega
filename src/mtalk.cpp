@@ -21,15 +21,15 @@ void m_talk_druid(monster* m)
       print2("You feel competent.");
       morewait();
       gain_experience(300);
-      if (Player.patron == DRUID)
+      if (player.patron == DRUID)
       {
         print1("The Archdruid conveys to you the wisdom of nature....");
         print2("You feel like a sage.");
         morewait();
         for (i = 0; i < NUMRANKS; i++)
         {
-          if (Player.guildxp[i] > 0)
-            Player.guildxp[i] += 300;
+          if (player.guildxp[i] > 0)
+            player.guildxp[i] += 300;
         }
       }
     }
@@ -47,9 +47,9 @@ void m_talk_druid(monster* m)
       else if (Phase / 2 == 3 || Phase / 2 == 9)
       { /* half moon */
         mprint("You take part in today's holy celebration of balance...");
-        Player.alignment = 0;
-        Player.mana = calcmana();
-        if (Player.patron == DRUID)
+        player.alignment = 0;
+        player.mana = calcmana();
+        if (player.patron == DRUID)
           gain_experience(200); /* if a druid wants to spend 2 days */
         Time += 60;             /* celebrating for 1600 xp, why not? */
         hourly_check();
@@ -67,13 +67,13 @@ void m_talk_druid(monster* m)
       else
       {
         mprint("The ArchDruid conducts a sacred rite of balance...");
-        if (Player.patron == DRUID)
+        if (player.patron == DRUID)
         {
-          Player.alignment = 0;
-          Player.mana = calcmana();
+          player.alignment = 0;
+          player.mana = calcmana();
         }
         else
-          Player.alignment -= Player.alignment * max(0, 10 - Player.level) / 10;
+          player.alignment -= player.alignment * max(0, 10 - player.level) / 10;
         /* the higher level the character is, the more set in his/her ways */
         Time += 60;
         hourly_check();
@@ -84,7 +84,7 @@ void m_talk_druid(monster* m)
   else
   {
     mprint("The ArchDruid looks at you and cries: 'Unclean! Unclean!'");
-    disrupt(Player.x, Player.y, 100);
+    disrupt(player.x, player.y, 100);
     mprint("This seems to have satiated his desire for vengeance.");
     mprint("'Have you learned your lesson?' The ArchDruid asks. [yn] ");
     if (ynq())
@@ -227,20 +227,20 @@ void m_talk_guard(monster* m)
     print2("Do it? [yn] ");
     if (ynq2() == 'y')
     {
-      Player.alignment++;
+      player.alignment++;
       if (Current_Environment == E_CITY)
       {
         print1("Go directly to jail. Do not pass go, do not collect 200Au.");
         print2("You are taken to the city gaol.");
         morewait();
         send_to_jail();
-        drawvision(Player.x, Player.y);
+        drawvision(player.x, player.y);
       }
       else
       {
         clearmsg();
         print1("Mollified, the guard disarms you and sends you away.");
-        dispose_lost_objects(1, Player.possessions[O_WEAPON_HAND]);
+        dispose_lost_objects(1, player.possessions[O_WEAPON_HAND]);
         pacify_guards();
       }
     }
@@ -250,7 +250,7 @@ void m_talk_guard(monster* m)
       print1("All right, you criminal scum, you asked for it!");
     }
   }
-  else if (Player.rank[ORDER] > 0)
+  else if (player.rank[ORDER] > 0)
     print1("'Greetings comrade! May you always tread the paths of Law.'");
   else
     print1("Move it right along, stranger!");
@@ -283,7 +283,7 @@ void m_talk_ninja(monster* m)
 
 void m_talk_thief(monster* m)
 {
-  if (Player.rank[THIEVES])
+  if (player.rank[THIEVES])
   {
     if (m->level == 2)
       m->monstring = "sneak thief";
@@ -326,12 +326,12 @@ void m_talk_im(monster* m)
     mprint("Want it? [yn] ");
     if (ynq() == 'y')
     {
-      if (Player.cash < (max(10, 4 * true_item_value(m->possessions->thing))))
+      if (player.cash < (max(10, 4 * true_item_value(m->possessions->thing))))
       {
-        if (Player.alignment > 10)
+        if (player.alignment > 10)
         {
           mprint("Well, I'll let you have it for what you've got.");
-          Player.cash = 0;
+          player.cash = 0;
           gain_item(m->possessions->thing);
           m->possessions = NULL;
         }
@@ -341,7 +341,7 @@ void m_talk_im(monster* m)
       else
       {
         mprint("Here you are. Have a good day.");
-        Player.cash -= max(10, (4 * item_value(m->possessions->thing)));
+        player.cash -= max(10, (4 * item_value(m->possessions->thing)));
         gain_item(m->possessions->thing);
         m->possessions = NULL;
       }
@@ -551,8 +551,8 @@ void m_talk_gf(monster* m)
     }
   }
   mprint("In a flash of sweet-smelling light, the fairy vanishes....");
-  Player.hp = max(Player.hp, Player.maxhp);
-  Player.mana = max(Player.mana, calcmana());
+  player.hp = max(player.hp, player.maxhp);
+  player.mana = max(player.mana, calcmana());
   mprint("You feel mellow.");
   m_vanish(m);
 }
@@ -582,7 +582,7 @@ void m_talk_seductor(monster* m)
   }
   else
     strcpy(Str2, m->monstring);
-  if (Player.preference == 'n')
+  if (player.preference == 'n')
   {
     strcat(Str2, " notices your disinterest and leaves with a pout.");
     mprint(Str2);
@@ -603,7 +603,7 @@ void m_talk_seductor(monster* m)
       strcat(Str2, " shows you a good time....");
       mprint(Str2);
       gain_experience(500);
-      Player.con++;
+      player.con++;
     }
   }
   m_vanish(m);
@@ -618,7 +618,7 @@ void m_talk_demonlover(monster* m)
   }
   else
     strcpy(Str2, m->monstring);
-  if (Player.preference == 'n')
+  if (player.preference == 'n')
   {
     strcat(Str2, " notices your disinterest and changes with a snarl...");
     mprint(Str2);
@@ -711,7 +711,7 @@ void m_talk_parrot(monster* m)
 
 void m_talk_servant(monster* m)
 {
-  int target, x = Player.x, y = Player.y;
+  int target, x = player.x, y = player.y;
   if (m->id == SERV_LAW)
   {
     target = SERV_CHAOS;
@@ -819,11 +819,11 @@ void m_talk_merchant(monster* m)
       mprint("Pay the merchant? [yn] ");
       if (ynq() == 'y')
       {
-        if (Player.cash < 250)
+        if (player.cash < 250)
           mprint("The merchant says: 'Come back when you've got the cash!'");
         else
         {
-          Player.cash -= 250;
+          player.cash -= 250;
           mprint("The merchant takes your money and tells you to select");
           mprint("any horse you want in the stables.");
           mprint("He says: 'You'll want to get to know him before trying to");
@@ -864,13 +864,13 @@ void m_talk_prime(monster* m)
     {
       print1("The Prime makes an intricate gesture, which leaves behind");
       print2("glowing blue sparks... He winks mischievously at you....");
-      if (Player.rank[CIRCLE] > 0)
+      if (player.rank[CIRCLE] > 0)
       {
         morewait();
         print1("The blue sparks strike you! You feel enhanced!");
         print2("You feel more experienced....");
-        Player.pow += Player.rank[CIRCLE];
-        Player.mana += calcmana();
+        player.pow += player.rank[CIRCLE];
+        player.mana += calcmana();
         gain_experience(1000);
         m_vanish(m);
       }

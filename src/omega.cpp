@@ -50,9 +50,9 @@ int WIDTH = MAXWIDTH;
 long GameStatus = 0L; /* Game Status bit vector */
 int ScreenLength = 0; /* How large is level window */
 #ifndef MSDOS_SUPPORTED_ANTIQUE
-struct player Player; /* the player */
+Player player; /* the player */
 #else
-struct player Player = {0};                        /* the player */
+Player player = {0};                        /* the player */
 #endif
 #ifndef MSDOS_SUPPORTED_ANTIQUE
 Terrain Country[MAXWIDTH][MAXLENGTH]; /* The countryside */
@@ -337,7 +337,7 @@ int main(int argc, char* argv[])
   timeprint();
   calc_melee();
   if (Current_Environment != E_COUNTRYSIDE)
-    showroom(level->site[Player.x][Player.y].roomnumber);
+    showroom(level->site[player.x][player.y].roomnumber);
   else
     terrain_check(FALSE);
 
@@ -346,7 +346,7 @@ int main(int argc, char* argv[])
   else
     colour_off();
 
-  screencheck(Player.y);
+  screencheck(player.y);
 
   /* game cycle */
   if (!continuing)
@@ -394,8 +394,8 @@ void init_world()
   load_city(TRUE);
   WIDTH = 64;
   LENGTH = 64;
-  Player.x = 62;
-  Player.y = 21;
+  player.x = 62;
+  player.y = 21;
   level = City;
   Current_Environment = E_CITY;
   print1("You pass through the massive gates of Rampart, the city.");

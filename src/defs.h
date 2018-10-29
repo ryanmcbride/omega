@@ -675,11 +675,11 @@ on save and restore. */
 /* number of options with TRUE/FALSE values */
 #define NUMTFOPTIONS 9
 
-/* The slot number of the two options not in Player.options */
+/* The slot number of the two options not in player.options */
 #define VERBOSITY_LEVEL 10
 #define SEARCH_DURATION 11
 
-/* Player.options bits */
+/* player.options bits */
 #define BELLICOSE 1 
 #define JUMPMOVE 2
 #define RUNSTOP 4
@@ -1431,7 +1431,7 @@ class Monsterlist {
 
 
 
-class player {
+class Player {
   public:
   int str,con,dex,agi,iq,pow,maxstr,maxcon,maxdex,maxagi,maxiq,maxpow;
   long xp;
@@ -1575,9 +1575,9 @@ typedef oltype *pol;
 #define setgamestatus(flag) (GameStatus |= (flag))
 #define resetgamestatus(flag) (GameStatus &= ~(flag))
 
-#define optionp(o) ((Player.options&(o))?1:0)
-#define optionset(o) (Player.options |= (o))
-#define optionreset(o) (Player.options &= ~(o))
+#define optionp(o) ((player.options&(o))?1:0)
+#define optionset(o) (player.options |= (o))
+#define optionreset(o) (player.options &= ~(o))
 
 /* systemV for some reason uses string.h instead of strings.h */
 /* Also, random and srandom are unlikely to be found on system V... */

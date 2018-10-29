@@ -25,24 +25,24 @@ void time_clock(int reset)
   }
 
   if (reset)
-    Tick = (Player.click = 0);
+    Tick = (player.click = 0);
 
   env = Current_Environment;
-  while ((Tick == Player.click) && (Current_Environment != E_COUNTRYSIDE) &&
+  while ((Tick == player.click) && (Current_Environment != E_COUNTRYSIDE) &&
          Current_Environment == env)
   {
     if (!gamestatusp(SKIP_PLAYER))
       do
       {
         resetgamestatus(SKIP_MONSTERS);
-        if ((!Player.status[SLEPT]) &&
+        if ((!player.status[SLEPT]) &&
             (Current_Environment != E_COUNTRYSIDE))
           p_process();
       } while (gamestatusp(SKIP_MONSTERS) &&
                (Current_Environment != E_COUNTRYSIDE));
     else
       resetgamestatus(SKIP_PLAYER);
-    Player.click = (Player.click + Command_Duration) % 60;
+    player.click = (player.click + Command_Duration) % 60;
   }
 
   /* klugy but what the heck. w/o this line, if the player caused

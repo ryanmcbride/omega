@@ -20,12 +20,12 @@ void l_condo()
       print2("Only 50,000Au. Buy it? [yn] ");
       if (ynq2() == 'y')
       {
-        if (Player.cash < 50000)
+        if (player.cash < 50000)
           print3("No mortgages, buddy.");
         else
         {
           setgamestatus(SOLD_CONDO);
-          Player.cash -= 50000;
+          player.cash -= 50000;
           dataprint();
           print2("You are the proud owner of a luxurious condo penthouse.");
           Condoitems = NULL;
@@ -37,12 +37,12 @@ void l_condo()
       print2("Weekly Rental, 1000Au. Pay for it? [yn] ");
       if (ynq2() == 'y')
       {
-        if (Player.cash < 1000)
+        if (player.cash < 1000)
           print2("Hey, pay the rent or out you go....");
         else
         {
           weeksleep = TRUE;
-          Player.cash -= 1000;
+          player.cash -= 1000;
           dataprint();
         }
       }
@@ -68,16 +68,16 @@ void l_condo()
         i = getitem(NULL_ITEM);
         if (i != ABORT)
         {
-          if (Player.possessions[i]->blessing < 0)
+          if (player.possessions[i]->blessing < 0)
             print2("The item just doesn't want to be stored away...");
           else
           {
             ol = ((pol)checkmalloc(sizeof(oltype)));
-            ol->thing = Player.possessions[i];
+            ol->thing = player.possessions[i];
             ol->next = Condoitems;
             Condoitems = ol;
-            conform_unused_object(Player.possessions[i]);
-            Player.possessions[i] = NULL;
+            conform_unused_object(player.possessions[i]);
+            player.possessions[i] = NULL;
           }
         }
       }
@@ -130,18 +130,18 @@ void l_condo()
     print1("Taking a week off to rest...");
     morewait();
     toggle_item_use(TRUE);
-    Player.hp = Player.maxhp;
-    Player.str = Player.maxstr;
-    Player.agi = Player.maxagi;
-    Player.con = Player.maxcon;
-    Player.dex = Player.maxdex;
-    Player.iq = Player.maxiq;
-    Player.pow = Player.maxpow;
+    player.hp = player.maxhp;
+    player.str = player.maxstr;
+    player.agi = player.maxagi;
+    player.con = player.maxcon;
+    player.dex = player.maxdex;
+    player.iq = player.maxiq;
+    player.pow = player.maxpow;
     for (i = 0; i < NUMSTATI; i++)
-      if (Player.status[i] < 1000)
-        Player.status[i] = 0;
+      if (player.status[i] < 1000)
+        player.status[i] = 0;
     toggle_item_use(FALSE);
-    Player.food = 36;
+    player.food = 36;
     print2("You're once again fit and ready to continue your adventure.");
     Time += 60 * 24 * 7;
     Date += 7;
@@ -152,7 +152,7 @@ void l_condo()
 
 void gymtrain(int* maxstat, int* stat)
 {
-  if (Gymcredit + Player.cash < 2000)
+  if (Gymcredit + player.cash < 2000)
     print2("You can't afford our training!");
   else
   {
@@ -160,7 +160,7 @@ void gymtrain(int* maxstat, int* stat)
       Gymcredit -= 2000;
     else
     {
-      Player.cash -= (2000 - Gymcredit);
+      player.cash -= (2000 - Gymcredit);
       Gymcredit = 0;
     }
     print2("Sweat. Sweat. ");
@@ -186,14 +186,14 @@ void gymtrain(int* maxstat, int* stat)
 
 void healforpay()
 {
-  if (Player.cash < 50)
+  if (player.cash < 50)
     print2("You can't afford to be healed!");
   else
   {
-    Player.cash -= 50;
-    Player.hp += 20 + random_range(20);
-    if (Player.hp > Player.maxhp)
-      Player.hp = Player.maxhp;
+    player.cash -= 50;
+    player.hp += 20 + random_range(20);
+    if (player.hp > player.maxhp)
+      player.hp = player.maxhp;
     print2("Another medical marvel....");
   }
   calc_melee();
@@ -201,12 +201,12 @@ void healforpay()
 
 void cureforpay()
 {
-  if (Player.cash < 250)
+  if (player.cash < 250)
     print2("You can't afford to be cured!");
   else
   {
-    Player.cash -= 250;
-    Player.status[DISEASED] = 0;
+    player.cash -= 250;
+    player.status[DISEASED] = 0;
     print2("Quarantine lifted....");
     showflags();
   }
@@ -246,14 +246,14 @@ void pacify_guards()
 
 void send_to_jail()
 {
-  if (Player.rank[ORDER] > 0)
+  if (player.rank[ORDER] > 0)
   {
     print1("A member of the Order of Paladins sent to jail!");
     print2("It cannot be!");
     morewait();
     print1("You are immediately expelled permanently from the Order!");
     print2("Your name is expunged from the records....");
-    Player.rank[ORDER] = -1;
+    player.rank[ORDER] = -1;
   }
   else if (gamestatusp(DESTROYED_ORDER))
     print1("The destruction of the Order of Paladins has negated the law!");
@@ -294,26 +294,26 @@ void send_to_jail()
         print1("The members of the court close in around, fingers pointing.");
         print2("You feel insubstantial hands closing around your throat....");
         print3("You feel your life draining away!");
-        while (Player.level > 0)
+        while (player.level > 0)
         {
-          Player.level--;
-          Player.xp /= 2;
-          Player.hp /= 2;
+          player.level--;
+          player.xp /= 2;
+          player.hp /= 2;
           dataprint();
         }
-        Player.maxhp = Player.maxcon;
+        player.maxhp = player.maxcon;
         morewait();
         print1("You are finally released, a husk of your former self....");
-        Player.x = 58;
-        Player.y = 40;
+        player.x = 58;
+        player.y = 40;
         screencheck(58);
       }
-      else if (Player.alignment + random_range(200) < 0)
+      else if (player.alignment + random_range(200) < 0)
       {
         print1("Luckily for you, a smooth-tongued advocate from the");
         print2("Rampart Chaotic Liberties Union gets you off!");
-        Player.x = 58;
-        Player.y = 40;
+        player.x = 58;
+        player.y = 40;
         screencheck(58);
       }
       else
@@ -322,8 +322,8 @@ void send_to_jail()
         case 0:
           print1("The Magistrate sternly reprimands you.");
           print2("As a first-time offender, you are given probation.");
-          Player.y = 58;
-          Player.x = 40;
+          player.y = 58;
+          player.x = 40;
           screencheck(58);
           break;
         case 1:
@@ -331,8 +331,8 @@ void send_to_jail()
           print2("You are thrown in jail!");
           morewait();
           repair_jail();
-          Player.y = 54;
-          Player.x = 37 + (2 * random_range(4));
+          player.y = 54;
+          player.x = 37 + (2 * random_range(4));
           screencheck(54);
           l_portcullis_trap();
           break;
@@ -347,8 +347,8 @@ void send_to_jail()
                    "police brutality");
           morewait();
           repair_jail();
-          Player.y = 54;
-          Player.x = 37 + (2 * random_range(4));
+          player.y = 54;
+          player.x = 37 + (2 * random_range(4));
           screencheck(54);
           l_portcullis_trap();
         }
@@ -361,7 +361,7 @@ void l_adept()
   print1("You see a giant shimmering gate in the form of an omega.");
   if (!gamestatusp(ATTACKED_ORACLE))
   {
-    if (Player.str + Player.con + Player.iq + Player.pow < 100)
+    if (player.str + player.con + player.iq + player.pow < 100)
       print2("A familiar female voice says: I would not advise this now....");
     else
       print2("A familiar female voice says: Go for it!");
@@ -371,13 +371,13 @@ void l_adept()
   print2("Enter the mystic portal? [yn] ");
   if (ynq2() != 'y')
   {
-    if (Player.level > 100)
+    if (player.level > 100)
     {
       print1("The Lords of Destiny spurn your cowardice....");
-      Player.xp = 0;
-      Player.level = 0;
-      Player.hp = Player.maxhp = Player.con;
-      Player.mana = calcmana();
+      player.xp = 0;
+      player.level = 0;
+      player.hp = player.maxhp = player.con;
+      player.mana = calcmana();
       print2("You suddenly feel very inexperienced.");
       dataprint();
     }
@@ -389,7 +389,7 @@ void l_adept()
     morewait();
     drawomega();
     print1("Like wow man! Colors! ");
-    if (Player.patron != DESTINY)
+    if (player.patron != DESTINY)
     {
       print2("Strange forces try to tear you apart!");
       p_damage(random_range(200), UNSTOPPABLE, "a vortex of chaos");
@@ -400,8 +400,8 @@ void l_adept()
     print1("Your head spins for a moment....");
     print2("and clears....");
     morewait();
-    Player.hp = Player.maxhp;
-    Player.mana = calcmana();
+    player.hp = player.maxhp;
+    player.mana = calcmana();
     change_environment(E_ABYSS);
   }
 }
@@ -420,9 +420,9 @@ void l_trifid()
     {
       print1("Thinking fast, you toss salt water on the trifid...");
       print2("The trifid disintegrates with a frustrated sigh.");
-      level->site[Player.x][Player.y].locchar = FLOOR;
-      level->site[Player.x][Player.y].p_locf = L_NO_OP;
-      lset(Player.x, Player.y, CHANGED);
+      level->site[player.x][player.y].locchar = FLOOR;
+      level->site[player.x][player.y].p_locf = L_NO_OP;
+      lset(player.x, player.y, CHANGED);
       gain_experience(1000);
       stuck = FALSE;
     }
@@ -442,7 +442,7 @@ void l_trifid()
       switch (menugetc())
       {
       case 'a':
-        if (Player.str > random_range(200))
+        if (player.str > random_range(200))
         {
           print1("Amazing! You're now free.");
           print2("The trifid writhes hungrily at you.");
@@ -455,8 +455,8 @@ void l_trifid()
         print1("Well, at least you're facing your fate with dignity.");
         break;
       case 'c':
-        if ((Player.patron == DRUID) &&
-            (Player.rank[PRIESTHOOD] > random_range(5)))
+        if ((player.patron == DRUID) &&
+            (player.rank[PRIESTHOOD] > random_range(5)))
         {
           print1("A shaft of golden light bathes the alien plant");
           print2("which grudginly lets you go....");
@@ -497,7 +497,7 @@ void l_vault()
     print1("Try to crack it? [yn] ");
     if (ynq1() == 'y')
     {
-      if (random_range(100) < Player.rank[THIEVES] * Player.rank[THIEVES])
+      if (random_range(100) < player.rank[THIEVES] * player.rank[THIEVES])
       {
         print2("The lock clicks open!!!");
         gain_experience(5000);
@@ -507,7 +507,7 @@ void l_vault()
       {
         print2("Uh, oh, set off the alarm.... The castle guard arrives....");
         morewait();
-        if (Player.rank[NOBILITY] == DUKE)
+        if (player.rank[NOBILITY] == DUKE)
         {
           clearmsg();
           print1("\"Ah, just testing us, your Grace?  I hope we're up to scratch.\"");
@@ -555,7 +555,7 @@ void l_brothel()
         print2("`500Au, buddy. For the night.' pay it? [yn] ");
         if (ynq2() == 'y')
         {
-          if (Player.cash < 500)
+          if (player.cash < 500)
           {
             print1("`What, no roll?!'");
             print2("The bouncer bounces you a little and lets you go.");
@@ -563,11 +563,11 @@ void l_brothel()
           }
           else
           {
-            Player.cash -= 500;
+            player.cash -= 500;
             print1("You are ushered into an opulently appointed hall.");
             print2("After an expensive dinner (takeout from Les Crapuleux)");
             morewait();
-            if (Player.preference == 'n')
+            if (player.preference == 'n')
             {
               switch (random_range(4))
               {
@@ -588,8 +588,8 @@ void l_brothel()
             else
             {
               print1("you spend an enjoyable and educational evening with");
-              if (Player.preference == 'm' ||
-                  (Player.preference == 'y' && random_range(2)))
+              if (player.preference == 'm' ||
+                  (player.preference == 'y' && random_range(2)))
                 switch (random_range(4))
                 {
                 case 0:
@@ -630,30 +630,30 @@ void l_brothel()
               Time += ((9 - hour()) * 60);
               Date++;
             }
-            Player.food = 40;
-            Player.status[DISEASED] = 0;
-            Player.status[POISONED] = 0;
-            Player.hp = Player.maxhp;
+            player.food = 40;
+            player.status[DISEASED] = 0;
+            player.status[POISONED] = 0;
+            player.hp = player.maxhp;
             /* reduce temporary stat gains to max stat levels */
             toggle_item_use(TRUE);
-            Player.str = min(Player.str, Player.maxstr);
-            Player.con = min(Player.con, Player.maxcon);
-            Player.agi = min(Player.agi, Player.maxagi);
-            Player.dex = min(Player.dex, Player.maxdex);
-            Player.iq = min(Player.iq, Player.maxiq);
-            Player.pow = min(Player.pow, Player.maxpow);
+            player.str = min(player.str, player.maxstr);
+            player.con = min(player.con, player.maxcon);
+            player.agi = min(player.agi, player.maxagi);
+            player.dex = min(player.dex, player.maxdex);
+            player.iq = min(player.iq, player.maxiq);
+            player.pow = min(player.pow, player.maxpow);
             toggle_item_use(FALSE);
-            if (Player.preference == 'n')
-              Player.iq++; /* whatever :-) */
+            if (player.preference == 'n')
+              player.iq++; /* whatever :-) */
             else
-              Player.con++;
+              player.con++;
             gain_experience(100);
             timeprint();
             dataprint();
             showflags();
             morewait();
             clearmsg();
-            if (Player.preference == 'n')
+            if (player.preference == 'n')
               print1("You arise refreshed the next morning...");
             else
               print1("You arise, tired but happy, the next morning...");
@@ -890,7 +890,7 @@ void l_oracle()
     if (ynq2() == 'y')
     {
       print1("A strange force rips you from your place....");
-      Player.hp = 1;
+      player.hp = 1;
       print2("You feel drained....");
       dataprint();
       print3("You find yourself in a weird flickery maze.");
@@ -1016,17 +1016,17 @@ void l_safe()
     response = (char)mcigetc();
   while ((response != 'p') && (response != 'f') && (response != ESCAPE));
   if (response == 'p')
-    attempt = (2 * Player.dex + Player.rank[THIEVES] * 10 - random_range(100)) / 10;
+    attempt = (2 * player.dex + player.rank[THIEVES] * 10 - random_range(100)) / 10;
   else if (response == 'f')
-    attempt = (Player.dmg - random_range(100)) / 10;
+    attempt = (player.dmg - random_range(100)) / 10;
   if (attempt > 0)
   {
-    Player.alignment -= 4;
+    player.alignment -= 4;
     gain_experience(50);
     print2("The door springs open!");
-    level->site[Player.x][Player.y].locchar = FLOOR;
-    level->site[Player.x][Player.y].p_locf = L_NO_OP;
-    lset(Player.x, Player.y, CHANGED);
+    level->site[player.x][player.y].locchar = FLOOR;
+    level->site[player.x][player.y].p_locf = L_NO_OP;
+    lset(player.x, player.y, CHANGED);
     if (random_range(2) == 1)
     {
       print1("You find:");
@@ -1061,30 +1061,30 @@ void l_safe()
       print1("There is a sudden flash!");
       p_damage(random_range(25), FLAME, "a safe");
       print2("The safe has self-destructed.");
-      level->site[Player.x][Player.y].locchar = RUBBLE;
-      level->site[Player.x][Player.y].p_locf = L_RUBBLE;
-      lset(Player.x, Player.y, CHANGED);
+      level->site[player.x][player.y].locchar = RUBBLE;
+      level->site[player.x][player.y].p_locf = L_RUBBLE;
+      lset(player.x, player.y, CHANGED);
     }
     else if (attempt == -3)
     {
       print1("The safe jolts you with electricity!");
-      lball(Player.x, Player.y, Player.x, Player.y, 30);
+      lball(player.x, player.y, player.x, player.y, 30);
     }
     else if (attempt < -3)
     {
       print1("You are hit by an acid spray!");
-      if (Player.possessions[O_CLOAK] != NULL)
+      if (player.possessions[O_CLOAK] != NULL)
       {
         print2("Your cloak is destroyed!");
-        conform_lost_object(Player.possessions[O_CLOAK]);
+        conform_lost_object(player.possessions[O_CLOAK]);
         p_damage(10, ACID, "a safe");
       }
-      else if (Player.possessions[O_ARMOR] != NULL)
+      else if (player.possessions[O_ARMOR] != NULL)
       {
         print2("Your armor corrodes!");
-        Player.possessions[O_ARMOR]->dmg -= 3;
-        Player.possessions[O_ARMOR]->hit -= 3;
-        Player.possessions[O_ARMOR]->aux -= 3;
+        player.possessions[O_ARMOR]->dmg -= 3;
+        player.possessions[O_ARMOR]->hit -= 3;
+        player.possessions[O_ARMOR]->aux -= 3;
         p_damage(10, ACID, "a safe");
       }
       else
@@ -1103,12 +1103,12 @@ void l_cartographer()
   print2("Map of the local area: 500Au. Buy it? [yn] ");
   if (ynq2() == 'y')
   {
-    if (Player.cash < 500)
+    if (player.cash < 500)
       print3("Cursed be cheapskates! May you never find an aid station....");
     else
     {
       print3("You now have the local area mapped.");
-      Player.cash -= 500;
+      player.cash -= 500;
       dataprint();
       switch (Villagenum)
       {
@@ -1170,21 +1170,21 @@ void l_charity()
     donation = parsenum();
     if (donation < 1)
       print2("'Go stick your head in a pig.'");
-    else if (donation > Player.cash)
+    else if (donation > player.cash)
       print2("'I'm afraid you're charity is bigger than your purse!'");
-    else if (donation < max(100, Player.level * Player.level * 100))
+    else if (donation < max(100, player.level * player.level * 100))
     {
       print2("'Oh, can't you do better than that?'");
       print3("'Well, I guess we'll take it....'");
-      if (Player.alignment < 10)
-        Player.alignment++;
-      Player.cash -= donation;
+      if (player.alignment < 10)
+        player.alignment++;
+      player.cash -= donation;
     }
     else
     {
       print2("'Oh thank you kindly, friend, and bless you!'");
-      Player.cash -= donation;
-      Player.alignment += 5;
+      player.cash -= donation;
+      player.alignment += 5;
     }
   }
   dataprint();

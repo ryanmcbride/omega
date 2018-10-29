@@ -497,7 +497,7 @@ void drawplayer()
         wattrset(Levelw, CHARATTR(c));
       waddch(Levelw, (c & 0xff));
     }
-    wmove(Levelw, screenmod(Player.y), Player.x);
+    wmove(Levelw, screenmod(player.y), player.x);
     if (optionp(SHOW_COLOUR))
       wattrset(Levelw, CHARATTR(PLAYER));
     waddch(Levelw, (PLAYER & 0xff));
@@ -505,17 +505,17 @@ void drawplayer()
   else
   {
     if (inbounds(lastx, lasty) && !offscreen(lasty))
-      plotspot(lastx, lasty, (Player.status[BLINDED] > 0 ? FALSE : TRUE));
-    wmove(Levelw, screenmod(Player.y), Player.x);
-    if ((!Player.status[INVISIBLE]) || Player.status[TRUESIGHT])
+      plotspot(lastx, lasty, (player.status[BLINDED] > 0 ? FALSE : TRUE));
+    wmove(Levelw, screenmod(player.y), player.x);
+    if ((!player.status[INVISIBLE]) || player.status[TRUESIGHT])
     {
       if (optionp(SHOW_COLOUR))
         wattrset(Levelw, CHARATTR(PLAYER));
       waddch(Levelw, (PLAYER & 0xff));
     }
   }
-  lastx = Player.x;
-  lasty = Player.y;
+  lastx = player.x;
+  lasty = player.y;
 }
 
 void setlastxy(int new_x, int new_y) /* used when changing environments */
@@ -530,7 +530,7 @@ int litroom(int x, int y)
     return (FALSE);
   else
     return (loc_statusp(x, y, LIT) ||
-            Player.status[ILLUMINATION]);
+            player.status[ILLUMINATION]);
 }
 
 void drawvision(int x, int y)
@@ -540,7 +540,7 @@ void drawvision(int x, int y)
 
   if (Current_Environment != E_COUNTRYSIDE)
   {
-    if (Player.status[BLINDED])
+    if (player.status[BLINDED])
     {
       drawspot(oldx, oldy);
       drawspot(x, y);
@@ -548,12 +548,12 @@ void drawvision(int x, int y)
     }
     else
     {
-      if (Player.status[ILLUMINATION] > 0)
+      if (player.status[ILLUMINATION] > 0)
       {
         for (i = -2; i < 3; i++)
           for (j = -2; j < 3; j++)
             if (inbounds(x + i, y + j))
-              if (view_los_p(x + i, y + j, Player.x, Player.y))
+              if (view_los_p(x + i, y + j, player.x, player.y))
                 dodrawspot(x + i, y + j);
       }
       else
@@ -568,7 +568,7 @@ void drawvision(int x, int y)
       drawmonsters(TRUE);  /* draw those now visible */
     }
     if ((!gamestatusp(FAST_MOVE)) || (!optionp(JUMPMOVE)))
-      omshowcursor(Player.x, Player.y);
+      omshowcursor(player.x, player.y);
     oldx = x;
     oldy = y;
   }
@@ -589,7 +589,7 @@ void drawvision(int x, int y)
           }
         }
     drawplayer();
-    omshowcursor(Player.x, Player.y);
+    omshowcursor(player.x, player.y);
   }
 }
 
@@ -615,7 +615,7 @@ void drawspot(int x, int y)
   {
     c = getspot(x, y, FALSE);
     if (c != level->site[x][y].showchar)
-      if (view_los_p(Player.x, Player.y, x, y))
+      if (view_los_p(player.x, player.y, x, y))
       {
         lset(x, y, SEEN);
         level->site[x][y].showchar = c;
@@ -714,9 +714,9 @@ void drawmonsters(int display)
     {
       if (display)
       {
-        if (view_los_p(Player.x, Player.y, ml->m->x, ml->m->y))
+        if (view_los_p(player.x, player.y, ml->m->x, ml->m->y))
         {
-          if (Player.status[TRUESIGHT] || (!m_statusp(ml->m, M_INVISIBLE)))
+          if (player.status[TRUESIGHT] || (!m_statusp(ml->m, M_INVISIBLE)))
           {
             if (!optionp(SHOW_COLOUR) &&
                 (ml->m->level > 5) &&
@@ -773,7 +773,7 @@ Symbol getspot(int x, int y, int showmonster)
       if (showmonster && (level->site[x][y].creature != NULL))
       {
         if ((m_statusp(level->site[x][y].creature, M_INVISIBLE)) &&
-            (!Player.status[TRUESIGHT]))
+            (!player.status[TRUESIGHT]))
           return (getspot(x, y, FALSE));
         else
           return (level->site[x][y].creature->monchar);
@@ -786,7 +786,7 @@ Symbol getspot(int x, int y, int showmonster)
       if (showmonster && (level->site[x][y].creature != NULL))
       {
         if ((m_statusp(level->site[x][y].creature, M_INVISIBLE)) &&
-            (!Player.status[TRUESIGHT]))
+            (!player.status[TRUESIGHT]))
           return (getspot(x, y, FALSE));
         else
           return (level->site[x][y].creature->monchar);
@@ -826,11 +826,11 @@ void timeprint()
 void comwinprint()
 {
   wclear(Comwin);
-  wprintw(Comwin, "Hit: %d  \n", Player.hit);
-  wprintw(Comwin, "Dmg: %d  \n", Player.dmg);
-  wprintw(Comwin, "Def: %d  \n", Player.defense);
-  wprintw(Comwin, "Arm: %d  \n", Player.absorption);
-  wprintw(Comwin, "Spd: %d.%d  \n", 5 / Player.speed, 500 / Player.speed % 100);
+  wprintw(Comwin, "Hit: %d  \n", player.hit);
+  wprintw(Comwin, "Dmg: %d  \n", player.dmg);
+  wprintw(Comwin, "Def: %d  \n", player.defense);
+  wprintw(Comwin, "Arm: %d  \n", player.absorption);
+  wprintw(Comwin, "Spd: %d.%d  \n", 5 / player.speed, 500 / player.speed % 100);
   wrefresh(Comwin);
 }
 
@@ -840,12 +840,12 @@ void dataprint()
   /* WDT HACK: I should make these fields spaced and appropriately justified.
    * Maybe I don't feel like it right now. */
   wprintw(Dataw, "Hp:%d/%d Mana:%ld/%ld Au:%ld Level:%d/%ld Carry:%d/%d \n",
-          Player.hp, Player.maxhp, Player.mana, Player.maxmana, Player.cash,
-          Player.level, Player.xp, Player.itemweight, Player.maxweight);
+          player.hp, player.maxhp, player.mana, player.maxmana, player.cash,
+          player.level, player.xp, player.itemweight, player.maxweight);
   wprintw(Dataw, "Str:%d/%d Con:%d/%d Dex:%d/%d Agi:%d/%d Int:%d/%d Pow:%d/%d   ",
-          Player.str, Player.maxstr, Player.con, Player.maxcon,
-          Player.dex, Player.maxdex, Player.agi, Player.maxagi,
-          Player.iq, Player.maxiq, Player.pow, Player.maxpow);
+          player.str, player.maxstr, player.con, player.maxcon,
+          player.dex, player.maxdex, player.agi, player.maxagi,
+          player.iq, player.maxiq, player.pow, player.maxpow);
   wrefresh(Dataw);
 }
 
@@ -1186,7 +1186,7 @@ void display_death(char* source)
   touchwin(stdscr);
   printw("\n\n\n\n");
   printw("Requiescat In Pace, ");
-  printw(Player.name);
+  printw(player.name);
   printw(" (%ld points)", calc_points());
   strcpy(Str4, "Killed by ");
   strcat(Str4, source);
@@ -1208,8 +1208,8 @@ void display_win()
   clear();
   touchwin(stdscr);
   printw("\n\n\n\n");
-  printw(Player.name);
-  if (Player.rank[ADEPT])
+  printw(player.name);
+  if (player.rank[ADEPT])
   {
     printw(" is a total master of omega with %ld points!", FixedPoints);
     strcpy(Str4, "A total master of omega");
@@ -1226,7 +1226,7 @@ void display_win()
   clear();
   touchwin(stdscr);
   refresh();
-  if (Player.rank[ADEPT])
+  if (player.rank[ADEPT])
     extendlog(Str4, BIGWIN);
   else
     extendlog(Str4, WIN);
@@ -1237,7 +1237,7 @@ void display_quit()
   clear();
   touchwin(stdscr);
   printw("\n\n\n\n");
-  printw(Player.name);
+  printw(player.name);
   strcpy(Str4, "A quitter.");
   printw(" wimped out with %ld points!", calc_points());
   printw("\n\n\n\n\nHit 'c' to continue.");
@@ -1255,7 +1255,7 @@ void display_bigwin()
   clear();
   touchwin(stdscr);
   printw("\n\n\n\n");
-  printw(Player.name);
+  printw(player.name);
   strcpy(Str4, "retired, an Adept of Omega.");
   printw(" retired, an Adept of Omega with %ld points!", FixedPoints);
   printw("\n\n\n\n\nHit 'c' to continue.");
@@ -1334,36 +1334,36 @@ void showflags()
 
   phaseprint();
   wclear(Flagw);
-  if (Player.food < 0)
+  if (player.food < 0)
     wprintw(Flagw, "Starving\n");
-  else if (Player.food <= 3)
+  else if (player.food <= 3)
     wprintw(Flagw, "Weak\n");
-  else if (Player.food <= 10)
+  else if (player.food <= 10)
     wprintw(Flagw, "Ravenous\n");
-  else if (Player.food <= 20)
+  else if (player.food <= 20)
     wprintw(Flagw, "Hungry\n");
-  else if (Player.food <= 30)
+  else if (player.food <= 30)
     wprintw(Flagw, "A mite peckish\n");
-  else if (Player.food <= 36)
+  else if (player.food <= 36)
     wprintw(Flagw, "Content\n");
-  else if (Player.food <= 44)
+  else if (player.food <= 44)
     wprintw(Flagw, "Satiated\n");
   else
     wprintw(Flagw, "Bloated\n");
 
-  if (Player.status[POISONED] > 0)
+  if (player.status[POISONED] > 0)
     wprintw(Flagw, "Poisoned\n");
   else
     wprintw(Flagw, "Vigorous\n");
 
-  if (Player.status[DISEASED] > 0)
+  if (player.status[DISEASED] > 0)
     wprintw(Flagw, "Diseased\n");
   else
     wprintw(Flagw, "Healthy\n");
 
   if (gamestatusp(MOUNTED))
     wprintw(Flagw, "Mounted\n");
-  else if (Player.status[LEVITATING])
+  else if (player.status[LEVITATING])
     wprintw(Flagw, "Levitating\n");
   else
     wprintw(Flagw, "Afoot\n");
@@ -1452,7 +1452,7 @@ void screencheck(int y)
     show_screen();
     if (Current_Environment != E_COUNTRYSIDE)
       drawmonsters(TRUE);
-    if (!offscreen(Player.y))
+    if (!offscreen(player.y))
       drawplayer();
   }
 }
@@ -1498,15 +1498,15 @@ void spreadroomdark(int x, int y, int roomno)
 void display_pack()
 {
   int i;
-  if (Player.packptr < 1)
+  if (player.packptr < 1)
     print3("Pack is empty.");
   else
   {
     menuclear();
     menuprint("Items in Pack:\n");
-    for (i = 0; i < Player.packptr; i++)
+    for (i = 0; i < player.packptr; i++)
     {
-      sprintf(Str1, "  %c: %s\n", i + 'A', itemid(Player.pack[i]));
+      sprintf(Str1, "  %c: %s\n", i + 'A', itemid(player.pack[i]));
       menuprint(Str1);
     }
     showmenu();
@@ -1524,8 +1524,8 @@ void display_inventory_slot(int slotnum, int topline)
 {
   WINDOW *W;
   char usechar = ')', idchar = '-';
-  if (Player.possessions[slotnum] != NULL)
-    if (Player.possessions[slotnum]->used)
+  if (player.possessions[slotnum] != NULL)
+    if (player.possessions[slotnum]->used)
       usechar = '>';
   if (topline)
     W = Msg3w;
@@ -1588,10 +1588,10 @@ void display_inventory_slot(int slotnum, int topline)
     wprintw(W, "-- %c%c finger: ", idchar, usechar);
     break;
   }
-  if (Player.possessions[slotnum] == NULL)
+  if (player.possessions[slotnum] == NULL)
     wprintw(W, "(slot vacant)");
   else
-    wprintw(W, itemid(Player.possessions[slotnum]));
+    wprintw(W, itemid(player.possessions[slotnum]));
   wrefresh(W);
 }
 
@@ -1797,7 +1797,7 @@ void bufferprint()
       finished = 1;
   } while (!finished);
   clearmsg();
-  omshowcursor(Player.x, Player.y);
+  omshowcursor(player.x, player.y);
 }
 
 void clear_screen()

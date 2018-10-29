@@ -8,12 +8,12 @@
 /* amulet of the planes */
 void i_planes(pob o)
 {
-  if (Player.mana < 1)
+  if (player.mana < 1)
     print1("The amulet spits some multicolored sparks.");
   else
   {
     print1("You focus mana into the amulet....");
-    Player.mana = max(0, Player.mana - 100);
+    player.mana = max(0, player.mana - 100);
     dataprint();
     morewait();
     strategic_teleport(1);
@@ -70,25 +70,25 @@ void i_stargem(pob o)
     }
     print1("The star gem flares with golden light!");
     morewait();
-    if (Player.status[ILLUMINATION] < 1000)
+    if (player.status[ILLUMINATION] < 1000)
     {
       print1("Interesting, you seem to be permanently accompanied");
       print2("by a friendly lambent glow....");
       morewait();
-      Player.status[ILLUMINATION] = 1500;
+      player.status[ILLUMINATION] = 1500;
     }
     print1("You suddenly find yourself whisked away by some unknown force!");
     morewait();
     setgamestatus(COMPLETED_ASTRAL);
     change_environment(E_COUNTRYSIDE);
-    Player.x = 61;
-    Player.y = 3;
+    player.x = 61;
+    player.y = 3;
     screencheck(3);
-    drawvision(Player.x, Player.y);
+    drawvision(player.x, player.y);
     locprint("Star Peak");
-    Country[Player.x][Player.y].current_terrain_type =
-        Country[Player.x][Player.y].base_terrain_type;
-    c_set(Player.x, Player.y, CHANGED);
+    Country[player.x][player.y].current_terrain_type =
+        Country[player.x][player.y].base_terrain_type;
+    c_set(player.x, player.y, CHANGED);
     print2("The Star Gem's brilliance seems to fade.");
   }
 }
@@ -96,21 +96,21 @@ void i_stargem(pob o)
 /* wand of fear */
 void i_fear(pob o)
 {
-  int x = Player.x, y = Player.y;
+  int x = player.x, y = player.y;
   Objects[o->id].known = 1;
   o->known = max(1, o->known);
   setspot(&x, &y);
   if (o->blessing < 0)
   {
-    x = Player.x;
-    y = Player.y;
+    x = player.x;
+    y = player.y;
   }
   inflict_fear(x, y);
 }
 
 void i_juggernaut(pob o)
 {
-  int d, x = Player.x, y = Player.y;
+  int d, x = player.x, y = player.y;
   int seen = 1, not_seen = 0;
   int tunneled = 0;
 
@@ -182,21 +182,21 @@ void i_symbol(pob o)
   if (!o->known)
     print1("Nothing seems to happen.");
   /* if o->charge != 17, then symbol was stolen from own high priest! */
-  else if ((o->aux != Player.patron) || (o->charge != 17))
+  else if ((o->aux != player.patron) || (o->charge != 17))
   {
     print1("You invoke the deity...");
     print2("...who for some reason seems rather annoyed at you...");
     print3("You are enveloped in Godsfire!");
     morewait();
-    for (; Player.hp > 1; Player.hp--)
+    for (; player.hp > 1; player.hp--)
     {
       dataprint();
       morewait();
       for (i = 0; i < MAXITEMS; i++)
-        if (Player.possessions[i] != NULL)
-          dispose_lost_objects(Player.possessions[i]->number,
-                               Player.possessions[i]);
-      Player.mana = 0;
+        if (player.possessions[i] != NULL)
+          dispose_lost_objects(player.possessions[i]->number,
+                               player.possessions[i]);
+      player.mana = 0;
     }
   }
   else if (SymbolUseHour == hour())
@@ -204,7 +204,7 @@ void i_symbol(pob o)
     print1("Your deity frowns upon this profligate use of power...");
     print2("Shazam! A bolt of Godsfire! Your symbol shatters!");
     dispose_lost_objects(1, o);
-    Player.hp = 1;
+    player.hp = 1;
     dataprint();
   }
   else
@@ -213,7 +213,7 @@ void i_symbol(pob o)
     SymbolUseHour = hour();
     cleanse(1);
     heal(10);
-    Player.mana = max(Player.mana, calcmana());
+    player.mana = max(player.mana, calcmana());
   }
 }
 
@@ -226,7 +226,7 @@ void i_crystal(pob o)
     print1("You gaze into your crystal ball.");
     if (ViewHour == hour())
       print2("All you get is Gilligan's Island reruns.");
-    else if ((o->blessing < 0) || (Player.iq + Player.level < random_range(30)))
+    else if ((o->blessing < 0) || (player.iq + player.level < random_range(30)))
     {
       ViewHour = hour();
       print2("Weird interference patterns from the crystal fog your mind....");
@@ -249,7 +249,7 @@ void i_crystal(pob o)
 
 void i_antioch(pob o)
 {
-  int x = Player.x, y = Player.y;
+  int x = player.x, y = player.y;
   int count;
   if (!o->known)
   {
@@ -314,7 +314,7 @@ void i_kolwynia(pob o)
   {
     gain_experience(5000);
     print1("You seem to have gained complete mastery of magic.");
-    Player.pow = Player.maxpow = 2 * Player.maxpow;
+    player.pow = player.maxpow = 2 * player.maxpow;
     for (i = 0; i < NUMSPELLS; i++)
       Spells[i].known = TRUE;
   }
@@ -376,7 +376,7 @@ void i_life(pob o)
 {
   clearmsg();
   print1("Good move.");
-  Player.hp = Player.maxhp = 2 * Player.maxhp;
+  player.hp = player.maxhp = 2 * player.maxhp;
   dispose_lost_objects(1, o);
 }
 
@@ -413,7 +413,7 @@ void i_orbfire(pob o)
   {
     print1("Bad choice!");
     print2("The Orb of Fire blasts you!");
-    fball(Player.x, Player.y, Player.x, Player.y, 250);
+    fball(player.x, player.y, player.x, player.y, 250);
     o->known = 1;
   }
   else
@@ -421,7 +421,7 @@ void i_orbfire(pob o)
     print1("The Orb of Fire flares a brilliant red!");
     Spells[S_FIREBOLT].known = TRUE;
     gain_experience(10000);
-    Player.immunity[FLAME] += 100;
+    player.immunity[FLAME] += 100;
     print2("You feel fiery!");
     o->plus = 100;
     o->blessing = 100;
@@ -443,7 +443,7 @@ void i_orbwater(pob o)
   {
     print1("The Orb of Water pulses a deep green!");
     Spells[S_DISRUPT].known = TRUE;
-    Player.immunity[POISON] += 100;
+    player.immunity[POISON] += 100;
     gain_experience(10000);
     print2("You feel wet!");
     o->plus = 100;
@@ -460,23 +460,23 @@ void i_orbearth(pob o)
   {
     print1("What a maroon!");
     print2("The Orb of Earth blasts you!");
-    Player.con -= 10;
-    if (Player.con < 3)
+    player.con -= 10;
+    if (player.con < 3)
       p_death("congestive heart failure");
     else
     {
       print3("Your possessions disintegrate!");
       for (i = 0; i < MAXITEMS; i++)
-        if (Player.possessions[i] != NULL)
-          dispose_lost_objects(Player.possessions[i]->number,
-                               Player.possessions[i]);
+        if (player.possessions[i] != NULL)
+          dispose_lost_objects(player.possessions[i]->number,
+                               player.possessions[i]);
       for (i = 0; i < MAXPACK; i++)
-        if (Player.pack[i] != NULL)
+        if (player.pack[i] != NULL)
         {
-          free((char *)Player.pack[i]);
-          Player.pack[i] = NULL;
+          free((char *)player.pack[i]);
+          player.pack[i] = NULL;
         }
-      Player.packptr = 0;
+      player.packptr = 0;
       o->known = 1;
     }
   }
@@ -485,7 +485,7 @@ void i_orbearth(pob o)
     print1("The Orb of Earth emanates a brownish aura!");
     Spells[S_DISINTEGRATE].known = TRUE;
     gain_experience(10000);
-    Player.immunity[NEGENERGY] += 100;
+    player.immunity[NEGENERGY] += 100;
     print2("You feel earthy!");
     o->plus = 100;
     o->blessing = 100;
@@ -500,7 +500,7 @@ void i_orbair(pob o)
   {
     print1("You lose!");
     print2("The Orb of Air blasts you!");
-    lball(Player.x, Player.y, Player.x, Player.y, 100);
+    lball(player.x, player.y, player.x, player.y, 100);
     o->known = 1;
   }
   else
@@ -509,7 +509,7 @@ void i_orbair(pob o)
     Spells[S_LBALL].known = TRUE; /* lball */
     gain_experience(10000);
     print2("You feel airy!");
-    Player.immunity[ELECTRICITY] += 100;
+    player.immunity[ELECTRICITY] += 100;
     o->plus = 100;
     o->blessing = 100;
     i_invisible(o);
@@ -535,12 +535,12 @@ void i_orbmastery(pob o)
   {
     print1("The Orb of Mastery radiates rainbow colors!");
     print2("You feel godlike.");
-    Player.iq = Player.maxiq = 2 * Player.maxiq;
-    Player.pow = Player.maxpow = 2 * Player.maxpow;
-    Player.str = Player.maxstr = 2 * Player.maxstr;
-    Player.dex = Player.maxdex = 2 * Player.maxdex;
-    Player.con = Player.maxcon = 2 * Player.maxcon;
-    Player.agi = Player.maxagi = 2 * Player.maxagi;
+    player.iq = player.maxiq = 2 * player.maxiq;
+    player.pow = player.maxpow = 2 * player.maxpow;
+    player.str = player.maxstr = 2 * player.maxstr;
+    player.dex = player.maxdex = 2 * player.maxdex;
+    player.con = player.maxcon = 2 * player.maxcon;
+    player.agi = player.maxagi = 2 * player.maxagi;
     dataprint();
     morewait();
     print1("You have been imbued with a cosmic power....");
@@ -569,17 +569,17 @@ void i_orbdead(pob o)
   print2("You feel not at all like a mage.");
   for (i = 0; i < MAXITEMS; i++)
   {
-    if (Player.possessions[i] != NULL)
+    if (player.possessions[i] != NULL)
     {
-      Player.possessions[i]->plus = 0;
-      if (Player.possessions[i]->usef > 100)
-        Player.possessions[i]->usef = I_NOTHING;
+      player.possessions[i]->plus = 0;
+      if (player.possessions[i]->usef > 100)
+        player.possessions[i]->usef = I_NOTHING;
     }
   }
   print3("A storm of mundanity surounds you!");
-  level_drain(Player.level - 1, "a Burnt-out Orb");
-  Player.mana = 0;
-  Player.pow -= 10;
+  level_drain(player.level - 1, "a Burnt-out Orb");
+  player.mana = 0;
+  player.pow -= 10;
 }
 
 void i_dispel(pob o)
@@ -600,42 +600,42 @@ void i_apport(pob o)
 /* staff of firebolts */
 void i_firebolt(pob o)
 {
-  int x = Player.x, y = Player.y;
+  int x = player.x, y = player.y;
   o->known = max(1, o->known);
   Objects[o->id].known = 1;
   setspot(&x, &y);
   if (o->blessing < 0)
   {
-    x = Player.x;
-    y = Player.y;
+    x = player.x;
+    y = player.y;
   }
-  fbolt(Player.x, Player.y, x, y, Player.dex * 2 + Player.level, 75);
+  fbolt(player.x, player.y, x, y, player.dex * 2 + player.level, 75);
 }
 
 void i_disintegrate(pob o)
 {
-  int x = Player.x, y = Player.y;
+  int x = player.x, y = player.y;
   o->known = max(1, o->known);
   Objects[o->id].known = 1;
   setspot(&x, &y);
   if (o->blessing < 0)
   {
-    x = Player.x;
-    y = Player.y;
+    x = player.x;
+    y = player.y;
   }
   disintegrate(x, y);
 }
 
 void i_disrupt(pob o)
 {
-  int x = Player.x, y = Player.y;
+  int x = player.x, y = player.y;
   o->known = max(1, o->known);
   Objects[o->id].known = 1;
   setspot(&x, &y);
   if (o->blessing < 0)
   {
-    x = Player.x;
-    y = Player.y;
+    x = player.x;
+    y = player.y;
   }
   disrupt(x, y, 100);
 }
@@ -643,76 +643,76 @@ void i_disrupt(pob o)
 /* staff of lightning bolts */
 void i_lbolt(pob o)
 {
-  int x = Player.x, y = Player.y;
+  int x = player.x, y = player.y;
   o->known = max(1, o->known);
   Objects[o->id].known = 1;
   setspot(&x, &y);
   if (o->blessing < 0)
   {
-    x = Player.x;
-    y = Player.y;
+    x = player.x;
+    y = player.y;
   }
-  lbolt(Player.x, Player.y, x, y, Player.dex * 2 + Player.level, 75);
+  lbolt(player.x, player.y, x, y, player.dex * 2 + player.level, 75);
 }
 
 /* wand of magic missiles */
 void i_missile(pob o)
 {
-  int x = Player.x, y = Player.y;
+  int x = player.x, y = player.y;
   o->known = max(1, o->known);
   Objects[o->id].known = 1;
   setspot(&x, &y);
   if (o->blessing < 0)
   {
-    x = Player.x;
-    y = Player.y;
+    x = player.x;
+    y = player.y;
   }
-  nbolt(Player.x, Player.y, x, y, Player.dex * 2 + Player.level, 20);
+  nbolt(player.x, player.y, x, y, player.dex * 2 + player.level, 20);
 }
 
 /* wand of fire balls */
 void i_fireball(pob o)
 {
-  int x = Player.x, y = Player.y;
+  int x = player.x, y = player.y;
   Objects[o->id].known = 1;
   o->known = max(1, o->known);
   setspot(&x, &y);
   if (o->blessing < 0)
   {
-    x = Player.x;
-    y = Player.y;
+    x = player.x;
+    y = player.y;
   }
-  fball(Player.x, Player.y, x, y, 35);
+  fball(player.x, player.y, x, y, 35);
 }
 
 /* wand of snowballs */
 void i_snowball(pob o)
 {
-  int x = Player.x, y = Player.y;
+  int x = player.x, y = player.y;
   Objects[o->id].known = 1;
   o->known = max(1, o->known);
   setspot(&x, &y);
   if (o->blessing < 0)
   {
-    x = Player.x;
-    y = Player.y;
+    x = player.x;
+    y = player.y;
   }
-  snowball(Player.x, Player.y, x, y, 20);
+  snowball(player.x, player.y, x, y, 20);
 }
 
 /* wand of lightning balls */
 void i_lball(pob o)
 {
-  int x = Player.x, y = Player.y;
+  int x = player.x, y = player.y;
   Objects[o->id].known = 1;
   o->known = max(1, o->known);
   setspot(&x, &y);
   if (o->blessing < 0)
   {
-    x = Player.x;
-    y = Player.y;
+    x = player.x;
+    y = player.y;
   }
-  lball(Player.x, Player.y, x, y, 50);
+  lball(player.x, player.y, x, y, 50);
 }
 
 /* staff of sleep */
@@ -734,7 +734,7 @@ void i_summon(pob o)
 
 void i_hide(pob o)
 {
-  int x = Player.x, y = Player.y;
+  int x = player.x, y = player.y;
   Objects[o->id].known = 1;
   o->known = max(1, o->known);
   setspot(&x, &y);

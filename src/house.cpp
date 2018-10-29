@@ -14,7 +14,7 @@ void load_house(int kind, int populate)
       FILE *fd;
 
       tempLevel = level;
-      initrand(Current_Environment, Player.x + Player.y + hour() * 10);
+      initrand(Current_Environment, player.x + player.y + hour() * 10);
       if (ok_to_free(tempLevel))
       {
 #ifndef SAVE_LEVELS

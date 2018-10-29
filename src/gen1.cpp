@@ -64,8 +64,8 @@ from scratch */
 void change_level(char fromlevel, char tolevel, char rewrite_level)
 {
   Level *thislevel = NULL;
-  Player.sx = -1;
-  Player.sy = -1; /* sanctuary effect dispelled */
+  player.sx = -1;
+  player.sy = -1; /* sanctuary effect dispelled */
 #ifndef SAVE_LEVELS
   thislevel = findlevel(Dungeon, tolevel);
   deepest[Current_Environment] = max(deepest[Current_Environment], tolevel);
@@ -138,12 +138,12 @@ void change_level(char fromlevel, char tolevel, char rewrite_level)
     stock_level();
   }
   find_stairs(fromlevel, tolevel);
-  ScreenOffset = Player.y - (ScreenLength / 2);
+  ScreenOffset = player.y - (ScreenLength / 2);
   show_screen();
-  screencheck(Player.y);
-  drawvision(Player.x, Player.y);
+  screencheck(player.y);
+  drawvision(player.x, player.y);
   /* synchronize with player on level change */
-  Player.click = (Tick + 1) % 60;
+  player.click = (Tick + 1) % 60;
   roomcheck();
 }
 
@@ -469,17 +469,17 @@ void find_stairs(char fromlevel, char tolevel)
       if ((level->site[i][j].locchar == sitechar) && (!found))
       {
         found = TRUE;
-        Player.x = i;
-        Player.y = j;
+        player.x = i;
+        player.y = j;
         break;
       }
   if (!found)
   {
-    findspace(&Player.x, &Player.y, -1);
+    findspace(&player.x, &player.y, -1);
     if (level->environment != E_ASTRAL)
     {
-      level->site[Player.x][Player.y].locchar = sitechar;
-      lset(Player.x, Player.y, CHANGED);
+      level->site[player.x][player.y].locchar = sitechar;
+      lset(player.x, player.y, CHANGED);
     }
   }
 }

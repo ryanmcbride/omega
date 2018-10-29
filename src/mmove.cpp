@@ -19,8 +19,8 @@ void m_normal_move(monster* m)
 /* used by both m_normal_move and m_smart_move */
 void m_simple_move(monster* m)
 {
-  int dx = sign(Player.x - m->x);
-  int dy = sign(Player.y - m->y);
+  int dx = sign(player.x - m->x);
+  int dy = sign(player.y - m->y);
 
   erase_monster(m);
   if (m->hp < Monsters[m->id].hp / 4)
@@ -46,7 +46,7 @@ void m_simple_move(monster* m)
     m->speed = min(2, m->speed - 1);
   }
   if ((!m_statusp(m, HOSTILE) && !m_statusp(m, NEEDY)) ||
-      (Player.status[INVISIBLE] > 0))
+      (player.status[INVISIBLE] > 0))
     m_random_move(m);
   else
   {
@@ -89,10 +89,10 @@ void m_move_animal(monster* m)
 /* same as simple move except run in opposite direction */
 void m_scaredy_move(monster* m)
 {
-  int dx = -sign(Player.x - m->x);
-  int dy = -sign(Player.y - m->y);
+  int dx = -sign(player.x - m->x);
+  int dy = -sign(player.y - m->y);
   erase_monster(m);
-  if (Player.status[INVISIBLE])
+  if (player.status[INVISIBLE])
     m_random_move(m);
   else
   {
@@ -128,8 +128,8 @@ void m_scaredy_move(monster* m)
    either they are noncorporeal or they can move through stone */
 void m_spirit_move(monster* m)
 {
-  int dx = sign(Player.x - m->x);
-  int dy = sign(Player.y - m->y);
+  int dx = sign(player.x - m->x);
+  int dy = sign(player.y - m->y);
   erase_monster(m);
   if (m->hp < Monsters[m->id].hp / 6)
   {
@@ -137,7 +137,7 @@ void m_spirit_move(monster* m)
     dy = -dy;
   }
 
-  if (Player.status[INVISIBLE] > 0 || !m_unblocked(m, m->x + dx, m->y + dy))
+  if (player.status[INVISIBLE] > 0 || !m_unblocked(m, m->x + dx, m->y + dy))
     m_random_move(m);
   else
     movemonster(m, m->x + dx, m->y + dy);
@@ -146,10 +146,10 @@ void m_spirit_move(monster* m)
 /* fluttery dumb movement */
 void m_flutter_move(monster* m)
 {
-  int trange, range = distance(m->x, m->y, Player.x, Player.y);
+  int trange, range = distance(m->x, m->y, player.x, player.y);
   int i, tx, ty, nx = m->x, ny = m->y;
   erase_monster(m);
-  if (Player.status[INVISIBLE] > 0)
+  if (player.status[INVISIBLE] > 0)
     m_random_move(m);
   else
   {
@@ -157,7 +157,7 @@ void m_flutter_move(monster* m)
     {
       tx = m->x + Dirs[0][i];
       ty = m->y + Dirs[1][i];
-      trange = distance(tx, ty, Player.x, Player.y);
+      trange = distance(tx, ty, player.x, player.y);
       if (m->hp < Monsters[m->id].hp / 6)
       {
         if ((trange > range) && m_unblocked(m, tx, ty))
@@ -196,8 +196,8 @@ void m_confused_move(monster* m)
     nx = m->x + random_range(3) - 1;
     ny = m->y + random_range(3) - 1;
     if (unblocked(nx, ny) &&
-        ((nx != Player.x) ||
-         (ny != Player.y)))
+        ((nx != player.x) ||
+         (ny != player.y)))
     {
       done = TRUE;
       movemonster(m, nx, ny);
@@ -214,8 +214,8 @@ void m_random_move(monster* m)
     nx = m->x + random_range(3) - 1;
     ny = m->y + random_range(3) - 1;
     if (m_unblocked(m, nx, ny) &&
-        ((nx != Player.x) ||
-         (ny != Player.y)))
+        ((nx != player.x) ||
+         (ny != player.y)))
     {
       done = TRUE;
       movemonster(m, nx, ny);
@@ -265,7 +265,7 @@ void m_move_leash(monster* m)
   {
     if (level->site[m->aux1][m->aux2].creature != NULL)
     {
-      if (los_p(Player.x, Player.y, m->aux1, m->aux2))
+      if (los_p(player.x, player.y, m->aux1, m->aux2))
       {
         /* some other monster is where the chain starts */
         if (level->site[m->aux1][m->aux2].creature->uniqueness == COMMON)
@@ -281,7 +281,7 @@ void m_move_leash(monster* m)
       m->movef = M_MOVE_NORMAL;
       /* otherwise, we'd lose either the dog or the other monster. */
     }
-    else if (los_p(Player.x, Player.y, m->x, m->y))
+    else if (los_p(player.x, player.y, m->x, m->y))
     {
       mprint("You see the dog jerked back by its chain!");
       plotspot(m->x, m->y, FALSE);

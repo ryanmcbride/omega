@@ -67,7 +67,7 @@ void l_bank()
 					response = menugetc();
 					if (response == ' ')
 					{
-						Player.alignment += 5;
+						player.alignment += 5;
 						xredraw();
 						print1("Ah ha! Trying to rob the bank, eh?");
 						print2("Take him away, boys!");
@@ -76,7 +76,7 @@ void l_bank()
 					}
 					else
 					{
-						Player.alignment -= 5;
+						player.alignment -= 5;
 						menuclear();
 						sleep(4);
 						menuprint("^@^@^@^@^@00AD1203BC0F0000FFFFFFFFFFFF\n");
@@ -103,7 +103,7 @@ void l_bank()
 						clearmsg();
 						print1("The cash machine begins to spew gold pieces!");
 						print2("You pick up your entire balance and then some!");
-						Player.cash += Balance + 1000 + random_range(3000);
+						player.cash += Balance + 1000 + random_range(3000);
 						Balance = 0;
 						setgamestatus(BANK_BROKEN);
 					}
@@ -115,16 +115,16 @@ void l_bank()
 			{
 				clearmsg();
 				print1("Amount: ");
-				amount = get_money(Player.cash);
+				amount = get_money(player.cash);
 				if (amount < 1)
 					print3("Transaction aborted.");
-				else if (amount > Player.cash)
+				else if (amount > player.cash)
 					print3("Deposit too large -- transaction aborted.");
 				else
 				{
 					print2("Transaction accomplished.");
 					Balance += amount;
-					Player.cash -= amount;
+					player.cash -= amount;
 				}
 			}
 			else if ((response == 'W') && valid)
@@ -140,7 +140,7 @@ void l_bank()
 				{
 					print2("Transaction accomplished.");
 					Balance -= amount;
-					Player.cash += amount;
+					player.cash += amount;
 				}
 			}
 			else if (response == 'X')
@@ -233,14 +233,14 @@ void buyfromstock(int base, int numitems)
 		nprint1("Au. Buy it? [yn] ");
 		if (ynq1() == 'y')
 		{
-			if (Player.cash < 2 * true_item_value(newitem))
+			if (player.cash < 2 * true_item_value(newitem))
 			{
 				print2("Why not try again some time you have the cash?");
 				free((char *)newitem);
 			}
 			else
 			{
-				Player.cash -= 2 * true_item_value(newitem);
+				player.cash -= 2 * true_item_value(newitem);
 				dataprint();
 				gain_item(newitem);
 			}
@@ -258,14 +258,14 @@ void l_club()
 	print1("Rampart Explorers' Club.");
 	if (!gamestatusp(CLUB_MEMBER))
 	{
-		if (Player.level < 2)
+		if (player.level < 2)
 			print3("Only reknowned adventurers need apply.");
 		else
 		{
 			print2("Dues are 100Au. Pay it? [yn] ");
 			if (ynq2() == 'y')
 			{
-				if (Player.cash < 100)
+				if (player.cash < 100)
 					print3("Beat it, or we'll blackball you!");
 				else
 				{
@@ -276,7 +276,7 @@ void l_club()
 					print1("will transport you down to the lowest level");
 					print2("you have explored, and vice versa.");
 					Spells[S_RETURN].known = TRUE;
-					Player.cash -= 100;
+					player.cash -= 100;
 					setgamestatus(CLUB_MEMBER);
 				}
 			}
@@ -320,7 +320,7 @@ void l_gym()
 	do
 	{
 		print1("The Rampart Gymnasium");
-		if ((Gymcredit > 0) || (Player.rank[ARENA]))
+		if ((Gymcredit > 0) || (player.rank[ARENA]))
 		{
 			nprint1("-- Credit: ");
 			mlongprint(Gymcredit);
@@ -338,16 +338,16 @@ void l_gym()
 		switch (mgetc())
 		{
 		case 'a':
-			gymtrain(&(Player.maxstr), &(Player.str));
+			gymtrain(&(player.maxstr), &(player.str));
 			break;
 		case 'b':
-			gymtrain(&(Player.maxdex), &(Player.dex));
+			gymtrain(&(player.maxdex), &(player.dex));
 			break;
 		case 'c':
-			gymtrain(&(Player.maxcon), &(Player.con));
+			gymtrain(&(player.maxcon), &(player.con));
 			break;
 		case 'd':
-			gymtrain(&(Player.maxagi), &(Player.agi));
+			gymtrain(&(player.maxagi), &(player.agi));
 			break;
 		case ESCAPE:
 			clearmsg();
@@ -445,18 +445,18 @@ void statue_random(int x, int y)
 	case 6:
 		print1("The statue was covered with contact cement!");
 		print2("You can't move....");
-		Player.status[IMMOBILE] += random_range(6) + 2;
+		player.status[IMMOBILE] += random_range(6) + 2;
 		break;
 	case 7:
 		print1("A strange radiation emanates from the statue!");
 		dispel(-1);
 		break;
 	case 8: /* I think this is particularly evil. Heh heh. */
-		if (Player.possessions[O_WEAPON_HAND] != NULL)
+		if (player.possessions[O_WEAPON_HAND] != NULL)
 		{
 			print1("Your weapon sinks deeply into the statue and is sucked away!");
-			item = Player.possessions[O_WEAPON_HAND];
-			conform_lost_object(Player.possessions[O_WEAPON_HAND]);
+			item = player.possessions[O_WEAPON_HAND];
+			conform_lost_object(player.possessions[O_WEAPON_HAND]);
 			item->blessing = -1 - abs(item->blessing);
 			drop_at(x, y, item);
 		}
@@ -481,7 +481,7 @@ void statue_random(int x, int y)
 void l_statue_wake()
 {
 	int i;
-	int x = Player.x, y = Player.y;
+	int x = player.x, y = player.y;
 	for (i = 0; i < 9; i++)
 		wake_statue(x + Dirs[0][i], y + Dirs[1][i], TRUE);
 }
@@ -528,11 +528,11 @@ void l_casino()
 			response = (char)mcigetc();
 			if (response == 'a')
 			{
-				if (Player.cash < 100)
+				if (player.cash < 100)
 					print3("No credit, jerk.");
 				else
 				{
-					Player.cash -= 100;
+					player.cash -= 100;
 					dataprint();
 					for (i = 0; i < 20; i++)
 					{
@@ -569,27 +569,27 @@ void l_casino()
 					{
 						print3("Jackpot Winner!");
 						winnings += (a + 2) * (b + 2) * (c + 2) * 5;
-						Player.cash += (a + 2) * (b + 2) * (c + 2) * 5;
+						player.cash += (a + 2) * (b + 2) * (c + 2) * 5;
 						dataprint();
 					}
 					else if (a == b)
 					{
 						print3("Winner!");
-						Player.cash += (a + 2) * (b + 2) * 5;
+						player.cash += (a + 2) * (b + 2) * 5;
 						dataprint();
 						winnings += (a + 2) * (b + 2) * 5;
 					}
 					else if (a == c)
 					{
 						print3("Winner!");
-						Player.cash += (a + 2) * (c + 2) * 5;
+						player.cash += (a + 2) * (c + 2) * 5;
 						dataprint();
 						winnings += (a + 2) * (c + 2) * 5;
 					}
 					else if (c == b)
 					{
 						print3("Winner!");
-						Player.cash += (c + 2) * (b + 2) * 5;
+						player.cash += (c + 2) * (b + 2) * 5;
 						dataprint();
 						winnings += (c + 2) * (b + 2) * 5;
 					}
@@ -602,11 +602,11 @@ void l_casino()
 			}
 			else if (response == 'b')
 			{
-				if (Player.cash < 1000)
+				if (player.cash < 1000)
 					mprint("No credit, jerk.");
 				else
 				{
-					Player.cash -= 1000;
+					player.cash -= 1000;
 					dataprint();
 					print1("Red or Black? [rb]");
 					do
@@ -655,7 +655,7 @@ void l_casino()
 					{
 						print3(" Winner!");
 						winnings += 1000;
-						Player.cash += 2000;
+						player.cash += 2000;
 						dataprint();
 					}
 					else
@@ -685,11 +685,11 @@ void l_commandant()
 		num = (int)parsenum();
 		if (num < 1)
 			print3("Cute. Real cute.");
-		else if (num * 5 > Player.cash)
+		else if (num * 5 > player.cash)
 			print3("No handouts here, mac!");
 		else
 		{
-			Player.cash -= num * 5;
+			player.cash -= num * 5;
 			food = ((pob)checkmalloc(sizeof(objtype)));
 			*food = Objects[FOODID + 0]; /* food ration */
 			food->number = num;
@@ -711,13 +711,13 @@ void l_diner()
 	print2("Place an order? [yn] ");
 	if (ynq2() == 'y')
 	{
-		if (Player.cash < 25)
+		if (player.cash < 25)
 			mprint("TANSTAAFL! Now git!");
 		else
 		{
-			Player.cash -= 25;
+			player.cash -= 25;
 			dataprint();
-			Player.food = 44;
+			player.food = 44;
 			foodcheck();
 		}
 	}
@@ -733,14 +733,14 @@ void l_crap()
 		print2("May I take your order? [yn] ");
 		if (ynq2() == 'y')
 		{
-			if (Player.cash < 1000)
+			if (player.cash < 1000)
 				print2("So sorry, you have not the funds for dinner.");
 			else
 			{
 				print2("Hope you enjoyed your tres expensive meal, m'sieur...");
-				Player.cash -= 1000;
+				player.cash -= 1000;
 				dataprint();
-				Player.food += 8;
+				player.food += 8;
 				foodcheck();
 			}
 		}
@@ -772,11 +772,11 @@ void l_tavern()
 		switch (response)
 		{
 		case 'a':
-			if (Player.cash < 1)
+			if (player.cash < 1)
 				print2("Aw hell, have one on me.");
 			else
 			{
-				Player.cash -= 1;
+				player.cash -= 1;
 				dataprint();
 				if (hinthour != hour())
 				{
@@ -794,21 +794,21 @@ void l_tavern()
 			}
 			break;
 		case 'b':
-			if (Player.cash < 10)
+			if (player.cash < 10)
 				print2("I don't serve the Dew on no tab, buddy!");
 			else
 			{
-				Player.cash -= 10;
+				player.cash -= 10;
 				print1("Ahhhhh....");
-				if (Player.status[POISONED] || Player.status[DISEASED])
+				if (player.status[POISONED] || player.status[DISEASED])
 					print2("Phew! That's, er, smooth stuff!");
-				Player.status[POISONED] = 0;
-				Player.status[DISEASED] = 0;
+				player.status[POISONED] = 0;
+				player.status[DISEASED] = 0;
 				showflags();
 			}
 			break;
 		case 'c':
-			if (Player.cash < 100)
+			if (player.cash < 100)
 			{
 				print1("Whatta feeb!");
 				print2("Outta my establishment.... Now!");
@@ -817,7 +817,7 @@ void l_tavern()
 			}
 			else
 			{
-				Player.cash -= 100;
+				player.cash -= 100;
 				dataprint();
 				print1("'What a guy!'");
 				morewait();
@@ -834,14 +834,14 @@ void l_tavern()
 					break;
 				case 1:
 					print1("A wandering priest of Dionysus blesses you...");
-					if ((Player.patron == ODIN) || (Player.patron == ATHENA))
-						Player.alignment++;
-					else if ((Player.patron == HECATE) || (Player.patron == SET))
-						Player.alignment--;
-					else if (Player.alignment > 0)
-						Player.alignment--;
+					if ((player.patron == ODIN) || (player.patron == ATHENA))
+						player.alignment++;
+					else if ((player.patron == HECATE) || (player.patron == SET))
+						player.alignment--;
+					else if (player.alignment > 0)
+						player.alignment--;
 					else
-						Player.alignment++;
+						player.alignment++;
 					break;
 				case 2:
 					print1("A thirsty bard promises to put your name in a song!");
@@ -852,12 +852,12 @@ void l_tavern()
 					print2("Drink it [yn]?");
 					if (ynq2() == 'y')
 					{
-						if (Player.con < random_range(20))
+						if (player.con < random_range(20))
 						{
 							print1("<cough> Quite a kick!");
 							print2("You feel a fiery warmth in your tummy....");
-							Player.con++;
-							Player.maxcon++;
+							player.con++;
+							player.maxcon++;
 						}
 						else
 							print2("You toss it back nonchalantly.");
@@ -866,25 +866,25 @@ void l_tavern()
 			}
 			break;
 		case 'd':
-			if (Player.cash < 25)
+			if (player.cash < 25)
 				print2("Pay in advance, mac!");
 			else
 			{
-				Player.cash -= 25;
+				player.cash -= 25;
 				print2("How about a shot o' the dew for a nightcap?");
 				morewait();
 				Time += (6 + random_range(4)) * 60;
-				Player.status[POISONED] = 0;
-				Player.status[DISEASED] = 0;
-				Player.food = 40;
+				player.status[POISONED] = 0;
+				player.status[DISEASED] = 0;
+				player.food = 40;
 				/* reduce temporary stat gains to max stat levels */
 				toggle_item_use(TRUE);
-				Player.str = min(Player.str, Player.maxstr);
-				Player.con = min(Player.con, Player.maxcon);
-				Player.agi = min(Player.agi, Player.maxagi);
-				Player.dex = min(Player.dex, Player.maxdex);
-				Player.iq = min(Player.iq, Player.maxiq);
-				Player.pow = min(Player.pow, Player.maxpow);
+				player.str = min(player.str, player.maxstr);
+				player.con = min(player.con, player.maxcon);
+				player.agi = min(player.agi, player.maxagi);
+				player.dex = min(player.dex, player.maxdex);
+				player.iq = min(player.iq, player.maxiq);
+				player.pow = min(player.pow, player.maxpow);
 				toggle_item_use(FALSE);
 				timeprint();
 				dataprint();
@@ -927,9 +927,9 @@ void l_alchemist()
 				clearmsg();
 				done = TRUE;
 				i = getitem(CORPSE);
-				if ((i != ABORT) && (Player.possessions[i] != NULL))
+				if ((i != ABORT) && (player.possessions[i] != NULL))
 				{
-					obj = Player.possessions[i];
+					obj = player.possessions[i];
 					if (Monsters[obj->charge].transformid == -1)
 					{
 						print1("I don't want such a thing.");
@@ -944,7 +944,7 @@ void l_alchemist()
 						nprint1("Au for it. Take it? [yn] ");
 						if (ynq1() == 'y')
 						{
-							Player.cash += (obj->basevalue / 3);
+							player.cash += (obj->basevalue / 3);
 							conform_lost_objects(1, obj);
 						}
 						else
@@ -959,9 +959,9 @@ void l_alchemist()
 				clearmsg();
 				done = TRUE;
 				i = getitem(CORPSE);
-				if ((i != ABORT) && (Player.possessions[i] != NULL))
+				if ((i != ABORT) && (player.possessions[i] != NULL))
 				{
-					obj = Player.possessions[i];
+					obj = player.possessions[i];
 					if (Monsters[obj->charge].transformid == -1)
 						print1("Oy vey! You want me to transform such a thing?");
 					else
@@ -972,12 +972,12 @@ void l_alchemist()
 						nprint1("Au for the transformation. Pay it? [yn] ");
 						if (ynq1() == 'y')
 						{
-							if (Player.cash < max(10, obj->basevalue * 2))
+							if (player.cash < max(10, obj->basevalue * 2))
 								print2("You can't afford it!");
 							else
 							{
 								print1("Voila! A tap of the Philosopher's Stone...");
-								Player.cash -= max(10, obj->basevalue * 2);
+								player.cash -= max(10, obj->basevalue * 2);
 								*obj = Objects[Monsters[obj->charge].transformid];
 								if ((obj->id >= STICKID) && (obj->id < STICKID + NUMSTICKS))
 									obj->charge = 20;
@@ -1004,7 +1004,7 @@ void l_dpw()
 	print1("Rampart Department of Public Works.");
 	if (Date - LastDay < 7)
 		print2("G'wan! Get a job!");
-	else if (Player.cash < 100)
+	else if (player.cash < 100)
 	{
 		print2("Do you want to go on the dole? [yn] ");
 		if (ynq2() == 'y')
@@ -1017,7 +1017,7 @@ void l_dpw()
 				Str1[0] += 'A' - 'a';
 			if (Str1[0] == '\0')
 				print1("Maybe you should come back when you've learned to write.");
-			else if (strcmp(Player.name, Str1) != 0)
+			else if (strcmp(player.name, Str1) != 0)
 			{
 				print3("Aha! Welfare Fraud! It's off to gaol for you, lout!");
 				morewait();
@@ -1027,7 +1027,7 @@ void l_dpw()
 			{
 				print2("Here's your handout, layabout!");
 				LastDay = Date;
-				Player.cash = 99;
+				player.cash = 99;
 				dataprint();
 			}
 		}
@@ -1048,13 +1048,13 @@ void l_library()
 	{
 		morewait();
 		print1("Library Research Fee: 1000Au.");
-		if (Player.maxiq < 18)
+		if (player.maxiq < 18)
 		{
 			print2("The Rampart student aid system has arranged a grant!");
 			morewait();
 			clearmsg();
 			print1("Your revised fee is: ");
-			mnumprint(fee = max(50, 1000 - (18 - Player.maxiq) * 125));
+			mnumprint(fee = max(50, 1000 - (18 - player.maxiq) * 125));
 			nprint1("Au.");
 		}
 		morewait();
@@ -1063,14 +1063,14 @@ void l_library()
 			print1("Pay the fee? [yn] ");
 			if (ynq1() == 'y')
 			{
-				if (Player.cash < fee)
+				if (player.cash < fee)
 				{
 					print2("No payee, No studee.");
 					done = TRUE;
 				}
 				else
 				{
-					Player.cash -= fee;
+					player.cash -= fee;
 					do
 					{
 						studied = TRUE;
@@ -1112,19 +1112,19 @@ void l_library()
 						}
 						else if (response == 'e')
 						{
-							if (random_range(30) > Player.iq)
+							if (random_range(30) > player.iq)
 							{
 								print2("You feel more knowledgeable!");
-								Player.iq++;
-								Player.maxiq++;
+								player.iq++;
+								player.maxiq++;
 								dataprint();
-								if (Player.maxiq < 19 &&
-										fee != max(50, 1000 - (18 - Player.maxiq) * 125))
+								if (player.maxiq < 19 &&
+										fee != max(50, 1000 - (18 - player.maxiq) * 125))
 								{
 									morewait();
 									clearmsg();
 									print1("Your revised fee is: ");
-									mnumprint(fee = max(50, 1000 - (18 - Player.maxiq) * 125));
+									mnumprint(fee = max(50, 1000 - (18 - player.maxiq) * 125));
 									nprint1("Au.");
 									morewait();
 								}
@@ -1242,7 +1242,7 @@ void l_pawn_shop()
 						nprint1(" Buy it? [ynq] ");
 						if (ynq1() == 'y')
 						{
-							if (Player.cash <
+							if (player.cash <
 									Pawnitems[i]->number *
 											true_item_value(Pawnitems[i]))
 							{
@@ -1251,7 +1251,7 @@ void l_pawn_shop()
 							}
 							else
 							{
-								Player.cash -=
+								player.cash -=
 										Pawnitems[i]->number *
 										true_item_value(Pawnitems[i]);
 								Objects[Pawnitems[i]->id].known = 1;
@@ -1267,14 +1267,14 @@ void l_pawn_shop()
 				menuclear();
 				print2("Sell which item: ");
 				i = getitem(NULL_ITEM);
-				if ((i != ABORT) && (Player.possessions[i] != NULL))
+				if ((i != ABORT) && (player.possessions[i] != NULL))
 				{
-					if (cursed(Player.possessions[i]))
+					if (cursed(player.possessions[i]))
 					{
 						print1("No loans on cursed items! I been burned before....");
 						morewait();
 					}
-					else if (true_item_value(Player.possessions[i]) <= 0)
+					else if (true_item_value(player.possessions[i]) <= 0)
 					{
 						print1("That looks like a worthless piece of junk to me.");
 						morewait();
@@ -1283,26 +1283,26 @@ void l_pawn_shop()
 					{
 						clearmsg();
 						print1("You can get ");
-						mlongprint(item_value(Player.possessions[i]) / 2);
+						mlongprint(item_value(player.possessions[i]) / 2);
 						nprint1("Au each. Sell [yn]? ");
 						if (ynq1() == 'y')
 						{
-							number = getnumber(Player.possessions[i]->number);
-							if ((number >= Player.possessions[i]->number) &&
-									Player.possessions[i]->used)
+							number = getnumber(player.possessions[i]->number);
+							if ((number >= player.possessions[i]->number) &&
+									player.possessions[i]->used)
 							{
-								Player.possessions[i]->used = FALSE;
-								item_use(Player.possessions[i]);
+								player.possessions[i]->used = FALSE;
+								item_use(player.possessions[i]);
 							}
-							Player.cash += number * item_value(Player.possessions[i]) / 2;
+							player.cash += number * item_value(player.possessions[i]) / 2;
 							free((char *)Pawnitems[0]);
 							for (j = 0; j < PAWNITEMS - 1; j++)
 								Pawnitems[j] = Pawnitems[j + 1];
 							Pawnitems[PAWNITEMS - 1] = ((pob)checkmalloc(sizeof(objtype)));
-							*(Pawnitems[PAWNITEMS - 1]) = *(Player.possessions[i]);
+							*(Pawnitems[PAWNITEMS - 1]) = *(player.possessions[i]);
 							Pawnitems[PAWNITEMS - 1]->number = number;
 							Pawnitems[PAWNITEMS - 1]->known = 2;
-							dispose_lost_objects(number, Player.possessions[i]);
+							dispose_lost_objects(number, player.possessions[i]);
 							dataprint();
 						}
 					}
@@ -1310,35 +1310,35 @@ void l_pawn_shop()
 			}
 			else if (action == 'p')
 			{
-				for (i = 0; i < Player.packptr; i++)
+				for (i = 0; i < player.packptr; i++)
 				{
-					if (Player.pack[i]->blessing > -1 &&
-							true_item_value(Player.pack[i]) > 0)
+					if (player.pack[i]->blessing > -1 &&
+							true_item_value(player.pack[i]) > 0)
 					{
 						clearmsg();
 						print1("Sell ");
-						nprint1(itemid(Player.pack[i]));
+						nprint1(itemid(player.pack[i]));
 						nprint1(" for ");
-						mlongprint(item_value(Player.pack[i]) / 2);
+						mlongprint(item_value(player.pack[i]) / 2);
 						nprint1("Au each? [yn] ");
 						if (ynq1() == 'y')
 						{
-							number = getnumber(Player.pack[i]->number);
+							number = getnumber(player.pack[i]->number);
 							if (number > 0)
 							{
-								Player.cash += number * item_value(Player.pack[i]) / 2;
+								player.cash += number * item_value(player.pack[i]) / 2;
 								free((char *)Pawnitems[0]);
 								for (j = 0; j < PAWNITEMS - 1; j++)
 									Pawnitems[j] = Pawnitems[j + 1];
 								Pawnitems[PAWNITEMS - 1] = ((pob)checkmalloc(sizeof(objtype)));
-								*(Pawnitems[PAWNITEMS - 1]) = *(Player.pack[i]);
+								*(Pawnitems[PAWNITEMS - 1]) = *(player.pack[i]);
 								Pawnitems[PAWNITEMS - 1]->number = number;
 								Pawnitems[PAWNITEMS - 1]->known = 2;
-								Player.pack[i]->number -= number;
-								if (Player.pack[i]->number < 1)
+								player.pack[i]->number -= number;
+								if (player.pack[i]->number < 1)
 								{
-									free((char *)Player.pack[i]);
-									Player.pack[i] = NULL;
+									free((char *)player.pack[i]);
+									player.pack[i] = NULL;
 								}
 								dataprint();
 							}

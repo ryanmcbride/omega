@@ -11,14 +11,14 @@ void l_water()
 {
   if (!gamestatusp(MOUNTED))
   {
-    if ((Player.possessions[O_ARMOR] != NULL))
+    if ((player.possessions[O_ARMOR] != NULL))
     {
       print1("Your heavy armor drags you under the water!");
       morewait();
       p_drown();
       print2("You reach the surface again.");
     }
-    else if (Player.itemweight > ((int)(Player.maxweight / 2)))
+    else if (player.itemweight > ((int)(player.maxweight / 2)))
     {
       print1("The weight of your burden drags you under water!");
       morewait();
@@ -73,17 +73,17 @@ void l_chaos()
   }
   if (!onewithchaos)
     print1("You are immersed in raw Chaos....");
-  if (Player.rank[ADEPT])
+  if (player.rank[ADEPT])
   {
     if (!onewithchaos)
     {
       onewithchaos = 1;
       print2("You achieve oneness of Chaos....");
     }
-    Player.mana = max(Player.mana, calcmana());
-    Player.hp = max(Player.hp, Player.maxhp);
+    player.mana = max(player.mana, calcmana());
+    player.hp = max(player.hp, player.maxhp);
   }
-  else if (Player.rank[PRIESTHOOD] && (!saved))
+  else if (player.rank[PRIESTHOOD] && (!saved))
   {
     print2("A mysterious force protects you from the Chaos!");
     print3("Wow.... You feel a bit smug.");
@@ -97,7 +97,7 @@ void l_chaos()
       nprint2("Nothing mysterious happens this time....");
     morewait();
     print1("Congratulations! You've achieved maximal entropy!");
-    Player.alignment -= 50;
+    player.alignment -= 50;
     gain_experience(1000);
     p_death("immersion in raw Chaos");
   }
@@ -105,7 +105,7 @@ void l_chaos()
 
 void l_hedge()
 {
-  if (Player.patron == DRUID)
+  if (player.patron == DRUID)
     print1("You move through the hedges freely.");
   else
   {
@@ -124,13 +124,13 @@ void l_hedge()
       break;
     case 2:
       print2("You seem to have gotten stuck in the hedge.");
-      Player.status[IMMOBILE] += random_range(5) + 1;
+      player.status[IMMOBILE] += random_range(5) + 1;
       break;
     case 3:
-      if (Player.possessions[O_CLOAK] != NULL)
+      if (player.possessions[O_CLOAK] != NULL)
       {
         print2("Your cloak was torn on the brambles!");
-        dispose_lost_objects(1, Player.possessions[O_CLOAK]);
+        dispose_lost_objects(1, player.possessions[O_CLOAK]);
       }
       else
         print2("Ouch! These thorns are scratchy!");
@@ -151,7 +151,7 @@ void l_lava()
     resetgamestatus(MOUNTED);
   }
   morewait();
-  if (strcmp(Player.name, "Saltheart Foamfollower") == 0)
+  if (strcmp(player.name, "Saltheart Foamfollower") == 0)
   {
     print1("Strangely enough, you don't seem terribly affected.");
     p_damage(1, UNSTOPPABLE, "slow death in a pool of lava");
@@ -159,9 +159,9 @@ void l_lava()
   else
   {
     p_damage(random_range(75), FLAME, "incineration in a pool of lava");
-    if (Player.hp > 0)
+    if (player.hp > 0)
       p_drown();
-    Player.status[IMMOBILE] += 2;
+    player.status[IMMOBILE] += 2;
   }
 }
 
@@ -196,7 +196,7 @@ void l_abyss()
       print3("You have met Yog Sothoth!!!");
       morewait();
       clearmsg();
-      if (Player.alignment > -10)
+      if (player.alignment > -10)
         p_death("the Eater of Souls");
       else
       {
@@ -205,7 +205,7 @@ void l_abyss()
         morewait();
         change_level(level->depth, level->depth + 1, FALSE);
         gain_experience(2000);
-        Player.alignment -= 50;
+        player.alignment -= 50;
       }
     }
     else
@@ -232,9 +232,9 @@ void l_abyss()
         change_environment(E_COUNTRYSIDE);
         do
         {
-          Player.x = random_range(WIDTH);
-          Player.y = random_range(LENGTH);
-        } while (Country[Player.x][Player.y].base_terrain_type == CHAOS_SEA);
+          player.x = random_range(WIDTH);
+          player.y = random_range(LENGTH);
+        } while (Country[player.x][player.y].base_terrain_type == CHAOS_SEA);
         p_damage(i * 50, NORMAL_DAMAGE, "a fall from a great height");
       }
       else
@@ -256,9 +256,9 @@ void l_lift()
   int distance;
   int too_far = 0;
 
-  level->site[Player.x][Player.y].locchar = FLOOR;
-  level->site[Player.x][Player.y].p_locf = L_NO_OP;
-  lset(Player.x, Player.y, CHANGED);
+  level->site[player.x][player.y].locchar = FLOOR;
+  level->site[player.x][player.y].p_locf = L_NO_OP;
+  lset(player.x, player.y, CHANGED);
   print1("You walk onto a shimmering disk....");
   print2("The disk vanishes, and a glow surrounds you.");
   print3("You feel weightless.... You feel ghostly....");
@@ -336,12 +336,12 @@ void l_magic_pool()
   else if (possibilities == 0)
   {
     print1("Oh no! You encounter the DREADED AQUAE MORTIS...");
-    if (random_range(1000) < Player.level * Player.level * Player.level)
+    if (random_range(1000) < player.level * player.level * player.level)
     {
       print2("The DREADED AQUAE MORTIS throttles you within inches....");
       print3("but for some reason chooses to let you escape.");
       gain_experience(500);
-      Player.hp = 1;
+      player.hp = 1;
     }
     else
       p_death("the DREADED AQUAE MORTIS!");
@@ -356,20 +356,20 @@ void l_magic_pool()
     cleanse(1);
   else if (possibilities < 80)
   {
-    if (Player.possessions[O_WEAPON_HAND] != NULL)
+    if (player.possessions[O_WEAPON_HAND] != NULL)
     {
       print1("You drop your weapon in the pool! It's gone forever!");
-      dispose_lost_objects(1, Player.possessions[O_WEAPON_HAND]);
+      dispose_lost_objects(1, player.possessions[O_WEAPON_HAND]);
     }
     else
       print1("You feel fortunate.");
   }
   else if (possibilities < 90)
   {
-    if (Player.possessions[O_WEAPON_HAND] != NULL)
+    if (player.possessions[O_WEAPON_HAND] != NULL)
     {
       print1("Your weapon leaves the pool with a new edge....");
-      Player.possessions[O_WEAPON_HAND]->plus += random_range(10) + 1;
+      player.possessions[O_WEAPON_HAND]->plus += random_range(10) + 1;
       calc_melee();
     }
     else
@@ -377,7 +377,7 @@ void l_magic_pool()
   }
   else if (possibilities < 95)
   {
-    Player.hp += 10;
+    player.hp += 10;
     print1("You feel healthier after the dip...");
   }
   else if (possibilities < 99)
@@ -390,13 +390,13 @@ void l_magic_pool()
     print1("Wow! A pool of azoth!");
     heal(10);
     cleanse(1);
-    Player.mana = calcmana() * 3;
-    Player.str = (Player.maxstr++) * 3;
+    player.mana = calcmana() * 3;
+    player.str = (player.maxstr++) * 3;
   }
   print2("The pool seems to have dried up.");
-  level->site[Player.x][Player.y].locchar = TRAP;
-  level->site[Player.x][Player.y].p_locf = L_TRAP_PIT;
-  lset(Player.x, Player.y, CHANGED);
+  level->site[player.x][player.y].locchar = TRAP;
+  level->site[player.x][player.y].p_locf = L_TRAP_PIT;
+  lset(player.x, player.y, CHANGED);
 }
 
 void l_no_op()
@@ -424,7 +424,7 @@ void l_tactical_exit()
 
 void l_rubble()
 {
-  int screwup = random_range(100) - (Player.agi + Player.level);
+  int screwup = random_range(100) - (player.agi + player.level);
   print1("You climb over the unstable pile of rubble....");
   if (screwup < 0)
     print2("No problem!");
@@ -432,7 +432,7 @@ void l_rubble()
   {
     print2("You tumble and fall in a small avalanche of debris!");
     print3("You're trapped in the pile!");
-    Player.status[IMMOBILE] += 2;
+    player.status[IMMOBILE] += 2;
     p_damage(screwup / 5, UNSTOPPABLE, "rubble and debris");
     morewait();
   }
@@ -445,8 +445,8 @@ void l_portcullis_trap()
 
   print3("Click.");
   morewait();
-  for (i = max(Player.x - 5, 0); i < min(Player.x + 6, WIDTH); i++)
-    for (j = max(Player.y - 5, 0); j < min(Player.y + 6, LENGTH); j++)
+  for (i = max(player.x - 5, 0); i < min(player.x + 6, WIDTH); i++)
+    for (j = max(player.y - 5, 0); j < min(player.y + 6, LENGTH); j++)
     {
       if ((level->site[i][j].p_locf == L_PORTCULLIS) &&
           (level->site[i][j].locchar != PORTCULLIS))
@@ -454,7 +454,7 @@ void l_portcullis_trap()
         level->site[i][j].locchar = PORTCULLIS;
         lset(i, j, CHANGED);
         putspot(i, j, PORTCULLIS);
-        if ((i == Player.x) && (j == Player.y))
+        if ((i == player.x) && (j == player.y))
         {
           print3("Smash! You've been hit by a falling portcullis!");
           morewait();
@@ -488,7 +488,7 @@ void l_drop_every_portcullis()
         level->site[i][j].locchar = PORTCULLIS;
         lset(i, j, CHANGED);
         putspot(i, j, PORTCULLIS);
-        if ((i == Player.x) && (j == Player.y))
+        if ((i == player.x) && (j == player.y))
         {
           print3("Smash! You've been hit by a falling portcullis!");
           morewait();
@@ -559,7 +559,7 @@ void l_void()
     print3("'Bye-bye,' he says... 'We'll meet again.'");
   }
   morewait();
-  while (Player.hp > 0)
+  while (player.hp > 0)
   {
     Time += 60;
     hourly_check();
@@ -570,7 +570,7 @@ void l_void()
 void l_fire_station()
 {
   print1("The flames leap up, and the heat is incredible.");
-  if (Player.immunity[FLAME])
+  if (player.immunity[FLAME])
   {
     print2("You feel the terrible heat despite your immunity to fire!");
     morewait();
@@ -578,23 +578,23 @@ void l_fire_station()
   print2("Enter the flames? [yn] ");
   if (ynq2() == 'y')
   {
-    if (Player.hp == 1)
+    if (player.hp == 1)
       p_death("total incineration");
     else
-      Player.hp = 1;
+      player.hp = 1;
     dataprint();
     print1("You feel like you are being incinerated! Jump back? [yn] ");
     if (ynq1() == 'y')
       print2("Phew! That was close!");
     else
     {
-      Player.pow -= (15 + random_range(15));
-      if (Player.pow > 0)
+      player.pow -= (15 + random_range(15));
+      if (player.pow > 0)
       {
         print2("That's odd, the flame seems to have cooled down now....");
         print3("A flicker of fire seems to dance above the void nearby.");
-        level->site[Player.x][Player.y].locchar = FLOOR;
-        level->site[Player.x][Player.y].p_locf = L_NO_OP;
+        level->site[player.x][player.y].locchar = FLOOR;
+        level->site[player.x][player.y].p_locf = L_NO_OP;
         stationcheck();
       }
       else
@@ -613,12 +613,12 @@ void l_water_station()
   print1("The fluid seems murky and unknowably deep.");
   print2("It bubbles and hisses threateningly.");
   morewait();
-  if (Player.status[BREATHING])
+  if (player.status[BREATHING])
   {
     print1("You don't feel sanguine about trying to breathe that stuff!");
     morewait();
   }
-  if (Player.immunity[ACID])
+  if (player.immunity[ACID])
   {
     print2("The vapor burns despite your immunity to acid!");
     morewait();
@@ -626,10 +626,10 @@ void l_water_station()
   print1("Enter the fluid? [yn] ");
   if (ynq1() == 'y')
   {
-    if (Player.hp == 1)
+    if (player.hp == 1)
       p_death("drowning in acid (ick, what a way to go)");
     else
-      Player.hp = 1;
+      player.hp = 1;
     dataprint();
     print2("You choke....");
     morewait();
@@ -641,13 +641,13 @@ void l_water_station()
     else
     {
       clearmsg();
-      Player.con -= (15 + random_range(15));
-      if (Player.con > 0)
+      player.con -= (15 + random_range(15));
+      if (player.con > 0)
       {
         print1("That's odd, the fluid seems to have been neutralized....");
         print2("A moist miasma wafts above the void nearby.");
-        level->site[Player.x][Player.y].locchar = FLOOR;
-        level->site[Player.x][Player.y].p_locf = L_NO_OP;
+        level->site[player.x][player.y].locchar = FLOOR;
+        level->site[player.x][player.y].p_locf = L_NO_OP;
         stationcheck();
       }
       else
@@ -664,16 +664,16 @@ void l_water_station()
 void l_air_station()
 {
   print1("The whirlwind spins wildly and crackles with lightning.");
-  if (Player.immunity[ELECTRICITY])
+  if (player.immunity[ELECTRICITY])
     print2("You feel static cling despite your immunity to electricity!");
   morewait();
   print1("Enter the storm? [yn] ");
   if (ynq1() == 'y')
   {
-    if (Player.hp == 1)
+    if (player.hp == 1)
       p_death("being torn apart and then electrocuted");
     else
-      Player.hp = 1;
+      player.hp = 1;
     dataprint();
     print1("You are buffeted and burnt by the storm....");
     print2("You begin to lose consciousness.... Leave the storm? [yn] ");
@@ -681,13 +681,13 @@ void l_air_station()
       print2("Phew! That was close!");
     else
     {
-      Player.iq -= (random_range(15) + 15);
-      if (Player.iq > 0)
+      player.iq -= (random_range(15) + 15);
+      if (player.iq > 0)
       {
         print1("That's odd, the storm subsides....");
         print2("A gust of wind brushes past the void nearby.");
-        level->site[Player.x][Player.y].locchar = FLOOR;
-        level->site[Player.x][Player.y].p_locf = L_NO_OP;
+        level->site[player.x][player.y].locchar = FLOOR;
+        level->site[player.x][player.y].p_locf = L_NO_OP;
         stationcheck();
       }
       else
@@ -711,10 +711,10 @@ void l_earth_station()
   print1("Enter the overgrown mire? [yn] ");
   if (ynq1() == 'y')
   {
-    if (Player.hp == 1)
+    if (player.hp == 1)
       p_death("being eaten alive");
     else
-      Player.hp = 1;
+      player.hp = 1;
     dataprint();
     print1("You are being dragged into the muck. Suckers bite you....");
     print2("You're about to be entangled.... Leave the mud? [yn] ");
@@ -722,13 +722,13 @@ void l_earth_station()
       print2("Phew! That was close!");
     else
     {
-      Player.str -= (15 + random_range(15));
-      if (Player.str > 0)
+      player.str -= (15 + random_range(15));
+      if (player.str > 0)
       {
         print1("That's odd, the vine withdraws....");
         print2("A spatter of dirt sprays into the void nearby.");
-        level->site[Player.x][Player.y].locchar = FLOOR;
-        level->site[Player.x][Player.y].p_locf = L_NO_OP;
+        level->site[player.x][player.y].locchar = FLOOR;
+        level->site[player.x][player.y].p_locf = L_NO_OP;
         stationcheck();
       }
       else
@@ -749,7 +749,7 @@ void stationcheck()
   morewait();
   clearmsg();
   print1("You feel regenerated.");
-  Player.hp = Player.maxhp;
+  player.hp = player.maxhp;
   dataprint();
   for (i = 0; i < WIDTH; i++)
     for (j = 0; j < LENGTH; j++)
@@ -787,7 +787,7 @@ void l_void_station()
     {
       print2("You fall forever. Eventually you die of starvation.");
       morewait();
-      while (Player.hp > 0)
+      while (player.hp > 0)
       {
         Time += 60;
         hourly_check();
@@ -799,10 +799,10 @@ void l_void_station()
       print1("You enter the void.");
       print2("You feel a sudden surge of power from five directions.");
       morewait();
-      something = (Player.packptr > 0);
+      something = (player.packptr > 0);
       if (!something)
         for (i = 0; ((i < MAXITEMS) && (!something)); i++)
-          if (Player.possessions[i] != NULL)
+          if (player.possessions[i] != NULL)
             something = TRUE;
       if (something)
       {
@@ -832,12 +832,12 @@ void l_void_station()
         morewait();
         clearmsg();
         print1("You see Death raise his scythe to you in a salute.");
-        Player.rank[ADEPT] = 1;
+        player.rank[ADEPT] = 1;
         setgamestatus(COMPLETED_CHALLENGE);
         FixedPoints = calc_points();
         /* set so change_environment puts player in correct temple! */
-        Player.x = 49;
-        Player.y = 59;
+        player.x = 49;
+        player.y = 59;
         print2("You find yourself back in the Temple of Destiny.");
         morewait();
         change_environment(E_TEMPLE);
@@ -851,19 +851,19 @@ void l_void_station()
 void l_voice1()
 {
   print1("A mysterious voice says: The Hunger of the Void must be satiated.");
-  level->site[Player.x][Player.y].p_locf = L_NO_OP;
+  level->site[player.x][player.y].p_locf = L_NO_OP;
 }
 
 void l_voice2()
 {
   print1("A strange voice recites: Enter the Void as you entered the World.");
-  level->site[Player.x][Player.y].p_locf = L_NO_OP;
+  level->site[player.x][player.y].p_locf = L_NO_OP;
 }
 
 void l_voice3()
 {
   print1("An eerie voice resounds: The Void is the fifth Elemental Station.");
-  level->site[Player.x][Player.y].p_locf = L_NO_OP;
+  level->site[player.x][player.y].p_locf = L_NO_OP;
 }
 
 void l_whirlwind()
@@ -951,9 +951,9 @@ void l_throne()
       print3("You feel an abstract sucking sensation...");
       for (i = 0; i < NUMSPELLS; i++)
         Spells[i].known = FALSE;
-      Player.pow = 3;
-      Player.mana = 0;
-      Player.hp = 1;
+      player.pow = 3;
+      player.mana = 0;
+      player.hp = 1;
       dispel(-1);
       morewait();
       clearmsg();
@@ -972,33 +972,33 @@ void l_throne()
         {
         case 0:
           print3("Strength.");
-          Player.str += 5;
-          Player.maxstr += 5;
+          player.str += 5;
+          player.maxstr += 5;
           break;
         case 1:
           print3("Constitution.");
-          Player.con += 5;
-          Player.maxcon += 5;
+          player.con += 5;
+          player.maxcon += 5;
           break;
         case 2:
           print3("Dexterity.");
-          Player.dex += 5;
-          Player.maxdex += 5;
+          player.dex += 5;
+          player.maxdex += 5;
           break;
         case 3:
           print3("Agility.");
-          Player.agi += 5;
-          Player.maxagi += 5;
+          player.agi += 5;
+          player.maxagi += 5;
           break;
         case 4:
           print3("Intelligence.");
-          Player.iq += 5;
-          Player.maxiq += 5;
+          player.iq += 5;
+          player.maxiq += 5;
           break;
         case 5:
           print3("Power.");
-          Player.pow += 5;
-          Player.maxpow += 5;
+          player.pow += 5;
+          player.maxpow += 5;
           break;
         default:
           if (Spells[S_WISH].known)
@@ -1022,9 +1022,9 @@ void l_throne()
           morewait();
           print1("artifact stressed by excessive use....");
           print2("With an odd tinkling sound the throne shatters!");
-          level->site[Player.x][Player.y].locchar = RUBBLE;
-          level->site[Player.x][Player.y].p_locf = L_RUBBLE;
-          lset(Player.x, Player.y, CHANGED);
+          level->site[player.x][player.y].locchar = RUBBLE;
+          level->site[player.x][player.y].p_locf = L_RUBBLE;
+          lset(player.x, player.y, CHANGED);
           if (find_and_remove_item(ARTIFACTID + 22, -1))
           {
             morewait();
@@ -1078,7 +1078,7 @@ void l_chaostone()
   print2("It emanates an aura of raw chaos, which is not terribly");
   morewait();
   print1("surprising, considering its location.");
-  if (Player.alignment < 0)
+  if (player.alignment < 0)
     print2("You feel an almost unbearable attraction to the stone.");
   else
     print2("You find it extremely difficult to approach the stone.");
@@ -1092,7 +1092,7 @@ void l_chaostone()
     if (stonecheck(-1))
     {
       print2("You feel stronger!");
-      Player.maxstr = min(Player.maxstr + 10, max(30, Player.maxstr));
+      player.maxstr = min(player.maxstr + 10, max(30, player.maxstr));
       dataprint();
     }
   }
@@ -1110,18 +1110,18 @@ void l_balancestone()
   if (ynq1() == 'y')
   {
     print1("A vortex of mana spins about you!");
-    if (abs(Player.alignment) > random_range(50))
+    if (abs(player.alignment) > random_range(50))
     {
       print2("The cyclone whirls you off to a strange place!");
       morewait();
       change_environment(E_COUNTRYSIDE);
       do
       {
-        Player.x = random_range(WIDTH);
-        Player.y = random_range(LENGTH);
-      } while (Country[Player.x][Player.y].current_terrain_type == CHAOS_SEA);
-      screencheck(Player.y);
-      drawvision(Player.x, Player.y);
+        player.x = random_range(WIDTH);
+        player.y = random_range(LENGTH);
+      } while (Country[player.x][player.y].current_terrain_type == CHAOS_SEA);
+      screencheck(player.y);
+      drawvision(player.x, player.y);
     }
     else
     {
@@ -1133,11 +1133,11 @@ void l_balancestone()
       }
       else
       {
-        Player.xp -= Player.xp / 4;
+        player.xp -= player.xp / 4;
         dataprint();
         print2("The vortex vanishes. Suddenly, there is a clap of thunder!");
         morewait();
-        Player.alignment = 0;
+        player.alignment = 0;
         strategic_teleport(1);
       }
     }
@@ -1152,7 +1152,7 @@ void l_lawstone()
   print2("You feel an aura of serenity rising from it, and your gaze");
   morewait();
   print1("is attracted to the bulk of Star Peak to the North-East.");
-  if (Player.alignment > 0)
+  if (player.alignment > 0)
     print2("You feel a subtle attraction to the stone.");
   else
     print2("You find the stone extremely distasteful to contemplate.");
@@ -1166,7 +1166,7 @@ void l_lawstone()
     if (stonecheck(1))
     {
       print2("You feel more vigorous!");
-      Player.maxcon = min(Player.maxcon + 10, max(Player.maxcon, 30));
+      player.maxcon = min(player.maxcon + 10, max(player.maxcon, 30));
       dataprint();
     }
   }
@@ -1186,16 +1186,16 @@ void l_voidstone()
   {
     print1("You feel negated.");
     morewait();
-    Player.mana = 0;
+    player.mana = 0;
     toggle_item_use(TRUE);
     for (i = 0; i < NUMSTATI; i++)
-      Player.status[i] = 0;
+      player.status[i] = 0;
     for (i = 0; i < MAXITEMS; i++)
-      if (Player.possessions[i] != NULL)
+      if (player.possessions[i] != NULL)
       {
-        Player.possessions[i]->blessing = 0;
-        Player.possessions[i]->plus = 0;
-        Player.possessions[i]->usef = I_NOTHING;
+        player.possessions[i]->blessing = 0;
+        player.possessions[i]->plus = 0;
+        player.possessions[i]->usef = I_NOTHING;
       }
     toggle_item_use(FALSE);
     calc_melee();
@@ -1207,7 +1207,7 @@ void l_voidstone()
 void l_sacrificestone()
 {
   int sacrifice = 1;
-  int oldmaxhp = Player.maxhp;
+  int oldmaxhp = player.maxhp;
   print1("You have come on a weathered basaltic block.");
   print2("On the top surface is an indentation in human shape.");
   morewait();
@@ -1240,22 +1240,22 @@ void l_sacrificestone()
           print2("You are being drained.");
           break;
         }
-        Player.hp -= sacrifice;
-        Player.maxhp -= sacrifice / 2;
+        player.hp -= sacrifice;
+        player.maxhp -= sacrifice / 2;
         sacrifice *= 2;
         dataprint();
-        if ((Player.hp < 1) || (Player.maxhp < 1))
+        if ((player.hp < 1) || (player.maxhp < 1))
           p_death("self-sacrifice");
       } while (stillonblock());
       print1("You manage to wrench yourself off the ancient altar!");
       print2("You leave some skin behind, though....");
       morewait();
-      if ((oldmaxhp > 10) && (Player.maxhp < 3 * oldmaxhp / 4))
+      if ((oldmaxhp > 10) && (player.maxhp < 3 * oldmaxhp / 4))
       {
         print1("A strange red glow arises from the altar.");
         print2("The glow surrounds you.... You sense gratitude.");
-        Player.pow += sacrifice;
-        Player.maxpow += sacrifice / 10;
+        player.pow += sacrifice;
+        player.maxpow += sacrifice / 10;
         dataprint();
       }
       else
@@ -1293,7 +1293,7 @@ void l_mindstone()
     if (stonecheck(0))
     {
       print1("Your mind has been enhanced by the experience!");
-      Player.maxiq = min(Player.maxiq + 10, max(Player.maxiq, 30));
+      player.maxiq = min(player.maxiq + 10, max(player.maxiq, 30));
       dataprint();
     }
   }

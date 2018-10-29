@@ -304,8 +304,8 @@ void hint()
 void learnclericalspells(int deity, int level)
 {
   mprint("With your new clerical rank comes knowledge of magic...");
-  Player.pow += level;
-  Player.maxpow += level;
+  player.pow += level;
+  player.maxpow += level;
   switch (level)
   {
   case LAY:

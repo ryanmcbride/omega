@@ -174,10 +174,10 @@ int save_player(FILE* fd)
 
   /* Save random global state information */
 
-  Player.click = (Tick + 1) % 60;
-  ok &= (fwrite((char *)&Player, sizeof(Player), 1, fd) > 0);
+  player.click = (Tick + 1) % 60;
+  ok &= (fwrite((char *)&player, sizeof(Player), 1, fd) > 0);
   ok &= (fprintf(fd, "%s\n", Password) >= 0);
-  ok &= (fprintf(fd, "%s\n", Player.name) >= 0);
+  ok &= (fprintf(fd, "%s\n", player.name) >= 0);
   ok &= (fwrite((char *)CitySiteList, sizeof(CitySiteList), 1, fd) > 0);
   ok &= (fwrite((char *)&GameStatus, sizeof(long), 1, fd) > 0);
   ok &= (fwrite((char *)&Current_Environment, sizeof(int), 1, fd) > 0);
@@ -242,12 +242,12 @@ int save_player(FILE* fd)
 
   /* Save player possessions */
 
-  if (Player.possessions[O_READY_HAND] == Player.possessions[O_WEAPON_HAND])
-    Player.possessions[O_READY_HAND] = NULL;
+  if (player.possessions[O_READY_HAND] == player.possessions[O_WEAPON_HAND])
+    player.possessions[O_READY_HAND] = NULL;
   for (i = 0; i < MAXITEMS; i++)
-    ok &= save_item(fd, Player.possessions[i]);
+    ok &= save_item(fd, player.possessions[i]);
   for (i = 0; i < MAXPACK; i++)
-    ok &= save_item(fd, Player.pack[i]);
+    ok &= save_item(fd, player.pack[i]);
   for (i = 0; i < PAWNITEMS; i++)
     ok &= save_item(fd, Pawnitems[i]);
 
@@ -615,9 +615,9 @@ int restore_game(char* savestr)
 void restore_player(FILE* fd, int version)
 {
   int i;
-  fread((char *)&Player, sizeof(Player), 1, fd);
+  fread((char *)&player, sizeof(Player), 1, fd);
   filescanstring(fd, Password);
-  filescanstring(fd, Player.name);
+  filescanstring(fd, player.name);
   fread((char *)CitySiteList, sizeof(CitySiteList), 1, fd);
   fread((char *)&GameStatus, sizeof(long), 1, fd);
   fread((char *)&Current_Environment, sizeof(int), 1, fd);
@@ -702,14 +702,14 @@ void restore_player(FILE* fd, int version)
   inititem(FALSE);
 
   for (i = 0; i < MAXITEMS; i++)
-    Player.possessions[i] = restore_item(fd, version);
+    player.possessions[i] = restore_item(fd, version);
 
-  if (!Player.possessions[O_READY_HAND] && Player.possessions[O_WEAPON_HAND] &&
-      twohandedp(Player.possessions[O_WEAPON_HAND]->id))
-    Player.possessions[O_READY_HAND] = Player.possessions[O_WEAPON_HAND];
+  if (!player.possessions[O_READY_HAND] && player.possessions[O_WEAPON_HAND] &&
+      twohandedp(player.possessions[O_WEAPON_HAND]->id))
+    player.possessions[O_READY_HAND] = player.possessions[O_WEAPON_HAND];
 
   for (i = 0; i < MAXPACK; i++)
-    Player.pack[i] = restore_item(fd, version);
+    player.pack[i] = restore_item(fd, version);
   for (i = 0; i < PAWNITEMS; i++)
     Pawnitems[i] = restore_item(fd, version);
   Condoitems = restore_itemlist(fd, version);

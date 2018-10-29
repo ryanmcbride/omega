@@ -264,7 +264,7 @@ void load_dlair(int empty, int populate)
 /* loads the star peak into Level*/
 void load_speak(int empty, int populate)
 {
-	int i, j, safe = Player.alignment > 0;
+	int i, j, safe = player.alignment > 0;
 	char site;
 
 	FILE *fd;
@@ -658,21 +658,21 @@ void load_temple(int deity, int populate)
 				break;
 			case 'H':
 				level->site[i][j].locchar = FLOOR;
-				if (populate && (!Player.patron ||
-												 strcmp(Player.name, Priest[Player.patron]) ||
-												 Player.rank[PRIESTHOOD] != HIGHPRIEST))
+				if (populate && (!player.patron ||
+												 strcmp(player.name, Priest[player.patron]) ||
+												 player.rank[PRIESTHOOD] != HIGHPRIEST))
 					make_high_priest(i, j, deity);
 				break;
 			case 'S':
 				level->site[i][j].locchar = FLOOR;
-				if (!Player.patron ||
-						strcmp(Player.name, Priest[Player.patron]) ||
-						Player.rank[PRIESTHOOD] != HIGHPRIEST)
+				if (!player.patron ||
+						strcmp(player.name, Priest[player.patron]) ||
+						player.rank[PRIESTHOOD] != HIGHPRIEST)
 					lset(i, j, SECRET);
 				break;
 			case 'W':
 				level->site[i][j].locchar = FLOOR;
-				if (deity != Player.patron && deity != DRUID)
+				if (deity != player.patron && deity != DRUID)
 					level->site[i][j].p_locf = L_TEMPLE_WARNING;
 				break;
 			case 'm':
@@ -728,7 +728,7 @@ void load_temple(int deity, int populate)
 		site = getc(fd) ^ site;
 	}
 	/* Main Temple is peaceful for player of same sect,druids always peaceful. */
-	if ((Player.patron == deity) || (deity == DRUID))
+	if ((player.patron == deity) || (deity == DRUID))
 		for (ml = level->mlist; ml != NULL; ml = ml->next)
 			m_status_reset(ml->m, HOSTILE);
 	fclose(fd);

@@ -13,7 +13,7 @@ void m_hit(monster* m, int dtype)
   }
   else
     strcpy(Str3, m->monstring);
-  if ((Player.status[DISPLACED] > 0) && (random_range(2) == 1))
+  if ((player.status[DISPLACED] > 0) && (random_range(2) == 1))
     mprint("The attack was displaced!");
   else
     p_damage(random_range(m->dmg), dtype, Str3);
@@ -23,7 +23,7 @@ void m_hit(monster* m, int dtype)
 void tacmonster(monster* m)
 {
   int i = 0;
-  drawvision(Player.x, Player.y);
+  drawvision(player.x, player.y);
   transcribe_monster_actions(m);
   while ((i < strlen(m->meleestr)) && (m->hp > 0))
   {
@@ -62,7 +62,7 @@ void monster_melee(monster* m, char hitloc, int bonus)
   {
     /* It's lawful to wait to be attacked */
     if (m->attacked == 0)
-      Player.alignment++;
+      player.alignment++;
     m->attacked++;
     if (m->uniqueness == COMMON)
     {
@@ -125,7 +125,7 @@ void monster_melee(monster* m, char hitloc, int bonus)
         strcat(Str2, " grabs you.");
         mprint(Str2);
         m_hit(m, NORMAL_DAMAGE);
-        Player.status[IMMOBILE]++;
+        player.status[IMMOBILE]++;
         break;
       case M_MELEE_SPIRIT:
         strcat(Str2, " touches you.");
@@ -226,15 +226,15 @@ void monster_melee(monster* m, char hitloc, int bonus)
 int monster_hit(monster* m, char hitloc, int bonus)
 {
   int i = 0, blocks = FALSE, goodblocks = 0, hit, riposte = FALSE;
-  while (i < strlen(Player.meleestr))
+  while (i < strlen(player.meleestr))
   {
-    if ((Player.meleestr[i] == 'B') || (Player.meleestr[i] == 'R'))
+    if ((player.meleestr[i] == 'B') || (player.meleestr[i] == 'R'))
     {
       blocks = TRUE;
-      if (hitloc == Player.meleestr[i + 1])
+      if (hitloc == player.meleestr[i + 1])
       {
         goodblocks++;
-        if (Player.meleestr[i] == 'R')
+        if (player.meleestr[i] == 'R')
           riposte = TRUE;
       }
     }
@@ -242,7 +242,7 @@ int monster_hit(monster* m, char hitloc, int bonus)
   }
   if (!blocks)
     goodblocks = -1;
-  hit = hitp(m->hit + bonus, Player.defense + goodblocks * 10);
+  hit = hitp(m->hit + bonus, player.defense + goodblocks * 10);
   if ((!hit) && (goodblocks > 0))
   {
     if (Verbosity == VERBOSE)
@@ -251,10 +251,10 @@ int monster_hit(monster* m, char hitloc, int bonus)
     {
       if (Verbosity != TERSE)
         mprint("You got a riposte!");
-      if (hitp(Player.hit, m->ac))
+      if (hitp(player.hit, m->ac))
       {
         mprint("You hit!");
-        weapon_use(0, Player.possessions[O_WEAPON_HAND], m);
+        weapon_use(0, player.possessions[O_WEAPON_HAND], m);
       }
       else
         mprint("You missed.");
@@ -281,26 +281,26 @@ void transcribe_monster_actions(monster* m)
 
   /* Find which area player blocks and attacks least in */
   i = 0;
-  while (i < strlen(Player.meleestr))
+  while (i < strlen(player.meleestr))
   {
-    if ((Player.meleestr[i] == 'B') ||
-        (Player.meleestr[i] == 'R'))
+    if ((player.meleestr[i] == 'B') ||
+        (player.meleestr[i] == 'R'))
     {
-      if (Player.meleestr[i + 1] == 'H')
+      if (player.meleestr[i + 1] == 'H')
         p_blocks[0]++;
-      if (Player.meleestr[i + 1] == 'C')
+      if (player.meleestr[i + 1] == 'C')
         p_blocks[1]++;
-      if (Player.meleestr[i + 1] == 'L')
+      if (player.meleestr[i + 1] == 'L')
         p_blocks[2]++;
     }
-    else if ((Player.meleestr[i] == 'A') ||
-             (Player.meleestr[i] == 'L'))
+    else if ((player.meleestr[i] == 'A') ||
+             (player.meleestr[i] == 'L'))
     {
-      if (Player.meleestr[i + 1] == 'H')
+      if (player.meleestr[i + 1] == 'H')
         p_attacks[0]++;
-      if (Player.meleestr[i + 1] == 'C')
+      if (player.meleestr[i + 1] == 'C')
         p_attacks[1]++;
-      if (Player.meleestr[i + 1] == 'L')
+      if (player.meleestr[i + 1] == 'L')
         p_attacks[2]++;
     }
     i += 2;
@@ -341,7 +341,7 @@ void transcribe_monster_actions(monster* m)
     {
       if (m->meleestr[i + 1] == '?')
       {
-        if (m->level + random_range(30) > Player.level + random_range(20))
+        if (m->level + random_range(30) > player.level + random_range(20))
           m->meleestr[i + 1] = attack_loc;
         else
           m->meleestr[i + 1] = random_loc();
@@ -353,7 +353,7 @@ void transcribe_monster_actions(monster* m)
     {
       if (m->meleestr[i + 1] == '?')
       {
-        if (m->level + random_range(30) > Player.level + random_range(20))
+        if (m->level + random_range(30) > player.level + random_range(20))
           m->meleestr[i + 1] = block_loc;
         else
           m->meleestr[i + 1] = random_loc();

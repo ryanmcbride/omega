@@ -6,7 +6,7 @@
 
 void s_wish()
 {
-  if (random_range(100) > Player.iq + Player.pow + Player.level)
+  if (random_range(100) > player.iq + player.pow + player.level)
   {
     mprint("Your concentration is flawed!");
     mprint("The spell energy backfires!");
@@ -28,16 +28,16 @@ void s_wish()
 
 void s_firebolt()
 {
-  int x = Player.x, y = Player.y;
+  int x = player.x, y = player.y;
   setspot(&x, &y);
-  fbolt(Player.x, Player.y, x, y, Player.dex * 2 + Player.level, Player.level * 10 + 10);
+  fbolt(player.x, player.y, x, y, player.dex * 2 + player.level, player.level * 10 + 10);
 }
 
 void s_missile()
 {
-  int x = Player.x, y = Player.y;
+  int x = player.x, y = player.y;
   setspot(&x, &y);
-  nbolt(Player.x, Player.y, x, y, Player.dex * 2 + Player.level, Player.level * 3 + 3);
+  nbolt(player.x, player.y, x, y, player.dex * 2 + player.level, player.level * 3 + 3);
 }
 
 void s_teleport()
@@ -47,14 +47,14 @@ void s_teleport()
 
 void s_disrupt()
 {
-  int x = Player.x, y = Player.y;
+  int x = player.x, y = player.y;
   setspot(&x, &y);
-  disrupt(x, y, Player.level * 10 + 25);
+  disrupt(x, y, player.level * 10 + 25);
 }
 
 void s_disintegrate()
 {
-  int x = Player.x, y = Player.y;
+  int x = player.x, y = player.y;
   setspot(&x, &y);
   disintegrate(x, y);
 }
@@ -71,7 +71,7 @@ void s_heal()
 
 void s_dispel()
 {
-  dispel((Player.level + Player.maxpow) / 10);
+  dispel((player.level + player.maxpow) / 10);
 }
 
 void s_breathe()
@@ -116,7 +116,7 @@ void s_truesight()
 
 void s_hellfire()
 {
-  int x = Player.x, y = Player.y;
+  int x = player.x, y = player.y;
   setspot(&x, &y);
   hellfire(x, y, 0);
 }
@@ -135,7 +135,7 @@ void s_hero()
 void s_return()
 {
   mprint("You hear a whine as your spell begins to charge up.");
-  Player.status[RETURNING] =
+  player.status[RETURNING] =
       ((Current_Environment == Current_Dungeon) ? difficulty() : 1);
 }
 
@@ -171,7 +171,7 @@ void s_accuracy()
 
 void s_fear()
 {
-  int x = Player.x, y = Player.y;
+  int x = player.x, y = player.y;
   setspot(&x, &y);
   inflict_fear(x, y);
 }
@@ -198,7 +198,7 @@ void s_ritual()
   time_clock(FALSE);
   if (RitualHour == hour())
     mprint("Your mental fatigue prevents from completing the ritual!");
-  else if (random_range(100) > Player.iq + Player.pow + Player.level)
+  else if (random_range(100) > player.iq + player.pow + player.level)
     mprint("Your concentration was broken -- the ritual fails!");
   else
   {
@@ -221,9 +221,9 @@ void s_ritual()
       mprint("Flowing waves of mystical light congeal all around you.");
       mprint("'Like wow, man! Colors!'");
       mprint("Appreciative citizens throw you spare change.");
-      Player.cash += random_range(50);
+      player.cash += random_range(50);
     }
-    else if ((roomno = level->site[Player.x][Player.y].roomnumber) >= 0)
+    else if ((roomno = level->site[player.x][player.y].roomnumber) >= 0)
     {
       if (RitualRoom == roomno)
         mprint("For some reason the ritual doesn't work this time...");
@@ -236,11 +236,11 @@ void s_ritual()
           mprint("Your spell sets off frenetic growth all around you!");
           for (i = 0; i < 8; i++)
           {
-            level->site[Player.x + Dirs[0][i]][Player.y + Dirs[1][i]].locchar =
+            level->site[player.x + Dirs[0][i]][player.y + Dirs[1][i]].locchar =
                 HEDGE;
-            level->site[Player.x + Dirs[0][i]][Player.y + Dirs[1][i]].p_locf =
+            level->site[player.x + Dirs[0][i]][player.y + Dirs[1][i]].p_locf =
                 L_TRIFID;
-            lset(Player.x + Dirs[0][i], Player.y + Dirs[1][i], CHANGED);
+            lset(player.x + Dirs[0][i], player.y + Dirs[1][i], CHANGED);
           }
           break;
         case ROOMBASE + 13: /* harem */
@@ -254,14 +254,14 @@ void s_ritual()
         case ROOMBASE + 26: /*shrine to high magic */
           mprint("A storm of mana coaelesces around you.");
           mprint("You are buffeted by bursts of random magic.");
-          p_damage(random_range(Player.pow), UNSTOPPABLE, "high magic");
+          p_damage(random_range(player.pow), UNSTOPPABLE, "high magic");
           mprint("Continue ritual? Could be dangerous.... [yn] ");
           if (ynq() == 'y')
             s_wish();
           else
             mprint("The mana fades away to nothingness.");
-          x = Player.x;
-          y = Player.y;
+          x = player.x;
+          y = player.y;
           while (x >= 0 && level->site[x - 1][y].roomnumber == ROOMBASE + 26)
             x--;
           while (y >= 0 && level->site[x][y - 1].roomnumber == ROOMBASE + 26)
@@ -278,7 +278,7 @@ void s_ritual()
               y++;
             }
           }
-          lset(Player.x, Player.y, CHANGED);
+          lset(player.x, player.y, CHANGED);
           break;
         case ROOMBASE + 27: /* magician's lab */
           mprint("Your magical activity sets off a latent spell in the lab!");
@@ -292,7 +292,7 @@ void s_ritual()
           break;
         case ROOMBASE + 29: /* blue omega room */
           mprint("The Lords of Destiny look upon you....");
-          if (Player.level > 10)
+          if (player.level > 10)
           {
             mprint("A curtain of blue flames leaps up from the omega.");
             morewait();
@@ -300,10 +300,10 @@ void s_ritual()
           }
           else
           {
-            if (Player.patron == DESTINY)
+            if (player.patron == DESTINY)
             {
               mprint("Your patrons take pity on you.");
-              if ((Player.rank[PRIESTHOOD] < SPRIEST) &&
+              if ((player.rank[PRIESTHOOD] < SPRIEST) &&
                   (!find_item(&symbol, ARTIFACTID + 19, -1)))
               {
                 symbol = ((pob)checkmalloc(sizeof(objtype)));
@@ -314,20 +314,20 @@ void s_ritual()
                 mprint("You feel uplifted.");
               }
               else
-                gain_experience(min(1000, Player.xp));
+                gain_experience(min(1000, player.xp));
             }
             else if (random_range(3) == 1)
             {
               mprint("You feel Fated.");
-              gain_experience(Player.level * Player.level * 10);
-              Player.hp = max(Player.hp, Player.maxhp);
+              gain_experience(player.level * player.level * 10);
+              player.hp = max(player.hp, player.maxhp);
             }
             else if (random_range(2))
             {
               mprint("You feel Doomed.");
-              Player.hp = 1;
-              Player.mana = 0;
-              Player.xp = 0;
+              player.hp = 1;
+              player.mana = 0;
+              player.xp = 0;
             }
             else
               mprint("The Lords of Destiny laugh at you!");
@@ -335,19 +335,19 @@ void s_ritual()
           break;
         default:
           mprint("Well, not much effect. Chalk it up to experience.");
-          gain_experience(Player.level * 5);
+          gain_experience(player.level * 5);
           break;
         }
       }
     }
     else
     {
-      if (RitualRoom == level->site[Player.x][Player.y].roomnumber)
+      if (RitualRoom == level->site[player.x][player.y].roomnumber)
         mprint("The ritual fails for some unexplainable reason.");
       else
       {
         mprint("The ritual seems to be generating some spell effect.");
-        RitualRoom = level->site[Player.x][Player.y].roomnumber;
+        RitualRoom = level->site[player.x][player.y].roomnumber;
         switch (RitualRoom)
         {
         case RS_WALLSPACE:
@@ -364,7 +364,7 @@ void s_ritual()
           break;
         default:
           mprint("The ritual doesn't seem to produce any tangible results...");
-          gain_experience(Player.level * 6);
+          gain_experience(player.level * 6);
         }
       }
     }
@@ -414,9 +414,9 @@ void s_polymorph()
 /* lball spell */
 void s_lball()
 {
-  int x = Player.x, y = Player.y;
+  int x = player.x, y = player.y;
   setspot(&x, &y);
-  lball(Player.x, Player.y, x, y, Player.level * 10 + 10);
+  lball(player.x, player.y, x, y, player.level * 10 + 10);
 }
 
 void s_identify()

@@ -60,9 +60,9 @@ void peruse()
 
   clearmsg();
 
-  if (Player.status[BLINDED] > 0)
+  if (player.status[BLINDED] > 0)
     print3("You're blind -- you can't read!!!");
-  else if (Player.status[AFRAID] > 0)
+  else if (player.status[AFRAID] > 0)
     print3("You are too afraid to stop to read a scroll!");
   else
   {
@@ -72,7 +72,7 @@ void peruse()
       setgamestatus(SKIP_MONSTERS);
     else
     {
-      obj = Player.possessions[index];
+      obj = player.possessions[index];
       if (obj->objchar != SCROLL)
       {
         print3("There's nothing written on ");
@@ -100,7 +100,7 @@ void quaff()
     setgamestatus(SKIP_MONSTERS);
   else
   {
-    obj = Player.possessions[index];
+    obj = player.possessions[index];
     if (obj->objchar != POTION)
     {
       print3("You can't drink ");
@@ -138,7 +138,7 @@ void activate()
       clearmsg();
       print1("You activate it.... ");
       morewait();
-      item_use(Player.possessions[index]);
+      item_use(player.possessions[index]);
     }
     else
       setgamestatus(SKIP_MONSTERS);
@@ -160,7 +160,7 @@ void eat()
     setgamestatus(SKIP_MONSTERS);
   else
   {
-    obj = Player.possessions[index];
+    obj = player.possessions[index];
     if ((obj->objchar != FOOD) && (obj->objchar != CORPSE))
     {
       print3("You can't eat ");
@@ -169,7 +169,7 @@ void eat()
     else
     {
       if (obj->usef == I_FOOD)
-        Player.food = max(0, Player.food + obj->aux);
+        player.food = max(0, player.food + obj->aux);
       item_use(obj);
       dispose_lost_objects(1, obj);
       if (Current_Dungeon == E_COUNTRYSIDE)
@@ -186,7 +186,7 @@ void eat()
 void search(int* searchval)
 {
   int i;
-  if (Player.status[AFRAID] > 0)
+  if (player.status[AFRAID] > 0)
     print3("You are too terror-stricken to stop to search for anything.");
   else
   {
@@ -196,27 +196,27 @@ void search(int* searchval)
       *searchval = Searchnum;
     }
     for (i = 0; i < 9; i++)
-      searchat(Player.x + Dirs[0][i], Player.y + Dirs[1][i]);
-    drawvision(Player.x, Player.y);
+      searchat(player.x + Dirs[0][i], player.y + Dirs[1][i]);
+    drawvision(player.x, player.y);
   }
 }
 
 /* pick up a thing where the player is */
 void pickup()
 {
-  if (level->site[Player.x][Player.y].things == NULL)
+  if (level->site[player.x][player.y].things == NULL)
     print3("There's nothing there!");
-  else if (Player.status[SHADOWFORM])
+  else if (player.status[SHADOWFORM])
     print3("You can't really interact with the real world in your shadowy state.");
   else
-    pickup_at(Player.x, Player.y);
+    pickup_at(player.x, player.y);
 }
 
 #ifndef MSDOS_SUPPORTED_ANTIQUE
 /* floor inventory */
 void floor_inv()
 {
-  pol ol = level->site[Player.x][Player.y].things;
+  pol ol = level->site[player.x][player.y].things;
   setgamestatus(SKIP_MONSTERS);
   menuclear();
   while (ol != NULL)
@@ -250,25 +250,25 @@ void drop()
   {
     if (index == CASHVALUE)
       drop_money();
-    else if ((!Player.possessions[index]->used) ||
-             (!cursed(Player.possessions[index])))
+    else if ((!player.possessions[index]->used) ||
+             (!cursed(player.possessions[index])))
     {
-      if (Player.possessions[index]->number == 1)
+      if (player.possessions[index]->number == 1)
       {
-        p_drop_at(Player.x, Player.y, 1, Player.possessions[index]);
-        conform_lost_objects(1, Player.possessions[index]);
+        p_drop_at(player.x, player.y, 1, player.possessions[index]);
+        conform_lost_objects(1, player.possessions[index]);
       }
       else
       {
-        n = getnumber(Player.possessions[index]->number);
-        p_drop_at(Player.x, Player.y, n, Player.possessions[index]);
-        conform_lost_objects(n, Player.possessions[index]);
+        n = getnumber(player.possessions[index]->number);
+        p_drop_at(player.x, player.y, n, player.possessions[index]);
+        conform_lost_objects(n, player.possessions[index]);
       }
     }
     else
     {
       print3("You can't seem to get rid of: ");
-      nprint3(itemid(Player.possessions[index]));
+      nprint3(itemid(player.possessions[index]));
     }
   }
   calc_melee();
@@ -293,15 +293,15 @@ void talk()
     dx = Dirs[0][index];
     dy = Dirs[1][index];
 
-    if ((!inbounds(Player.x + dx, Player.y + dy)) ||
-        (level->site[Player.x + dx][Player.y + dy].creature == NULL))
+    if ((!inbounds(player.x + dx, player.y + dy)) ||
+        (level->site[player.x + dx][player.y + dy].creature == NULL))
     {
       print3("There's nothing there to talk to!!!");
       setgamestatus(SKIP_MONSTERS);
     }
     else
     {
-      m = level->site[Player.x + dx][Player.y + dy].creature;
+      m = level->site[player.x + dx][player.y + dy].creature;
       menuclear();
       strcpy(Str1, "     Talk to ");
       strcat(Str1, m->monstring);
@@ -353,8 +353,8 @@ void disarm()
     setgamestatus(SKIP_MONSTERS);
   else
   {
-    x = Dirs[0][index] + Player.x;
-    y = Dirs[1][index] + Player.y;
+    x = Dirs[0][index] + player.x;
+    y = Dirs[1][index] + player.y;
 
     if (!inbounds(x, y))
       print3("Whoa, off the map...");
@@ -363,10 +363,10 @@ void disarm()
     else
     {
       if (random_range(50 + difficulty() * 5) <
-          Player.dex * 2 + Player.level * 3 + Player.rank[THIEVES] * 10)
+          player.dex * 2 + player.level * 3 + player.rank[THIEVES] * 10)
       {
         print1("You disarmed the trap!");
-        if (random_range(100) < Player.dex + Player.rank[THIEVES] * 10)
+        if (random_range(100) < player.dex + player.rank[THIEVES] * 10)
         {
           o = ((pob)checkmalloc(sizeof(objtype)));
           switch (level->site[x][y].p_locf)
@@ -418,11 +418,11 @@ void disarm()
         lset(x, y, CHANGED);
         gain_experience(5);
       }
-      else if (random_range(10 + difficulty() * 2) > Player.dex)
+      else if (random_range(10 + difficulty() * 2) > player.dex)
       {
         print1("You accidentally set off the trap!");
-        Player.x = x;
-        Player.y = y;
+        player.x = x;
+        player.y = y;
         p_movefunction(level->site[x][y].p_locf);
       }
       else
@@ -449,16 +449,16 @@ void give()
   {
     dx = Dirs[0][dindex];
     dy = Dirs[1][dindex];
-    if (!inbounds(Player.x + dx, Player.y + dy))
+    if (!inbounds(player.x + dx, player.y + dy))
       print3("Whoa, off the map...");
-    else if (level->site[Player.x + dx][Player.y + dy].creature == NULL)
+    else if (level->site[player.x + dx][player.y + dy].creature == NULL)
     {
       print3("There's nothing there to give something to!!!");
       setgamestatus(SKIP_MONSTERS);
     }
     else
     {
-      m = level->site[Player.x + dx][Player.y + dy].creature;
+      m = level->site[player.x + dx][player.y + dy].creature;
       clearmsg();
       print1("Give what? ");
       index = getitem(CASH);
@@ -466,12 +466,12 @@ void give()
         setgamestatus(SKIP_MONSTERS);
       else if (index == CASHVALUE)
         give_money(m);
-      else if (!cursed(Player.possessions[index]))
+      else if (!cursed(player.possessions[index]))
       {
         obj = ((pob)checkmalloc(sizeof(objtype)));
-        *obj = *(Player.possessions[index]);
+        *obj = *(player.possessions[index]);
         obj->used = FALSE;
-        conform_lost_objects(1, Player.possessions[index]);
+        conform_lost_objects(1, player.possessions[index]);
         obj->number = 1;
         print2("Given: ");
         nprint2(itemid(obj));
@@ -487,7 +487,7 @@ void give()
       else
       {
         print3("You can't even give away: ");
-        nprint3(itemid(Player.possessions[index]));
+        nprint3(itemid(player.possessions[index]));
       }
     }
   }
@@ -501,7 +501,7 @@ void zapwand()
 
   clearmsg();
 
-  if (Player.status[AFRAID] > 0)
+  if (player.status[AFRAID] > 0)
     print3("You are so terror-stricken you can't hold a wand straight!");
   else
   {
@@ -511,7 +511,7 @@ void zapwand()
       setgamestatus(SKIP_MONSTERS);
     else
     {
-      obj = Player.possessions[index];
+      obj = player.possessions[index];
       if (obj->objchar != STICK)
       {
         print3("You can't zap: ");
@@ -533,7 +533,7 @@ void magic()
 {
   int index, drain;
   clearmsg();
-  if (Player.status[AFRAID] > 0)
+  if (player.status[AFRAID] > 0)
     print3("You are too afraid to concentrate on a spell!");
   else
   {
@@ -548,14 +548,14 @@ void magic()
         drain = drain / 2;
       else if (Lunarity == -1)
         drain = drain * 2;
-      if (drain > Player.mana)
-        if (Lunarity == -1 && Player.mana >= drain / 2)
+      if (drain > player.mana)
+        if (Lunarity == -1 && player.mana >= drain / 2)
           print3("The contrary moon has made that spell too draining! ");
         else
           print3("You lack the power for that spell! ");
       else
       {
-        Player.mana -= drain;
+        player.mana -= drain;
         cast_spell(index);
       }
     }
@@ -566,10 +566,10 @@ void magic()
 /* go upstairs ('<' command) */
 void upstairs()
 {
-  if (level->site[Player.x][Player.y].locchar != STAIRS_UP)
+  if (level->site[player.x][player.y].locchar != STAIRS_UP)
     print3("Not here!");
-  else if (level->site[Player.x][Player.y].p_locf == L_ESCALATOR)
-    p_movefunction(level->site[Player.x][Player.y].p_locf);
+  else if (level->site[player.x][player.y].p_locf == L_ESCALATOR)
+    p_movefunction(level->site[player.x][player.y].p_locf);
   else
   {
     if (gamestatusp(MOUNTED))
@@ -592,11 +592,11 @@ void upstairs()
 /* go downstairs ('>' command) */
 void downstairs()
 {
-  if (level->site[Player.x][Player.y].locchar != STAIRS_DOWN)
+  if (level->site[player.x][player.y].locchar != STAIRS_DOWN)
     print3("Not here!");
-  else if (level->site[Player.x][Player.y].p_locf == L_ENTER_CIRCLE ||
-           level->site[Player.x][Player.y].p_locf == L_ENTER_COURT)
-    p_movefunction(level->site[Player.x][Player.y].p_locf);
+  else if (level->site[player.x][player.y].p_locf == L_ENTER_CIRCLE ||
+           level->site[player.x][player.y].p_locf == L_ENTER_COURT)
+    p_movefunction(level->site[player.x][player.y].p_locf);
   else
   {
     if (gamestatusp(MOUNTED))
@@ -745,7 +745,7 @@ void callitem()
     print3("Can't rename cash!");
   else if (index != ABORT)
   {
-    obj = Player.possessions[index];
+    obj = player.possessions[index];
     if (obj->known)
       print3("That item is already identified!");
     else
@@ -775,8 +775,8 @@ void opendoor()
     setgamestatus(SKIP_MONSTERS);
   else
   {
-    ox = Player.x + Dirs[0][dir];
-    oy = Player.y + Dirs[1][dir];
+    ox = player.x + Dirs[0][dir];
+    oy = player.y + Dirs[1][dir];
     if (level->site[ox][oy].locchar == OPEN_DOOR)
     {
       print3("That door is already open!");
@@ -785,7 +785,7 @@ void opendoor()
     else if (level->site[ox][oy].locchar == PORTCULLIS)
     {
       print1("You try to lift the massive steel portcullis....");
-      if (random_range(100) < Player.str)
+      if (random_range(100) < player.str)
       {
         print2("Incredible. You bust a gut and lift the portcullis.");
         level->site[ox][oy].locchar = FLOOR;
@@ -794,7 +794,7 @@ void opendoor()
       else
       {
         print2("Argh. You ruptured yourself.");
-        p_damage(Player.str, UNSTOPPABLE, "a portcullis");
+        p_damage(player.str, UNSTOPPABLE, "a portcullis");
       }
     }
     else if ((level->site[ox][oy].locchar != CLOSED_DOOR) ||
@@ -826,8 +826,8 @@ void bash_location()
     setgamestatus(SKIP_MONSTERS);
   else
   {
-    ox = Player.x + Dirs[0][dir];
-    oy = Player.y + Dirs[1][dir];
+    ox = player.x + Dirs[0][dir];
+    oy = player.y + Dirs[1][dir];
     if ((Current_Environment == E_CITY) &&
         (ox == 0) &&
         (oy == 0))
@@ -849,17 +849,17 @@ void bash_location()
       if (level->site[ox][oy].locchar == WALL)
       {
         print1("You hurl yourself at the wall!");
-        p_damage(Player.str, NORMAL_DAMAGE, "a suicidal urge");
+        p_damage(player.str, NORMAL_DAMAGE, "a suicidal urge");
       }
       else if (level->site[ox][oy].locchar == OPEN_DOOR)
       {
         print1("You hurl yourself through the open door!");
         print2("Yaaaaah! ... thud.");
         morewait();
-        Player.x = ox;
-        Player.y = oy;
+        player.x = ox;
+        player.y = oy;
         p_damage(3, UNSTOPPABLE, "silliness");
-        p_movefunction(level->site[Player.x][Player.y].p_locf);
+        p_movefunction(level->site[player.x][player.y].p_locf);
         setgamestatus(SKIP_MONSTERS); /* monsters are surprised... */
       }
       else if (level->site[ox][oy].locchar == CLOSED_DOOR)
@@ -872,33 +872,33 @@ void bash_location()
         }
         if (level->site[ox][oy].aux == LOCKED)
         {
-          if (random_range(50 + difficulty() * 10) < Player.str)
+          if (random_range(50 + difficulty() * 10) < player.str)
           {
-            Player.x = ox;
-            Player.y = oy;
+            player.x = ox;
+            player.y = oy;
             print2("You blast the door off its hinges!");
             level->site[ox][oy].locchar = FLOOR;
             lset(ox, oy, CHANGED);
-            p_movefunction(level->site[Player.x][Player.y].p_locf);
+            p_movefunction(level->site[player.x][player.y].p_locf);
             setgamestatus(SKIP_MONSTERS); /* monsters are surprised... */
           }
           else
           {
             print1("Crash! The door holds.");
-            if (random_range(30) > Player.str)
-              p_damage(max(1, statmod(Player.str)), UNSTOPPABLE, "a door");
+            if (random_range(30) > player.str)
+              p_damage(max(1, statmod(player.str)), UNSTOPPABLE, "a door");
           }
         }
         else
         {
-          Player.x = ox;
-          Player.y = oy;
+          player.x = ox;
+          player.y = oy;
           print2("You bash open the door!");
-          if (random_range(30) > Player.str)
+          if (random_range(30) > player.str)
             p_damage(1, UNSTOPPABLE, "a door");
           level->site[ox][oy].locchar = OPEN_DOOR;
           lset(ox, oy, CHANGED);
-          p_movefunction(level->site[Player.x][Player.y].p_locf);
+          p_movefunction(level->site[player.x][player.y].p_locf);
           setgamestatus(SKIP_MONSTERS); /* monsters are surprised... */
         }
       }
@@ -909,7 +909,7 @@ void bash_location()
       else if (level->site[ox][oy].locchar == PORTCULLIS)
       {
         print1("Really, you don't have a prayer.");
-        if (random_range(1000) < Player.str)
+        if (random_range(1000) < player.str)
         {
           print2("The portcullis flies backwards into a thousand fragments.");
           print3("Wow. What a stud.");
@@ -921,17 +921,17 @@ void bash_location()
         else
         {
           print2("You only hurt yourself on the 3'' thick steel bars.");
-          p_damage(Player.str, UNSTOPPABLE, "a portcullis");
+          p_damage(player.str, UNSTOPPABLE, "a portcullis");
         }
       }
       else if (level->site[ox][oy].locchar == ALTAR)
       {
-        if ((Player.patron > 0) && (level->site[ox][oy].aux == Player.patron))
+        if ((player.patron > 0) && (level->site[ox][oy].aux == player.patron))
         {
           print1("You have a vision! An awesome angel hovers over the altar.");
           print2("The angel says: 'You twit, don't bash your own altar!'");
           print3("The angel slaps you upside the head for your presumption.");
-          p_damage(Player.hp - 1, UNSTOPPABLE, "an annoyed angel");
+          p_damage(player.hp - 1, UNSTOPPABLE, "an annoyed angel");
         }
         else if (level->site[ox][oy].aux == 0)
         {
@@ -947,12 +947,12 @@ void bash_location()
         {
           print1("You have successfully annoyed a major deity. Good job.");
           print2("Zzzzap! A bolt of godsfire strikes!");
-          if (Player.rank[PRIESTHOOD] > 0)
+          if (player.rank[PRIESTHOOD] > 0)
             print3("Your own deity's aegis defends you from the bolt!");
-          p_damage(max(0, random_range(100) - Player.rank[PRIESTHOOD] * 20),
+          p_damage(max(0, random_range(100) - player.rank[PRIESTHOOD] * 20),
                    UNSTOPPABLE,
                    "a bolt of godsfire");
-          if (Player.rank[PRIESTHOOD] * 20 + Player.pow + Player.level >
+          if (player.rank[PRIESTHOOD] * 20 + player.pow + player.level >
               random_range(200))
           {
             morewait();
@@ -961,7 +961,7 @@ void bash_location()
             level->site[ox][oy].p_locf = L_RUBBLE;
             lset(ox, oy, CHANGED);
             morewait();
-            if (Player.rank[PRIESTHOOD])
+            if (player.rank[PRIESTHOOD])
             {
               print2("You sense your deity's pleasure with you.");
               morewait();
@@ -995,10 +995,10 @@ void bash_item()
     print3("Can't destroy cash!");
   else if (item != ABORT)
   {
-    obj = Player.possessions[item];
-    if (Player.str + random_range(20) > obj->fragility + random_range(20))
+    obj = player.possessions[item];
+    if (player.str + random_range(20) > obj->fragility + random_range(20))
     {
-      if (damage_item(obj) && Player.alignment < 0)
+      if (damage_item(obj) && player.alignment < 0)
       {
         print2("That was fun....");
         gain_experience(obj->level * obj->level * 5);
@@ -1155,8 +1155,8 @@ void closedoor()
     setgamestatus(SKIP_MONSTERS);
   else
   {
-    ox = Player.x + Dirs[0][dir];
-    oy = Player.y + Dirs[1][dir];
+    ox = player.x + Dirs[0][dir];
+    oy = player.y + Dirs[1][dir];
     if (level->site[ox][oy].locchar == CLOSED_DOOR)
     {
       print3("That door is already closed!");
@@ -1176,17 +1176,17 @@ void closedoor()
 /* handle a h,j,k,l, etc. */
 void moveplayer(int dx, int dy)
 {
-  if (p_moveable(Player.x + dx, Player.y + dy))
+  if (p_moveable(player.x + dx, player.y + dy))
   {
 
-    if (Player.status[IMMOBILE] > 0)
+    if (player.status[IMMOBILE] > 0)
     {
       resetgamestatus(FAST_MOVE);
       print3("You are unable to move");
     }
-    else if ((Player.maxweight < Player.itemweight) &&
+    else if ((player.maxweight < player.itemweight) &&
              random_range(2) &&
-             (!Player.status[LEVITATING]))
+             (!player.status[LEVITATING]))
     {
       if (gamestatusp(MOUNTED))
       {
@@ -1204,9 +1204,9 @@ void moveplayer(int dx, int dy)
     }
     else
     {
-      Player.x += dx;
-      Player.y += dy;
-      p_movefunction(level->site[Player.x][Player.y].p_locf);
+      player.x += dx;
+      player.y += dy;
+      p_movefunction(level->site[player.x][player.y].p_locf);
 
       /* causes moves to take effectively 30 seconds in town without
          monsters being sped up compared to player */
@@ -1230,11 +1230,11 @@ void moveplayer(int dx, int dy)
       if (Current_Environment != E_COUNTRYSIDE)
       {
         if (gamestatusp(FAST_MOVE))
-          if ((level->site[Player.x][Player.y].things != NULL) ||
+          if ((level->site[player.x][player.y].things != NULL) ||
               (optionp(RUNSTOP) &&
-               loc_statusp(Player.x, Player.y, STOPS)))
+               loc_statusp(player.x, player.y, STOPS)))
             resetgamestatus(FAST_MOVE);
-        if ((level->site[Player.x][Player.y].things != NULL) &&
+        if ((level->site[player.x][player.y].things != NULL) &&
             (optionp(PICKUP)))
           pickup();
       }
@@ -1242,7 +1242,7 @@ void moveplayer(int dx, int dy)
   }
   else if (gamestatusp(FAST_MOVE))
   {
-    drawvision(Player.x, Player.y);
+    drawvision(player.x, player.y);
     resetgamestatus(FAST_MOVE);
   }
 }
@@ -1251,9 +1251,9 @@ void moveplayer(int dx, int dy)
 void movepincountry(int dx, int dy)
 {
   int i, takestime = TRUE;
-  if ((Player.maxweight < Player.itemweight) &&
+  if ((player.maxweight < player.itemweight) &&
       random_range(2) &&
-      (!Player.status[LEVITATING]))
+      (!player.status[LEVITATING]))
   {
     if (gamestatusp(MOUNTED))
     {
@@ -1264,18 +1264,18 @@ void movepincountry(int dx, int dy)
       morewait();
       print1("With a shrill neigh of defiance, your former steed gallops");
       print2("off into the middle distance....");
-      if (Player.packptr != 0)
+      if (player.packptr != 0)
       {
         morewait();
         print1("You remember (too late) that the contents of your pack");
         print2("were kept in your steed's saddlebags!");
         for (i = 0; i < MAXPACK; i++)
         {
-          if (Player.pack[i] != NULL)
-            free((char *)Player.pack[i]);
-          Player.pack[i] = NULL;
+          if (player.pack[i] != NULL)
+            free((char *)player.pack[i]);
+          player.pack[i] = NULL;
         }
-        Player.packptr = 0;
+        player.packptr = 0;
         calc_melee();
       }
     }
@@ -1294,39 +1294,39 @@ void movepincountry(int dx, int dy)
       dx = random_range(3) - 1;
       dy = random_range(3) - 1;
     }
-    if (p_country_moveable(Player.x + dx, Player.y + dy))
+    if (p_country_moveable(player.x + dx, player.y + dy))
     {
-      if (Player.status[IMMOBILE] > 0)
+      if (player.status[IMMOBILE] > 0)
         print3("You are unable to move");
       else
       {
-        Player.x += dx;
-        Player.y += dy;
-        if ((!gamestatusp(MOUNTED)) && (Player.possessions[O_BOOTS] != NULL))
+        player.x += dx;
+        player.y += dy;
+        if ((!gamestatusp(MOUNTED)) && (player.possessions[O_BOOTS] != NULL))
         {
-          if (Player.possessions[O_BOOTS]->usef == I_BOOTS_7LEAGUE)
+          if (player.possessions[O_BOOTS]->usef == I_BOOTS_7LEAGUE)
           {
             takestime = FALSE;
-            if (Player.possessions[O_BOOTS]->blessing < 0)
+            if (player.possessions[O_BOOTS]->blessing < 0)
             {
               print1("Whooah! -- Your boots launch you into the sky....");
               print2("You come down in a strange location....");
-              Player.x = random_range(WIDTH);
-              Player.y = random_range(LENGTH);
+              player.x = random_range(WIDTH);
+              player.y = random_range(LENGTH);
               morewait();
               clearmsg();
               print1("Your boots disintegrate with a malicious giggle...");
-              dispose_lost_objects(1, Player.possessions[O_BOOTS]);
+              dispose_lost_objects(1, player.possessions[O_BOOTS]);
             }
-            else if (Player.possessions[O_BOOTS]->known != 2)
+            else if (player.possessions[O_BOOTS]->known != 2)
             {
               print1("Wow! Your boots take you 7 leagues in a single stride!");
-              Player.possessions[O_BOOTS]->known = 2;
+              player.possessions[O_BOOTS]->known = 2;
             }
           }
         }
         if (gamestatusp(LOST) && (Precipitation < 1) &&
-            c_statusp(Player.x, Player.y, SEEN))
+            c_statusp(player.x, player.y, SEEN))
         {
           print3("Ah! Now you know where you are!");
           morewait();
@@ -1339,7 +1339,7 @@ void movepincountry(int dx, int dy)
         }
         if (Precipitation > 0)
           Precipitation--;
-        c_set(Player.x, Player.y, SEEN);
+        c_set(player.x, player.y, SEEN);
         terrain_check(takestime);
       }
     }

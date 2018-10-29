@@ -69,7 +69,7 @@ int unblocked(int x, int y)
       (level->site[x][y].locchar == HEDGE) ||
       (level->site[x][y].locchar == CLOSED_DOOR) ||
       loc_statusp(x, y, SECRET) ||
-      ((x == Player.x) && (y == Player.y)))
+      ((x == player.x) && (y == player.y)))
     return (FALSE);
   else
     return (TRUE);
@@ -78,7 +78,7 @@ int unblocked(int x, int y)
 /* do monsters want to move through a spot */
 int m_unblocked(monster* m, int x, int y)
 {
-  if ((!inbounds(x, y)) || ((x == Player.x) && (y == Player.y)))
+  if ((!inbounds(x, y)) || ((x == player.x) && (y == player.y)))
     return (FALSE);
   else if ((level->site[x][y].creature != NULL) ||
            (level->site[x][y].locchar == SPACE))
@@ -89,7 +89,7 @@ int m_unblocked(monster* m, int x, int y)
   {
     if (m->movef == M_MOVE_SMART)
     {
-      if (los_p(x, y, Player.x, Player.y))
+      if (los_p(x, y, player.x, player.y))
       {
         mprint("You see a secret door swing open!");
         lreset(x, y, SECRET);
@@ -511,30 +511,30 @@ long calc_points()
   if (gamestatusp(KILLED_LAWBRINGER))
     points += 100;
 
-  points += Player.xp / 50;
+  points += player.xp / 50;
 
-  points += Player.cash / 500;
+  points += player.cash / 500;
 
   for (i = 0; i < MAXITEMS; i++)
-    if (Player.possessions[i] != NULL)
-      points += Player.possessions[i]->level * (Player.possessions[i]->known + 1);
+    if (player.possessions[i] != NULL)
+      points += player.possessions[i]->level * (player.possessions[i]->known + 1);
 
   for (i = 0; i < MAXPACK; i++)
-    if (Player.pack[i] != NULL)
-      points += Player.pack[i]->level * (Player.pack[i]->known + 1);
+    if (player.pack[i] != NULL)
+      points += player.pack[i]->level * (player.pack[i]->known + 1);
 
   for (i = 0; i < NUMRANKS; i++)
   {
-    if (Player.rank[i] == 5)
+    if (player.rank[i] == 5)
       points += 500;
     else
-      points += 20 * Player.rank[i];
+      points += 20 * player.rank[i];
   }
 
-  if (Player.hp < 1)
+  if (player.hp < 1)
     points = (points / 2);
 
-  else if (Player.rank[ADEPT])
+  else if (player.rank[ADEPT])
     points *= 10;
 
   return (points);
@@ -754,18 +754,18 @@ void calc_weight()
   int i, weight = 0;
 
   for (i = 1; i < MAXITEMS; i++)
-    if (Player.possessions[i] != NULL)
-      weight += Player.possessions[i]->weight *
-                Player.possessions[i]->number;
-  if ((Player.possessions[O_WEAPON_HAND] != NULL) &&
-      (Player.possessions[O_READY_HAND] == Player.possessions[O_WEAPON_HAND]))
-    weight -= Player.possessions[O_READY_HAND]->weight *
-              Player.possessions[O_READY_HAND]->number;
+    if (player.possessions[i] != NULL)
+      weight += player.possessions[i]->weight *
+                player.possessions[i]->number;
+  if ((player.possessions[O_WEAPON_HAND] != NULL) &&
+      (player.possessions[O_READY_HAND] == player.possessions[O_WEAPON_HAND]))
+    weight -= player.possessions[O_READY_HAND]->weight *
+              player.possessions[O_READY_HAND]->number;
   for (i = 0; i < MAXPACK; i++)
-    if (Player.pack[i] != NULL)
-      weight += Player.pack[i]->weight *
-                Player.pack[i]->number;
-  Player.itemweight = weight;
+    if (player.pack[i] != NULL)
+      weight += player.pack[i]->weight *
+                player.pack[i]->number;
+  player.itemweight = weight;
   dataprint();
 }
 

@@ -6,36 +6,36 @@
 
 void m_firebolt(monster* m)
 {
-  fbolt(m->x, m->y, Player.x, Player.y, m->hit, m->dmg);
+  fbolt(m->x, m->y, player.x, player.y, m->hit, m->dmg);
 }
 
 void m_nbolt(monster* m)
 {
-  nbolt(m->x, m->y, Player.x, Player.y, m->hit, m->dmg);
+  nbolt(m->x, m->y, player.x, player.y, m->hit, m->dmg);
 }
 
 void m_lball(monster* m)
 {
-  lball(m->x, m->y, Player.x, Player.y, m->dmg);
+  lball(m->x, m->y, player.x, player.y, m->dmg);
 }
 
 void m_fireball(monster* m)
 {
-  fball(m->x, m->y, Player.x, Player.y, m->dmg);
+  fball(m->x, m->y, player.x, player.y, m->dmg);
 }
 
 void m_snowball(monster* m)
 {
-  snowball(m->x, m->y, Player.x, Player.y, m->dmg);
+  snowball(m->x, m->y, player.x, player.y, m->dmg);
 }
 
 void m_blind_strike(monster* m)
 {
 
   Monsterlist* ml;
-  if ((Player.status[BLINDED] == 0) &&
-      los_p(m->x, m->y, Player.x, Player.y) &&
-      (distance(m->x, m->y, Player.x, Player.y) < 5))
+  if ((player.status[BLINDED] == 0) &&
+      los_p(m->x, m->y, player.x, player.y) &&
+      (distance(m->x, m->y, player.x, player.y) < 5))
   {
     if (m->uniqueness == COMMON)
     {
@@ -49,7 +49,7 @@ void m_blind_strike(monster* m)
     if (!p_immune(GAZE))
     {
       mprint("You've been blinded!");
-      Player.status[BLINDED] = random_range(4) + 1;
+      player.status[BLINDED] = random_range(4) + 1;
       for (ml = level->mlist; ml != NULL; ml = ml->next)
         plotspot(ml->m->x, ml->m->y, FALSE);
     }

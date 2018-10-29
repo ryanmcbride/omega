@@ -34,7 +34,7 @@ extern object *Objects;
 /* locations of city sites [0] - found, [1] - x, [2] - y */
 extern int CitySiteList[NUMCITYSITES][3];
 
-extern struct player Player;                 
+extern Player player;                 
 /* the player */
 
 extern int LENGTH;

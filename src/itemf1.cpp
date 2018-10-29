@@ -215,7 +215,7 @@ void i_neutralize_poison(pob o)
   {
     Objects[o->id].known = 1;
     mprint("You feel vital!");
-    Player.status[POISONED] = 0;
+    player.status[POISONED] = 0;
   }
   else
     p_poison(random_range(20) + 5);
@@ -261,19 +261,19 @@ void i_azoth(pob o)
   else if (o->plus == 0)
   {
     mprint("The partially enchanted azoth makes you sick!");
-    Player.con = ((int)(Player.con / 2));
+    player.con = ((int)(player.con / 2));
     calc_melee();
   }
   else if (o->blessing < 1)
   {
     mprint("The unblessed azoth warps your soul!");
-    Player.pow = Player.maxpow = ((int)(Player.maxpow / 2));
+    player.pow = player.maxpow = ((int)(player.maxpow / 2));
     level_drain(random_range(10), "cursed azoth");
   }
   else
   {
     mprint("The azoth fills you with cosmic power!");
-    if (Player.str > Player.maxstr * 2)
+    if (player.str > player.maxstr * 2)
     {
       mprint("The power rages out of control!");
       p_death("overdose of azoth");
@@ -282,9 +282,9 @@ void i_azoth(pob o)
     {
       heal(10);
       cleanse(1);
-      Player.mana = calcmana() * 3;
+      player.mana = calcmana() * 3;
       toggle_item_use(TRUE);
-      Player.str = (Player.maxstr++) * 3;
+      player.str = (player.maxstr++) * 3;
       toggle_item_use(FALSE);
     }
   }
@@ -304,17 +304,17 @@ void i_perm_speed(pob o)
     {
       o->known = 2;
       Objects[o->id].known = 1;
-      if (Player.status[SLOWED] > 0)
+      if (player.status[SLOWED] > 0)
       {
-        Player.status[SLOWED] = 0;
+        player.status[SLOWED] = 0;
       }
       mprint("The world slows down!");
-      Player.status[HASTED] += 1500;
+      player.status[HASTED] += 1500;
     }
     else
     {
-      Player.status[HASTED] -= 1500;
-      if (Player.status[HASTED] < 1)
+      player.status[HASTED] -= 1500;
+      if (player.status[HASTED] < 1)
         mprint("The world speeds up again.");
     }
   }
@@ -322,17 +322,17 @@ void i_perm_speed(pob o)
   {
     if (o->used)
     {
-      if (Player.status[HASTED] > 0)
+      if (player.status[HASTED] > 0)
       {
-        Player.status[HASTED] = 0;
+        player.status[HASTED] = 0;
       }
       mprint("You feel slower.");
-      Player.status[SLOWED] += 1500;
+      player.status[SLOWED] += 1500;
     }
     else
     {
-      Player.status[SLOWED] -= 1500;
-      if (Player.status[SLOWED] < 1)
+      player.status[SLOWED] -= 1500;
+      if (player.status[SLOWED] < 1)
         mprint("You feel quicker again.");
     }
   }
@@ -346,15 +346,15 @@ void i_perm_displace(pob o)
     if (o->used)
     {
       mprint("You feel dislocated.");
-      Player.status[DISPLACED] += 1500;
+      player.status[DISPLACED] += 1500;
     }
     else
     {
-      Player.status[DISPLACED] -= 1500;
-      if (Player.status[DISPLACED] < 1)
+      player.status[DISPLACED] -= 1500;
+      if (player.status[DISPLACED] < 1)
       {
         mprint("You feel a sense of position.");
-        Player.status[DISPLACED] = 0;
+        player.status[DISPLACED] = 0;
       }
     }
   }
@@ -363,15 +363,15 @@ void i_perm_displace(pob o)
     if (o->used)
     {
       mprint("You have a forboding of bodily harm!");
-      Player.status[VULNERABLE] += 1500;
+      player.status[VULNERABLE] += 1500;
     }
     else
     {
-      Player.status[VULNERABLE] -= 1500;
-      if (Player.status[VULNERABLE] < 1)
+      player.status[VULNERABLE] -= 1500;
+      if (player.status[VULNERABLE] < 1)
       {
         mprint("You feel less endangered.");
-        Player.status[VULNERABLE] = 0;
+        player.status[VULNERABLE] = 0;
       }
     }
   }
@@ -383,10 +383,10 @@ void i_perm_negimmune(pob o)
   {
     if (o->used)
     {
-      Player.immunity[NEGENERGY]++;
+      player.immunity[NEGENERGY]++;
     }
     else
-      Player.immunity[NEGENERGY]--;
+      player.immunity[NEGENERGY]--;
   }
   else if (o->used)
     level_drain(abs(o->blessing), "cursed cloak of level drain");
@@ -420,15 +420,15 @@ void i_stim(pob o)
 {
   mprint("You feel Hyper!");
   i_speed(o);
-  Player.str += 3;
-  Player.con -= 1;
+  player.str += 3;
+  player.con -= 1;
   calc_melee();
 }
 
 void i_pow(pob o)
 {
   mprint("You feel a surge of mystic power!");
-  Player.mana = 2 * calcmana();
+  player.mana = 2 * calcmana();
 }
 
 void i_poison_food(pob o)
@@ -453,14 +453,14 @@ void i_pepper_food(pob o)
   mprint("Your sinuses melt and run out your ears.");
   mprint("Your mouth and throat seem to be permanently on fire.");
   mprint("You feel much more awake now....");
-  Player.immunity[SLEEP]++;
+  player.immunity[SLEEP]++;
 }
 
 void i_lembas(pob o)
 {
   heal(10);
   cleanse(0);
-  Player.food = 40;
+  player.food = 40;
 }
 
 void i_cure(pob o)
@@ -473,7 +473,7 @@ void i_immune(pob o)
   if (o->blessing > 0)
   {
     mprint("You feel a sense of innoculation");
-    Player.immunity[INFECTION]++;
+    player.immunity[INFECTION]++;
     cure(o->blessing);
   }
 }
@@ -502,32 +502,32 @@ void i_perm_invisible(pob o)
     if (o->blessing > -1)
     {
       mprint("You feel transparent!");
-      Player.status[INVISIBLE] += 1500;
+      player.status[INVISIBLE] += 1500;
     }
     else
     {
       mprint("You feel a forboding of bodily harm!");
-      Player.status[VULNERABLE] += 1500;
+      player.status[VULNERABLE] += 1500;
     }
   }
   else
   {
     if (o->blessing > -1)
     {
-      Player.status[INVISIBLE] -= 1500;
-      if (Player.status[INVISIBLE] < 1)
+      player.status[INVISIBLE] -= 1500;
+      if (player.status[INVISIBLE] < 1)
       {
         mprint("You feel opaque again.");
-        Player.status[INVISIBLE] = 0;
+        player.status[INVISIBLE] = 0;
       }
     }
     else
     {
-      Player.status[VULNERABLE] -= 1500;
-      if (Player.status[VULNERABLE] < 1)
+      player.status[VULNERABLE] -= 1500;
+      if (player.status[VULNERABLE] < 1)
       {
         mprint("You feel less endangered now.");
-        Player.status[VULNERABLE] = 0;
+        player.status[VULNERABLE] = 0;
       }
     }
   }
@@ -562,14 +562,14 @@ void i_charge(pob o)
     if (o->blessing < 0)
     {
       mprint("The stick glows black!");
-      Player.possessions[i]->charge = 0;
+      player.possessions[i]->charge = 0;
     }
     else
     {
       mprint("The stick glows blue!");
-      Player.possessions[i]->charge += (random_range(10) + 1) * (o->blessing + 1);
-      if (Player.possessions[i]->charge > 99)
-        Player.possessions[i]->charge = 99;
+      player.possessions[i]->charge += (random_range(10) + 1) * (o->blessing + 1);
+      if (player.possessions[i]->charge > 99)
+        player.possessions[i]->charge = 99;
     }
   }
 }
@@ -579,16 +579,16 @@ void i_fear_resist(pob o)
   if (o->blessing > -1)
   {
     Objects[o->id].known = 1;
-    if (Player.status[AFRAID] > 0)
+    if (player.status[AFRAID] > 0)
     {
       mprint("You feel stauncher now.");
-      Player.status[AFRAID] = 0;
+      player.status[AFRAID] = 0;
     }
   }
   else if (!p_immune(FEAR))
   {
     mprint("You panic!");
-    Player.status[AFRAID] += random_range(100);
+    player.status[AFRAID] += random_range(100);
   }
 }
 
@@ -598,7 +598,7 @@ void i_pick(pob o)
   int dir;
   int ox, oy;
   o->used = FALSE;
-  if ((!o->known) && (!Player.rank[THIEVES]))
+  if ((!o->known) && (!player.rank[THIEVES]))
     mprint("You have no idea what do with a piece of twisted metal.");
   else
   {
@@ -610,8 +610,8 @@ void i_pick(pob o)
       resetgamestatus(SKIP_MONSTERS);
     else
     {
-      ox = Player.x + Dirs[0][dir];
-      oy = Player.y + Dirs[1][dir];
+      ox = player.x + Dirs[0][dir];
+      oy = player.y + Dirs[1][dir];
       if ((level->site[ox][oy].locchar != CLOSED_DOOR) ||
           loc_statusp(ox, oy, SECRET))
       {
@@ -623,7 +623,7 @@ void i_pick(pob o)
         if (level->depth == MaxDungeonLevels - 1)
           mprint("The lock is too complicated for you!!!");
         else if (level->depth * 2 + random_range(50) <
-                 Player.dex + Player.level + Player.rank[THIEVES] * 10)
+                 player.dex + player.level + player.rank[THIEVES] * 10)
         {
           mprint("You picked the lock!");
           level->site[ox][oy].aux = UNLOCKED;
@@ -651,8 +651,8 @@ void i_key(pob o)
     resetgamestatus(SKIP_MONSTERS);
   else
   {
-    ox = Player.x + Dirs[0][dir];
-    oy = Player.y + Dirs[1][dir];
+    ox = player.x + Dirs[0][dir];
+    oy = player.y + Dirs[1][dir];
     if ((level->site[ox][oy].locchar != CLOSED_DOOR) ||
         loc_statusp(ox, oy, SECRET))
     {
@@ -699,16 +699,16 @@ void i_corpse(pob o)
       o->charge == JONIN)
   { /* cannibalism */
     mprint("Yechh! How could you! You didn't even cook him, first!");
-    if (Player.alignment > 0)
-      Player.food = 25;
-    Player.food += 8;
-    Player.alignment -= 10;
+    if (player.alignment > 0)
+      player.food = 25;
+    player.food += 8;
+    player.alignment -= 10;
     foodcheck();
   }
   else if (o->charge == FNORD)
   { /* fnord */
     mprint("You feel illuminated!");
-    Player.iq++;
+    player.iq++;
   }
   else if (o->charge == DENEBIAN)
   { /* denebian slime devil */
@@ -718,28 +718,28 @@ void i_corpse(pob o)
   else if (o->charge == DRAGONETTE)
   { /* can't get here... i_usef changed to I_FOOD */
     mprint("Those dragon-steaks were fantastic!");
-    Player.food = 24;
+    player.food = 24;
     foodcheck();
   }
   else if (o->charge == BEHEMOTH)
   {
     mprint("You feel infinitely more virile now.");
-    Player.str = max(Player.str, Player.maxstr + 10);
-    Player.food = 24;
+    player.str = max(player.str, player.maxstr + 10);
+    player.food = 24;
     foodcheck();
   }
   else if (o->charge == INVIS_SLAY)
   {
     mprint("Guess what? You're invisible.");
-    if (Player.status[INVISIBLE] < 1000)
-      Player.status[INVISIBLE] = 666;
-    Player.food += 6;
+    if (player.status[INVISIBLE] < 1000)
+      player.status[INVISIBLE] = 666;
+    player.food += 6;
     foodcheck();
   }
   else if (o->charge == UNICORN)
   {
     mprint("You ATE a unicorn's horn?!?!?");
-    Player.immunity[POISON] = 1000;
+    player.immunity[POISON] = 1000;
   }
   else if (o->charge == HORNET || /* can't get here... i_usef changed to I_POISON_FOOD */
            o->charge == GRUNT ||
@@ -755,7 +755,7 @@ void i_corpse(pob o)
            o->charge == CATEAGLE)
   {
     mprint("Well, you forced it down. Not much nutrition, though.");
-    Player.food++;
+    player.food++;
     foodcheck();
   }
   else if (o->charge == SEWER_RAT ||
@@ -770,7 +770,7 @@ void i_corpse(pob o)
   {
     mprint("Oh, yuck. The 'food' seems to be tainted.");
     mprint("You feel very sick. You throw up.");
-    Player.food = min(Player.food, 4);
+    player.food = min(player.food, 4);
   }
   else
   {
@@ -791,15 +791,15 @@ void i_perm_accuracy(pob o)
   Objects[o->id].known = 1;
   if ((o->used) && (o->blessing > -1))
   {
-    Player.status[ACCURATE] += 1500;
+    player.status[ACCURATE] += 1500;
     mprint("You feel skillful and see bulls' eyes everywhere.");
   }
   else
   {
-    Player.status[ACCURATE] -= 1500;
-    if (Player.status[ACCURATE] < 1)
+    player.status[ACCURATE] -= 1500;
+    if (player.status[ACCURATE] < 1)
     {
-      Player.status[ACCURATE] = 0;
+      player.status[ACCURATE] = 0;
       calc_melee();
       mprint("Your vision blurs....");
     }
@@ -821,17 +821,17 @@ void i_perm_hero(pob o)
   {
     if (o->blessing > -1)
     {
-      Player.status[HERO] += 1500;
+      player.status[HERO] += 1500;
       calc_melee();
       mprint("You feel super!");
     }
     else
     {
-      Player.status[HERO] = 0;
+      player.status[HERO] = 0;
       calc_melee();
-      if (!Player.immunity[FEAR])
+      if (!player.immunity[FEAR])
       {
-        Player.status[AFRAID] += 1500;
+        player.status[AFRAID] += 1500;
         mprint("You feel cowardly....");
       }
     }
@@ -840,21 +840,21 @@ void i_perm_hero(pob o)
   {
     if (o->blessing > -1)
     {
-      Player.status[HERO] -= 1500;
-      if (Player.status[HERO] < 1)
+      player.status[HERO] -= 1500;
+      if (player.status[HERO] < 1)
       {
         calc_melee();
         mprint("You feel less super now.");
-        Player.status[HERO] = 0;
+        player.status[HERO] = 0;
       }
     }
     else
     {
-      Player.status[AFRAID] -= 1500;
-      if (Player.status[AFRAID] < 1)
+      player.status[AFRAID] -= 1500;
+      if (player.status[AFRAID] < 1)
       {
         mprint("You finally conquer your fear.");
-        Player.status[AFRAID] = 0;
+        player.status[AFRAID] = 0;
       }
     }
   }
@@ -875,16 +875,16 @@ void i_perm_levitate(pob o)
   {
     if (o->used)
     {
-      Player.status[LEVITATING] += 1400;
+      player.status[LEVITATING] += 1400;
       mprint("You start to float a few inches above the floor");
       mprint("You find you can easily control your altitude");
     }
     else
     {
-      Player.status[LEVITATING] -= 1500;
-      if (Player.status[LEVITATING] < 1)
+      player.status[LEVITATING] -= 1500;
+      if (player.status[LEVITATING] < 1)
       {
-        Player.status[LEVITATING] = 0;
+        player.status[LEVITATING] = 0;
         mprint("You sink to the floor.");
       }
     }
@@ -898,16 +898,16 @@ void i_perm_protection(pob o)
   if (o->used)
   {
     if (o->blessing > -1)
-      Player.status[PROTECTION] += abs(o->plus) + 1;
+      player.status[PROTECTION] += abs(o->plus) + 1;
     else
-      Player.status[PROTECTION] -= abs(o->plus) + 1;
+      player.status[PROTECTION] -= abs(o->plus) + 1;
   }
   else
   {
     if (o->blessing > -1)
-      Player.status[PROTECTION] -= abs(o->plus) + 1;
+      player.status[PROTECTION] -= abs(o->plus) + 1;
     else
-      Player.status[PROTECTION] += abs(o->plus) + 1;
+      player.status[PROTECTION] += abs(o->plus) + 1;
   }
   calc_melee();
 }
@@ -919,16 +919,16 @@ void i_perm_agility(pob o)
   if (o->used)
   {
     if (o->blessing > -1)
-      Player.agi += abs(o->plus) + 1;
+      player.agi += abs(o->plus) + 1;
     else
-      Player.agi -= abs(o->plus) + 1;
+      player.agi -= abs(o->plus) + 1;
   }
   else
   {
     if (o->blessing > -1)
-      Player.agi -= abs(o->plus) + 1;
+      player.agi -= abs(o->plus) + 1;
     else
-      Player.agi += abs(o->plus) + 1;
+      player.agi += abs(o->plus) + 1;
   }
   calc_melee();
 }
@@ -948,12 +948,12 @@ void i_perm_truesight(pob o)
   {
     if (o->blessing > -1)
     {
-      Player.status[TRUESIGHT] += 1500;
+      player.status[TRUESIGHT] += 1500;
       mprint("You feel sharp!");
     }
     else
     {
-      Player.status[BLINDED] += 1500;
+      player.status[BLINDED] += 1500;
       mprint("You've been blinded!");
     }
   }
@@ -961,20 +961,20 @@ void i_perm_truesight(pob o)
   {
     if (o->blessing > -1)
     {
-      Player.status[TRUESIGHT] -= 1500;
-      if (Player.status[TRUESIGHT] < 1)
+      player.status[TRUESIGHT] -= 1500;
+      if (player.status[TRUESIGHT] < 1)
       {
         mprint("You feel less keen now.");
-        Player.status[TRUESIGHT] = 0;
+        player.status[TRUESIGHT] = 0;
       }
     }
     else
     {
-      Player.status[BLINDED] -= 1500;
-      if (Player.status[BLINDED] < 1)
+      player.status[BLINDED] -= 1500;
+      if (player.status[BLINDED] < 1)
       {
         mprint("You can see again!");
-        Player.status[BLINDED] = 0;
+        player.status[BLINDED] = 0;
       }
     }
   }
@@ -992,17 +992,17 @@ void i_perm_illuminate(pob o)
   o->known = 1;
   Objects[o->id].known = 1;
   if (o->used)
-    Player.status[ILLUMINATION] += 1500;
+    player.status[ILLUMINATION] += 1500;
   else
-    Player.status[ILLUMINATION] = max(0, Player.status[ILLUMINATION] - 1500);
+    player.status[ILLUMINATION] = max(0, player.status[ILLUMINATION] - 1500);
 }
 
 void i_trap(pob o)
 {
   Objects[o->id].known = 1;
 
-  if ((level->site[Player.x][Player.y].locchar != FLOOR) ||
-      (level->site[Player.x][Player.y].p_locf != L_NO_OP))
+  if ((level->site[player.x][player.y].locchar != FLOOR) ||
+      (level->site[player.x][player.y].p_locf != L_NO_OP))
     mprint("Your attempt fails.");
   else if (!o->known)
   {
@@ -1012,8 +1012,8 @@ void i_trap(pob o)
   else
   {
     mprint("You successfully set a trap at your location.");
-    level->site[Player.x][Player.y].p_locf = o->aux;
-    lset(Player.x, Player.y, CHANGED);
+    level->site[player.x][player.y].p_locf = o->aux;
+    lset(player.x, player.y, CHANGED);
   }
   dispose_lost_objects(1, o);
 }

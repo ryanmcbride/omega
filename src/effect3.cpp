@@ -22,8 +22,8 @@ void summon(int blessing, int id)
   }
   for (i = 0; ((i < 8) && looking); i++)
   {
-    x = Player.x + Dirs[0][i];
-    y = Player.y + Dirs[1][i];
+    x = player.x + Dirs[0][i];
+    y = player.y + Dirs[1][i];
     looking = ((!inbounds(x, y)) ||
                (level->site[x][y].locchar != FLOOR) ||
                (level->site[x][y].creature != NULL));
@@ -115,34 +115,34 @@ void cleanse(int blessing)
   {
     if (blessing > 0)
       for (i = 0; i < MAXITEMS; i++)
-        if (Player.possessions[i] != NULL)
+        if (player.possessions[i] != NULL)
         {
-          if ((Player.possessions[i]->used) &&
-              (Player.possessions[i]->blessing < 0))
+          if ((player.possessions[i]->used) &&
+              (player.possessions[i]->blessing < 0))
           {
-            Player.possessions[i]->used = FALSE;
-            item_use(Player.possessions[i]);
-            Player.possessions[i]->blessing = 0;
-            Player.possessions[i]->used = TRUE;
-            item_use(Player.possessions[i]);
+            player.possessions[i]->used = FALSE;
+            item_use(player.possessions[i]);
+            player.possessions[i]->blessing = 0;
+            player.possessions[i]->used = TRUE;
+            item_use(player.possessions[i]);
           }
         }
 
-    if (Player.status[POISONED] > 0)
+    if (player.status[POISONED] > 0)
     {
-      Player.status[POISONED] = 0;
+      player.status[POISONED] = 0;
     }
-    if (Player.status[DISEASED] > 0)
+    if (player.status[DISEASED] > 0)
     {
-      Player.status[DISEASED] = 0;
+      player.status[DISEASED] = 0;
     }
     showflags();
     mprint("You feel radiant!");
   }
   else
   {
-    Player.status[POISONED] += 10;
-    Player.status[DISEASED] += 10;
+    player.status[POISONED] += 10;
+    player.status[DISEASED] += 10;
     mprint("You feel besmirched!");
     showflags();
   }
@@ -157,9 +157,9 @@ void annihilate(int blessing)
   {
     mprint("Lightning strikes flash all around you!!!");
     for (i = 0; i < 9; i++)
-      if (level->site[Player.x + Dirs[0][i]][Player.y + Dirs[1][i]].creature !=
+      if (level->site[player.x + Dirs[0][i]][player.y + Dirs[1][i]].creature !=
           NULL)
-        m_death(level->site[Player.x + Dirs[0][i]][Player.y + Dirs[1][i]].creature);
+        m_death(level->site[player.x + Dirs[0][i]][player.y + Dirs[1][i]].creature);
   }
   if (blessing > 0)
   {
@@ -170,7 +170,7 @@ void annihilate(int blessing)
       morewait();
       print1("There is a rain of small birds and insects from the sky, and you");
       print2("notice that you can't hear any animal noises around here any more...");
-      Player.alignment -= 3;
+      player.alignment -= 3;
     }
     else
     {
@@ -190,7 +190,7 @@ void annihilate(int blessing)
 void sleep_monster(int blessing)
 {
   Monsterlist* ml;
-  int x = Player.x, y = Player.y;
+  int x = player.x, y = player.y;
   struct monster *target;
 
   if (blessing == 0)
@@ -236,12 +236,12 @@ void sleep_monster(int blessing)
 
 void sleep_player(int amount)
 {
-  if (Player.status[SLEPT] == 0)
+  if (player.status[SLEPT] == 0)
   { /* prevent player from sleeping forever */
     mprint("You feel sleepy...");
     if (!p_immune(SLEEP))
     {
-      Player.status[SLEPT] += random_range(amount * 2) + 2;
+      player.status[SLEPT] += random_range(amount * 2) + 2;
     }
     else
       mprint("but you shrug off the momentary lassitude.");
@@ -262,7 +262,7 @@ void hide(int x, int y)
 void clairvoyance(int vision)
 {
   int i, j;
-  int x = Player.x, y = Player.y;
+  int x = player.x, y = player.y;
   mprint("Clairvoyance... ");
   setspot(&x, &y);
   for (i = x - vision; i < x + vision + 1; i++)
@@ -313,7 +313,7 @@ void learnspell(int blessing)
     print1("Spell Research");
     if ((random_range(4 * Spells[spell].powerdrain) +
          Spells[spell].powerdrain) <
-        (4 * Player.iq + 8 * Player.level))
+        (4 * player.iq + 8 * player.level))
     {
       nprint1(" -- Research successful: ");
       nprint1(spellid(spell));
@@ -342,20 +342,20 @@ void amnesia()
       lreset(i, j, SEEN);
 
   erase_level();
-  drawvision(Player.x, Player.y);
+  drawvision(player.x, player.y);
 }
 
 /*affects player only */
 void level_drain(int levels, char* source)
 {
-  int decrement = ((int)(Player.maxhp / (Player.level + 1)));
+  int decrement = ((int)(player.maxhp / (player.level + 1)));
 
-  Player.level -= levels;
+  player.level -= levels;
 
-  Player.maxhp -= (levels * decrement);
-  Player.hp -= (levels * decrement);
+  player.maxhp -= (levels * decrement);
+  player.hp -= (levels * decrement);
 
-  if ((Player.hp < 1) || (Player.level < 0))
+  if ((player.hp < 1) || (player.level < 0))
     p_death(source);
 }
 
@@ -363,7 +363,7 @@ void disrupt(int x, int y, int amount)
 {
   struct monster *target;
 
-  if ((x == Player.x) && (y == Player.y))
+  if ((x == player.x) && (y == player.y))
   {
     mprint("You feel disrupted!");
     p_damage(amount, NORMAL_DAMAGE, "magical disruption");
@@ -401,17 +401,17 @@ void disintegrate(int x, int y)
   struct monster *target;
   if (!inbounds(x, y))
     mprint("You feel a sense of wastage.");
-  else if ((x == Player.x) && (y == Player.y))
+  else if ((x == player.x) && (y == player.y))
   {
-    if (Player.possessions[O_CLOAK] != NULL)
+    if (player.possessions[O_CLOAK] != NULL)
     {
       mprint("Your cloak disintegrates!");
-      dispose_lost_objects(1, Player.possessions[O_CLOAK]);
+      dispose_lost_objects(1, player.possessions[O_CLOAK]);
     }
-    else if (Player.possessions[O_ARMOR] != NULL)
+    else if (player.possessions[O_ARMOR] != NULL)
     {
       mprint("Your armor disintegrates!");
-      dispose_lost_objects(1, Player.possessions[O_ARMOR]);
+      dispose_lost_objects(1, player.possessions[O_ARMOR]);
     }
     else
     {
@@ -422,7 +422,7 @@ void disintegrate(int x, int y)
   }
   else
   {
-    if (!view_los_p(Player.x, Player.y, x, y))
+    if (!view_los_p(player.x, player.y, x, y))
       setgamestatus(SUPPRESS_PRINTING);
     if ((target = level->site[x][y].creature) != NULL)
     {
@@ -443,7 +443,7 @@ void disintegrate(int x, int y)
     {
       mprint("Zzzzap! the altar seems unaffected...");
       mprint("But an angry deity retaliates....");
-      disintegrate(Player.x, Player.y);
+      disintegrate(player.x, player.y);
     }
     else if (level->site[x][y].p_locf == L_TRAP_PIT)
     {
@@ -510,7 +510,7 @@ void disintegrate(int x, int y)
     }
     else
       mprint("The blast has no effect.");
-    if (!view_los_p(Player.x, Player.y, x, y))
+    if (!view_los_p(player.x, player.y, x, y))
       resetgamestatus(SUPPRESS_PRINTING);
     else
       plotspot(x, y, TRUE);
@@ -520,17 +520,17 @@ void disintegrate(int x, int y)
 void acid_cloud()
 {
   mprint("You are caught in an acid cloud!  ");
-  if (Player.possessions[O_CLOAK] != NULL)
+  if (player.possessions[O_CLOAK] != NULL)
   {
-    (void)damage_item(Player.possessions[O_CLOAK]);
+    (void)damage_item(player.possessions[O_CLOAK]);
     mprint("You are burned by acid.");
     p_damage(3, ACID, "an acid cloud");
   }
-  else if (Player.possessions[O_ARMOR] != NULL)
+  else if (player.possessions[O_ARMOR] != NULL)
   {
     mprint("You are burned by acid.");
     p_damage(3, ACID, "an acid cloud");
-    (void)damage_item(Player.possessions[O_ARMOR]);
+    (void)damage_item(player.possessions[O_ARMOR]);
   }
   else if (p_immune(ACID))
   {
@@ -547,7 +547,7 @@ void acid_cloud()
 /* teleport player */
 void p_teleport(int type)
 {
-  int x = Player.x, y = Player.y;
+  int x = player.x, y = player.y;
   drawspot(x, y);
   if (type < 0)
   {
@@ -562,23 +562,23 @@ void p_teleport(int type)
     }
     else
     {
-      Player.x = x;
-      Player.y = y;
+      player.x = x;
+      player.y = y;
     }
   }
   else if (type == 0)
-    findspace(&(Player.x), &(Player.y), -1);
+    findspace(&(player.x), &(player.y), -1);
   else
   {
-    setspot(&Player.x, &Player.y);
-    if ((level->site[Player.x][Player.y].locchar != FLOOR) ||
-        (level->site[Player.x][Player.y].creature != NULL))
+    setspot(&player.x, &player.y);
+    if ((level->site[player.x][player.y].locchar != FLOOR) ||
+        (level->site[player.x][player.y].creature != NULL))
     {
       mprint("You feel deflected.");
       p_teleport(0);
     }
   }
-  screencheck(Player.y);
+  screencheck(player.y);
   roomcheck();
 }
 
@@ -586,7 +586,7 @@ void p_poison(int toxicity)
 {
   mprint("You feel sick.");
   if (!p_immune(POISON))
-    Player.status[POISONED] += toxicity;
+    player.status[POISONED] += toxicity;
   else
     mprint("The sickness fades!");
   showflags();
@@ -594,7 +594,7 @@ void p_poison(int toxicity)
 
 void apport(int blessing)
 {
-  int i, index, x = Player.x, y = Player.y;
+  int i, index, x = player.x, y = player.y;
   if (blessing > -1)
   {
     mprint("Apport from:");
@@ -615,9 +615,9 @@ void apport(int blessing)
       index = random_item();
       if (index != ABORT)
       {
-        drop_at(x, y, Player.possessions[index]);
-        dispose_lost_objects(Player.possessions[index]->number,
-                             Player.possessions[index]);
+        drop_at(x, y, player.possessions[index]);
+        dispose_lost_objects(player.possessions[index]->number,
+                             player.possessions[index]);
       }
     }
   }
@@ -646,9 +646,9 @@ void strategic_teleport(int blessing)
     change_environment(E_COUNTRYSIDE);
     do
     {
-      Player.x = random_range(WIDTH);
-      Player.y = random_range(LENGTH);
-    } while (Country[Player.x][Player.y].base_terrain_type == CHAOS_SEA);
+      player.x = random_range(WIDTH);
+      player.y = random_range(LENGTH);
+    } while (Country[player.x][player.y].base_terrain_type == CHAOS_SEA);
   }
   else
   {
@@ -676,73 +676,73 @@ void strategic_teleport(int blessing)
     {
     case 'a':
       change_environment(E_COUNTRYSIDE);
-      Player.x = 27;
-      Player.y = 19;
+      player.x = 27;
+      player.y = 19;
       break;
     case 'b':
       change_environment(E_COUNTRYSIDE);
-      Player.x = 56;
-      Player.y = 5;
+      player.x = 56;
+      player.y = 5;
       break;
     case 'c':
       change_environment(E_COUNTRYSIDE);
-      Player.x = 35;
-      Player.y = 11;
+      player.x = 35;
+      player.y = 11;
       break;
     case 'd':
       change_environment(E_COUNTRYSIDE);
-      Player.x = 10;
-      Player.y = 40;
+      player.x = 10;
+      player.y = 40;
       break;
     case 'e':
       change_environment(E_COUNTRYSIDE);
-      Player.x = 7;
-      Player.y = 6;
+      player.x = 7;
+      player.y = 6;
       break;
     case 'f':
       change_environment(E_COUNTRYSIDE);
-      Player.x = 41;
-      Player.y = 43;
+      player.x = 41;
+      player.y = 43;
       break;
     case 'g':
       change_environment(E_COUNTRYSIDE);
-      Player.x = 20;
-      Player.y = 41;
+      player.x = 20;
+      player.y = 41;
       break;
     case 'h':
       change_environment(E_COUNTRYSIDE);
-      Player.x = 22;
-      Player.y = 30;
+      player.x = 22;
+      player.y = 30;
       break;
     case 'i':
       change_environment(E_COUNTRYSIDE);
-      Player.x = 51;
-      Player.y = 11;
+      player.x = 51;
+      player.y = 11;
       break;
     case 'j':
       change_environment(E_COUNTRYSIDE);
-      Player.x = 45;
-      Player.y = 45;
+      player.x = 45;
+      player.y = 45;
       break;
     case 'k':
       change_environment(E_COUNTRYSIDE);
-      Player.x = 19;
-      Player.y = 46;
+      player.x = 19;
+      player.y = 46;
       break;
     case 'l':
       change_environment(E_COUNTRYSIDE);
-      Player.x = 32;
-      Player.y = 5;
+      player.x = 32;
+      player.y = 5;
       break;
     case 'm':
       change_environment(E_COUNTRYSIDE);
-      Player.x = 49;
-      Player.y = 59;
+      player.x = 49;
+      player.y = 59;
       break;
     case 'n':
       change_environment(E_COUNTRYSIDE);
-      Player.x = 30;
-      Player.y = 58;
+      player.x = 30;
+      player.y = 58;
       break;
     default:
       if (gamestatusp(CHEATED))
@@ -760,9 +760,9 @@ void strategic_teleport(int blessing)
       Precipitation = 0;
     }
   }
-  setlastxy(Player.x, Player.y);
-  screencheck(Player.y);
-  drawvision(Player.x, Player.y);
+  setlastxy(player.x, player.y);
+  screencheck(player.y);
+  drawvision(player.x, player.y);
   if (Current_Environment == E_COUNTRYSIDE)
     terrain_check(FALSE);
 }
@@ -772,12 +772,12 @@ void hero(int blessing)
   if (blessing > -1)
   {
     mprint("You feel super!");
-    Player.status[HERO] += random_range(5) + 1 + blessing;
+    player.status[HERO] += random_range(5) + 1 + blessing;
     calc_melee();
   }
   else
   {
-    Player.status[HERO] = 0;
+    player.status[HERO] = 0;
     calc_melee();
     mprint("You feel cowardly.");
     level_drain(abs(blessing), "a potion of cowardice");
@@ -795,7 +795,7 @@ void levitate(int blessing)
       mprint("You start to float a few inches above the floor.");
       mprint("You discover you can easily control your altitude...");
       mprint("(Note use of '@' command may be useful while levitating)");
-      Player.status[LEVITATING] += random_range(5) + 1 + blessing;
+      player.status[LEVITATING] += random_range(5) + 1 + blessing;
     }
   }
   else
@@ -816,10 +816,10 @@ void level_return()
   else if (Current_Environment == E_COUNTRYSIDE)
   {
     mprint("A mysterious force wafts you back home!");
-    Player.x = 27;
-    Player.y = 19;
-    screencheck(Player.y);
-    drawvision(Player.x, Player.y);
+    player.x = 27;
+    player.y = 19;
+    screencheck(player.y);
+    drawvision(player.x, player.y);
     locprint("Back Outside Rampart.");
   }
   else
@@ -831,27 +831,27 @@ void cure(int blessing)
   int happened = FALSE;
   if (blessing > -1)
   {
-    if (Player.status[DISEASED])
+    if (player.status[DISEASED])
     {
-      Player.status[DISEASED] = 0;
+      player.status[DISEASED] = 0;
       mprint("You feel hygienic!");
       happened = TRUE;
     }
-    if (Player.status[POISONED])
+    if (player.status[POISONED])
     {
-      Player.status[POISONED] -= 5 + blessing * 10;
-      if (Player.status[POISONED] > 0)
+      player.status[POISONED] -= 5 + blessing * 10;
+      if (player.status[POISONED] > 0)
         mprint("The effect of the poison has been reduced.");
       else
       {
-        Player.status[POISONED] = 0;
+        player.status[POISONED] = 0;
         mprint("The poison has been purged from your system.");
       }
       happened = TRUE;
     }
-    if (Player.status[BLINDED])
+    if (player.status[BLINDED])
     {
-      Player.status[BLINDED] = 0;
+      player.status[BLINDED] = 0;
       happened = TRUE;
       mprint("Cobwebs clear from before your eyes.");
     }
@@ -866,10 +866,10 @@ void cure(int blessing)
 void disease(int amount)
 {
   mprint("You feel ill.");
-  if (!Player.immunity[INFECTION])
+  if (!player.immunity[INFECTION])
   {
     mprint("You begin to shiver with ague.");
-    Player.status[DISEASED] += random_range(amount * 2) + 1;
+    player.status[DISEASED] += random_range(amount * 2) + 1;
   }
   else
     mprint("The illness fades.");
@@ -879,28 +879,28 @@ void truesight(int blessing)
 {
   if (blessing > -1)
   {
-    Player.status[TRUESIGHT] += random_range(10) + 1;
+    player.status[TRUESIGHT] += random_range(10) + 1;
     mprint("You feel sharp.");
   }
   else
   {
-    Player.status[BLINDED] += random_range(10) + 1;
+    player.status[BLINDED] += random_range(10) + 1;
     mprint("You've been blinded!");
   }
 }
 
 void dispel(int blessing)
 {
-  int i, x = Player.x, y = Player.y;
+  int i, x = player.x, y = player.y;
   pob o;
   if (blessing > -1)
   {
     setspot(&x, &y);
-    if ((x == Player.x) && (y == Player.y))
+    if ((x == player.x) && (y == player.y))
     {
       for (i = 0; i < MAXITEMS; i++)
       {
-        o = Player.possessions[i];
+        o = player.possessions[i];
         if (o != NULL)
           if ((o->used) && (o->blessing < 0))
           {
@@ -959,39 +959,39 @@ void dispel(int blessing)
   else
   {
     mprint("A smell of ozone and positive ions fills the air..");
-    if (Player.status[ACCURACY] && (Player.status[ACCURACY] < 1000))
-      Player.status[ACCURACY] = 1;
-    if (Player.status[DISPLACED] && (Player.status[DISPLACED] < 1000))
-      Player.status[DISPLACED] = 1;
-    if (Player.status[HASTED] && (Player.status[HASTED] < 1000))
-      Player.status[HASTED] = 1;
-    if (Player.status[BREATHING] && (Player.status[BREATHING] < 1000))
-      Player.status[BREATHING] = 1;
-    if (Player.status[INVISIBLE] && (Player.status[INVISIBLE] < 1000))
-      Player.status[INVISIBLE] = 1;
-    if (Player.status[REGENERATING] && (Player.status[REGENERATING] < 1000))
-      Player.status[REGENERATING] = 1;
-    if (Player.status[ALERT] && (Player.status[ALERT] < 1000))
-      Player.status[ALERT] = 1;
-    if (Player.status[HERO] && (Player.status[HERO] < 1000))
-      Player.status[HERO] = 1;
-    if (Player.status[LEVITATING] && (Player.status[LEVITATING] < 1000))
-      Player.status[LEVITATING] = 1;
-    if (Player.status[ACCURATE] && (Player.status[ACCURATE] < 1000))
-      Player.status[ACCURATE] = 1;
-    if (Player.status[TRUESIGHT] && (Player.status[TRUESIGHT] < 1000))
-      Player.status[TRUESIGHT] = 1;
+    if (player.status[ACCURACY] && (player.status[ACCURACY] < 1000))
+      player.status[ACCURACY] = 1;
+    if (player.status[DISPLACED] && (player.status[DISPLACED] < 1000))
+      player.status[DISPLACED] = 1;
+    if (player.status[HASTED] && (player.status[HASTED] < 1000))
+      player.status[HASTED] = 1;
+    if (player.status[BREATHING] && (player.status[BREATHING] < 1000))
+      player.status[BREATHING] = 1;
+    if (player.status[INVISIBLE] && (player.status[INVISIBLE] < 1000))
+      player.status[INVISIBLE] = 1;
+    if (player.status[REGENERATING] && (player.status[REGENERATING] < 1000))
+      player.status[REGENERATING] = 1;
+    if (player.status[ALERT] && (player.status[ALERT] < 1000))
+      player.status[ALERT] = 1;
+    if (player.status[HERO] && (player.status[HERO] < 1000))
+      player.status[HERO] = 1;
+    if (player.status[LEVITATING] && (player.status[LEVITATING] < 1000))
+      player.status[LEVITATING] = 1;
+    if (player.status[ACCURATE] && (player.status[ACCURATE] < 1000))
+      player.status[ACCURATE] = 1;
+    if (player.status[TRUESIGHT] && (player.status[TRUESIGHT] < 1000))
+      player.status[TRUESIGHT] = 1;
     tenminute_status_check();
   }
 }
 
 void polymorph(int blessing)
 {
-  int x = Player.x, y = Player.y, newmonster;
+  int x = player.x, y = player.y, newmonster;
   struct monster *m;
   setspot(&x, &y);
   clearmsg();
-  if ((x == Player.x) && (y == Player.y))
+  if ((x == player.x) && (y == player.y))
   {
     /* WDT HACK: shouldn't this use one of the 'getarticle' functions
      * to prevent things like "a elder grue" (should be "an elder grue")?
@@ -1068,7 +1068,7 @@ void polymorph(int blessing)
 void hellfire(int x, int y, int blessing)
 {
   struct monster *m;
-  if ((x == Player.x) && (y == Player.y))
+  if ((x == player.x) && (y == player.y))
   {
     mprint("You have been completely annihilated. Congratulations.");
     p_death("hellfire");
@@ -1110,15 +1110,15 @@ void hellfire(int x, int y, int blessing)
 
 void drain(int blessing)
 {
-  int x = Player.x, y = Player.y;
+  int x = player.x, y = player.y;
   struct monster *m;
   setspot(&x, &y);
   mprint("You begin to drain energy...");
-  if ((x == Player.x) && (y == Player.y))
+  if ((x == player.x) && (y == player.y))
   {
     mprint("You drain your own energy....");
     mprint("Uh, oh, positive feedback....");
-    level_drain(Player.level, "self-vampirism");
+    level_drain(player.level, "self-vampirism");
   }
   else if ((m = level->site[x][y].creature) != NULL)
   {
@@ -1132,19 +1132,19 @@ void drain(int blessing)
       m->level = max(1, m->level - 1);
       mprint("You feel stronger...");
       gain_experience(m->level * 5);
-      Player.hp += (m->level * m->level / 2);
+      player.hp += (m->level * m->level / 2);
     }
     else
     {
       mprint("The effect reverses itself!");
       mprint("The monster seems stronger...");
-      m->hp += Player.level * Player.level;
-      m->hit += Player.level;
-      m->dmg += Player.level * Player.level;
-      m->ac += Player.level;
+      m->hp += player.level * player.level;
+      m->hit += player.level;
+      m->dmg += player.level * player.level;
+      m->ac += player.level;
       m->level++;
       mprint("You feel weaker...");
-      Player.mana = min(0, Player.level * Player.level);
+      player.mana = min(0, player.level * player.level);
       level_drain(m->level, "negative energy conflict");
     }
   }
@@ -1159,27 +1159,27 @@ void drain(int blessing)
     level->site[x][y].locchar = ABYSS;
     level->site[x][y].p_locf = L_ABYSS;
     lset(x, y, CHANGED);
-    if (!Player.patron)
+    if (!player.patron)
     {
       mprint("You drain some theurgic energy from the altar....");
       gain_experience(40);
-      Player.hp += 20;
-      Player.pow += 2;
+      player.hp += 20;
+      player.pow += 2;
     }
-    if (level->site[x][y].aux == Player.patron)
+    if (level->site[x][y].aux == player.patron)
     {
       mprint("Your deity is enraged.");
       mprint("You are struck by godsfire.");
-      p_damage(Player.hp - 1, UNSTOPPABLE, "godsfire");
+      p_damage(player.hp - 1, UNSTOPPABLE, "godsfire");
       mprint("You feel atheistic.");
-      Player.patron = -1;
-      Player.rank[PRIESTHOOD] = 0;
+      player.patron = -1;
+      player.rank[PRIESTHOOD] = 0;
     }
     else
     {
       mprint("You feel the wrath of a god....");
-      p_damage(random_range(Player.level * 10), UNSTOPPABLE, "divine wrath");
-      if (Player.patron != 0)
+      p_damage(random_range(player.level * 10), UNSTOPPABLE, "divine wrath");
+      if (player.patron != 0)
       {
         mprint("Your deity doesn't seem to mind your action, though.");
         gain_experience(100);
@@ -1189,7 +1189,7 @@ void drain(int blessing)
   else
   {
     mprint("You drain some energy from the ambient megaflow.");
-    Player.hp++;
+    player.hp++;
   }
 }
 
@@ -1200,8 +1200,8 @@ void sanctuary()
   else
   {
     mprint("You're standing on sacred ground!");
-    Player.sx = Player.x;
-    Player.sy = Player.y;
+    player.sx = player.x;
+    player.sy = player.y;
   }
 }
 
@@ -1210,38 +1210,38 @@ void shadowform()
   /* WDT HACK: this fix might work, but it seems like the immunity
    * will be FAR too short.  It's obviously better than the old 
    * situation, though... */
-  if (!Player.status[SHADOWFORM])
+  if (!player.status[SHADOWFORM])
   {
     mprint("You feel like a shadow.");
-    Player.immunity[NORMAL_DAMAGE]++;
-    Player.immunity[ACID]++;
-    Player.immunity[THEFT]++;
-    Player.immunity[INFECTION]++;
-    Player.status[SHADOWFORM] += Player.level;
+    player.immunity[NORMAL_DAMAGE]++;
+    player.immunity[ACID]++;
+    player.immunity[THEFT]++;
+    player.immunity[INFECTION]++;
+    player.status[SHADOWFORM] += player.level;
   }
   else
   {
     mprint("You feel even more shadowy.");
-    Player.status[SHADOWFORM] += Player.level;
+    player.status[SHADOWFORM] += player.level;
   }
 }
 
 void illuminate(int blessing)
 {
-  int r = level->site[Player.x][Player.y].roomnumber;
+  int r = level->site[player.x][player.y].roomnumber;
   if (blessing > -1)
   {
     if (r > ROOMBASE)
     {
-      if (loc_statusp(Player.x, Player.y, LIT))
+      if (loc_statusp(player.x, player.y, LIT))
         mprint("A glow surrounds you.");
       else
       {
         mprint("The room lights up!");
-        Player.status[ILLUMINATION] += blessing + 3;
-        spreadroomlight(Player.x,
-                        Player.y,
-                        level->site[Player.x][Player.y].roomnumber);
+        player.status[ILLUMINATION] += blessing + 3;
+        spreadroomlight(player.x,
+                        player.y,
+                        level->site[player.x][player.y].roomnumber);
       }
     }
     else
@@ -1251,14 +1251,14 @@ void illuminate(int blessing)
   {
     if (r > ROOMBASE)
     {
-      if (!loc_statusp(Player.x, Player.y, LIT))
+      if (!loc_statusp(player.x, player.y, LIT))
         mprint("Nothing much happens.");
       else
       {
         mprint("The room darkens!");
-        spreadroomdark(Player.x,
-                       Player.y,
-                       level->site[Player.x][Player.y].roomnumber);
+        spreadroomdark(player.x,
+                       player.y,
+                       level->site[player.x][player.y].roomnumber);
       }
     }
     else
@@ -1277,12 +1277,12 @@ void drain_life(int amount)
     if (random_range(2))
     {
       mprint("The coldness spreads throughout your body...");
-      Player.str -= amount;
-      Player.con -= amount;
-      if ((Player.str < 3) || (Player.con < 3))
+      player.str -= amount;
+      player.con -= amount;
+      if ((player.str < 3) || (player.con < 3))
       {
         mprint("You suffer a fatal heart attack!!!");
-        Player.hp = 0;
+        player.hp = 0;
         strcpy(Str2, "a coronary");
         p_death(Str2);
       }
@@ -1299,15 +1299,15 @@ void drain_life(int amount)
 void inflict_fear(int x, int y)
 {
   struct monster *m;
-  if ((Player.x == x) && (Player.y == y))
+  if ((player.x == x) && (player.y == y))
   {
     mprint("You shudder with otherworldly dread.");
-    if (Player.immunity[FEAR] > 0)
+    if (player.immunity[FEAR] > 0)
       mprint("You brace up and face your fear like a hero!");
     else
     {
       mprint("You panic!");
-      Player.status[AFRAID] += 10;
+      player.status[AFRAID] += 10;
     }
   }
   else if ((m = level->site[x][y].creature) != NULL)
@@ -1340,11 +1340,11 @@ void deflection(int blessing)
   if (blessing > -1)
   {
     mprint("You feel buffered.");
-    Player.status[DEFLECTION] = blessing + random_range(6);
+    player.status[DEFLECTION] = blessing + random_range(6);
   }
   else
   {
     mprint("You feel vulnerable");
-    Player.status[VULNERABLE] += random_range(6) - blessing;
+    player.status[VULNERABLE] += random_range(6) - blessing;
   }
 }

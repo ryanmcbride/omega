@@ -14,75 +14,75 @@ void knowledge(int blessing)
     menuprint("Current Point Total: ");
     menulongprint(calc_points());
     menuprint("\nAlignment:");
-    if (Player.alignment == 0)
+    if (player.alignment == 0)
       menuprint("Neutral, embodying the Cosmic Balance");
-    else if (abs(Player.alignment) < 10)
+    else if (abs(player.alignment) < 10)
       menuprint("Neutral, tending toward ");
-    else if (abs(Player.alignment) < 50)
+    else if (abs(player.alignment) < 50)
       menuprint("Neutral-");
-    else if (abs(Player.alignment) < 100)
+    else if (abs(player.alignment) < 100)
       ;
-    else if (abs(Player.alignment) < 200)
+    else if (abs(player.alignment) < 200)
       menuprint("Servant of ");
-    else if (abs(Player.alignment) < 400)
+    else if (abs(player.alignment) < 400)
       menuprint("Master of ");
-    else if (abs(Player.alignment) < 800)
+    else if (abs(player.alignment) < 800)
       menuprint("The Essence of ");
     else
       menuprint("The Ultimate Avatar of ");
-    if (Player.alignment < 0)
+    if (player.alignment < 0)
       menuprint("Chaos\n");
-    else if (Player.alignment > 0)
+    else if (player.alignment > 0)
       menuprint("Law\n");
     showmenu();
     morewait();
     menuclear();
     menuprint("Current stati:\n");
-    if (Player.status[BLINDED])
+    if (player.status[BLINDED])
       menuprint("Blinded\n");
-    if (Player.status[SLOWED])
+    if (player.status[SLOWED])
       menuprint("Slowed\n");
-    if (Player.status[HASTED])
+    if (player.status[HASTED])
       menuprint("Hasted\n");
-    if (Player.status[DISPLACED])
+    if (player.status[DISPLACED])
       menuprint("Displaced\n");
-    if (Player.status[SLEPT])
+    if (player.status[SLEPT])
       menuprint("Slept\n");
-    if (Player.status[DISEASED])
+    if (player.status[DISEASED])
       menuprint("Diseased\n");
-    if (Player.status[POISONED])
+    if (player.status[POISONED])
       menuprint("Poisoned\n");
-    if (Player.status[BREATHING])
+    if (player.status[BREATHING])
       menuprint("Breathing\n");
-    if (Player.status[INVISIBLE])
+    if (player.status[INVISIBLE])
       menuprint("Invisible\n");
-    if (Player.status[REGENERATING])
+    if (player.status[REGENERATING])
       menuprint("Regenerating\n");
-    if (Player.status[VULNERABLE])
+    if (player.status[VULNERABLE])
       menuprint("Vulnerable\n");
-    if (Player.status[BERSERK])
+    if (player.status[BERSERK])
       menuprint("Berserk\n");
-    if (Player.status[IMMOBILE])
+    if (player.status[IMMOBILE])
       menuprint("Immobile\n");
-    if (Player.status[ALERT])
+    if (player.status[ALERT])
       menuprint("Alert\n");
-    if (Player.status[AFRAID])
+    if (player.status[AFRAID])
       menuprint("Afraid\n");
-    if (Player.status[ACCURATE])
+    if (player.status[ACCURATE])
       menuprint("Accurate\n");
-    if (Player.status[HERO])
+    if (player.status[HERO])
       menuprint("Heroic\n");
-    if (Player.status[LEVITATING])
+    if (player.status[LEVITATING])
       menuprint("Levitating\n");
-    if (Player.status[TRUESIGHT]) /* FIXED! 12/30/98 DG */
+    if (player.status[TRUESIGHT]) /* FIXED! 12/30/98 DG */
       menuprint("Sharp\n");
-    if (Player.status[SHADOWFORM])
+    if (player.status[SHADOWFORM])
       menuprint("Shadowy\n");
-    if (Player.status[ILLUMINATION])
+    if (player.status[ILLUMINATION])
       menuprint("Glowing\n");
-    if (Player.status[DEFLECTION])
+    if (player.status[DEFLECTION])
       menuprint("Buffered\n");
-    if (Player.status[RETURNING])
+    if (player.status[RETURNING])
       menuprint("Returning\n");
     showmenu();
     morewait();
@@ -116,7 +116,7 @@ void knowledge(int blessing)
     morewait();
     menuclear();
     menuprint("Ranks:\n");
-    switch (Player.rank[LEGION])
+    switch (player.rank[LEGION])
     {
     case COMMANDANT:
       menuprint("Commandant of the Legion");
@@ -134,13 +134,13 @@ void knowledge(int blessing)
       menuprint("Legionaire");
       break;
     }
-    if (Player.rank[LEGION] > 0)
+    if (player.rank[LEGION] > 0)
     {
       menuprint(" (");
-      menunumprint(Player.guildxp[LEGION]);
+      menunumprint(player.guildxp[LEGION]);
       menuprint(" XP).\n");
     }
-    switch (Player.rank[ARENA])
+    switch (player.rank[ARENA])
     {
     case -1:
       menuprint("Ex-gladiator\n");
@@ -161,13 +161,13 @@ void knowledge(int blessing)
       menuprint("Gladiator Trainee of the Arena");
       break;
     }
-    if (Player.rank[ARENA] > 0)
+    if (player.rank[ARENA] > 0)
     {
       menuprint(" (Opponent ");
       menunumprint(Arena_Opponent);
       menuprint(")\n");
     }
-    switch (Player.rank[COLLEGE])
+    switch (player.rank[COLLEGE])
     {
     case ARCHMAGE:
       menuprint("Archmage of the Collegium Magii");
@@ -185,13 +185,13 @@ void knowledge(int blessing)
       menuprint("Collegium Magii: Novice");
       break;
     }
-    if (Player.rank[COLLEGE] > 0)
+    if (player.rank[COLLEGE] > 0)
     {
       menuprint(" (");
-      menunumprint(Player.guildxp[COLLEGE]);
+      menunumprint(player.guildxp[COLLEGE]);
       menuprint(" XP).\n");
     }
-    switch (Player.rank[NOBILITY])
+    switch (player.rank[NOBILITY])
     {
     case DUKE:
       menuprint("Duke of Rampart");
@@ -212,18 +212,18 @@ void knowledge(int blessing)
       menuprint("Lowly Commoner\n");
       break;
     }
-    if (Player.rank[NOBILITY] > 1)
+    if (player.rank[NOBILITY] > 1)
     {
       menuprint(" (");
-      menunumprint(Player.rank[NOBILITY] - 1);
-      menuprint(ordinal(Player.rank[NOBILITY] - 1));
+      menunumprint(player.rank[NOBILITY] - 1);
+      menuprint(ordinal(player.rank[NOBILITY] - 1));
       menuprint(" Quest Completed)\n");
     }
-    else if (Player.rank[NOBILITY] == 1)
+    else if (player.rank[NOBILITY] == 1)
     {
       menuprint(" (1st Quest Undertaken)\n");
     }
-    switch (Player.rank[CIRCLE])
+    switch (player.rank[CIRCLE])
     {
     case -1:
       menuprint("Former member of the Circle.\n");
@@ -244,13 +244,13 @@ void knowledge(int blessing)
       menuprint("Member of the Circle of Initiates");
       break;
     }
-    if (Player.rank[CIRCLE] > 0)
+    if (player.rank[CIRCLE] > 0)
     {
       menuprint(" (");
-      menunumprint(Player.guildxp[CIRCLE]);
+      menunumprint(player.guildxp[CIRCLE]);
       menuprint(" XP).\n");
     }
-    switch (Player.rank[ORDER])
+    switch (player.rank[ORDER])
     {
     case -1:
       menuprint("Washout from the Order of Paladins\n");
@@ -271,13 +271,13 @@ void knowledge(int blessing)
       menuprint("Gallant of the Order");
       break;
     }
-    if (Player.rank[ORDER] > 0)
+    if (player.rank[ORDER] > 0)
     {
       menuprint(" (");
-      menunumprint(Player.guildxp[ORDER]);
+      menunumprint(player.guildxp[ORDER]);
       menuprint(" XP).\n");
     }
-    switch (Player.rank[THIEVES])
+    switch (player.rank[THIEVES])
     {
     case SHADOWLORD:
       menuprint("Guild of Thieves: Shadowlord");
@@ -295,13 +295,13 @@ void knowledge(int blessing)
       menuprint("Guild of Thieves: Candidate Member");
       break;
     }
-    if (Player.rank[THIEVES] > 0)
+    if (player.rank[THIEVES] > 0)
     {
       menuprint(" (");
-      menunumprint(Player.guildxp[THIEVES]);
+      menunumprint(player.guildxp[THIEVES]);
       menuprint(" XP).\n");
     }
-    switch (Player.rank[PRIESTHOOD])
+    switch (player.rank[PRIESTHOOD])
     {
     case LAY:
       menuprint("A lay devotee of ");
@@ -319,7 +319,7 @@ void knowledge(int blessing)
       menuprint("The High Priest of ");
       break;
     }
-    switch (Player.patron)
+    switch (player.patron)
     {
     case ODIN:
       menuprint("Odin");
@@ -340,13 +340,13 @@ void knowledge(int blessing)
       menuprint("the Lords of Destiny");
       break;
     }
-    if (Player.rank[PRIESTHOOD] > 0)
+    if (player.rank[PRIESTHOOD] > 0)
     {
       menuprint(" (");
-      menunumprint(Player.guildxp[PRIESTHOOD]);
+      menunumprint(player.guildxp[PRIESTHOOD]);
       menuprint(" XP).\n");
     }
-    if (Player.rank[ADEPT] > 0)
+    if (player.rank[ADEPT] > 0)
       menuprint("**************\n*Omegan Adept*\n**************\n");
     showmenu();
     morewait();
@@ -384,12 +384,12 @@ void displace(int blessing)
   if (blessing > -1)
   {
     mprint("You feel a sense of dislocation.");
-    Player.status[DISPLACED] = blessing + random_range(6);
+    player.status[DISPLACED] = blessing + random_range(6);
   }
   else
   {
     mprint("You feel vulnerable");
-    Player.status[VULNERABLE] += random_range(6) - blessing;
+    player.status[VULNERABLE] += random_range(6) - blessing;
   }
 }
 
@@ -398,12 +398,12 @@ void invisible(int blessing)
   if (blessing > -1)
   {
     mprint("You feel transparent!");
-    Player.status[INVISIBLE] += 2 + 5 * blessing;
+    player.status[INVISIBLE] += 2 + 5 * blessing;
   }
   else
   {
     mprint("You feel dangerous!");
-    Player.status[VULNERABLE] +=
+    player.status[VULNERABLE] +=
         random_range(10) + 1;
   }
 }
@@ -433,7 +433,7 @@ void alert(int blessing)
   if (blessing > -1)
   {
     mprint("You feel on-the-ball.");
-    Player.status[ALERT] += 4 + (5 * blessing);
+    player.status[ALERT] += 4 + (5 * blessing);
   }
   else
     sleep_player(abs(blessing) + 3);
@@ -446,7 +446,7 @@ void regenerate(int blessing)
   else
   {
     mprint("You feel abnormally healthy.");
-    Player.status[REGENERATING] += (blessing + 1) * 50;
+    player.status[REGENERATING] += (blessing + 1) * 50;
   }
 }
 
@@ -454,21 +454,21 @@ void haste(int blessing)
 {
   if (blessing > -1)
   {
-    if (!Player.status[HASTED])
+    if (!player.status[HASTED])
       mprint("The world slows down!");
     else
       mprint("Nothing much happens.");
-    if (Player.status[SLOWED])
-      Player.status[SLOWED] = 0;
-    Player.status[HASTED] += (blessing * 100) + random_range(250);
+    if (player.status[SLOWED])
+      player.status[SLOWED] = 0;
+    player.status[HASTED] += (blessing * 100) + random_range(250);
   }
   else
   {
     mprint("You feel slower.");
-    if (Player.status[HASTED] > 0)
+    if (player.status[HASTED] > 0)
       mprint("...but the feeling quickly fades.");
     else
-      Player.status[SLOWED] += random_range(250) + 250;
+      player.status[SLOWED] += random_range(250) + 250;
   }
 }
 
@@ -480,34 +480,34 @@ void recover_stat(int blessing)
     switch (random_range(6))
     {
     case 0:
-      Player.str = min(Player.str - 1, Player.maxstr - 1);
+      player.str = min(player.str - 1, player.maxstr - 1);
       break;
     case 1:
-      Player.con = min(Player.con - 1, Player.maxcon - 1);
+      player.con = min(player.con - 1, player.maxcon - 1);
       break;
     case 2:
-      Player.dex = min(Player.dex - 1, Player.maxdex - 1);
+      player.dex = min(player.dex - 1, player.maxdex - 1);
       break;
     case 3:
-      Player.agi = min(Player.agi - 1, Player.maxagi - 1);
+      player.agi = min(player.agi - 1, player.maxagi - 1);
       break;
     case 4:
-      Player.iq = min(Player.iq - 1, Player.maxiq - 1);
+      player.iq = min(player.iq - 1, player.maxiq - 1);
       break;
     case 5:
-      Player.pow = min(Player.pow - 1, Player.maxpow - 1);
+      player.pow = min(player.pow - 1, player.maxpow - 1);
       break;
     }
   }
   else
   {
     mprint("You feel a warm tingle!");
-    Player.str = max(Player.str, Player.maxstr);
-    Player.con = max(Player.con, Player.maxcon);
-    Player.dex = max(Player.dex, Player.maxdex);
-    Player.agi = max(Player.agi, Player.maxagi);
-    Player.iq = max(Player.iq, Player.maxiq);
-    Player.pow = max(Player.pow, Player.maxpow);
+    player.str = max(player.str, player.maxstr);
+    player.con = max(player.con, player.maxcon);
+    player.dex = max(player.dex, player.maxdex);
+    player.agi = max(player.agi, player.maxagi);
+    player.iq = max(player.iq, player.maxiq);
+    player.pow = max(player.pow, player.maxpow);
   }
   calc_melee();
 }
@@ -520,22 +520,22 @@ void augment(int blessing)
     switch (random_range(6))
     {
     case 0:
-      Player.str = min(Player.str - 1, Player.maxstr - 1);
+      player.str = min(player.str - 1, player.maxstr - 1);
       break;
     case 1:
-      Player.con = min(Player.con - 1, Player.maxcon - 1);
+      player.con = min(player.con - 1, player.maxcon - 1);
       break;
     case 2:
-      Player.dex = min(Player.dex - 1, Player.maxdex - 1);
+      player.dex = min(player.dex - 1, player.maxdex - 1);
       break;
     case 3:
-      Player.agi = min(Player.agi - 1, Player.maxagi - 1);
+      player.agi = min(player.agi - 1, player.maxagi - 1);
       break;
     case 4:
-      Player.iq = min(Player.iq - 1, Player.maxiq - 1);
+      player.iq = min(player.iq - 1, player.maxiq - 1);
       break;
     case 5:
-      Player.pow = min(Player.pow - 1, Player.maxpow - 1);
+      player.pow = min(player.pow - 1, player.maxpow - 1);
       break;
     }
   }
@@ -545,34 +545,34 @@ void augment(int blessing)
     switch (random_range(6))
     {
     case 0:
-      Player.str = max(Player.str + 1, Player.maxstr + 1);
+      player.str = max(player.str + 1, player.maxstr + 1);
       break;
     case 1:
-      Player.con = max(Player.con + 1, Player.maxcon + 1);
+      player.con = max(player.con + 1, player.maxcon + 1);
       break;
     case 2:
-      Player.dex = max(Player.dex + 1, Player.maxdex + 1);
+      player.dex = max(player.dex + 1, player.maxdex + 1);
       break;
     case 3:
-      Player.agi = max(Player.agi + 1, Player.maxagi + 1);
+      player.agi = max(player.agi + 1, player.maxagi + 1);
       break;
     case 4:
-      Player.iq = max(Player.iq + 1, Player.maxiq + 1);
+      player.iq = max(player.iq + 1, player.maxiq + 1);
       break;
     case 5:
-      Player.pow = max(Player.pow + 1, Player.maxpow + 1);
+      player.pow = max(player.pow + 1, player.maxpow + 1);
       break;
     }
   }
   else
   {
     mprint("You feel a hot flash!");
-    Player.str = max(Player.str + 1, Player.maxstr + 1);
-    Player.con = max(Player.con + 1, Player.maxcon + 1);
-    Player.dex = max(Player.dex + 1, Player.maxdex + 1);
-    Player.agi = max(Player.agi + 1, Player.maxagi + 1);
-    Player.iq = max(Player.iq + 1, Player.maxiq + 1);
-    Player.pow = max(Player.pow + 1, Player.maxpow + 1);
+    player.str = max(player.str + 1, player.maxstr + 1);
+    player.con = max(player.con + 1, player.maxcon + 1);
+    player.dex = max(player.dex + 1, player.maxdex + 1);
+    player.agi = max(player.agi + 1, player.maxagi + 1);
+    player.iq = max(player.iq + 1, player.maxiq + 1);
+    player.pow = max(player.pow + 1, player.maxpow + 1);
   }
   calc_melee();
 }
@@ -582,7 +582,7 @@ void breathe(int blessing)
   if (blessing > -1)
   {
     mprint("Your breath is energized!");
-    Player.status[BREATHING] += 6 + blessing;
+    player.status[BREATHING] += 6 + blessing;
   }
   else
   {
@@ -593,31 +593,31 @@ void breathe(int blessing)
 
 void i_chaos(pob o)
 {
-  if (Player.alignment < 0)
+  if (player.alignment < 0)
   {
-    Player.alignment -= random_range(20);
+    player.alignment -= random_range(20);
     mprint("You feel deliciously chaotic!");
-    gain_experience(abs(Player.alignment) * 10);
+    gain_experience(abs(player.alignment) * 10);
   }
   else
   {
     mprint("You feel a sense of inner turmoil!");
-    Player.alignment -= random_range(20);
+    player.alignment -= random_range(20);
   }
 }
 
 void i_law(pob o)
 {
-  if (Player.alignment > 0)
+  if (player.alignment > 0)
   {
-    Player.alignment += random_range(20);
+    player.alignment += random_range(20);
     mprint("You feel wonderfully lawful!");
-    gain_experience(Player.alignment * 10);
+    gain_experience(player.alignment * 10);
   }
   else
   {
     mprint("You feel a sense of inner constraint!");
-    Player.alignment += random_range(20);
+    player.alignment += random_range(20);
   }
 }
 
@@ -627,42 +627,42 @@ void sanctify(int blessing)
   {
     if (level->environment == E_TEMPLE)
       mprint("Odd, the spell has no effect. I wonder why.");
-    else if (level->site[Player.x][Player.y].locchar == ALTAR)
+    else if (level->site[player.x][player.y].locchar == ALTAR)
       mprint("This site can't get any holier!");
-    else if (Player.patron == 0)
+    else if (player.patron == 0)
     {
       mprint("The gods are angered!");
-      level->site[Player.x][Player.y].locchar = LAVA;
-      level->site[Player.x][Player.y].p_locf = L_LAVA;
-      lset(Player.x, Player.y, CHANGED);
+      level->site[player.x][player.y].locchar = LAVA;
+      level->site[player.x][player.y].p_locf = L_LAVA;
+      lset(player.x, player.y, CHANGED);
       p_movefunction(L_LAVA);
     }
     else
     {
-      level->site[Player.x][Player.y].locchar = ALTAR;
-      level->site[Player.x][Player.y].aux = Player.patron;
-      level->site[Player.x][Player.y].p_locf = L_ALTAR;
-      lset(Player.x, Player.y, CHANGED);
+      level->site[player.x][player.y].locchar = ALTAR;
+      level->site[player.x][player.y].aux = player.patron;
+      level->site[player.x][player.y].p_locf = L_ALTAR;
+      lset(player.x, player.y, CHANGED);
       mprint("You are standing on sacred ground!");
     }
   }
   else
   {
-    if (level->site[Player.x][Player.y].locchar == ALTAR)
+    if (level->site[player.x][player.y].locchar == ALTAR)
     {
       mprint("The altar crumbles before your unholy blast....");
-      level->site[Player.x][Player.y].locchar = FLOOR;
-      level->site[Player.x][Player.y].p_locf = L_NO_OP;
-      lset(Player.x, Player.y, CHANGED);
-      if (level->site[Player.x][Player.y].aux == Player.patron)
+      level->site[player.x][player.y].locchar = FLOOR;
+      level->site[player.x][player.y].p_locf = L_NO_OP;
+      lset(player.x, player.y, CHANGED);
+      if (level->site[player.x][player.y].aux == player.patron)
       {
         mprint("Your deity is not amused....");
-        p_damage(Player.hp - 1, UNSTOPPABLE, "Divine Wrath");
+        p_damage(player.hp - 1, UNSTOPPABLE, "Divine Wrath");
       }
-      else if ((Player.patron == ATHENA) || (Player.patron == ODIN))
+      else if ((player.patron == ATHENA) || (player.patron == ODIN))
       {
-        if ((level->site[Player.x][Player.y].aux == SET) ||
-            (level->site[Player.x][Player.y].aux == HECATE))
+        if ((level->site[player.x][player.y].aux == SET) ||
+            (level->site[player.x][player.y].aux == HECATE))
         {
           mprint("Your deity applauds the eradication of Chaos' taint");
           gain_experience(1000);
@@ -673,10 +673,10 @@ void sanctify(int blessing)
           gain_experience(100);
         }
       }
-      else if ((Player.patron == SET) || (Player.patron == HECATE))
+      else if ((player.patron == SET) || (player.patron == HECATE))
       {
-        if ((level->site[Player.x][Player.y].aux == ODIN) ||
-            (level->site[Player.x][Player.y].aux == ATHENA))
+        if ((level->site[player.x][player.y].aux == ODIN) ||
+            (level->site[player.x][player.y].aux == ATHENA))
         {
           mprint("Your deity applauds the obliteration of Law");
           gain_experience(1000);
@@ -687,7 +687,7 @@ void sanctify(int blessing)
           gain_experience(100);
         }
       }
-      else if (Player.patron == DRUID)
+      else if (player.patron == DRUID)
       {
         mprint("Your attempt to maintain the Balance is applauded....");
         gain_experience(250);
@@ -705,12 +705,12 @@ void accuracy(int blessing)
   if (blessing > -1)
   {
     mprint("Everything seems covered in bullseyes!");
-    Player.status[ACCURACY] += random_range(5) + 1 + blessing * 5;
+    player.status[ACCURACY] += random_range(5) + 1 + blessing * 5;
     calc_melee();
   }
   else
   {
-    Player.status[ACCURACY] = 0;
+    player.status[ACCURACY] = 0;
     calc_melee();
     mprint("Your vision blurs...");
   }

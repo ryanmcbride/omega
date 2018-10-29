@@ -21,27 +21,27 @@ void tunnelcheck()
   {
     mprint("With a scream of tortured stone, the entire dungeon caves in!!!");
     gain_experience(5000);
-    if (Player.status[SHADOWFORM])
+    if (player.status[SHADOWFORM])
     {
       change_environment(E_COUNTRYSIDE);
-      switch (Country[Player.x][Player.y].base_terrain_type)
+      switch (Country[player.x][player.y].base_terrain_type)
       {
       case CASTLE:
       case STARPEAK:
       case CAVES:
       case VOLCANO:
-        Country[Player.x][Player.y].current_terrain_type = MOUNTAINS;
+        Country[player.x][player.y].current_terrain_type = MOUNTAINS;
         break;
       case DRAGONLAIR:
-        Country[Player.x][Player.y].current_terrain_type = DESERT;
+        Country[player.x][player.y].current_terrain_type = DESERT;
         break;
       case MAGIC_ISLE:
-        Country[Player.x][Player.y].current_terrain_type = CHAOS_SEA;
+        Country[player.x][player.y].current_terrain_type = CHAOS_SEA;
         break;
       }
-      Country[Player.x][Player.y].base_terrain_type =
-          Country[Player.x][Player.y].current_terrain_type;
-      c_set(Player.x, Player.y, CHANGED);
+      Country[player.x][player.y].base_terrain_type =
+          Country[player.x][player.y].current_terrain_type;
+      c_set(player.x, player.y, CHANGED);
       print1("In your shadowy state, you float back up to the surface.");
       return;
     }
@@ -141,15 +141,15 @@ void showroom(int i)
 
 int player_on_sanctuary()
 {
-  if ((Player.x == Player.sx) &&
-      (Player.y == Player.sy))
+  if ((player.x == player.sx) &&
+      (player.y == player.sy))
     return (TRUE);
   else
   {
-    if (Player.patron)
+    if (player.patron)
     {
-      if ((level->site[Player.x][Player.y].locchar == ALTAR) &&
-          (level->site[Player.x][Player.y].aux == Player.patron))
+      if ((level->site[player.x][player.y].locchar == ALTAR) &&
+          (level->site[player.x][player.y].aux == player.patron))
         return (TRUE);
       else
         return (FALSE);
@@ -166,7 +166,7 @@ int p_moveable(int x, int y)
   setgamestatus(SKIP_MONSTERS);
   if (!inbounds(x, y))
     return (FALSE);
-  else if (Player.status[SHADOWFORM])
+  else if (player.status[SHADOWFORM])
   {
     switch (level->site[x][y].p_locf)
     {
@@ -281,7 +281,7 @@ int p_country_moveable(int x, int y)
 void searchat(int x, int y)
 {
   int i;
-  if (inbounds(x, y) && (random_range(3) || Player.status[ALERT]))
+  if (inbounds(x, y) && (random_range(3) || player.status[ALERT]))
   {
     if (loc_statusp(x, y, SECRET))
     {
@@ -299,7 +299,7 @@ void searchat(int x, int y)
       }
       else
         mprint("You find a secret passage!");
-      drawvision(Player.x, Player.y);
+      drawvision(player.x, player.y);
     }
     if ((level->site[x][y].p_locf >= TRAP_BASE) &&
         (level->site[x][y].locchar != TRAP) &&
@@ -308,7 +308,7 @@ void searchat(int x, int y)
       level->site[x][y].locchar = TRAP;
       lset(x, y, CHANGED);
       mprint("You find a trap!");
-      drawvision(Player.x, Player.y);
+      drawvision(player.x, player.y);
       resetgamestatus(FAST_MOVE);
     }
   }
@@ -320,87 +320,87 @@ void calc_melee()
 {
   calc_weight();
 
-  Player.maxweight = (Player.str * Player.agi * 10);
-  Player.absorption = Player.status[PROTECTION];
-  Player.defense = 2 * statmod(Player.agi) + (Player.level / 2);
-  Player.hit = Player.level + statmod(Player.dex) + 1;
-  Player.dmg = statmod(Player.str) + 3;
-  Player.speed = 5 - min(4, (statmod(Player.agi) / 2));
-  if (Player.status[HASTED] > 0)
-    Player.speed = Player.speed / 2;
-  if (Player.status[SLOWED] > 0)
-    Player.speed = Player.speed * 2;
-  if (Player.itemweight > 0)
-    switch (Player.maxweight / Player.itemweight)
+  player.maxweight = (player.str * player.agi * 10);
+  player.absorption = player.status[PROTECTION];
+  player.defense = 2 * statmod(player.agi) + (player.level / 2);
+  player.hit = player.level + statmod(player.dex) + 1;
+  player.dmg = statmod(player.str) + 3;
+  player.speed = 5 - min(4, (statmod(player.agi) / 2));
+  if (player.status[HASTED] > 0)
+    player.speed = player.speed / 2;
+  if (player.status[SLOWED] > 0)
+    player.speed = player.speed * 2;
+  if (player.itemweight > 0)
+    switch (player.maxweight / player.itemweight)
     {
     case 0:
-      Player.speed += 6;
+      player.speed += 6;
       break;
     case 1:
-      Player.speed += 3;
+      player.speed += 3;
       break;
     case 2:
-      Player.speed += 2;
+      player.speed += 2;
       break;
     case 3:
-      Player.speed += 1;
+      player.speed += 1;
       break;
     }
 
-  if (Player.status[ACCURATE])
-    Player.hit += 20;
-  if (Player.status[HERO])
-    Player.hit += Player.dex;
-  if (Player.status[HERO])
-    Player.dmg += Player.str;
-  if (Player.status[HERO])
-    Player.defense += Player.agi;
-  if (Player.status[HERO])
-    Player.speed = Player.speed / 2;
+  if (player.status[ACCURATE])
+    player.hit += 20;
+  if (player.status[HERO])
+    player.hit += player.dex;
+  if (player.status[HERO])
+    player.dmg += player.str;
+  if (player.status[HERO])
+    player.defense += player.agi;
+  if (player.status[HERO])
+    player.speed = player.speed / 2;
 
-  Player.speed = max(1, min(25, Player.speed));
+  player.speed = max(1, min(25, player.speed));
 
   if (gamestatusp(MOUNTED))
   {
-    Player.speed = 3;
-    Player.hit += 10;
-    Player.dmg += 10;
+    player.speed = 3;
+    player.hit += 10;
+    player.dmg += 10;
   }
 
   /* weapon */
   /* have to check for used since it could be a 2h weapon just carried
      in one hand */
-  if (Player.possessions[O_WEAPON_HAND] != NULL)
-    if (Player.possessions[O_WEAPON_HAND]->used &&
-        ((Player.possessions[O_WEAPON_HAND]->objchar == WEAPON) ||
-         (Player.possessions[O_WEAPON_HAND]->objchar == MISSILEWEAPON)))
+  if (player.possessions[O_WEAPON_HAND] != NULL)
+    if (player.possessions[O_WEAPON_HAND]->used &&
+        ((player.possessions[O_WEAPON_HAND]->objchar == WEAPON) ||
+         (player.possessions[O_WEAPON_HAND]->objchar == MISSILEWEAPON)))
     {
-      Player.hit +=
-          Player.possessions[O_WEAPON_HAND]->hit +
-          Player.possessions[O_WEAPON_HAND]->plus;
-      Player.dmg +=
-          Player.possessions[O_WEAPON_HAND]->dmg +
-          Player.possessions[O_WEAPON_HAND]->plus;
+      player.hit +=
+          player.possessions[O_WEAPON_HAND]->hit +
+          player.possessions[O_WEAPON_HAND]->plus;
+      player.dmg +=
+          player.possessions[O_WEAPON_HAND]->dmg +
+          player.possessions[O_WEAPON_HAND]->plus;
     }
 
   /* shield or defensive weapon */
-  if (Player.possessions[O_SHIELD] != NULL)
+  if (player.possessions[O_SHIELD] != NULL)
   {
-    Player.defense +=
-        Player.possessions[O_SHIELD]->aux +
-        Player.possessions[O_SHIELD]->plus;
+    player.defense +=
+        player.possessions[O_SHIELD]->aux +
+        player.possessions[O_SHIELD]->plus;
   }
 
   /* armor */
-  if (Player.possessions[O_ARMOR] != NULL)
+  if (player.possessions[O_ARMOR] != NULL)
   {
-    Player.absorption += Player.possessions[O_ARMOR]->dmg;
-    Player.defense +=
-        Player.possessions[O_ARMOR]->plus -
-        Player.possessions[O_ARMOR]->aux;
+    player.absorption += player.possessions[O_ARMOR]->dmg;
+    player.defense +=
+        player.possessions[O_ARMOR]->plus -
+        player.possessions[O_ARMOR]->aux;
   }
 
-  if (strlen(Player.meleestr) > 2 * maneuvers())
+  if (strlen(player.meleestr) > 2 * maneuvers())
     default_maneuvers();
   comwinprint();
   showflags();
@@ -413,7 +413,7 @@ void fight_monster(monster* m)
   int hitmod = 0;
   int reallyfight = TRUE;
 
-  if (Player.status[AFRAID])
+  if (player.status[AFRAID])
   {
     print3("You are much too afraid to fight!");
     reallyfight = FALSE;
@@ -423,12 +423,12 @@ void fight_monster(monster* m)
     print3("You restrain yourself from desecrating this holy place.");
     reallyfight = FALSE;
   }
-  else if (Player.status[SHADOWFORM])
+  else if (player.status[SHADOWFORM])
   {
     print3("Your attack has no effect in your shadowy state.");
     reallyfight = FALSE;
   }
-  else if ((Player.status[BERSERK] < 1) && (!m_statusp(m, HOSTILE)))
+  else if ((player.status[BERSERK] < 1) && (!m_statusp(m, HOSTILE)))
   {
     if (optionp(BELLICOSE))
       reallyfight = TRUE;
@@ -442,18 +442,18 @@ void fight_monster(monster* m)
   {
 
     if (Lunarity == 1)
-      hitmod += Player.level;
+      hitmod += player.level;
     else if (Lunarity == -1)
-      hitmod -= (Player.level / 2);
+      hitmod -= (player.level / 2);
 
     if (!m->attacked)
-      Player.alignment -= 2; /* chaotic action */
+      player.alignment -= 2; /* chaotic action */
     m_status_set(m, AWAKE);
     m_status_set(m, HOSTILE);
     m->attacked = TRUE;
-    Player.hit += hitmod;
+    player.hit += hitmod;
     tacplayer(m);
-    Player.hit -= hitmod;
+    player.hit -= hitmod;
   }
 }
 
@@ -478,9 +478,9 @@ int damage_item(pob o)
       morewait();
       annihilate(1);
       print3("You seem to gain strength in the chaotic glare of magic!");
-      Player.str = max(Player.str, Player.maxstr + 5); /* FIXED! 12/25/98 */
-      Player.pow = max(Player.pow, Player.maxpow + 5); /* ditto */
-      Player.alignment -= 200;
+      player.str = max(player.str, player.maxstr + 5); /* FIXED! 12/25/98 */
+      player.pow = max(player.pow, player.maxpow + 5); /* ditto */
+      player.alignment -= 200;
       dispose_lost_objects(1, o);
     }
     else
@@ -516,7 +516,7 @@ int damage_item(pob o)
           nprint1(" Ka-Blamm!!!");
           /* general case. Some sticks will eventually do special things */
           morewait();
-          manastorm(Player.x, Player.y, o->charge * o->level * 10);
+          manastorm(player.x, player.y, o->charge * o->level * 10);
           dispose_lost_objects(1, o);
         }
         return 1;
@@ -571,14 +571,14 @@ void p_damage(int dmg, int dtype, char* fromstring)
   {
     if (gamestatusp(FAST_MOVE))
     {
-      drawvision(Player.x, Player.y);
+      drawvision(player.x, player.y);
       resetgamestatus(FAST_MOVE);
     }
     if (dtype == NORMAL_DAMAGE)
-      Player.hp -= max(1, (dmg - Player.absorption));
+      player.hp -= max(1, (dmg - player.absorption));
     else
-      Player.hp -= dmg;
-    if (Player.hp < 1)
+      player.hp -= dmg;
+    if (player.hp < 1)
       p_death(fromstring);
   }
   else
@@ -589,7 +589,7 @@ void p_damage(int dmg, int dtype, char* fromstring)
 /* game over, you lose! */
 void p_death(char* fromstring)
 {
-  Player.hp = -1;
+  player.hp = -1;
   print3("You died!");
   morewait();
   display_death(fromstring);
@@ -652,7 +652,7 @@ void setspot(int* x, int* y)
   }
   if (c == ESCAPE)
     *x = *y = ABORT;
-  screencheck(Player.y);
+  screencheck(player.y);
 }
 
 /* get a direction: return index into Dirs array corresponding to direction */
@@ -706,7 +706,7 @@ int getdir()
 /* functions describes monster m's state for examine function */
 char *mstatus_string(monster* m)
 {
-  if (m_statusp(m, M_INVISIBLE) && !Player.status[TRUESIGHT])
+  if (m_statusp(m, M_INVISIBLE) && !player.status[TRUESIGHT])
     strcpy(Str2, "Some invisible creature");
   else if (m->uniqueness == COMMON)
   {
@@ -742,21 +742,21 @@ char *mstatus_string(monster* m)
 /* for the examine function */
 void describe_player()
 {
-  if (Player.hp < (Player.maxhp / 5))
+  if (player.hp < (player.maxhp / 5))
     print1("A grievously injured ");
-  else if (Player.hp < (Player.maxhp / 2))
+  else if (player.hp < (player.maxhp / 2))
     print1("A seriously wounded ");
-  else if (Player.hp < Player.maxhp)
+  else if (player.hp < player.maxhp)
     print1("A somewhat bruised ");
   else
     print1("A fit ");
 
-  if (Player.status[SHADOWFORM])
+  if (player.status[SHADOWFORM])
     nprint1("shadow");
   else
-    nprint1(levelname(Player.level));
+    nprint1(levelname(player.level));
   nprint1(" named ");
-  nprint1(Player.name);
+  nprint1(player.name);
   if (gamestatusp(MOUNTED))
     nprint1(" (riding a horse.)");
 }
@@ -766,15 +766,15 @@ void describe_player()
 void gain_experience(int amount)
 {
   int i, count = 0, share;
-  Player.xp += (long)amount;
+  player.xp += (long)amount;
   gain_level(); /* actually, check to see if should gain level */
   for (i = 0; i < NUMRANKS; i++)
-    if (Player.guildxp[i] > 0)
+    if (player.guildxp[i] > 0)
       count++;
   share = amount / (max(count, 1));
   for (i = 0; i < NUMRANKS; i++)
-    if (Player.guildxp[i] > 0)
-      Player.guildxp[i] += share;
+    if (player.guildxp[i] > 0)
+      player.guildxp[i] += share;
 }
 
 /* try to hit a monster in an adjacent space. If there are none
@@ -784,16 +784,16 @@ int goberserk()
 {
   int wentberserk = FALSE, i;
   char meleestr[80];
-  strcpy(meleestr, Player.meleestr);
-  strcpy(Player.meleestr, "lLlClH");
+  strcpy(meleestr, player.meleestr);
+  strcpy(player.meleestr, "lLlClH");
   for (i = 0; i < 8; i++)
-    if (level->site[Player.x + Dirs[0][i]][Player.y + Dirs[1][i]].creature != NULL)
+    if (level->site[player.x + Dirs[0][i]][player.y + Dirs[1][i]].creature != NULL)
     {
       wentberserk = TRUE;
-      fight_monster(level->site[Player.x + Dirs[0][i]][Player.y + Dirs[1][i]].creature);
+      fight_monster(level->site[player.x + Dirs[0][i]][player.y + Dirs[1][i]].creature);
       morewait();
     }
-  strcpy(Player.meleestr, meleestr);
+  strcpy(player.meleestr, meleestr);
   return (wentberserk);
 }
 
@@ -836,35 +836,35 @@ char *trapid(int trapno)
 /* checks current food status of player, every hour, and when food is eaten */
 void foodcheck()
 {
-  if (Player.food > 48)
+  if (player.food > 48)
   {
     print3("You vomit up your huge meal.");
-    Player.food = 12;
+    player.food = 12;
   }
-  else if (Player.food == 30)
+  else if (player.food == 30)
     print3("Time for a smackerel of something.");
-  else if (Player.food == 20)
+  else if (player.food == 20)
     print3("You feel hungry.");
-  else if (Player.food == 12)
+  else if (player.food == 12)
     print3("You are ravenously hungry.");
-  else if (Player.food == 3)
+  else if (player.food == 3)
   {
     print3("You feel weak.");
     if (gamestatusp(FAST_MOVE))
     {
-      drawvision(Player.x, Player.y);
+      drawvision(player.x, player.y);
       resetgamestatus(FAST_MOVE);
     }
   }
-  else if (Player.food < 0)
+  else if (player.food < 0)
   {
     if (gamestatusp(FAST_MOVE))
     {
-      drawvision(Player.x, Player.y);
+      drawvision(player.x, player.y);
       resetgamestatus(FAST_MOVE);
     }
     print3("You're starving!");
-    p_damage(-5 * Player.food, UNSTOPPABLE, "starvation");
+    p_damage(-5 * player.food, UNSTOPPABLE, "starvation");
   }
   showflags();
 }
@@ -878,7 +878,7 @@ void roomcheck()
 #else
   static Level* oldlevel = NULL;
 #endif
-  int roomno = level->site[Player.x][Player.y].roomnumber;
+  int roomno = level->site[player.x][player.y].roomnumber;
 
   if ((roomno == RS_CAVERN) ||
       (roomno == RS_SEWER_DUCT) ||
@@ -888,12 +888,12 @@ void roomcheck()
       (roomno == RS_DININGROOM) ||
       (roomno == RS_CLOSET) ||
       (roomno > ROOMBASE))
-    if ((!loc_statusp(Player.x, Player.y, LIT)) &&
-        (!Player.status[BLINDED]) &&
-        (Player.status[ILLUMINATION] || (difficulty() < 6)))
+    if ((!loc_statusp(player.x, player.y, LIT)) &&
+        (!player.status[BLINDED]) &&
+        (player.status[ILLUMINATION] || (difficulty() < 6)))
     {
-      showroom(level->site[Player.x][Player.y].roomnumber);
-      spreadroomlight(Player.x, Player.y, roomno);
+      showroom(level->site[player.x][player.y].roomnumber);
+      spreadroomlight(player.x, player.y, roomno);
       levelrefresh();
     }
   if ((oldroomno != roomno) ||
@@ -959,31 +959,31 @@ void surrender(monster* m)
   {
     morewait();
     print1("Your surrender is accepted.");
-    if (Player.cash > 0)
+    if (player.cash > 0)
       nprint1(" All your gold is taken....");
-    Player.cash = 0;
+    player.cash = 0;
     bestvalue = 0;
     bestitem = ABORT;
     for (i = 1; i < MAXITEMS; i++)
-      if (Player.possessions[i] != NULL)
-        if (bestvalue < true_item_value(Player.possessions[i]))
+      if (player.possessions[i] != NULL)
+        if (bestvalue < true_item_value(player.possessions[i]))
         {
           bestitem = i;
-          bestvalue = true_item_value(Player.possessions[i]);
+          bestvalue = true_item_value(player.possessions[i]);
         }
     if (bestitem != ABORT)
     {
       print2("You also give away your best item... ");
-      nprint2(itemid(Player.possessions[bestitem]));
+      nprint2(itemid(player.possessions[bestitem]));
       nprint2(".");
       morewait();
-      givemonster(m, Player.possessions[bestitem]);
+      givemonster(m, player.possessions[bestitem]);
       morewait(); /* msgs come from givemonster */
-      conform_unused_object(Player.possessions[bestitem]);
-      Player.possessions[bestitem] = NULL;
+      conform_unused_object(player.possessions[bestitem]);
+      player.possessions[bestitem] = NULL;
     }
     print2("You feel less experienced... ");
-    Player.xp = max(0, Player.xp - m->xpv);
+    player.xp = max(0, player.xp - m->xpv);
     nprint2("The monster seems more experienced!");
     m->level = (min(10, m->level + 1));
     m->hp += m->level * 20;
@@ -1035,7 +1035,7 @@ void threaten(monster* m)
     print3("You only annoy it with your futile demand.");
     m_status_set(m, HOSTILE);
   }
-  else if (((m->level * 2 > Player.level) && (m->hp > Player.dmg)) ||
+  else if (((m->level * 2 > player.level) && (m->hp > player.dmg)) ||
            (m->uniqueness != COMMON))
     print1("It sneers contemptuously at you.");
   else if ((m->talkf != M_TALK_GREEDY) &&
@@ -1050,7 +1050,7 @@ void threaten(monster* m)
   else
   {
     print1("It yields to your mercy.");
-    Player.alignment += 3;
+    player.alignment += 3;
     print2("Kill it, rob it, or free it? [krf] ");
     do
       response = (char)mcigetc();
@@ -1059,11 +1059,11 @@ void threaten(monster* m)
     {
       m_death(m);
       print2("You treacherous rogue!");
-      Player.alignment -= 13;
+      player.alignment -= 13;
     }
     else if (response == 'r')
     {
-      Player.alignment -= 2;
+      player.alignment -= 2;
       print2("It drops its treasure and flees.");
       m_dropstuff(m);
       m->hp = -1;
@@ -1072,7 +1072,7 @@ void threaten(monster* m)
     }
     else
     {
-      Player.alignment += 2;
+      player.alignment += 2;
       print2("'If you love something set it free ... '");
       if (random_range(100) == 13)
       {

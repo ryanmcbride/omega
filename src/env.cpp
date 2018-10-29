@@ -84,7 +84,7 @@ void load_arena()
 void load_circle(int populate)
 {
   int i, j;
-  int safe = (Player.rank[CIRCLE] > 0);
+  int safe = (player.rank[CIRCLE] > 0);
   char site;
   FILE *fd;
 

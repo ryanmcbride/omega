@@ -16,7 +16,7 @@
 void examine()
 {
   pol ol;
-  int x = Player.x, y = Player.y, drewmenu = FALSE;
+  int x = player.x, y = player.y, drewmenu = FALSE;
 
   clearmsg();
 
@@ -26,7 +26,7 @@ void examine()
    * I actually recall).  So, for now I'll use David Given's compromise.
    * 12/30/98
    */
-  if (Player.status[BLINDED] > 0)
+  if (player.status[BLINDED] > 0)
   {
     mprint("You're blind - you can't examine things.");
     return;
@@ -47,14 +47,14 @@ void examine()
         mprint(countryid(Country[x][y].current_terrain_type));
       }
     }
-    else if (!view_los_p(Player.x, Player.y, x, y))
+    else if (!view_los_p(player.x, player.y, x, y))
       print3("I refuse to examine something I can't see.");
     else
     {
       clearmsg();
       if (level->site[x][y].creature != NULL)
         mprint(mstatus_string(level->site[x][y].creature));
-      else if ((Player.x == x) && (Player.y == y))
+      else if ((player.x == x) && (player.y == y))
         describe_player();
       if (loc_statusp(x, y, SECRET))
         print2("An age-worn stone wall.");
@@ -288,30 +288,30 @@ void fire()
     setgamestatus(SKIP_MONSTERS);
   else if (index == CASHVALUE)
     print3("Can't fire money at something!");
-  else if (cursed(Player.possessions[index]) &&
-           Player.possessions[index]->used)
+  else if (cursed(player.possessions[index]) &&
+           player.possessions[index]->used)
     print3("You can't seem to get rid of it!");
   /* load a crossbow */
-  else if ((Player.possessions[O_WEAPON_HAND] != NULL) &&
-           (Player.possessions[O_WEAPON_HAND]->id == WEAPONID + 27) &&
-           (Player.possessions[O_WEAPON_HAND]->aux != LOADED) &&
-           (Player.possessions[index]->id == WEAPONID + 29))
+  else if ((player.possessions[O_WEAPON_HAND] != NULL) &&
+           (player.possessions[O_WEAPON_HAND]->id == WEAPONID + 27) &&
+           (player.possessions[O_WEAPON_HAND]->aux != LOADED) &&
+           (player.possessions[index]->id == WEAPONID + 29))
   {
     mprint("You crank back the crossbow and load a bolt.");
-    Player.possessions[O_WEAPON_HAND]->aux = LOADED;
+    player.possessions[O_WEAPON_HAND]->aux = LOADED;
   }
   else
   {
-    if (Player.possessions[index]->used)
+    if (player.possessions[index]->used)
     {
-      Player.possessions[index]->used = FALSE;
-      item_use(Player.possessions[index]);
+      player.possessions[index]->used = FALSE;
+      item_use(player.possessions[index]);
     }
-    obj = Player.possessions[index];
-    x1 = x2 = Player.x;
-    y1 = y2 = Player.y;
+    obj = player.possessions[index];
+    x1 = x2 = player.x;
+    y1 = y2 = player.y;
     setspot(&x2, &y2);
-    if ((x2 == Player.x) && (y2 == Player.y))
+    if ((x2 == player.x) && (y2 == player.y))
       mprint("You practice juggling for a moment or two.");
     else
     {
@@ -343,9 +343,9 @@ void fire()
           resetgamestatus(SUPPRESS_PRINTING);
           conform_lost_objects(1, obj);
         }
-        else if (hitp(Player.hit, m->ac))
+        else if (hitp(player.hit, m->ac))
         { /* ok already, hit the damn thing */
-          weapon_use(2 * statmod(Player.str), obj, m);
+          weapon_use(2 * statmod(player.str), obj, m);
           if ((obj->id == WEAPONID + 28 || obj->id == WEAPONID + 29) &&
               !random_range(4))
             dispose_lost_objects(1, obj);
@@ -385,7 +385,7 @@ void quit(int)
   mprint("Quit: Are you sure? [yn] ");
   if (ynq() == 'y')
   {
-    if (Player.rank[ADEPT] == 0)
+    if (player.rank[ADEPT] == 0)
       display_quit();
     else
       display_bigwin();
@@ -411,7 +411,7 @@ void nap()
       clearmsg();
       mprint("Yawn. You wake up.");
       resetgamestatus(FAST_MOVE);
-      drawvision(Player.x, Player.y);
+      drawvision(player.x, player.y);
     }
   }
   else
@@ -628,14 +628,14 @@ void wizard()
 /* Jump, that is */
 void vault()
 {
-  int x = Player.x, y = Player.y, jumper = 0;
+  int x = player.x, y = player.y, jumper = 0;
 
   clearmsg();
 
-  if (Player.possessions[O_BOOTS] != NULL)
-    if (Player.possessions[O_BOOTS]->usef == I_BOOTS_JUMPING)
+  if (player.possessions[O_BOOTS] != NULL)
+    if (player.possessions[O_BOOTS]->usef == I_BOOTS_JUMPING)
       jumper = 2;
-  if (Player.status[IMMOBILE] > 0)
+  if (player.status[IMMOBILE] > 0)
   {
     resetgamestatus(FAST_MOVE);
     print3("You are unable to move");
@@ -645,12 +645,12 @@ void vault()
     setgamestatus(SKIP_MONSTERS);
     mprint("Jump where?");
     setspot(&x, &y);
-    if (!los_p(Player.x, Player.y, x, y))
+    if (!los_p(player.x, player.y, x, y))
       print3("The way is obstructed.");
-    else if (Player.itemweight > Player.maxweight)
+    else if (player.itemweight > player.maxweight)
       print3("You are too burdened to jump anywhere.");
-    else if (distance(x, y, Player.x, Player.y) >
-             max(2, statmod(Player.agi) + 2) + jumper)
+    else if (distance(x, y, player.x, player.y) >
+             max(2, statmod(player.agi) + 2) + jumper)
       print3("The jump is too far for you.");
     else if (level->site[x][y].creature != NULL)
       print3("You can't jump on another creature.");
@@ -659,17 +659,17 @@ void vault()
     else
     {
       resetgamestatus(SKIP_MONSTERS);
-      Player.x = x;
-      Player.y = y;
-      if ((!jumper) && (random_range(30) > Player.agi))
+      player.x = x;
+      player.y = y;
+      if ((!jumper) && (random_range(30) > player.agi))
       {
         mprint("Oops -- took a tumble.");
         setgamestatus(SKIP_PLAYER);
-        p_damage((Player.itemweight / 250), UNSTOPPABLE, "clumsiness");
+        p_damage((player.itemweight / 250), UNSTOPPABLE, "clumsiness");
       }
-      p_movefunction(level->site[Player.x][Player.y].p_locf);
+      p_movefunction(level->site[player.x][player.y].p_locf);
       if (Current_Environment != E_COUNTRYSIDE)
-        if ((level->site[Player.x][Player.y].things != NULL) &&
+        if ((level->site[player.x][player.y].things != NULL) &&
             (optionp(PICKUP)))
           pickup();
     }
@@ -714,28 +714,28 @@ void tacoptions()
         print3("No more maneuvers!");
       else
       {
-        if (Player.possessions[O_WEAPON_HAND] == NULL)
+        if (player.possessions[O_WEAPON_HAND] == NULL)
         {
-          Player.meleestr[place] = 'C';
+          player.meleestr[place] = 'C';
           menuprint("\nPunch:");
         }
-        else if (Player.possessions[O_WEAPON_HAND]->type == THRUSTING)
+        else if (player.possessions[O_WEAPON_HAND]->type == THRUSTING)
         {
-          Player.meleestr[place] = 'T';
+          player.meleestr[place] = 'T';
           menuprint("\nThrust:");
         }
-        else if (Player.possessions[O_WEAPON_HAND]->type == STRIKING)
+        else if (player.possessions[O_WEAPON_HAND]->type == STRIKING)
         {
-          Player.meleestr[place] = 'C';
+          player.meleestr[place] = 'C';
           menuprint("\nStrike:");
         }
         else
         {
           menuprint("\nCut:");
-          Player.meleestr[place] = 'C';
+          player.meleestr[place] = 'C';
         }
         place++;
-        Player.meleestr[place] = getlocation();
+        player.meleestr[place] = getlocation();
         place++;
         actionsleft--;
       }
@@ -746,15 +746,15 @@ void tacoptions()
         print3("No more maneuvers!");
       else
       {
-        Player.meleestr[place] = 'B';
-        if (Player.possessions[O_WEAPON_HAND] == NULL)
+        player.meleestr[place] = 'B';
+        if (player.possessions[O_WEAPON_HAND] == NULL)
           menuprint("\nDodge (from):");
-        else if (Player.possessions[O_WEAPON_HAND]->type == THRUSTING)
+        else if (player.possessions[O_WEAPON_HAND]->type == THRUSTING)
           menuprint("\nParry:");
         else
           menuprint("\nBlock:");
         place++;
-        Player.meleestr[place] = getlocation();
+        player.meleestr[place] = getlocation();
         place++;
         actionsleft--;
       }
@@ -765,14 +765,14 @@ void tacoptions()
         print3("Not enough maneuvers to lunge!");
       else
       {
-        if (Player.possessions[O_WEAPON_HAND] != NULL)
+        if (player.possessions[O_WEAPON_HAND] != NULL)
         {
-          if (Player.possessions[O_WEAPON_HAND]->type != MISSILE)
+          if (player.possessions[O_WEAPON_HAND]->type != MISSILE)
           {
             menuprint("\nLunge:");
-            Player.meleestr[place] = 'L';
+            player.meleestr[place] = 'L';
             place++;
-            Player.meleestr[place] = getlocation();
+            player.meleestr[place] = getlocation();
             place++;
             actionsleft -= 2;
           }
@@ -795,13 +795,13 @@ void tacoptions()
         print3("Not enough maneuvers to riposte!");
       else
       {
-        if (Player.possessions[O_WEAPON_HAND] != NULL)
+        if (player.possessions[O_WEAPON_HAND] != NULL)
         {
-          if (Player.possessions[O_WEAPON_HAND]->type == THRUSTING)
+          if (player.possessions[O_WEAPON_HAND]->type == THRUSTING)
           {
-            Player.meleestr[place++] = 'R';
+            player.meleestr[place++] = 'R';
             menuprint("\nRiposte:");
-            Player.meleestr[place++] = getlocation();
+            player.meleestr[place++] = getlocation();
             actionsleft -= 2;
           }
           else
@@ -824,17 +824,17 @@ void tacoptions()
       draw_again = 1;
       break;
     case '!':
-      if (Player.possessions[O_WEAPON_HAND] == NULL)
+      if (player.possessions[O_WEAPON_HAND] == NULL)
       {
         defatt = 'C';
         attstr = "Punch";
       }
-      else if (Player.possessions[O_WEAPON_HAND]->type == THRUSTING)
+      else if (player.possessions[O_WEAPON_HAND]->type == THRUSTING)
       {
         defatt = 'T';
         attstr = "Thrust";
       }
-      else if (Player.possessions[O_WEAPON_HAND]->type == STRIKING)
+      else if (player.possessions[O_WEAPON_HAND]->type == STRIKING)
       {
         defatt = 'C';
         attstr = "Strike";
@@ -844,9 +844,9 @@ void tacoptions()
         defatt = 'C';
         attstr = "Cut";
       }
-      if (Player.possessions[O_WEAPON_HAND] == NULL)
+      if (player.possessions[O_WEAPON_HAND] == NULL)
         defstr = "Dodge";
-      else if (Player.possessions[O_WEAPON_HAND]->type == THRUSTING)
+      else if (player.possessions[O_WEAPON_HAND]->type == THRUSTING)
         defstr = "Parry";
       else
         defstr = "Block";
@@ -857,21 +857,21 @@ void tacoptions()
       for (place = 0; place < maneuvers(); place++)
         if (place & 1)
         { /* every 2nd time around */
-          Player.meleestr[place * 2] = 'B';
-          Player.meleestr[(place * 2) + 1] = 'C';
+          player.meleestr[place * 2] = 'B';
+          player.meleestr[(place * 2) + 1] = 'C';
           menuprint(defstr);
           menuprint(" Center.\n");
         }
         else
         {
-          Player.meleestr[place * 2] = defatt;
-          Player.meleestr[(place * 2) + 1] = 'C';
+          player.meleestr[place * 2] = defatt;
+          player.meleestr[(place * 2) + 1] = 'C';
           menuprint(attstr);
           menuprint(" Center.\n");
         }
       actionsleft = 0;
       showmenu();
-      Player.meleestr[place * 2] = '\0';
+      player.meleestr[place * 2] = '\0';
       break;
     case RETURN:
     case LINEFEED:
@@ -882,7 +882,7 @@ void tacoptions()
     /*    if (actionsleft < 1) morewait(); */ /* FIXED 12/30/98 */
   } while (!done);
   xredraw();
-  Player.meleestr[place] = 0;
+  player.meleestr[place] = 0;
 }
 
 /* Do the Artful Dodger trick */
@@ -904,23 +904,23 @@ void pickpocket()
     dx = Dirs[0][index];
     dy = Dirs[1][index];
 
-    if ((!inbounds(Player.x + dx, Player.y + dy)) ||
-        (level->site[Player.x + dx][Player.y + dy].creature == NULL))
+    if ((!inbounds(player.x + dx, player.y + dy)) ||
+        (level->site[player.x + dx][player.y + dy].creature == NULL))
     {
       print3("There's nothing there to steal from!!!");
       setgamestatus(SKIP_MONSTERS);
     }
     else
     {
-      m = level->site[Player.x + dx][Player.y + dy].creature;
+      m = level->site[player.x + dx][player.y + dy].creature;
       if (m->id == GUARD)
       {
         mprint("Trying to steal from a guardsman, eh?");
         mprint("Not a clever idea.");
-        if (Player.cash > 0)
+        if (player.cash > 0)
         {
           mprint("As a punitive fine, the guard takes all your money.");
-          Player.cash = 0;
+          player.cash = 0;
           dataprint();
         }
         else
@@ -936,13 +936,13 @@ void pickpocket()
         mprint("But you managed to annoy it...");
         m_status_set(m, HOSTILE);
       }
-      else if (Player.dex * 5 + Player.rank[THIEVES] * 20 + random_range(100) >
+      else if (player.dex * 5 + player.rank[THIEVES] * 20 + random_range(100) >
                random_range(100) + m->level * 20)
       {
         mprint("You successfully complete your crime!");
         mprint("You stole:");
         mprint(itemid(m->possessions->thing));
-        Player.alignment--;
+        player.alignment--;
         gain_experience(m->level * m->level);
         gain_item(m->possessions->thing);
         m->possessions = m->possessions->next;
@@ -958,29 +958,29 @@ void rename_player()
   mprint("Rename Character: ");
   strcpy(Str1, msgscanstring());
   if (strlen(Str1) == 0)
-    mprint(Player.name);
+    mprint(player.name);
   else
   {
     if (Str1[0] >= 'a' && Str1[0] <= 'z')
       Str1[0] += 'A' - 'a';
-    strcpy(Player.name, Str1);
+    strcpy(player.name, Str1);
   }
-  sprintf(Str1, "Henceforth, you shall be known as %s", Player.name);
+  sprintf(Str1, "Henceforth, you shall be known as %s", player.name);
   print2(Str1);
 }
 
 void abortshadowform()
 {
   setgamestatus(SKIP_MONSTERS);
-  if (Player.status[SHADOWFORM] && (Player.status[SHADOWFORM] < 1000))
+  if (player.status[SHADOWFORM] && (player.status[SHADOWFORM] < 1000))
   {
     mprint("You abort your spell of Shadow Form.");
-    Player.immunity[NORMAL_DAMAGE]--;
-    Player.immunity[ACID]--;
-    Player.immunity[THEFT]--;
-    Player.immunity[INFECTION]--;
+    player.immunity[NORMAL_DAMAGE]--;
+    player.immunity[ACID]--;
+    player.immunity[THEFT]--;
+    player.immunity[INFECTION]--;
     mprint("You feel less shadowy now.");
-    Player.status[SHADOWFORM] = 0;
+    player.status[SHADOWFORM] = 0;
   }
 }
 
@@ -995,8 +995,8 @@ void tunnel()
     setgamestatus(SKIP_MONSTERS);
   else
   {
-    ox = Player.x + Dirs[0][dir];
-    oy = Player.y + Dirs[1][dir];
+    ox = player.x + Dirs[0][dir];
+    oy = player.y + Dirs[1][dir];
     if (loc_statusp(ox, oy, SECRET))
       mprint("You have no success as yet.");
     else if (level->site[ox][oy].locchar != WALL)
@@ -1009,25 +1009,25 @@ void tunnel()
       aux = level->site[ox][oy].aux;
       if (random_range(20) == 1)
       {
-        if (Player.possessions[O_WEAPON_HAND] == NULL)
+        if (player.possessions[O_WEAPON_HAND] == NULL)
         {
           mprint("Ouch! broke a fingernail...");
-          p_damage(Player.str / 6, UNSTOPPABLE, "a broken fingernail");
+          p_damage(player.str / 6, UNSTOPPABLE, "a broken fingernail");
         }
-        else if ((Player.possessions[O_WEAPON_HAND]->type == THRUSTING) ||
-                 ((Player.possessions[O_WEAPON_HAND]->type != STRIKING) &&
-                  (Player.possessions[O_WEAPON_HAND]->fragility <
+        else if ((player.possessions[O_WEAPON_HAND]->type == THRUSTING) ||
+                 ((player.possessions[O_WEAPON_HAND]->type != STRIKING) &&
+                  (player.possessions[O_WEAPON_HAND]->fragility <
                    random_range(20))))
         {
           mprint("Clang! Uh oh...");
-          (void)damage_item(Player.possessions[O_WEAPON_HAND]);
+          (void)damage_item(player.possessions[O_WEAPON_HAND]);
         }
         else
           mprint("Your digging implement shows no sign of breaking.");
       }
-      if (Player.possessions[O_WEAPON_HAND] == NULL)
+      if (player.possessions[O_WEAPON_HAND] == NULL)
       {
-        if ((aux > 0) && ((Player.str / 3) + random_range(100) > aux))
+        if ((aux > 0) && ((player.str / 3) + random_range(100) > aux))
         {
           mprint("You carve a tunnel through the stone!");
           tunnelcheck();
@@ -1038,10 +1038,10 @@ void tunnel()
         else
           mprint("No joy.");
       }
-      else if (Player.possessions[O_WEAPON_HAND]->type == THRUSTING)
+      else if (player.possessions[O_WEAPON_HAND]->type == THRUSTING)
       {
         if ((aux > 0) &&
-            (Player.possessions[O_WEAPON_HAND]->dmg * 2 + random_range(100) >
+            (player.possessions[O_WEAPON_HAND]->dmg * 2 + random_range(100) >
              aux))
         {
           mprint("You carve a tunnel through the stone!");
@@ -1054,7 +1054,7 @@ void tunnel()
           mprint("No luck.");
       }
       else if ((aux > 0) &&
-               (Player.possessions[O_WEAPON_HAND]->dmg + random_range(100) > aux))
+               (player.possessions[O_WEAPON_HAND]->dmg + random_range(100) > aux))
       {
         mprint("You carve a tunnel through the stone!");
         tunnelcheck();
@@ -1174,11 +1174,11 @@ void dismount_steed()
     ml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
     ml->m = ((pmt)checkmalloc(sizeof(montype)));
     *(ml->m) = Monsters[HORSE];
-    ml->m->x = Player.x;
-    ml->m->y = Player.y;
+    ml->m->x = player.x;
+    ml->m->y = player.y;
     ml->m->status = MOBILE + SWIMMING;
     ml->next = level->mlist;
-    level->site[Player.x][Player.y].creature = ml->m;
+    level->site[player.x][player.y].creature = ml->m;
     level->mlist = ml;
   }
   calc_melee();
@@ -1186,21 +1186,21 @@ void dismount_steed()
 
 void city_move()
 {
-  int site, x = Player.x, y = Player.y, toggle = FALSE;
+  int site, x = player.x, y = player.y, toggle = FALSE;
   clearmsg();
   if (Current_Environment != E_CITY)
   {
     print3("This command only works in the city!");
     setgamestatus(SKIP_MONSTERS);
   }
-  else if (Player.status[IMMOBILE] > 0)
+  else if (player.status[IMMOBILE] > 0)
     print3("You can't even move!");
   else if (hostilemonstersnear())
   {
     setgamestatus(SKIP_MONSTERS);
     print3("You can't move this way with hostile monsters around!");
   }
-  else if (level->site[Player.x][Player.y].aux == NOCITYMOVE)
+  else if (level->site[player.x][player.y].aux == NOCITYMOVE)
     print3("You can't use the 'M' command from this location.");
   else
   {
@@ -1226,11 +1226,11 @@ void city_move()
         screencheck(y);
         omshowcursor(x, y);
       }
-      Player.x = x;
-      Player.y = y;
-      screencheck(Player.y);
+      player.x = x;
+      player.y = y;
+      screencheck(player.y);
       mprint("Made it!");
-      drawvision(Player.x, Player.y);
+      drawvision(player.x, player.y);
       morewait();
       p_movefunction(level->site[x][y].p_locf);
     }

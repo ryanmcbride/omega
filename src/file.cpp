@@ -374,30 +374,30 @@ void checkhigh(char* descrip, int behavior)
   {
     if (Hiscore < points)
     {
-      strcpy(Hiscorer, Player.name);
+      strcpy(Hiscorer, player.name);
       strcpy(Hidescrip, descrip);
       Hiscore = points;
-      Hilevel = Player.level;
+      Hilevel = player.level;
       Hibehavior = behavior;
       save_hiscore_npc(0);
       mprint("Yow! A new high score!");
       morewait();
     }
-    if (Player.alignment < Chaos)
+    if (player.alignment < Chaos)
     {
-      strcpy(Chaoslord, Player.name);
-      Chaoslordlevel = Player.level;
-      Chaos = Player.alignment;
+      strcpy(Chaoslord, player.name);
+      Chaoslordlevel = player.level;
+      Chaos = player.alignment;
       Chaoslordbehavior = behavior;
       save_hiscore_npc(13);
       mprint("Criminy! A new Lord of Chaos!");
       morewait();
     }
-    if (Player.alignment > Law)
+    if (player.alignment > Law)
     {
-      strcpy(Lawlord, Player.name);
-      Lawlordlevel = Player.level;
-      Law = Player.alignment;
+      strcpy(Lawlord, player.name);
+      Lawlordlevel = player.level;
+      Law = player.alignment;
       Lawlordbehavior = behavior;
       save_hiscore_npc(14);
       mprint("Gosh! A new Lord of Law!");
@@ -411,7 +411,7 @@ void extendlog(char* descrip, int lifestatus)
   FILE *fd;
   int npcbehavior;
 
-  if ((Player.level > 0) && (!gamestatusp(CHEATED)))
+  if ((player.level > 0) && (!gamestatusp(CHEATED)))
   {
     change_to_game_perms();
     npcbehavior = fixnpc(lifestatus);
@@ -419,8 +419,8 @@ void extendlog(char* descrip, int lifestatus)
     strcpy(Str1, Omegalib);
     strcat(Str1, "omega.log");
     fd = checkfopen(Str1, "a");
-    fprintf(fd, " %d %d %d %s\n", lifestatus, Player.level, npcbehavior,
-            Player.name);
+    fprintf(fd, " %d %d %d %s\n", lifestatus, player.level, npcbehavior,
+            player.name);
     fclose(fd);
   }
 }

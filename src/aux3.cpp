@@ -18,8 +18,8 @@ void tenminute_check()
       wandercheck();
     minute_status_check();
     tenminute_status_check();
-    if ((Player.status[DISEASED] < 1) && (Player.hp < Player.maxhp))
-      Player.hp = min(Player.maxhp, Player.hp + Player.level + 1);
+    if ((player.status[DISEASED] < 1) && (player.hp < player.maxhp))
+      player.hp = min(player.maxhp, player.hp + player.level + 1);
     if (Current_Environment != E_COUNTRYSIDE && Current_Environment != E_ABYSS)
       indoors_random_event();
   }
@@ -31,7 +31,7 @@ void tenminute_check()
 
 void hourly_check()
 {
-  Player.food--;
+  player.food--;
   foodcheck();
   if (hour() == 0)
   { /* midnight, a new day */
@@ -43,8 +43,8 @@ void hourly_check()
     wandercheck();
   minute_status_check();
   tenminute_status_check();
-  if ((Player.status[DISEASED] == 0) && (Player.hp < Player.maxhp))
-    Player.hp = min(Player.maxhp, Player.hp + Player.level + 1);
+  if ((player.status[DISEASED] == 0) && (player.hp < player.maxhp))
+    player.hp = min(player.maxhp, player.hp + player.level + 1);
   if (Current_Environment != E_COUNTRYSIDE && Current_Environment != E_ABYSS)
     indoors_random_event();
 }
@@ -77,7 +77,7 @@ void indoors_random_event()
     for (ml = level->mlist; ml != NULL; ml = ml->next)
       if (ml->m->hp > 0)
         ml->m->hp = Monsters[ml->m->id].hp;
-    Player.hp = max(Player.hp, Player.maxhp);
+    player.hp = max(player.hp, player.maxhp);
     break;
   case 5:
     print3("You discover an itch just where you can't scratch it.");
@@ -90,15 +90,15 @@ void indoors_random_event()
     break;
   case 7:
     print3("You catch your second wind....");
-    Player.maxhp++;
-    Player.hp = max(Player.hp, Player.maxhp);
-    Player.mana = max(Player.mana, calcmana());
+    player.maxhp++;
+    player.hp = max(player.hp, player.maxhp);
+    player.mana = max(player.mana, calcmana());
     morewait();
     break;
   case 8:
     print3("You find some spare change in a hidden pocket.");
     morewait();
-    Player.cash += Player.level * Player.level + 1;
+    player.cash += player.level * player.level + 1;
     break;
   case 9:
     print3("You feel strangely lucky.");
@@ -110,8 +110,8 @@ void indoors_random_event()
     ol = ((pol)checkmalloc(sizeof(oltype)));
     ol->thing = create_object(difficulty()); /* FIXED!  12/30/98 */
     assert(ol->thing);                       /* WDT I want to make sure... */
-    ol->next = level->site[Player.x][Player.y].things;
-    level->site[Player.x][Player.y].things = ol;
+    ol->next = level->site[player.x][player.y].things;
+    level->site[player.x][player.y].things = ol;
     pickup();
     break;
   case 11:
@@ -151,7 +151,7 @@ void outdoors_random_event()
   switch (random_range(300))
   {
   case 0:
-    switch (Country[Player.x][Player.y].current_terrain_type)
+    switch (Country[player.x][player.y].current_terrain_type)
     {
     case TUNDRA:
       mprint("It begins to snow. Heavily.");
@@ -227,11 +227,11 @@ void outdoors_random_event()
       mprint("You feel average...");
       morewait();
       toggle_item_use(TRUE); /* FIXED! 12/30/98 */
-      Player.str = Player.maxstr = Player.con = Player.maxcon =
-          Player.dex = Player.maxdex = Player.agi = Player.maxagi =
-              Player.iq = Player.maxiq = Player.pow = Player.maxpow =
-                  ((Player.maxstr + Player.maxcon + Player.maxdex + Player.maxagi +
-                    Player.maxiq + Player.maxpow + 12) /
+      player.str = player.maxstr = player.con = player.maxcon =
+          player.dex = player.maxdex = player.agi = player.maxagi =
+              player.iq = player.maxiq = player.pow = player.maxpow =
+                  ((player.maxstr + player.maxcon + player.maxdex + player.maxagi +
+                    player.maxiq + player.maxpow + 12) /
                    6);
       toggle_item_use(FALSE); /* FIXED! 12/30/98 */
     }
@@ -241,25 +241,25 @@ void outdoors_random_event()
       morewait();
       toggle_item_use(TRUE); /* FIXED! 12/30/98 */
       for (i = 1; i < MAXITEMS; i++)
-        if (Player.possessions[i] != NULL)
+        if (player.possessions[i] != NULL)
         {
-          Player.possessions[i]->plus++;
-          if (Player.possessions[i]->objchar == STICK)
-            Player.possessions[i]->charge += 10;
-          Player.possessions[i]->blessing += 10;
+          player.possessions[i]->plus++;
+          if (player.possessions[i]->objchar == STICK)
+            player.possessions[i]->charge += 10;
+          player.possessions[i]->blessing += 10;
         }
       toggle_item_use(FALSE); /* FIXED! 12/30/98 */
       cleanse(1);
       mprint("You feel filled with energy!");
       morewait();
-      Player.maxpow += 5;
-      Player.pow += 5;
-      Player.mana = Player.maxmana = calcmana() * 5;
+      player.maxpow += 5;
+      player.pow += 5;
+      player.mana = player.maxmana = calcmana() * 5;
       mprint("You also feel weaker. Paradoxical, no?");
       morewait();
-      Player.con -= 5;
-      Player.maxcon -= 5;
-      if (Player.con < 3)
+      player.con -= 5;
+      player.maxcon -= 5;
+      if (player.con < 3)
         p_death("congestive heart failure");
     }
     else if (num < 40)
@@ -268,16 +268,16 @@ void outdoors_random_event()
       morewait();
       dispel(-1);
       dispel(-1);
-      Player.pow -= 10;
-      Player.mana = 0;
+      player.pow -= 10;
+      player.mana = 0;
     }
     else if (num < 60)
     {
       mprint("The storm deposits you in a strange place....");
       morewait();
-      Player.x = random_range(WIDTH);
-      Player.y = random_range(LENGTH);
-      screencheck(Player.y);
+      player.x = random_range(WIDTH);
+      player.y = random_range(LENGTH);
+      screencheck(player.y);
     }
     else if (num < 70)
     {
@@ -322,10 +322,10 @@ void outdoors_random_event()
       morewait();
       mprint("You can't remember a thing! Not even your name.");
       morewait();
-      Player.xp = 0;
-      Player.level = 0;
+      player.xp = 0;
+      player.level = 0;
       for (i = 0; i < NUMRANKS; i++)
-        Player.rank[i] = 0;
+        player.rank[i] = 0;
       for (i = 0; i < NUMSPELLS; i++)
         Spells[i].known = FALSE;
       rename_player();
@@ -356,8 +356,8 @@ void outdoors_random_event()
       resetgamestatus(LOST);
       mprint("You know where you are now.");
     }
-    for (i = Player.x - 5; i < Player.x + 6; i++)
-      for (j = Player.y - 5; j < Player.y + 6; j++)
+    for (i = player.x - 5; i < player.x + 6; i++)
+      for (j = player.y - 5; j < player.y + 6; j++)
         if (inbounds(i, j))
         {
           c_set(i, j, SEEN);
@@ -430,19 +430,19 @@ char getlocation()
 /* hostile_magic ranges in power from 0 (weak) to 10 (strong) */
 int magic_resist(int hostile_magic) 
 {
-  if ((Player.rank[COLLEGE] + Player.rank[CIRCLE] > 0) &&
-      (Player.level / 2 + random_range(20) >
+  if ((player.rank[COLLEGE] + player.rank[CIRCLE] > 0) &&
+      (player.level / 2 + random_range(20) >
        hostile_magic + random_range(20)))
   {
-    if (Player.mana > hostile_magic * hostile_magic)
+    if (player.mana > hostile_magic * hostile_magic)
     {
       mprint("Thinking fast, you defend youself with a counterspell!");
-      Player.mana -= hostile_magic * hostile_magic;
+      player.mana -= hostile_magic * hostile_magic;
       dataprint();
       return (TRUE);
     }
   }
-  if (Player.level / 4 + Player.status[PROTECTION] + random_range(20) >
+  if (player.level / 4 + player.status[PROTECTION] + random_range(20) >
       hostile_magic + random_range(30))
   {
     mprint("You resist the spell!");
@@ -456,7 +456,7 @@ void terrain_check(int takestime)
 {
   int faster = 0;
 
-  if (Player.patron == DRUID)
+  if (player.patron == DRUID)
   {
     faster = 1;
     switch (random_range(32))
@@ -486,8 +486,8 @@ void terrain_check(int takestime)
       break;
     }
   }
-  else if (Player.possessions[O_BOOTS] &&
-           Player.possessions[O_BOOTS]->usef == I_BOOTS_7LEAGUE)
+  else if (player.possessions[O_BOOTS] &&
+           player.possessions[O_BOOTS]->usef == I_BOOTS_7LEAGUE)
   {
     takestime = 0;
     switch (random_range(32))
@@ -506,7 +506,7 @@ void terrain_check(int takestime)
       break;
     }
   }
-  else if (Player.status[SHADOWFORM])
+  else if (player.status[SHADOWFORM])
   {
     faster = 1;
     switch (random_range(32))
@@ -529,19 +529,19 @@ void terrain_check(int takestime)
       print2("The road goes ever onward....");
       break;
     }
-  switch (Country[Player.x][Player.y].current_terrain_type)
+  switch (Country[player.x][player.y].current_terrain_type)
   {
   case RIVER:
-    if ((Player.y < 6) && (Player.x > 20))
+    if ((player.y < 6) && (player.x > 20))
       locprint("Star Lake.");
-    else if (Player.y < 41)
+    else if (player.y < 41)
     {
-      if (Player.x < 10)
+      if (player.x < 10)
         locprint("Aerie River.");
       else
         locprint("The Great Flood.");
     }
-    else if (Player.x < 42)
+    else if (player.x < 42)
       locprint("The Swamp Runs.");
     else
       locprint("River Greenshriek.");
@@ -590,17 +590,17 @@ void terrain_check(int takestime)
     }
     break;
   case FOREST:
-    if (Player.y < 10)
+    if (player.y < 10)
       locprint("The Deepwood.");
-    else if (Player.y < 18)
+    else if (player.y < 18)
       locprint("The Forest of Erelon.");
-    else if (Player.y < 46)
+    else if (player.y < 46)
       locprint("The Great Forest.");
     if (takestime)
     {
       Time += 60;
       hourly_check();
-      if (Player.rank[PRIESTHOOD] == 0 || Player.patron != DRUID)
+      if (player.rank[PRIESTHOOD] == 0 || player.patron != DRUID)
       {
         Time += 60;
         hourly_check();
@@ -647,11 +647,11 @@ void terrain_check(int takestime)
     }
     break;
   case MOUNTAINS:
-    if ((Player.y < 9) && (Player.x < 12))
+    if ((player.y < 9) && (player.x < 12))
       locprint("The Magic Mountains");
-    else if ((Player.y < 9) && (Player.y > 2) && (Player.x < 40))
+    else if ((player.y < 9) && (player.y > 2) && (player.x < 40))
       locprint("The Peaks of the Fist.");
-    else if (Player.x < 52)
+    else if (player.x < 52)
       locprint("The Rift Mountains.");
     else
       locprint("Borderland Mountains.");
@@ -757,7 +757,7 @@ void terrain_check(int takestime)
     mprint("The castle is hewn from solid granite. The drawbridge is down.");
     break;
   case TEMPLE:
-    switch (Country[Player.x][Player.y].aux)
+    switch (Country[player.x][player.y].aux)
     {
     case ODIN:
       locprint("A rough-hewn granite temple.");
@@ -833,8 +833,8 @@ void countrysearch()
   int x, y;
   Time += 60;
   hourly_check();
-  for (x = Player.x - 1; x < Player.x + 2; x++)
-    for (y = Player.y - 1; y < Player.y + 2; y++)
+  for (x = player.x - 1; x < player.x + 2; x++)
+    for (y = player.y - 1; y < player.y + 2; y++)
       if (inbounds(x, y))
       {
         if (Country[x][y].current_terrain_type !=
@@ -1049,8 +1049,8 @@ int hostilemonstersnear()
 {
   int i, j, hostile = FALSE;
 
-  for (i = Player.x - 2; ((i < Player.x + 3) && (!hostile)); i++)
-    for (j = Player.y - 2; ((j < Player.y + 3) && (!hostile)); j++)
+  for (i = player.x - 2; ((i < player.x + 3) && (!hostile)); i++)
+    for (j = player.y - 2; ((j < player.y + 3) && (!hostile)); j++)
       if (inbounds(i, j))
         if (level->site[i][j].creature != NULL)
           hostile = m_statusp(level->site[i][j].creature, HOSTILE);
@@ -1067,12 +1067,12 @@ int stonecheck(int alignment)
   if (alignment == 1)
   {
     stone = &Lawstone;
-    match = Player.alignment > 0;
+    match = player.alignment > 0;
   }
   else if (alignment == -1)
   {
     stone = &Chaostone;
-    match = Player.alignment < 0;
+    match = player.alignment < 0;
   }
   else
   {
@@ -1112,12 +1112,12 @@ int stonecheck(int alignment)
     print2("A burden has been removed from your shoulders.....");
     print3("Your pack has disintegrated!");
     for (i = 0; i < MAXPACK; i++)
-      if (Player.pack[i] != NULL)
+      if (player.pack[i] != NULL)
       {
-        free((char *)Player.pack[i]);
-        Player.pack[i] = NULL;
+        free((char *)player.pack[i]);
+        player.pack[i] = NULL;
       }
-    Player.packptr = 0;
+    player.packptr = 0;
     break;
   case 3:
     print1("The stone glows microwave");
@@ -1134,7 +1134,7 @@ int stonecheck(int alignment)
   case 7:
     print1("The stone glows brick red");
     print2("A gold piece falls from the heavens into your money pouch!");
-    Player.cash++;
+    player.cash++;
     break;
   case 9:
     print1("The stone glows cherry red");
@@ -1144,12 +1144,12 @@ int stonecheck(int alignment)
   case 11:
     print1("The stone glows orange");
     print2("A flux of energy blasts you!");
-    manastorm(Player.x, Player.y, random_range(Player.maxhp) + 1);
+    manastorm(player.x, player.y, random_range(player.maxhp) + 1);
     break;
   case 13:
     print1("The stone glows lemon yellow");
     print2("You're surrounded by enemies! You begin to foam at the mouth.");
-    Player.status[BERSERK] += 10;
+    player.status[BERSERK] += 10;
     break;
   case 15:
     print1("The stone glows yellow");
@@ -1160,19 +1160,19 @@ int stonecheck(int alignment)
   case 17:
     print1("The stone glows chartreuse");
     print2("Your joints stiffen up.");
-    Player.agi -= 3;
+    player.agi -= 3;
     break;
   case 19:
     print1("The stone glows green");
     print2("You come down with an acute case of Advanced Leprosy.");
-    Player.status[DISEASED] = 1100;
-    Player.hp = 1;
-    Player.dex -= 5;
+    player.status[DISEASED] = 1100;
+    player.hp = 1;
+    player.dex -= 5;
     break;
   case 21:
     print1("The stone glows forest green");
     print2("You feel wonderful!");
-    Player.status[HERO] += 10;
+    player.status[HERO] += 10;
     break;
   case 23:
     print1("The stone glows cyan");
@@ -1213,17 +1213,17 @@ int stonecheck(int alignment)
   case 33:
     print1("The stone glows deep purple");
     print2("You vanish.");
-    Player.status[INVISIBLE] += 10;
+    player.status[INVISIBLE] += 10;
     break;
   case 35:
     print1("The stone glows ultraviolet");
     print2("All your hair rises up on end.... A bolt of lightning hits you!");
-    p_damage(random_range(Player.maxhp), ELECTRICITY, "mystic lightning");
+    p_damage(random_range(player.maxhp), ELECTRICITY, "mystic lightning");
     break;
   case 37:
     print1("The stone glows roentgen");
     print2("You feel more experienced.");
-    gain_experience((Player.level + 1) * 250);
+    gain_experience((player.level + 1) * 250);
     break;
   case 39:
     print1("The stone glows gamma");
@@ -1287,7 +1287,7 @@ void alert_guards()
     print2("The last member of the Order of Paladins dies....");
     morewait();
     gain_experience(1000);
-    Player.alignment -= 250;
+    player.alignment -= 250;
     if (!gamestatusp(KILLED_LAWBRINGER))
     {
       print1("A chime sounds from far away.... The sound grows stronger....");
@@ -1298,7 +1298,7 @@ void alert_guards()
       print2("in thy hour of need!\" You feel an unearthly shiver as the");
       print3("LawBringer waves his palm across the city skies....");
       morewait();
-      Player.str /= 2;
+      player.str /= 2;
       dataprint();
       print1("You hear a bell tolling, and eerie moans all around you....");
       print2("Suddenly, the image of the LawBringer is gone.");
@@ -1362,12 +1362,12 @@ int maneuvers()
 {
   int m;
 
-  m = 2 + Player.level / 7;
-  if (Player.rank[ARENA])
+  m = 2 + player.level / 7;
+  if (player.rank[ARENA])
     m++;
-  if (Player.status[HASTED])
+  if (player.status[HASTED])
     m *= 2;
-  if (Player.status[SLOWED])
+  if (player.status[SLOWED])
     m /= 2;
   m = min(8, max(1, m));
 
@@ -1385,10 +1385,10 @@ void default_maneuvers()
   morewait();
   for (i = 0; i < maneuvers(); i += 2)
   {
-    Player.meleestr[i * 2] = 'A';
-    Player.meleestr[(i * 2) + 1] = 'C';
-    Player.meleestr[(i + 1) * 2] = 'B';
-    Player.meleestr[((i + 1) * 2) + 1] = 'C';
+    player.meleestr[i * 2] = 'A';
+    player.meleestr[(i * 2) + 1] = 'C';
+    player.meleestr[(i + 1) * 2] = 'B';
+    player.meleestr[((i + 1) * 2) + 1] = 'C';
   }
-  Player.meleestr[maneuvers() * 2] = 0;
+  player.meleestr[maneuvers() * 2] = 0;
 }
