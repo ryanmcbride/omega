@@ -663,7 +663,7 @@ void p_drown()
           if (player.pack[i] != NULL)
             if (level->site[player.x][player.y].p_locf != L_WATER)
               p_drop_at(player.x, player.y, player.pack[i]->number, player.pack[i]);
-          free((char *)player.pack[i]);
+          delete player.pack[i];
           player.pack[i] = NULL;
         }
         if (level->site[player.x][player.y].p_locf == L_WATER)

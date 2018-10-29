@@ -732,7 +732,7 @@ Object* restore_item(FILE* fd,int  version)
   fread((char *)&type, sizeof(type), 1, fd);
   if (type != 0xff)
   {
-    obj = ((Object*)checkmalloc(sizeof(Object)));
+    obj = Object::create();
     fread((char *)obj, sizeof(Object), 1, fd);
     if (type & 1)
     {
@@ -791,7 +791,7 @@ void restore_level(FILE* fd, int version)
   unsigned long int mask;
   int temp_env;
 
-  level = (Level*)checkmalloc(sizeof(Level));
+  level = Level::create();
   clear_level(level);
   fread((char *)&level->depth, sizeof(char), 1, fd);
   fread((char *)&level->numrooms, sizeof(char), 1, fd);
@@ -1022,7 +1022,7 @@ void restore_monsters(FILE* fd, Level* level, int version)
   for (i = 0; i < nummonsters; i++)
   {
     ml = Monsterlist::create();
-    ml->m = ((pmt)checkmalloc(sizeof(montype)));
+    ml->m = monster::create();
     ml->next = NULL;
     fread((char *)ml->m, sizeof(montype), 1, fd);
     if (ml->m->id == HISCORE_NPC)

@@ -583,7 +583,7 @@ void m_sp_raise(monster* m)
             summon(-1, level->site[x][y].things->thing->charge);
             t = level->site[x][y].things;
             level->site[x][y].things = level->site[x][y].things->next;
-            free((char *)t);
+            delete t;
           }
 }
 

@@ -9,7 +9,7 @@ void load_arena()
 {
   int i, j;
   char site;
-  Object* box = ((Object*)checkmalloc(sizeof(Object)));
+  Object* box = Object::create();
   FILE *fd;
 
   *box = Objects[THINGID + 0];
@@ -70,7 +70,7 @@ void load_arena()
   Arena_Monster->sense = 50;
   m_pickup(Arena_Monster, box);
   m_status_set(Arena_Monster, AWAKE);
-  level->mlist = (Monsterlist*)checkmalloc(sizeof(Monsterlist));
+  level->mlist = Monsterlist::create();
   level->mlist->m = Arena_Monster;
   level->mlist->next = NULL;
   /* hehehehe cackled the dungeon master.... */
@@ -215,7 +215,7 @@ void load_circle(int populate)
 void make_prime(int i, int j)
 {
   Monsterlist* ml = Monsterlist::create();
-  pmt m = ((pmt)checkmalloc(sizeof(montype)));
+  pmt m = monster::create();
   Objectlist* ol;
   Object* o;
   make_hiscore_npc(m, 10); /* 10 is index for prime */
@@ -229,7 +229,7 @@ void make_prime(int i, int j)
   if (Objects[ARTIFACTID + 21].uniqueness != UNIQUE_TAKEN)
   {
     ol = Objectlist::create();
-    o = ((Object*)checkmalloc(sizeof(Object)));
+    o = Object::create();
     *o = Objects[ARTIFACTID + 21];
     ol->thing = o;
     ol->next = NULL;
@@ -343,7 +343,7 @@ void load_court(int populate)
 void make_archmage(int i, int j)
 {
   Monsterlist* ml = Monsterlist::create();
-  pmt m = ((pmt)checkmalloc(sizeof(montype)));
+  pmt m = monster::create();
   make_hiscore_npc(m, 9); /* 9 is index for archmage */
   m->x = i;
   m->y = j;

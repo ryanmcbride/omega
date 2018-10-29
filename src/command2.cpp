@@ -368,7 +368,7 @@ void disarm()
         print1("You disarmed the trap!");
         if (random_range(100) < player.dex + player.rank[THIEVES] * 10)
         {
-          o = ((Object*)checkmalloc(sizeof(Object)));
+          o = Object::create();
           switch (level->site[x][y].p_locf)
           {
           case L_TRAP_DART:
@@ -399,7 +399,7 @@ void disarm()
             *o = Objects[THINGID + 25];
             break;
           default:
-            free(o);
+            delete o;
             o = NULL;
             break;
           }
@@ -468,7 +468,7 @@ void give()
         give_money(m);
       else if (!cursed(player.possessions[index]))
       {
-        obj = ((Object*)checkmalloc(sizeof(Object)));
+        obj = Object::create();
         *obj = *(player.possessions[index]);
         obj->used = FALSE;
         conform_lost_objects(1, player.possessions[index]);
@@ -1272,7 +1272,7 @@ void movepincountry(int dx, int dy)
         for (i = 0; i < MAXPACK; i++)
         {
           if (player.pack[i] != NULL)
-            free((char *)player.pack[i]);
+            delete player.pack[i];
           player.pack[i] = NULL;
         }
         player.packptr = 0;

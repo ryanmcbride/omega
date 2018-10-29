@@ -198,7 +198,7 @@ void make_house_npc(int i, int j)
 {
       Monsterlist* ml = Monsterlist::create();
       Object* ob;
-      ml->m = ((pmt)checkmalloc(sizeof(montype)));
+      ml->m = monster::create();
       *(ml->m) = Monsters[NPC];
       make_log_npc(ml->m);
       if (ml->m->id == NPC)
@@ -219,7 +219,7 @@ void make_house_npc(int i, int j)
             m_status_set(ml->m, AWAKE);
       if (ml->m->startthing > -1)
       {
-            ob = ((Object*)checkmalloc(sizeof(Object)));
+            ob = Object::create();
             *ob = Objects[ml->m->startthing];
             m_pickup(ml->m, ob);
       }
@@ -229,7 +229,7 @@ void make_house_npc(int i, int j)
 void make_mansion_npc(int i, int j)
 {
       Monsterlist* ml = Monsterlist::create();
-      ml->m = ((pmt)checkmalloc(sizeof(montype)));
+      ml->m = monster::create();
       *(ml->m) = Monsters[NPC];
       make_hiscore_npc(ml->m, random_range(14) + 1);
       mprint("You detect signs of life in this house.");

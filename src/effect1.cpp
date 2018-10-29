@@ -771,7 +771,7 @@ void acquire(int blessing)
   }
   else
   {
-    newthing = ((Object*)checkmalloc(sizeof(Object)));
+    newthing = Object::create();
     newthing->id = -1;
     if (gamestatusp(CHEATED))
       print1("Acquire which kind of item: !?][}{)/=%%\\& ");

@@ -106,7 +106,7 @@ void initplayer()
   calc_melee();
   ScreenOffset = -1000; /* to force a redraw */
 
-  newitem = ((Object*)checkmalloc(sizeof(Object)));
+  newitem = Object::create();
           *newitem = *findObjectWithTrueName("Mjolnir");
           gain_item(newitem);
   player.cash += 5000000;

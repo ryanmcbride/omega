@@ -75,8 +75,8 @@ void time_clock(int reset)
       else if (ml->m != Arena_Monster)
       {
         *prev = ml->next;
-        free((char *)ml->m);
-        free((char *)ml);
+        delete ml->m;
+        delete ml;
         ml = *prev;
       }
       else

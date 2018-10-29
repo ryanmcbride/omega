@@ -779,7 +779,9 @@ int ok_to_free(Level* level)
             (level->environment != E_VILLAGE) &&
             (level->environment != Current_Dungeon));
 }
-
+monster* monster::create(){
+  return new monster;
+}
 Objectlist* Objectlist::create(){
   return new Objectlist;
 }
@@ -788,23 +790,13 @@ void Objectlist::free(){
   Objectlist* tmp;
   while (pobjlist)
   {
-    ::free(pobjlist->thing);//freeing the object
+    delete pobjlist->thing;
     tmp = pobjlist;
     pobjlist = pobjlist->next;
     delete tmp;
   }
 }
-void free_objlist(Objectlist* pobjlist)
-{
-  Objectlist* tmp;
 
-  while (pobjlist)
-  {
-    free((tmp = pobjlist)->thing);
-    pobjlist = pobjlist->next;
-    free(tmp);
-  }
-}
 Monsterlist* Monsterlist::create(){
   return new Monsterlist;
 }
@@ -820,18 +812,10 @@ void Monsterlist::free(){
     delete tmp;
   }
 }
-void free_mons_and_objs(Monsterlist* mlist)
-{
-  Monsterlist* tmp;
-
-  while (mlist)
-  {
-    (tmp = mlist)->m->possessions->free();
-    free(tmp->m);
-    mlist = mlist->next;
-    free(tmp);
-  }
+Object* Object::create(){
+  return new Object;
 }
+
 
   Level* Level::create(){
     return new Level;
@@ -857,64 +841,12 @@ void free_mons_and_objs(Monsterlist* mlist)
 #endif
   }
 
-  /* Free up monsters and items on a level*/
-  void free_level(Level *level)
-  {
-    int i, j;
 
-    level->mlist->free();
-    for (i = 0; i < MAXWIDTH; i++)
-      for (j = 0; j < MAXLENGTH; j++)
-        if (level->site[i][j].things)
-        {
-          level->site[i][j].things->free();
-          level->site[i][j].things = NULL;
-        }
-#ifndef SAVE_LEVELS
-  free(level);
-#endif
-}
-
-/* malloc function that checks its return value - if NULL, tries to free */
-/* some memory... */
-void *checkmalloc(unsigned int bytes)
-{
-  void *ptr = malloc(bytes);
-  Level *curr;
-  Level **prev;
-  Level **oldest;
-
-  if (ptr)
-    return ptr;
-  for (curr = Dungeon, oldest = prev = &Dungeon; curr; curr = curr->next)
-  {
-    if ((*oldest)->last_visited > curr->last_visited)
-      oldest = prev;
-    prev = &(curr->next);
-  }
-  if (*oldest && *oldest != level)
-  {
-    curr = *oldest;
-    *oldest = (*oldest)->next;
-    curr->free();
-    ptr = malloc(bytes);
-  }
-  if (ptr)
-    return ptr;
-  else
-  {
-    print1("Out of memory!  Saving and quitting.");
-    morewait();
-    save(FALSE, TRUE);
-    endgraf();
-    exit(0);
-  }
-}
 
 /* alloc just enough string space for str, strcpy, and return pointer */
 char *salloc(char* str)
 {
-  char *s = (char*)checkmalloc((unsigned)(strlen(str) + 1));
+  char *s = new char [strlen(str) + 1];
   strcpy(s, str);
   return (s);
 }

@@ -1172,7 +1172,7 @@ void dismount_steed()
     resetgamestatus(MOUNTED);
     ;
     ml = Monsterlist::create();
-    ml->m = ((pmt)checkmalloc(sizeof(montype)));
+    ml->m = monster::create();
     *(ml->m) = Monsters[HORSE];
     ml->m->x = player.x;
     ml->m->y = player.y;

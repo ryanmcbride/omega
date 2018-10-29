@@ -61,7 +61,7 @@ void m_pulse(monster* m)
         prev = level->site[m->x][m->y].things;
         level->site[m->x][m->y].things =
             level->site[m->x][m->y].things->next;
-        free((char *)prev);
+        delete prev;
       }
     /* prevents monsters from casting spells from other side of dungeon */
     if ((range < max(5, m->level)) && (m->hp > 0) &&
@@ -200,7 +200,7 @@ void m_death(monster* m)
       Arena_Victory = TRUE; /* won this round of arena combat */
     if (random_range(2) || (m->uniqueness != COMMON))
     {
-      corpse = ((Object*)checkmalloc(sizeof(Object)));
+      corpse = Object::create();
       make_corpse(corpse, m);
       drop_at(m->x, m->y, corpse);
     }
@@ -305,7 +305,7 @@ void m_death(monster* m)
                 prev->next = curr->next;
               else
                 level->site[m->x][m->y].things = curr->next;
-              free(curr);
+              delete curr;
             }
             else
               mprint("materializes, sheds a tear, and leaves.");
@@ -810,7 +810,7 @@ void make_hiscore_npc(pmt npc, int npcid)
   }
   if (st > -1 && Objects[st].uniqueness == UNIQUE_MADE)
   {
-    ob = ((Object*)checkmalloc(sizeof(Object)));
+    ob = Object::create();
     *ob = Objects[st];
     m_pickup(npc, ob);
   }
@@ -1401,7 +1401,7 @@ char *mantype()
 void strengthen_death(monster* m)
 {
   Objectlist* ol = Objectlist::create();
-  Object* scythe = ((Object*)checkmalloc(sizeof(Object)));
+  Object* scythe = Object::create();
 #ifdef MSDOS_SUPPORTED_ANTIQUE
   unsigned tmp;
 #endif

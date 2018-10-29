@@ -45,7 +45,7 @@ Object* detach_money()
   if (c != ABORT)
   {
     player.cash -= c;
-    cash = ((Object*)checkmalloc(sizeof(Object)));
+    cash = Object::create();
     make_cash(cash, difficulty());
     cash->basevalue = c;
   }
@@ -100,7 +100,7 @@ void pickup_at(int x, int y)
     ol = ol->next;
     temp->thing = NULL;
     temp->next = NULL;
-    free((char *)temp);
+    delete temp;
   }
 }
 
@@ -190,7 +190,7 @@ void drop_at(int x, int y, Object* o)
     if ((level->site[x][y].locchar != VOID_CHAR) &&
         (level->site[x][y].locchar != ABYSS))
     {
-      cpy = ((Object*)checkmalloc(sizeof(Object)));
+      cpy = Object::create();
       tmp = Objectlist::create();
       *cpy = *o;
       cpy->used = FALSE;
@@ -212,7 +212,7 @@ void p_drop_at(int x, int y, int n, Object* o)
         (level->site[x][y].locchar != ABYSS))
     {
       tmp = Objectlist::create();
-      tmp->thing = ((Object*)checkmalloc(sizeof(Object)));
+      tmp->thing = Object::create();
       *(tmp->thing) = *o;
       tmp->thing->used = FALSE;
       tmp->thing->number = n;
@@ -419,7 +419,7 @@ void givemonster(monster* m, Object* o)
     gain_experience(2000);
     setgamestatus(GAVE_STARGEM);
     /* WDT HACK!!!  Where else would this ever get freed?? */
-    free(o);
+    delete o;
   }
   else
   {
@@ -472,7 +472,7 @@ void givemonster(monster* m, Object* o)
         else
           nprint1("...and now seems satiated.");
         morewait();
-        free((char *)o);
+        delete o;
       }
       else
       {
@@ -524,7 +524,7 @@ void dispose_lost_objects(int n, Object* obj)
       }
     }
   if (obj->number < 1)
-    free((char *)obj);
+    delete obj;
 }
 
 /* removes n of object from inventory without freeing object.
@@ -680,7 +680,7 @@ void gain_item(Object* o)
   {
     print2("You gained some cash.");
     player.cash += o->basevalue;
-    free((char *)o);
+    delete o;
     dataprint();
   }
   else if (optionp(PACKADD))
@@ -1422,7 +1422,7 @@ Object* split_item(int num, Object* item)
   Object* newitem = NULL;
   if (item != NULL)
   {
-    newitem = ((Object*)checkmalloc(sizeof(Object)));
+    newitem = Object::create();
     *newitem = *item;
     if (num <= item->number)
       newitem->number = num;
@@ -1750,7 +1750,7 @@ int find_and_remove_item(int id, int chargeval)
           player.pack[i]->number--;
           if (player.pack[i]->number == 0)
           {
-            free((char *)player.pack[i]);
+            delete player.pack[i];
             player.pack[i] = NULL;
           }
           found = TRUE;
@@ -1774,7 +1774,7 @@ void lose_all_items()
   for (i = 0; i < MAXPACK; i++)
   {
     if (player.pack[i] != NULL)
-      free((char *)player.pack[i]);
+      delete player.pack[i];
     player.pack[i] = NULL;
   }
   player.packptr = 0;
@@ -1785,7 +1785,7 @@ void lose_all_items()
 /* prevents people from wielding 3 short swords, etc. */
 void pack_extra_items(Object* item)
 {
-  Object* extra = ((Object*)checkmalloc(sizeof(Object)));
+  Object* extra = Object::create();
   *extra = *item;
   extra->number = item->number - 1;
   extra->used = FALSE;

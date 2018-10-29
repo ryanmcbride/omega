@@ -1384,6 +1384,7 @@ class Room {
 
 class Object {
   public:
+  static Object* create();
   int id,weight,plus,charge,dmg,hit,aux,number,fragility;
   long basevalue;
   unsigned char known,used;
@@ -1413,6 +1414,7 @@ class Spell {
 
 class monster {
   public:
+  static monster* create();
   int* named_id;
   Objectlist *possessions;
   unsigned char attacked;

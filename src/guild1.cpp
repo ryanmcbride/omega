@@ -73,10 +73,10 @@ void l_merc_guild()
           print2("You are now a Legionaire.");
           morewait();
           clearmsg();
-          newitem = ((Object*)checkmalloc(sizeof(Object)));
+          newitem = Object::create();
           *newitem = Objects[WEAPONID + 1]; /* shortsword */
           gain_item(newitem);
-          newitem = ((Object*)checkmalloc(sizeof(Object)));
+          newitem = Object::create();
           *newitem = Objects[ARMORID + 1]; /* leather */
           gain_item(newitem);
           player.cash += 500;
@@ -376,10 +376,10 @@ void l_arena()
       print2("Here's a wooden sword, and a shield");
       morewait();
       clearmsg();
-      newitem = ((Object*)checkmalloc(sizeof(Object)));
+      newitem = Object::create();
       *newitem = Objects[WEAPONID + 17]; /* club */
       gain_item(newitem);
-      newitem = ((Object*)checkmalloc(sizeof(Object)));
+      newitem = Object::create();
       *newitem = Objects[SHIELDID + 2]; /* shield */
       gain_item(newitem);
       player.rank[ARENA] = TRAINEE;
@@ -394,7 +394,7 @@ void l_arena()
   {
     print1("OK, we're arranging a match....");
     morewait();
-    Arena_Monster = ((pmt)checkmalloc(sizeof(montype)));
+    Arena_Monster = monster::create();
     Arena_Victory = FALSE;
     switch (Arena_Opponent)
     {
@@ -463,7 +463,7 @@ void l_arena()
         Arena_Monster->dmg = 100 + Championlevel * 2;
         Arena_Monster->xpv = Championlevel * Championlevel * 5;
         Arena_Monster->speed = 3;
-        melee = Arena_Monster->meleestr = (char *)checkmalloc(30 * sizeof(char));
+        melee = Arena_Monster->meleestr = new char[30];
         strcpy(Arena_Monster->meleestr, "");
         for (i = 0; i < Championlevel / 5; i++)
           strcat(Arena_Monster->meleestr, "L?R?");
@@ -525,7 +525,7 @@ void l_arena()
     /* free(corpse); */
 
     if (melee)
-      free(melee);
+      delete[] melee;
     if (!Arena_Victory)
     {
       print1("The crowd boos your craven behavior!!!");
@@ -557,7 +557,7 @@ void l_arena()
           save_hiscore_npc(11);
           print1("You are awarded the Champion's Spear: Victrix!");
           morewait();
-          newitem = ((Object*)checkmalloc(sizeof(Object)));
+          newitem = Object::create();
           *newitem = Objects[WEAPONID + 35];
           gain_item(newitem);
         }

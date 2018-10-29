@@ -190,7 +190,7 @@ void make_food_bin(int i, int j)
   for (k = 0; k < 10; k++)
   {
     tol = Objectlist::create();
-    tol->thing = ((Object*)checkmalloc(sizeof(Object)));
+    tol->thing = Object::create();
     make_food(tol->thing, 15); /* grain */
     tol->next = level->site[i][j].things;
     level->site[i][j].things = tol;

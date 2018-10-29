@@ -224,7 +224,7 @@ void buyfromstock(int base, int numitems)
 	if (item != ESCAPE)
 	{
 		i = item - 'a';
-		newitem = ((Object*)checkmalloc(sizeof(Object)));
+		newitem = Object::create();
 		*newitem = Objects[base + i];
 		newitem->known = 2;
 		clearmsg();
@@ -236,7 +236,7 @@ void buyfromstock(int base, int numitems)
 			if (player.cash < 2 * true_item_value(newitem))
 			{
 				print2("Why not try again some time you have the cash?");
-				free((char *)newitem);
+				delete newitem;
 			}
 			else
 			{
@@ -246,7 +246,7 @@ void buyfromstock(int base, int numitems)
 			}
 		}
 		else
-			free((char *)newitem);
+			delete newitem;
 	}
 }
 
@@ -690,7 +690,7 @@ void l_commandant()
 		else
 		{
 			player.cash -= num * 5;
-			food = ((Object*)checkmalloc(sizeof(Object)));
+			food = Object::create();
 			*food = Objects[FOODID + 0]; /* food ration */
 			food->number = num;
 			if (num == 1)
@@ -1179,7 +1179,7 @@ void l_pawn_shop()
 				if (Objects[Pawnitems[0]->id].uniqueness > UNIQUE_UNMADE)
 					Objects[Pawnitems[0]->id].uniqueness = UNIQUE_UNMADE;
 				/* could turn up anywhere, really :) */
-				free((char *)Pawnitems[0]);
+				delete Pawnitems[0];
 				Pawnitems[0] = NULL;
 			}
 			for (i = 0; i < PAWNITEMS - 1; i++)
@@ -1190,7 +1190,7 @@ void l_pawn_shop()
 					do
 					{
 						if (Pawnitems[i] != NULL)
-							free(Pawnitems[i]);
+							delete Pawnitems[i];
 						Pawnitems[i] = create_object(5);
 						Pawnitems[i]->known = 2;
 					} while ((Pawnitems[i]->objchar == CASH) ||
@@ -1231,7 +1231,7 @@ void l_pawn_shop()
 					{
 						print1("Hmm, how did that junk get on my shelves?");
 						print2("I'll just remove it.");
-						free((char *)Pawnitems[i]);
+						delete Pawnitems[i];
 						Pawnitems[i] = NULL;
 					}
 					else
@@ -1295,10 +1295,10 @@ void l_pawn_shop()
 								item_use(player.possessions[i]);
 							}
 							player.cash += number * item_value(player.possessions[i]) / 2;
-							free((char *)Pawnitems[0]);
+							delete Pawnitems[0];
 							for (j = 0; j < PAWNITEMS - 1; j++)
 								Pawnitems[j] = Pawnitems[j + 1];
-							Pawnitems[PAWNITEMS - 1] = ((Object*)checkmalloc(sizeof(Object)));
+							Pawnitems[PAWNITEMS - 1] = Object::create();
 							*(Pawnitems[PAWNITEMS - 1]) = *(player.possessions[i]);
 							Pawnitems[PAWNITEMS - 1]->number = number;
 							Pawnitems[PAWNITEMS - 1]->known = 2;
@@ -1327,17 +1327,17 @@ void l_pawn_shop()
 							if (number > 0)
 							{
 								player.cash += number * item_value(player.pack[i]) / 2;
-								free((char *)Pawnitems[0]);
+								delete Pawnitems[0];
 								for (j = 0; j < PAWNITEMS - 1; j++)
 									Pawnitems[j] = Pawnitems[j + 1];
-								Pawnitems[PAWNITEMS - 1] = ((Object*)checkmalloc(sizeof(Object)));
+								Pawnitems[PAWNITEMS - 1] = Object::create();
 								*(Pawnitems[PAWNITEMS - 1]) = *(player.pack[i]);
 								Pawnitems[PAWNITEMS - 1]->number = number;
 								Pawnitems[PAWNITEMS - 1]->known = 2;
 								player.pack[i]->number -= number;
 								if (player.pack[i]->number < 1)
 								{
-									free((char *)player.pack[i]);
+									delete player.pack[i];
 									player.pack[i] = NULL;
 								}
 								dataprint();

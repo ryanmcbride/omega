@@ -469,7 +469,7 @@ void assign_city_function(int x, int y)
 void make_justiciar(int i, int j)
 {
   Monsterlist* ml = Monsterlist::create();
-  ml->m = ((pmt)checkmalloc(sizeof(montype)));
+  ml->m = monster::create();
   *(ml->m) = Monsters[NPC];
   make_hiscore_npc(ml->m, 15);
   ml->m->x = i;

@@ -12,7 +12,7 @@ Object* create_object(int itemlevel)
 
   while (!ok)
   {
-    new_obj = ((Object*)checkmalloc(sizeof(Object)));
+    new_obj = Object::create();
     r = random_range(135);
     if (r < 20)
       make_thing(new_obj, -1);
@@ -44,7 +44,7 @@ Object* create_object(int itemlevel)
           ((new_obj->level < itemlevel + random_range(3)) || (random_range(100) == 23)));
     if (!ok)
     {
-      free((char *)new_obj);
+      delete new_obj;
     }
   }
   if (new_obj->uniqueness == UNIQUE_UNMADE)

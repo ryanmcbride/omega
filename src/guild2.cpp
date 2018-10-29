@@ -94,7 +94,7 @@ void l_thieves_guild()
 							print2("You are taught the spell of Object Detection.");
 							morewait();
 							Spells[S_OBJ_DET].known = TRUE;
-							lockpick = ((Object*)checkmalloc(sizeof(Object)));
+							lockpick = Object::create();
 							*lockpick = Objects[THINGID + 2]; /* lock pick */
 							gain_item(lockpick);
 							player.cash -= dues;
@@ -286,7 +286,7 @@ void l_thieves_guild()
 										/* Fenced an artifact?  You just might see it again. */
 										if (Objects[player.pack[i]->id].uniqueness > UNIQUE_UNMADE)
 											Objects[player.pack[i]->id].uniqueness = UNIQUE_UNMADE;
-										free((char *)player.pack[i]);
+										delete player.pack[i];
 										player.pack[i] = NULL;
 									}
 									dataprint();
@@ -745,7 +745,7 @@ void l_order()
 		clearmsg();
 		print1("You are awarded a blessed shield of deflection!");
 		morewait();
-		newitem = ((Object*)checkmalloc(sizeof(Object)));
+		newitem = Object::create();
 		*newitem = Objects[SHIELDID + 7]; /* shield of deflection */
 		newitem->blessing = 9;
 		gain_item(newitem);
@@ -793,7 +793,7 @@ void l_order()
 				player.rank[ORDER] = GALLANT;
 				player.guildxp[ORDER] = 1;
 				setgamestatus(MOUNTED);
-				newitem = ((Object*)checkmalloc(sizeof(Object)));
+				newitem = Object::create();
 				*newitem = Objects[WEAPONID + 19]; /* spear */
 				newitem->blessing = 9;
 				newitem->plus = 1;
@@ -841,7 +841,7 @@ void l_order()
 				print1("You are made a Paladin of the Order!");
 				print2("You learn the Spell of Heroism and get Mithril Plate!");
 				morewait();
-				newitem = ((Object*)checkmalloc(sizeof(Object)));
+				newitem = Object::create();
 				*newitem = Objects[ARMORID + 11]; /* mithril plate armor */
 				newitem->blessing = 9;
 				newitem->known = 2;
@@ -874,7 +874,7 @@ void l_order()
 				print2("You are given a Mace of Disruption!");
 				morewait();
 				clearmsg();
-				newitem = ((Object*)checkmalloc(sizeof(Object)));
+				newitem = Object::create();
 				*newitem = Objects[WEAPONID + 25]; /* mace of disruption */
 				newitem->known = 2;
 				gain_item(newitem);
@@ -896,7 +896,7 @@ void l_order()
 				morewait();
 				clearmsg();
 				player.rank[ORDER] = GUARDIAN;
-				newitem = ((Object*)checkmalloc(sizeof(Object)));
+				newitem = Object::create();
 				*newitem = Objects[ARTIFACTID + 7]; /* holy hand grenade. */
 				newitem->known = 2;
 				gain_item(newitem);

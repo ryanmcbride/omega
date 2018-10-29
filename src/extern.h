@@ -1064,7 +1064,6 @@ int ok_to_free ARGS((Level*));
 void free_level ARGS((Level*));
 void free_mons_and_objs ARGS((Monsterlist*));
 void free_objlist ARGS((Objectlist*));
-void *checkmalloc ARGS((unsigned int));
 int random_range ARGS((int));
 int screenmod ARGS((int));
 int showhour ARGS((void));

@@ -67,7 +67,7 @@ void make_country_monsters(Symbol terrain)
   for (i = 0; i < nummonsters; i++)
   {
     tml = Monsterlist::create();
-    tml->m = ((pmt)checkmalloc(sizeof(montype)));
+    tml->m = monster::create();
     if (monsters == NULL)
       tml->m =
           m_create(random_range(WIDTH), random_range(LENGTH), TRUE, difficulty());
@@ -509,7 +509,7 @@ pmt m_create(int x, int y, int kind, int level)
 /* make creature allocates space for the creature */
 pmt make_creature(int mid)
 {
-  pmt newmonster = ((pmt)checkmalloc(sizeof(montype)));
+  pmt newmonster = monster::create();
   Object* ob;
   int i, treasures;
 
@@ -590,7 +590,7 @@ pmt make_creature(int mid)
     if (newmonster->startthing > -1 &&
         Objects[newmonster->startthing].uniqueness <= UNIQUE_MADE)
     {
-      ob = ((Object*)checkmalloc(sizeof(Object)));
+      ob = Object::create();
       *ob = Objects[newmonster->startthing];
       m_pickup(newmonster, ob);
     }
@@ -603,7 +603,7 @@ pmt make_creature(int mid)
         if (ob->uniqueness != COMMON)
         {
           Objects[ob->id].uniqueness = UNIQUE_UNMADE;
-          free(ob);
+          delete ob;
           ob = NULL;
         }
       } while (!ob);
@@ -631,7 +631,7 @@ void stock_level()
     i = random_range(WIDTH);
     j = random_range(LENGTH);
     level->site[i][j].things = Objectlist::create();
-    level->site[i][j].things->thing = ((Object*)checkmalloc(sizeof(Object)));
+    level->site[i][j].things->thing = Object::create();
     make_cash(level->site[i][j].things->thing, difficulty());
     level->site[i][j].things->next = NULL;
     /* caves have more random cash strewn around */
@@ -640,13 +640,13 @@ void stock_level()
       i = random_range(WIDTH);
       j = random_range(LENGTH);
       level->site[i][j].things = Objectlist::create();
-      level->site[i][j].things->thing = ((Object*)checkmalloc(sizeof(Object)));
+      level->site[i][j].things->thing = Object::create();
       make_cash(level->site[i][j].things->thing, difficulty());
       level->site[i][j].things->next = NULL;
       i = random_range(WIDTH);
       j = random_range(LENGTH);
       level->site[i][j].things = Objectlist::create();
-      level->site[i][j].things->thing = ((Object*)checkmalloc(sizeof(Object)));
+      level->site[i][j].things->thing = Object::create();
       make_cash(level->site[i][j].things->thing, difficulty());
       level->site[i][j].things->next = NULL;
     }
@@ -669,7 +669,7 @@ void make_specific_treasure(int i, int j, int itemid)
   if (Objects[itemid].uniqueness == UNIQUE_TAKEN)
     return;
   tmp = Objectlist::create();
-  tmp->thing = ((Object*)checkmalloc(sizeof(Object)));
+  tmp->thing = Object::create();
   *(tmp->thing) = Objects[itemid];
   tmp->next = level->site[i][j].things;
   level->site[i][j].things = tmp;

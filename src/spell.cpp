@@ -306,7 +306,7 @@ void s_ritual()
               if ((player.rank[PRIESTHOOD] < SPRIEST) &&
                   (!find_item(&symbol, ARTIFACTID + 19, -1)))
               {
-                symbol = ((Object*)checkmalloc(sizeof(Object)));
+                symbol = Object::create();
                 *symbol = Objects[ARTIFACTID + 19];
                 symbol->known = 2;
                 symbol->charge = 17;

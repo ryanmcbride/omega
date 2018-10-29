@@ -473,7 +473,7 @@ void i_orbearth(Object* o)
       for (i = 0; i < MAXPACK; i++)
         if (player.pack[i] != NULL)
         {
-          free((char *)player.pack[i]);
+          delete player.pack[i];
           player.pack[i] = NULL;
         }
       player.packptr = 0;

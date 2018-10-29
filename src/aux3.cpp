@@ -187,7 +187,7 @@ void outdoors_random_event()
     morewait();
     mprint("Using your herbalist lore you cook a cake of lembas....");
     morewait();
-    ob = ((Object*)checkmalloc(sizeof(Object)));
+    ob = Object::create();
     *ob = Objects[FOODID + 1];
     gain_item(ob);
     break;
@@ -283,7 +283,7 @@ void outdoors_random_event()
     {
       mprint("A tendril of the storm condenses and falls into your hands.");
       morewait();
-      ob = ((Object*)checkmalloc(sizeof(Object)));
+      ob = Object::create();
       make_artifact(ob, -1);
       gain_item(ob);
     }
@@ -1114,7 +1114,7 @@ int stonecheck(int alignment)
     for (i = 0; i < MAXPACK; i++)
       if (player.pack[i] != NULL)
       {
-        free((char *)player.pack[i]);
+        delete player.pack[i];
         player.pack[i] = NULL;
       }
     player.packptr = 0;
