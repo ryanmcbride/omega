@@ -1397,8 +1397,10 @@ class Object {
 
 class Objectlist {
   public:
+  static Objectlist* create();
   Object *thing;
   Objectlist *next;
+  void free();
 };
 
 class Spell {
@@ -1429,8 +1431,10 @@ class monster {
 
 class Monsterlist {
   public:
+  static Monsterlist* create();
   monster *m;
   Monsterlist *next;
+  void free();
 };
 
 class Player {

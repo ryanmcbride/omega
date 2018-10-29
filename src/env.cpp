@@ -228,7 +228,7 @@ void make_prime(int i, int j)
 
   if (Objects[ARTIFACTID + 21].uniqueness != UNIQUE_TAKEN)
   {
-    ol = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
+    ol = Objectlist::create();
     o = ((Object*)checkmalloc(sizeof(Object)));
     *o = Objects[ARTIFACTID + 21];
     ol->thing = o;

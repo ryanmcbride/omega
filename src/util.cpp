@@ -780,6 +780,20 @@ int ok_to_free(Level* level)
             (level->environment != Current_Dungeon));
 }
 
+Objectlist* Objectlist::create(){
+  return new Objectlist;
+}
+void Objectlist::free(){
+  auto pobjlist = this;
+  Objectlist* tmp;
+  while (pobjlist)
+  {
+    ::free(pobjlist->thing);//freeing the object
+    tmp = pobjlist;
+    pobjlist = pobjlist->next;
+    delete tmp;
+  }
+}
 void free_objlist(Objectlist* pobjlist)
 {
   Objectlist* tmp;
@@ -791,14 +805,28 @@ void free_objlist(Objectlist* pobjlist)
     free(tmp);
   }
 }
-
+Monsterlist* Monsterlist::create(){
+  return new Monsterlist;
+}
+void Monsterlist::free(){
+  Monsterlist* tmp;
+  auto mlist = this;
+  while (mlist)
+  {
+    mlist->m->possessions->free();
+    tmp = mlist;
+    ::free(tmp->m);
+    mlist = mlist->next;
+    ::free(tmp);
+  }
+}
 void free_mons_and_objs(Monsterlist* mlist)
 {
   Monsterlist* tmp;
 
   while (mlist)
   {
-    free_objlist((tmp = mlist)->m->possessions);
+    (tmp = mlist)->m->possessions->free();
     free(tmp->m);
     mlist = mlist->next;
     free(tmp);
@@ -815,7 +843,7 @@ void free_level(Level* level)
     for (j = 0; j < MAXLENGTH; j++)
       if (level->site[i][j].things)
       {
-        free_objlist(level->site[i][j].things);
+        level->site[i][j].things->free();
         level->site[i][j].things = NULL;
       }
 #ifndef SAVE_LEVELS

@@ -191,7 +191,7 @@ void drop_at(int x, int y, Object* o)
         (level->site[x][y].locchar != ABYSS))
     {
       cpy = ((Object*)checkmalloc(sizeof(Object)));
-      tmp = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
+      tmp = Objectlist::create();
       *cpy = *o;
       cpy->used = FALSE;
       tmp->thing = cpy;
@@ -211,7 +211,7 @@ void p_drop_at(int x, int y, int n, Object* o)
     if ((level->site[x][y].locchar != VOID_CHAR) &&
         (level->site[x][y].locchar != ABYSS))
     {
-      tmp = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
+      tmp = Objectlist::create();
       tmp->thing = ((Object*)checkmalloc(sizeof(Object)));
       *(tmp->thing) = *o;
       tmp->thing->used = FALSE;
@@ -1394,7 +1394,7 @@ void put_to_pack(int slot)
   int waitflag, num = 1;
   Object* temp;;
   Object* oslot = player.possessions[slot];
-  
+
   if (oslot == NULL)
     print3("Slot is empty!");
   else if (cursed(oslot) == TRUE + TRUE)

@@ -630,7 +630,7 @@ void stock_level()
     make_site_treasure(i, j, difficulty());
     i = random_range(WIDTH);
     j = random_range(LENGTH);
-    level->site[i][j].things = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
+    level->site[i][j].things = Objectlist::create();
     level->site[i][j].things->thing = ((Object*)checkmalloc(sizeof(Object)));
     make_cash(level->site[i][j].things->thing, difficulty());
     level->site[i][j].things->next = NULL;
@@ -639,13 +639,13 @@ void stock_level()
     {
       i = random_range(WIDTH);
       j = random_range(LENGTH);
-      level->site[i][j].things = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
+      level->site[i][j].things = Objectlist::create();
       level->site[i][j].things->thing = ((Object*)checkmalloc(sizeof(Object)));
       make_cash(level->site[i][j].things->thing, difficulty());
       level->site[i][j].things->next = NULL;
       i = random_range(WIDTH);
       j = random_range(LENGTH);
-      level->site[i][j].things = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
+      level->site[i][j].things = Objectlist::create();
       level->site[i][j].things->thing = ((Object*)checkmalloc(sizeof(Object)));
       make_cash(level->site[i][j].things->thing, difficulty());
       level->site[i][j].things->next = NULL;
@@ -656,7 +656,7 @@ void stock_level()
 /* make a new object (of at most level itemlevel) at site i,j on level*/
 void make_site_treasure(int i, int j, int itemlevel)
 {
-  Objectlist* tmp = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
+  Objectlist* tmp = Objectlist::create();
   tmp->thing = ((Object*)create_object(itemlevel));
   tmp->next = level->site[i][j].things;
   level->site[i][j].things = tmp;
@@ -668,7 +668,7 @@ void make_specific_treasure(int i, int j, int itemid)
   Objectlist* tmp;
   if (Objects[itemid].uniqueness == UNIQUE_TAKEN)
     return;
-  tmp = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
+  tmp = Objectlist::create();
   tmp->thing = ((Object*)checkmalloc(sizeof(Object)));
   *(tmp->thing) = Objects[itemid];
   tmp->next = level->site[i][j].things;

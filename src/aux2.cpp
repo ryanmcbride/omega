@@ -649,7 +649,7 @@ void p_drown()
         if (level->site[player.x][player.y].p_locf == L_WATER && level->site[player.x][player.y].things)
         {
           mprint("It sinks without a trace.");
-          free_objlist(level->site[player.x][player.y].things);
+          level->site[player.x][player.y].things->free();
           level->site[player.x][player.y].things = NULL;
         }
         break;

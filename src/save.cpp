@@ -768,7 +768,7 @@ Objectlist* restore_itemlist(FILE* fd, int version)
   fread((char *)&numitems, sizeof(int), 1, fd);
   for (i = 0; i < numitems; i++)
   {
-    new_obj = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
+    new_obj = Objectlist::create();
     new_obj->thing = restore_item(fd, version);
     new_obj->next = NULL;
     if (firsttime == TRUE)

@@ -73,7 +73,7 @@ void l_condo()
             print2("The item just doesn't want to be stored away...");
           else
           {
-            ol = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
+            ol = Objectlist::create();
             ol->thing = player.possessions[i];
             ol->next = Condoitems;
             Condoitems = ol;

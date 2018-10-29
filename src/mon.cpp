@@ -86,7 +86,7 @@ void movemonster(monster* m, int newx, int newy)
 /* give object o to monster m */
 void m_pickup(monster* m, Object* o)
 {
-  Objectlist* tmp = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
+  Objectlist* tmp = Objectlist::create();
   tmp->thing = o;
   tmp->next = m->possessions;
   m->possessions = tmp;
@@ -1400,7 +1400,7 @@ char *mantype()
 
 void strengthen_death(monster* m)
 {
-  Objectlist* ol = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
+  Objectlist* ol = Objectlist::create();
   Object* scythe = ((Object*)checkmalloc(sizeof(Object)));
 #ifdef MSDOS_SUPPORTED_ANTIQUE
   unsigned tmp;

@@ -107,7 +107,7 @@ void indoors_random_event()
   case 10:
     print3("You trip over something hidden in a shadow...");
     morewait();
-    ol = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
+    ol = Objectlist::create();
     ol->thing = create_object(difficulty()); /* FIXED!  12/30/98 */
     assert(ol->thing);                       /* WDT I want to make sure... */
     ol->next = level->site[player.x][player.y].things;
