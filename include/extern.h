@@ -213,6 +213,7 @@ void mondet ARGS((int));
 void nbolt ARGS((int,int,int,int,int,int));
 void objdet ARGS((int));
 void snowball ARGS((int,int,int,int,int));
+void icebolt ARGS((int,int,int,int,int,int));
 void wish ARGS((int));
 
 /* effect2.c functions */
@@ -924,6 +925,7 @@ void spreadroomlight ARGS((int,int,int));
 void timeprint ARGS((void));
 void title ARGS((void));
 void xredraw ARGS((void));
+void omega_title();
 
 /* site1.c functions */
 

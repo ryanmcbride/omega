@@ -3,7 +3,12 @@
         "*.tpp": "cpp",
         "glob.h": "c",
         "curses.h": "c",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "__split_buffer": "cpp",
+        "iterator": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "vector": "cpp"
     },
     "terminal.integrated.shell.windows": "cmd.exe"
 }
