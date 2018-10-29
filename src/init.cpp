@@ -459,187 +459,186 @@ extern "C"
 {
   struct monster *Monsters;
 
-  const int ML0 = 0;
-  const int NML_0 = 9;
-  const int ML1 = (ML0 + NML_0); /* 9 */
-  const int NML_1 = 22;
-  const int ML2 = (ML1 + NML_1); /* 31 */
-  const int NML_2 = 14;
-  const int ML3 = (ML2 + NML_2); /* 45 */
-  const int NML_3 = 15;
-  const int ML4 = (ML3 + NML_3); /* 60 */
-  const int NML_4 = 18;
-  const int ML5 = (ML4 + NML_4); /* 78 */
-  const int NML_5 = 14;
-  const int ML6 = (ML5 + NML_5); /* 92 */
-  const int NML_6 = 13;
-  const int ML7 = (ML6 + NML_6); /* 105 */
-  const int NML_7 = 15;
-  const int ML8 = (ML7 + NML_7); /* 120 */
-  const int NML_8 = 12;
-  const int ML9 = (ML8 + NML_8); /* 132 */
-  const int NML_9 = 8;
-  const int ML10 = (ML9 + NML_9); /* 140 */
-  const int NML_10 = 10;
+  int ML0 = 0;
+  int NML_0 = 9;
+  int ML1 = (ML0 + NML_0); /* 9 */
+  int NML_1 = 22;
+  int ML2 = (ML1 + NML_1); /* 31 */
+  int NML_2 = 14;
+  int ML3 = (ML2 + NML_2); /* 45 */
+  int NML_3 = 15;
+  int ML4 = (ML3 + NML_3); /* 60 */
+  int NML_4 = 18;
+  int ML5 = (ML4 + NML_4); /* 78 */
+  int NML_5 = 14;
+  int ML6 = (ML5 + NML_5); /* 92 */
+  int NML_6 = 13;
+  int ML7 = (ML6 + NML_6); /* 105 */
+  int NML_7 = 15;
+  int ML8 = (ML7 + NML_7); /* 120 */
+  int NML_8 = 12;
+  int ML9 = (ML8 + NML_8); /* 132 */
+  int NML_9 = 8;
+  int ML10 = (ML9 + NML_9); /* 140 */
+  int NML_10 = 10;
 
-  const int NUMMONSTERS = (ML10 + NML_10); /* 150 */
+  int NUMMONSTERS = (ML10 + NML_10); /* 150 */
 
-  const int RANDOM = -1;
-  const int HORNET = (ML0 + 0);
-  const int MEND_PRIEST = (ML0 + 1);
-  const int ITIN_MERCH = (ML0 + 2);
-  const int GUARD = (ML0 + 3);
-  const int NPC = (ML0 + 4);
-  const int SHEEP = (ML0 + 5);
-  const int MERCHANT = (ML0 + 6);
-  const int ZERO_NPC = (ML0 + 7);
-  const int HISCORE_NPC = (ML0 + 8);
-  const int GRUNT = (ML1 + 0);
-  const int TSETSE = (ML1 + 1);
-  const int FNORD = (ML1 + 2);
-  const int SEWER_RAT = (ML1 + 3);
-  const int AGGRAVATOR = (ML1 + 4);
-  const int BLIPPER = (ML1 + 5);
-  const int GOBLIN = (ML1 + 6);
-  const int PHANTASTICON = (ML1 + 7);
-  const int ROBOT = (ML1 + 8);
-  const int GEEK = (ML1 + 9);
-  const int BOROGROVE = (ML1 + 10);
-  const int QUAIL = (ML1 + 11);
-  const int BADGER = (ML1 + 12);
-  const int HAWK = (ML1 + 13);
-  const int DEER = (ML1 + 14);
-  const int CAMEL = (ML1 + 15);
-  const int ANTEATER = (ML1 + 16);
-  const int BUNNY = (ML1 + 17);
-  const int TROUT = (ML1 + 18);
-  const int BASS = (ML1 + 19);
-  const int PARROT = (ML1 + 20);
-  const int HYENA = (ML1 + 21);
-  const int APPR_NINJA = (ML2 + 0);
-  const int NIGHT_GAUNT = (ML2 + 1);
-  const int SNEAK_THIEF = (ML2 + 2);
-  const int EYE = (ML2 + 3);
-  const int TOVE = (ML2 + 4);
-  const int NASTY = (ML2 + 5);
-  const int GHOST = (ML2 + 6);
-  const int ENCHANTOR = (ML2 + 7); /* use 'OR' to avoid conflict with circle rank */
-  const int MURK = (ML2 + 8);
-  const int GOBLIN_CHIEF = (ML2 + 9);
-  const int WOLF = (ML2 + 10);
-  const int ANT = (ML2 + 11);
-  const int ELEPHANT = (ML2 + 12);
-  const int HORSE = (ML2 + 13);
-  const int SALAMANDER = (ML3 + 0);
-  const int CATOBLEPAS = (ML3 + 1);
-  const int L_FDEMON = (ML3 + 2);
-  const int ACID_CLOUD = (ML3 + 3);
-  const int PHANTOM = (ML3 + 4);
-  const int GOBLIN_KING = (ML3 + 5);
-  const int PTERODACTYL = (ML3 + 6);
-  const int GOBLIN_SHAMAN = (ML3 + 7);
-  const int LION = (ML3 + 8);
-  const int BRIGAND = (ML3 + 9);
-  const int BEAR = (ML3 + 10);
-  const int MAMBA = (ML3 + 11);
-  const int MANOWAR = (ML3 + 12);
-  const int WEREHUMAN = (ML3 + 13);
-  const int THOUGHTFORM = (ML3 + 14);
-  const int MANTICORE = (ML4 + 0);
-  const int TASMANIAN = (ML4 + 1);
-  const int AUTO_MINOR = (ML4 + 2);
-  const int DENEBIAN = (ML4 + 3);
-  const int JUBJUB = (ML4 + 4);
-  const int HAUNT = (ML4 + 5);
-  const int INCUBUS = (ML4 + 6);
-  const int SATYR = (ML4 + 7);
-  const int CROC = (ML4 + 8);
-  const int TORPOR = (ML4 + 9);
-  const int DOBERMAN = (ML4 + 10);
-  const int FUZZY = (ML4 + 11);
-  const int SERV_LAW = (ML4 + 12);
-  const int SERV_CHAOS = (ML4 + 13);
-  const int SWARM = (ML4 + 14);
-  const int BAN_SIDHE = (ML4 + 15);
-  const int GRUE = (ML4 + 16);
-  const int GENIN = (ML4 + 17);
-  const int DRAGONETTE = (ML5 + 0);
-  const int TESLA = (ML5 + 1);
-  const int WYVERN = (ML5 + 2);
-  const int CATEAGLE = (ML5 + 3);
-  const int FROST_DEMON = (ML5 + 4);
-  const int SPECTRE = (ML5 + 5);
-  const int NECROMANCER = (ML5 + 6);
-  const int SHADOW = (ML5 + 7);
-  const int BOGTHING = (ML5 + 8);
-  const int ASTRAL_VAMP = (ML5 + 9);
-  const int LAVA_WORM = (ML5 + 10);
-  const int MANABURST = (ML5 + 11);
-  const int OUTER_DEMON = (ML5 + 12);
-  const int MIRRORSHADE = (ML5 + 13);
-  const int FIRE_ELEM = (ML6 + 0);
-  const int AIR_ELEM = (ML6 + 1);
-  const int WATER_ELEM = (ML6 + 2);
-  const int EARTH_ELEM = (ML6 + 3);
-  const int BANDERSNATCH = (ML6 + 4);
-  const int LICHE = (ML6 + 5);
-  const int TRITON = (ML6 + 6);
-  const int MAST_THIEF = (ML6 + 7);
-  const int TRICER = (ML6 + 8);
-  const int RAKSHASA = (ML6 + 9);
-  const int DEMON_SERP = (ML6 + 10);
-  const int ANGEL = (ML6 + 11);
-  const int CHUNIN = (ML6 + 12);
-  const int BEHEMOTH = (ML7 + 0);
-  const int NAZGUL = (ML7 + 1);
-  const int UNICORN = (ML7 + 2);
-  const int ROUS = (ML7 + 3);
-  const int ILL_FIEND = (ML7 + 4);
-  const int GREAT_WYRM = (ML7 + 5);
-  const int FLAME_DEV = (ML7 + 6);
-  const int LURKER = (ML7 + 7);
-  const int SANDMAN = (ML7 + 8);
-  const int MIRRORMAST = (ML7 + 9);
-  const int ELDER_GRUE = (ML7 + 10);
-  const int LOATHLY = (ML7 + 11);
-  const int ZOMBIE = (ML7 + 12);
-  const int RICOCHET = (ML7 + 13);
-  const int INNER_DEMON = (ML7 + 14);
-  const int GOOD_FAIRY = (ML8 + 0);
-  const int BAD_FAIRY = (ML8 + 1);
-  const int AUTO_MAJOR = (ML8 + 2);
-  const int DRAGON = (ML8 + 3);
-  const int JABBERWOCK = (ML8 + 4);
-  const int FDEMON_L = (ML8 + 5);
-  const int TIGERSHARK = (ML8 + 6);
-  const int JONIN = (ML8 + 7);
-  const int SHADOW_SLAY = (ML8 + 8);
-  const int MIL_PRIEST = (ML8 + 9);
-  const int COMA = (ML8 + 10);
-  const int HIGH_ANGEL = (ML8 + 11);
-  const int JOTUN = (ML9 + 0);
-  const int INVIS_SLAY = (ML9 + 1);
-  const int KING_WYV = (ML9 + 2);
-  const int DEATHSTAR = (ML9 + 3);
-  const int THAUMATURGIST = (ML9 + 4);
-  const int VAMP_LORD = (ML9 + 5);
-  const int ARCHANGEL = (ML9 + 6);
-  const int DEMON_PRINCE = (ML9 + 7);
-  const int DEATH = (ML10 + 0);
-  const int EATER = (ML10 + 1);
-  const int LAWBRINGER = (ML10 + 2);
-  const int DRAGON_LORD = (ML10 + 3);
-  const int DEMON_EMP = (ML10 + 4);
-  const int LORD_EARTH = (ML10 + 5);
-  const int LORD_AIR = (ML10 + 6);
-  const int LORD_WATER = (ML10 + 7);
-  const int LORD_FIRE = (ML10 + 8);
-  const int ELEM_MASTER = (ML10 + 9);
+  int RANDOM = -1;
+  int HORNET = (ML0 + 0);
+  int MEND_PRIEST = (ML0 + 1);
+  int ITIN_MERCH = (ML0 + 2);
+  int GUARD = (ML0 + 3);
+  int NPC = (ML0 + 4);
+  int SHEEP = (ML0 + 5);
+  int MERCHANT = (ML0 + 6);
+  int ZERO_NPC = (ML0 + 7);
+  int HISCORE_NPC = (ML0 + 8);
+  int GRUNT = (ML1 + 0);
+  int TSETSE = (ML1 + 1);
+  int FNORD = (ML1 + 2);
+  int SEWER_RAT = (ML1 + 3);
+  int AGGRAVATOR = (ML1 + 4);
+  int BLIPPER = (ML1 + 5);
+  int GOBLIN = (ML1 + 6);
+  int PHANTASTICON = (ML1 + 7);
+  int ROBOT = (ML1 + 8);
+  int GEEK = (ML1 + 9);
+  int BOROGROVE = (ML1 + 10);
+  int QUAIL = (ML1 + 11);
+  int BADGER = (ML1 + 12);
+  int HAWK = (ML1 + 13);
+  int DEER = (ML1 + 14);
+  int CAMEL = (ML1 + 15);
+  int ANTEATER = (ML1 + 16);
+  int BUNNY = (ML1 + 17);
+  int TROUT = (ML1 + 18);
+  int BASS = (ML1 + 19);
+  int PARROT = (ML1 + 20);
+  int HYENA = (ML1 + 21);
+  int APPR_NINJA = (ML2 + 0);
+  int NIGHT_GAUNT = (ML2 + 1);
+  int SNEAK_THIEF = (ML2 + 2);
+  int EYE = (ML2 + 3);
+  int TOVE = (ML2 + 4);
+  int NASTY = (ML2 + 5);
+  int GHOST = (ML2 + 6);
+  int ENCHANTOR = (ML2 + 7); /* use 'OR' to avoid conflict with circle rank */
+  int MURK = (ML2 + 8);
+  int GOBLIN_CHIEF = (ML2 + 9);
+  int WOLF = (ML2 + 10);
+  int ANT = (ML2 + 11);
+  int ELEPHANT = (ML2 + 12);
+  int HORSE = (ML2 + 13);
+  int SALAMANDER = (ML3 + 0);
+  int CATOBLEPAS = (ML3 + 1);
+  int L_FDEMON = (ML3 + 2);
+  int ACID_CLOUD = (ML3 + 3);
+  int PHANTOM = (ML3 + 4);
+  int GOBLIN_KING = (ML3 + 5);
+  int PTERODACTYL = (ML3 + 6);
+  int GOBLIN_SHAMAN = (ML3 + 7);
+  int LION = (ML3 + 8);
+  int BRIGAND = (ML3 + 9);
+  int BEAR = (ML3 + 10);
+  int MAMBA = (ML3 + 11);
+  int MANOWAR = (ML3 + 12);
+  int WEREHUMAN = (ML3 + 13);
+  int THOUGHTFORM = (ML3 + 14);
+  int MANTICORE = (ML4 + 0);
+  int TASMANIAN = (ML4 + 1);
+  int AUTO_MINOR = (ML4 + 2);
+  int DENEBIAN = (ML4 + 3);
+  int JUBJUB = (ML4 + 4);
+  int HAUNT = (ML4 + 5);
+  int INCUBUS = (ML4 + 6);
+  int SATYR = (ML4 + 7);
+  int CROC = (ML4 + 8);
+  int TORPOR = (ML4 + 9);
+  int DOBERMAN = (ML4 + 10);
+  int FUZZY = (ML4 + 11);
+  int SERV_LAW = (ML4 + 12);
+  int SERV_CHAOS = (ML4 + 13);
+  int SWARM = (ML4 + 14);
+  int BAN_SIDHE = (ML4 + 15);
+  int GRUE = (ML4 + 16);
+  int GENIN = (ML4 + 17);
+  int DRAGONETTE = (ML5 + 0);
+  int TESLA = (ML5 + 1);
+  int WYVERN = (ML5 + 2);
+  int CATEAGLE = (ML5 + 3);
+  int FROST_DEMON = (ML5 + 4);
+  int SPECTRE = (ML5 + 5);
+  int NECROMANCER = (ML5 + 6);
+  int SHADOW = (ML5 + 7);
+  int BOGTHING = (ML5 + 8);
+  int ASTRAL_VAMP = (ML5 + 9);
+  int LAVA_WORM = (ML5 + 10);
+  int MANABURST = (ML5 + 11);
+  int OUTER_DEMON = (ML5 + 12);
+  int MIRRORSHADE = (ML5 + 13);
+  int FIRE_ELEM = (ML6 + 0);
+  int AIR_ELEM = (ML6 + 1);
+  int WATER_ELEM = (ML6 + 2);
+  int EARTH_ELEM = (ML6 + 3);
+  int BANDERSNATCH = (ML6 + 4);
+  int LICHE = (ML6 + 5);
+  int TRITON = (ML6 + 6);
+  int MAST_THIEF = (ML6 + 7);
+  int TRICER = (ML6 + 8);
+  int RAKSHASA = (ML6 + 9);
+  int DEMON_SERP = (ML6 + 10);
+  int ANGEL = (ML6 + 11);
+  int CHUNIN = (ML6 + 12);
+  int BEHEMOTH = (ML7 + 0);
+  int NAZGUL = (ML7 + 1);
+  int UNICORN = (ML7 + 2);
+  int ROUS = (ML7 + 3);
+  int ILL_FIEND = (ML7 + 4);
+  int GREAT_WYRM = (ML7 + 5);
+  int FLAME_DEV = (ML7 + 6);
+  int LURKER = (ML7 + 7);
+  int SANDMAN = (ML7 + 8);
+  int MIRRORMAST = (ML7 + 9);
+  int ELDER_GRUE = (ML7 + 10);
+  int LOATHLY = (ML7 + 11);
+  int ZOMBIE = (ML7 + 12);
+  int RICOCHET = (ML7 + 13);
+  int INNER_DEMON = (ML7 + 14);
+  int GOOD_FAIRY = (ML8 + 0);
+  int BAD_FAIRY = (ML8 + 1);
+  int AUTO_MAJOR = (ML8 + 2);
+  int DRAGON = (ML8 + 3);
+  int JABBERWOCK = (ML8 + 4);
+  int FDEMON_L = (ML8 + 5);
+  int TIGERSHARK = (ML8 + 6);
+  int JONIN = (ML8 + 7);
+  int SHADOW_SLAY = (ML8 + 8);
+  int MIL_PRIEST = (ML8 + 9);
+  int COMA = (ML8 + 10);
+  int HIGH_ANGEL = (ML8 + 11);
+  int JOTUN = (ML9 + 0);
+  int INVIS_SLAY = (ML9 + 1);
+  int KING_WYV = (ML9 + 2);
+  int DEATHSTAR = (ML9 + 3);
+  int THAUMATURGIST = (ML9 + 4);
+  int VAMP_LORD = (ML9 + 5);
+  int ARCHANGEL = (ML9 + 6);
+  int DEMON_PRINCE = (ML9 + 7);
+  int DEATH = (ML10 + 0);
+  int EATER = (ML10 + 1);
+  int LAWBRINGER = (ML10 + 2);
+  int DRAGON_LORD = (ML10 + 3);
+  int DEMON_EMP = (ML10 + 4);
+  int LORD_EARTH = (ML10 + 5);
+  int LORD_AIR = (ML10 + 6);
+  int LORD_WATER = (ML10 + 7);
+  int LORD_FIRE = (ML10 + 8);
+  int ELEM_MASTER = (ML10 + 9);
 }
-
-extern "C" void init_monsters()
+void init_mon_lvl_0()
 {
-  _monsters = {
+  std::vector<monster> mon = {
       {NULL, 0, 0, 0, 0, 0, 0, 0, 1, 1, 10, 2, 4, 1, 0, 1, 50, 0, 1, 1, 1, -1, -1, COMMON, M_TALK_STUPID, M_MOVE_FLUTTER, M_MELEE_NORMAL, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | FLYING | POISONOUS, 0, 'h' | CLR(YELLOW), "hornet", "dead hornet", "AXAX"},
       {NULL, 0, 0, 0, 0, 0, 0, 1, 30, 0, 0, 0, 10, 10, 0, 5, 100, 2, 15, 1000, 0, -1, -1, COMMON, M_TALK_MP, M_MOVE_FOLLOW, M_MELEE_MP, M_NO_OP, M_SP_MP, MOBILE | NEEDY, 0, '@' | CLR(RED), "mendicant priest", "dead mendicant priest", "BX"},
       {NULL, 0, 0, 0, 0, 0, 0, 2, 15, 0, 0, 0, 10, 10, 0, 7, 0, 3, 5, 1000, 0, -1, -1, COMMON, M_TALK_IM, M_MOVE_FOLLOW, M_NO_OP, M_NO_OP, M_SP_ESCAPE, MOBILE, 0, '@' | CLR(RED), "itinerant merchant", "dead itinerant merchant", "BX"},
@@ -649,6 +648,12 @@ extern "C" void init_monsters()
       {NULL, 0, 0, 0, 0, 0, 0, 6, 16, 6, 6, 1, 2, 1, 0, 6, 0, 0, 6, 200, 0, -1, -1, COMMON, M_TALK_MERCHANT, M_NO_OP, M_MELEE_NORMAL, M_NO_OP, M_SP_MERCHANT, MOBILE, 0, '@' | CLR(RED), "merchant", "dead merchant", "A?B?"},
       {NULL, 0, 0, 0, 0, 0, 0, 7, 10, 5, 5, 5, 5, 5, 0, 5, 25, 1, 5, 1800, 0, -1, -1, COMMON, M_TALK_MAN, M_MOVE_SMART, M_MELEE_NORMAL, M_NO_OP, M_NO_OP, MOBILE | WANDERING, 0, '@' | CLR(RED), "0th level NPC", "dead 0th level NPC", "AXBX"},
       {NULL, 0, 0, 0, 0, 0, 0, 8, 5, 5, 5, 5, 5, 5, 0, 5, 5, 0, 5, 1000, 0, -1, -1, UNIQUE_MADE, M_TALK_MAN, M_MOVE_SMART, M_MELEE_NORMAL, M_NO_OP, M_NO_OP, AWAKE | HOSTILE, 0, '@' | CLR(RED), "Hiscore NPC", "dead NPC", "A?B?"},
+  };
+  _monsters.insert(_monsters.end(), mon.begin(), mon.end());
+}
+void init_mon_lvl_1()
+{
+  std::vector<monster> mon = {
       {NULL, 0, 0, 0, 0, 0, 0, 9, 25, 12, 5, 15, 3, 3, 1, 8, 100, 0, 10, 100, 0, -1, WEAPONID + 17, COMMON, M_TALK_STUPID, M_MOVE_NORMAL, M_MELEE_NORMAL, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | HUNGRY | POISONOUS, pow2(FLAME) | pow2(COLD) | pow2(ELECTRICITY), 'g' | CLR(BROWN), "grunt", "dead grunt", "ACAC"},
       {NULL, 0, 0, 0, 0, 0, 0, 10, 1, 10, 5, 2, 10, 10, 1, 4, 0, 0, 3, 1, 5, POTIONID + 5, -1, COMMON, M_TALK_STUPID, M_MOVE_FLUTTER, M_MELEE_SLEEP, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | FLYING, 0, 't' | CLR(PURPLE), "tse-tse fly", "dead tse-tse fly", "AX"},
       {NULL, 0, 0, 0, 0, 0, 0, 11, 1, 0, 0, 0, 10, 10, 1, 10, 0, 1, 5, 2, 50, SCROLLID + 21, -1, COMMON, M_TALK_STUPID, M_MOVE_FLUTTER, M_NO_OP, M_NO_OP, M_SP_SUMMON, 0, 0, 'f' | CLR(PURPLE), "fnord", "fnord's antennae", ""},
@@ -672,6 +677,12 @@ extern "C" void init_monsters()
       {NULL, 0, 0, 0, 0, 0, 0, 28, 1, 0, 0, 0, 4, 4, 1, 4, 50, 0, 1, 20, 0, -1, -1, COMMON, M_TALK_ANIMAL, M_MOVE_ANIMAL, M_NO_OP, M_NO_OP, M_NO_OP, MOBILE | ONLYSWIM | EDIBLE, 0, 'b' | CLR(CYAN), "striped bass", "bass filets", ""},
       {NULL, 0, 0, 0, 0, 0, 0, 29, 5, 10, 10, 12, 10, 2, 1, 3, 50, 0, 5, 20, 0, -1, -1, COMMON, M_TALK_PARROT, M_MOVE_FLUTTER, M_MELEE_NORMAL, M_NO_OP, M_NO_OP, MOBILE | HUNGRY | FLYING | EDIBLE, 0, 'p' | CLR(PURPLE), "parrot", "grilled breast of parrot", "AH"},
       {NULL, 0, 0, 0, 0, 0, 0, 30, 10, 10, 5, 5, 10, 2, 1, 4, 20, 0, 8, 20, 0, -1, -1, COMMON, M_TALK_HYENA, M_MOVE_ANIMAL, M_MELEE_NORMAL, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | HUNGRY | SWIMMING | EDIBLE, 0, 'h' | CLR(BROWN), "hyena", "hyena ribs", "AX"},
+  };
+  _monsters.insert(_monsters.end(), mon.begin(), mon.end());
+}
+void init_mon_lvl_2()
+{
+  std::vector<monster> mon = {
       {NULL, 0, 0, 0, 0, 0, 0, 31, 20, 16, 10, 15, 10, 3, 2, 3, 50, 1, 40, 1000, 0, -1, WEAPONID + 1, COMMON, M_TALK_NINJA, M_MOVE_SMART, M_MELEE_NORMAL, M_NO_OP, M_SP_SURPRISE, MOBILE | HOSTILE | M_INVISIBLE, 0, 'n' | CLR(GREY), "apprentice ninja", "dead ninja", "A?A?B?B?"},
       {NULL, 0, 0, 0, 0, 0, 0, 32, 30, 15, 10, 5, 10, 10, 2, 6, 0, 0, 35, 250, 100, -1, -1, COMMON, M_TALK_TITTER, M_MOVE_FLUTTER, M_MELEE_NG, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | FLYING | POISONOUS, 0, 'n' | CLR(GREY), "night gaunt", "dead night gaunt", "ACAC"},
       {NULL, 0, 0, 0, 0, 0, 0, 33, 32, 0, 10, 0, 10, 10, 2, 2, 0, 3, 20, 1000, 0, -1, -1, COMMON, M_TALK_THIEF, M_MOVE_SMART, M_NO_OP, M_NO_OP, M_SP_THIEF, MOBILE | HOSTILE | GREEDY, 0, '@' | CLR(RED), "sneak-thief", "dead sneak-thief", "AXB?B?B?"},
@@ -686,6 +697,12 @@ extern "C" void init_monsters()
       {NULL, 0, 0, 0, 0, 0, 0, 42, 20, 15, 15, 10, 3, 3, 2, 3, 10, 0, 30, 50, 0, -1, -1, COMMON, M_TALK_ANIMAL, M_MOVE_NORMAL, M_MELEE_POISON, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | POISONOUS, pow2(FEAR) | pow2(SLEEP), 'a' | CLR(RED), "giant soldier ant", "ant mandibles", "AXAXAX"},
       {NULL, 0, 0, 0, 0, 0, 0, 43, 100, 25, 25, 50, 3, 3, 2, 12, 10, 0, 50, 500, 0, -1, -1, COMMON, M_TALK_ANIMAL, M_MOVE_ANIMAL, M_MELEE_NORMAL, M_NO_OP, M_NO_OP, MOBILE | HUNGRY | SWIMMING | EDIBLE, 0, 'e' | CLR(GREY), "elephant", "trunk steak", "AX"},
       {NULL, 0, 0, 0, 0, 0, 0, 44, 50, 20, 5, 20, 6, 3, 2, 4, 10, 0, 40, 500, 0, -1, -1, COMMON, M_TALK_HORSE, M_MOVE_NORMAL, M_MELEE_NORMAL, M_NO_OP, M_NO_OP, MOBILE | HUNGRY | SWIMMING | EDIBLE, 0, 'h' | CLR(BROWN), "horse", "steaming horsemeat", "AX"},
+  };
+  _monsters.insert(_monsters.end(), mon.begin(), mon.end());
+}
+void init_mon_lvl_3()
+{
+  std::vector<monster> mon = {
       {NULL, 0, 0, 0, 0, 0, 0, 45, 35, 15, 5, 30, 4, 1, 3, 4, 50, 0, 75, 50, 50, RINGID + 4, -1, COMMON, M_TALK_STUPID, M_MOVE_FLUTTER, M_MELEE_FIRE, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | GREEDY, pow2(FLAME), 's' | CLR(LIGHT_RED), "salamander", "salamander scales", "AXAX"},
       {NULL, 0, 0, 0, 0, 0, 0, 46, 100, 10, 10, 20, 5, 2, 3, 8, 50, 0, 50, 10, 50, RINGID + 3, -1, COMMON, M_TALK_STUPID, M_MOVE_NORMAL, M_MELEE_NORMAL, M_STRIKE_BLIND, M_NO_OP, MOBILE | HOSTILE | HUNGRY | GREEDY, 0, 'C' | CLR(GREEN), "catoblepas", "catoblepas' eyes", "AXBX"},
       {NULL, 0, 0, 0, 0, 0, 0, 47, 15, 18, 15, 15, 3, 3, 3, 4, 0, 2, 80, 25, 50, STICKID + 10, -1, COMMON, M_TALK_EVIL, M_MOVE_SMART, M_MELEE_COLD, M_NO_OP, M_SP_DEMON, MOBILE | HOSTILE, pow2(COLD) | pow2(POISON) | pow2(FEAR) | pow2(SLEEP), 'f' | CLR(LIGHT_BLUE), "lesser frost demon", "lesser frost demon's heart", "A?A?B?"},
@@ -701,6 +718,12 @@ extern "C" void init_monsters()
       {NULL, 0, 0, 0, 0, 0, 0, 57, 40, 15, 10, 30, 3, 1, 3, 7, 0, 1, 40, 20, 0, -1, -1, COMMON, M_NO_OP, M_MOVE_NORMAL, M_MELEE_POISON, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | HUNGRY | ONLYSWIM | POISONOUS, pow2(POISON), 'M' | CLR(BLUE), "man o' war", "deliquescing tentacles", "AXAX"},
       {NULL, 0, 0, 0, 0, 0, 0, 58, 40, 5, 10, 10, 5, 2, 3, 5, 0, 1, 100, 20, 0, -1, -1, COMMON, M_TALK_MAN, M_MOVE_NORMAL, M_MELEE_NORMAL, M_NO_OP, M_SP_WERE, MOBILE, 0, '@' | CLR(RED), "were-human", "dead were-human", "AXBX"},
       {NULL, 0, 0, 0, 0, 0, 0, 59, 4, 0, 0, 1, 5, 2, 3, 5, 0, 1, 50, 20, 0, -1, -1, COMMON, M_TALK_SILENT, M_MOVE_SPIRIT, M_MELEE_SPIRIT, M_NO_OP, M_NO_OP, MOBILE | HOSTILE, pow2(COLD) | pow2(ELECTRICITY) | pow2(POISON) | pow2(ACID) | pow2(FEAR) | pow2(SLEEP) | pow2(NEGENERGY) | pow2(OTHER_MAGIC) | pow2(THEFT) | pow2(GAZE) | pow2(INFECTION), 'T' | CLR(GREY), "thought-form", "a velleity", "ACACACACAC"},
+  };
+  _monsters.insert(_monsters.end(), mon.begin(), mon.end());
+}
+void init_mon_lvl_4()
+{
+  std::vector<monster> mon = {
       {NULL, 0, 0, 0, 0, 0, 0, 60, 100, 15, 12, 25, 6, 2, 4, 6, 25, 2, 150, 300, 20, STICKID + 11, -1, COMMON, M_TALK_HUNGRY, M_MOVE_NORMAL, M_MELEE_NORMAL, M_STRIKE_MISSILE, M_NO_OP, MOBILE | HOSTILE | HUNGRY | FLYING, 0, 'M' | CLR(YELLOW), "manticore", "manticore spikes", "AXAX"},
       {NULL, 0, 0, 0, 0, 0, 0, 61, 50, 12, 10, 10, 10, 10, 4, 2, 50, 0, 100, 300, 10, POTIONID + 6, -1, COMMON, M_TALK_HUNGRY, M_MOVE_FLUTTER, M_MELEE_NORMAL, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | HUNGRY, 0, 'T' | CLR(BROWN), "tasmanian devil", "dead tasmanian devil", "AXAXAXAX"},
       {NULL, 0, 0, 0, 0, 0, 0, 62, 100, 15, 15, 50, 5, 2, 4, 7, 100, 0, 100, 100, 0, -1, -1, COMMON, M_TALK_ROBOT, M_MOVE_SMART, M_MELEE_NORMAL, M_NO_OP, M_SP_POISON_CLOUD, MOBILE | HOSTILE, pow2(ELECTRICITY) | pow2(POISON) | pow2(FEAR) | pow2(SLEEP), 'a' | CLR(GREY), "automatum minor", "automatum minor battery", "ACBC"},
@@ -719,6 +742,12 @@ extern "C" void init_monsters()
       {NULL, 0, 0, 0, 0, 0, 0, 75, 40, 10, 20, 10, 8, 8, 4, 4, 0, 2, 100, 50, 0, -1, -1, COMMON, M_TALK_SCREAM, M_MOVE_NORMAL, M_MELEE_SPIRIT, M_STRIKE_SONIC, M_NO_OP, MOBILE | HOSTILE | FLYING, pow2(FEAR) | pow2(SLEEP), 'b' | CLR(GREY), "ban sidhe", "dead ban sidhe", "LX"},
       {NULL, 0, 0, 0, 0, 0, 0, 76, 50, 20, 20, 20, 3, 1, 4, 6, 60, 3, 100, 1, 0, -1, -1, COMMON, M_TALK_SILENT, M_MOVE_SPIRIT, M_MELEE_NORMAL, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | INTANGIBLE, pow2(NORMAL_DAMAGE), 'e' | CLR(GREEN), "etheric grue", "dead etheric grue", "LHAHLH"},
       {NULL, 0, 0, 0, 0, 0, 0, 77, 40, 20, 13, 30, 8, 4, 4, 5, 0, 1, 100, 500, 100, -1, -1, COMMON, M_TALK_NINJA, M_MOVE_NORMAL, M_MELEE_POISON, M_STRIKE_MISSILE, M_SP_SURPRISE, MOBILE | HOSTILE | M_INVISIBLE, pow2(POISON) | pow2(SLEEP), 'n' | CLR(GREY), "ninja (genin)", "dead ninja", "A?A?R?R"},
+  };
+  _monsters.insert(_monsters.end(), mon.begin(), mon.end());
+}
+void init_mon_lvl_5()
+{
+  std::vector<monster> mon = {
       {NULL, 0, 0, 0, 0, 0, 0, 78, 50, 20, 15, 40, 10, 2, 5, 3, 90, 4, 180, 500, 50, RINGID + 4, -1, COMMON, M_TALK_GREEDY, M_MOVE_NORMAL, M_MELEE_DRAGON, M_STRIKE_FBOLT, M_NO_OP, MOBILE | HOSTILE | HUNGRY | GREEDY | FLYING | EDIBLE, pow2(FLAME), 'd' | CLR(LIGHT_RED), "dragonette", "dragon steak", "AXAXBXBX"},
       {NULL, 0, 0, 0, 0, 0, 0, 79, 50, 15, 10, 40, 10, 2, 5, 12, 40, 0, 150, 100, 200, STICKID + 3, -1, COMMON, M_TALK_STUPID, M_MOVE_FLUTTER, M_MELEE_ELEC, M_STRIKE_LBALL, M_NO_OP, MOBILE | HOSTILE, pow2(ELECTRICITY), 't' | CLR(LIGHT_BLUE), "tesla monster", "tesla monster whip", "AXAX"},
       {NULL, 0, 0, 0, 0, 0, 0, 80, 100, 20, 12, 20, 4, 2, 5, 4, 80, 2, 150, 100, 150, RINGID + 6, -1, COMMON, M_TALK_GREEDY, M_MOVE_NORMAL, M_MELEE_POISON, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | GREEDY | FLYING | POISONOUS, pow2(FLAME), 'W' | CLR(LIGHT_RED), "wyvern", "wyvern's sting", "AXAXBXBX"},
@@ -733,6 +762,12 @@ extern "C" void init_monsters()
       {NULL, 0, 0, 0, 0, 0, 0, 89, 1, 0, 0, 0, 30, 30, 5, 20, 0, 0, 100, 0, 0, -1, -1, COMMON, M_TALK_SILENT, M_MOVE_RANDOM, M_NO_OP, M_NO_OP, M_SP_MB, MOBILE | HOSTILE | INTANGIBLE, 0, 'm' | CLR(PURPLE), "manaburst", "feeling of warmth", "BX"},
       {NULL, 0, 0, 0, 0, 0, 0, 90, 120, 25, 20, 20, 6, 6, 5, 4, 0, 1, 150, 2000, 0, -1, WEAPONID + 8, COMMON, M_TALK_EVIL, M_MOVE_SMART, M_MELEE_FIRE, M_MELEE_POISON, M_SP_DEMON, MOBILE | HOSTILE | POISONOUS, pow2(FLAME) | pow2(POISON) | pow2(FEAR) | pow2(SLEEP), 'd' | CLR(LIGHT_RED), "outer circle demon", "dead outer circle demon", "L?R?R?R?"},
       {NULL, 0, 0, 0, 0, 0, 0, 91, 40, 15, 10, 30, 8, 8, 5, 6, 0, 1, 100, 20, 0, -1, -1, COMMON, M_NO_OP, M_MOVE_SMART, M_MELEE_SPIRIT, M_NO_OP, M_SP_MIRROR, MOBILE | HOSTILE, pow2(FLAME) | pow2(COLD) | pow2(ELECTRICITY), 'm' | CLR(GREY), "mirrorshade", "some broken glass", "AXAXAX"},
+  };
+  _monsters.insert(_monsters.end(), mon.begin(), mon.end());
+}
+void init_mon_lvl_6()
+{
+  std::vector<monster> mon = {
       {NULL, 0, 0, 0, 0, 0, 0, 92, 125, 30, 0, 50, 10, 2, 6, 4, 100, 0, 250, 1, 200, STICKID + 7, -1, COMMON, M_TALK_SILENT, M_MOVE_NORMAL, M_MELEE_FIRE, M_STRIKE_FBALL, M_NO_OP, MOBILE | HOSTILE | FLYING, pow2(FLAME) | pow2(POISON) | pow2(ACID) | pow2(SLEEP), 'F' | CLRS(WHITE, RED), "fire elemental", "essence of fire elemental", "AXAXAXRXRX"},
       {NULL, 0, 0, 0, 0, 0, 0, 93, 125, 25, 0, 20, 10, 2, 6, 2, 100, 0, 250, 1, 200, CLOAKID + 2, -1, COMMON, M_TALK_SILENT, M_MOVE_FLUTTER, M_MELEE_NORMAL, M_NO_OP, M_SP_WHIRL, MOBILE | HOSTILE | FLYING | INTANGIBLE, pow2(ELECTRICITY) | pow2(POISON) | pow2(ACID) | pow2(SLEEP), 'A' | CLRS(WHITE, BLUE), "air elemental", "essence of air elemental", "AXAXAXAXBXBX"},
       {NULL, 0, 0, 0, 0, 0, 0, 94, 100, 15, 10, 30, 5, 1, 6, 6, 100, 0, 250, 1, 200, STICKID + 14, -1, COMMON, M_TALK_SILENT, M_MOVE_NORMAL, M_MELEE_NORMAL, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | ONLYSWIM, pow2(COLD) | pow2(SLEEP), 'W' | CLRS(WHITE, BLUE), "water elemental", "essence of water elemental", "AXAXBXBX"},
@@ -746,6 +781,12 @@ extern "C" void init_monsters()
       {NULL, 0, 0, 0, 0, 0, 0, 102, 100, 40, 20, 30, 5, 1, 6, 7, 90, 4, 250, 10, 500, -1, -1, COMMON, M_TALK_EVIL, M_MOVE_NORMAL, M_MELEE_POISON, M_STRIKE_FBALL, M_SP_DEMON, MOBILE | HOSTILE | SWIMMING, pow2(FLAME) | pow2(POISON) | pow2(FEAR) | pow2(SLEEP), 'S' | CLRS(GREEN, RED), "demon serpent", "demon serpent's jewel", "L?L?"},
       {NULL, 0, 0, 0, 0, 0, 0, 103, 120, 30, 20, 20, 10, 10, 6, 4, 0, 1, 250, 10, 0, -1, -1, COMMON, M_TALK_SILENT, M_MOVE_SMART, M_MELEE_NORMAL, M_NO_OP, M_SP_ANGEL, MOBILE | FLYING, pow2(FEAR) | pow2(SLEEP), 'a' | CLRS(YELLOW, WHITE), "angel", "angel's gown", "L?R?RX"},
       {NULL, 0, 0, 0, 0, 0, 0, 104, 100, 25, 15, 40, 9, 4, 6, 4, 0, 1, 200, 100, 100, -1, -1, COMMON, M_TALK_NINJA, M_MOVE_NORMAL, M_MELEE_POISON, M_STRIKE_MISSILE, M_SP_SURPRISE, MOBILE | HOSTILE | M_INVISIBLE, pow2(POISON) | pow2(SLEEP), 'n' | CLRS(BLACK, WHITE), "ninja (chunin)", "dead ninja", "A?A?R?R?R"},
+  };
+  _monsters.insert(_monsters.end(), mon.begin(), mon.end());
+}
+void init_mon_lvl_7()
+{
+  std::vector<monster> mon = {
       {NULL, 0, 0, 0, 0, 0, 0, 105, 300, 30, 5, 120, 3, 3, 7, 15, 100, 0, 400, 500, 50, RINGID + 2, -1, COMMON, M_TALK_STUPID, M_MOVE_NORMAL, M_MELEE_NORMAL, M_NO_OP, M_SP_HUGE, MOBILE | HOSTILE | SWIMMING, pow2(ELECTRICITY), 'B' | CLRS(BLACK, BROWN), "behemoth", "behemoth's gonads", "AHBXBX"},
       {NULL, 0, 0, 0, 0, 0, 0, 106, 250, 40, 20, 20, 10, 5, 7, 5, 0, 0, 500, 100, 2000, -1, WEAPONID + 24, COMMON, M_TALK_EVIL, M_MOVE_SPIRIT, M_MELEE_SPIRIT, M_NO_OP, M_SP_SPELL, MOBILE | HOSTILE | FLYING, pow2(COLD) | pow2(POISON) | pow2(FEAR) | pow2(SLEEP), 'N' | CLRS(BLACK, WHITE), "nazgul", "nazgul's husk", "A?A?A?B?B?"},
       {NULL, 0, 0, 0, 0, 0, 0, 107, 100, 100, 30, 50, 10, 3, 7, 2, 50, 0, 400, 100, 500, RINGID + 6, -1, COMMON, M_TALK_SILENT, M_MOVE_NORMAL, M_MELEE_NORMAL, M_NO_OP, M_MOVE_SCAREDY, MOBILE | SWIMMING, pow2(POISON) | pow2(FEAR), 'U' | CLRS(BLACK, WHITE), "unicorn", "unicorn's horn", "ACACB?B?B?B?B?B?B?"},
@@ -761,6 +802,12 @@ extern "C" void init_monsters()
       {NULL, 0, 0, 0, 0, 0, 0, 117, 100, 10, 30, 20, 8, 3, 7, 3, 20, 2, 460, 500, 0, -1, -1, COMMON, M_TALK_EVIL, M_MOVE_SCAREDY, M_MELEE_SPIRIT, M_NO_OP, M_SP_RAISE, MOBILE | HOSTILE, pow2(FEAR), 'Z' | CLRS(BLACK, WHITE), "zombie overlord", "extremely dead zombie overlord", "L?R?R?R?"},
       {NULL, 0, 0, 0, 0, 0, 0, 118, 50, 30, 30, 2, 13, 1, 7, 1, 30, 0, 250, 50, 0, -1, -1, COMMON, M_TALK_STUPID, M_MOVE_FLUTTER, M_MELEE_NORMAL, M_NO_OP, M_MOVE_FLUTTER, MOBILE | HOSTILE | FLYING, 0, 'r' | CLRS(GREY, BROWN), "ricochet", "dead ricochet", "L?"},
       {NULL, 0, 0, 0, 0, 0, 0, 119, 240, 35, 30, 40, 8, 8, 7, 3, 0, 3, 300, 3000, 0, -1, -1, COMMON, M_TALK_EVIL, M_MOVE_SMART, M_MELEE_FIRE, M_MELEE_SLEEP, M_SP_DEMON, MOBILE | HOSTILE | POISONOUS, pow2(FLAME) | pow2(POISON) | pow2(FEAR) | pow2(SLEEP), 'D' | CLRS(GREY, RED), "inner circle demon", "dead inner circle demon", "L?L?R?R?R?RXRXRX"},
+  };
+  _monsters.insert(_monsters.end(), mon.begin(), mon.end());
+}
+void init_mon_lvl_8()
+{
+  std::vector<monster> mon = {
       {NULL, 0, 0, 0, 0, 0, 0, 120, 1, 0, 100, 0, 6, 2, 8, 3, 0, 0, 50, 100, 0, -1, -1, COMMON, M_TALK_GF, M_MOVE_RANDOM, M_NO_OP, M_NO_OP, M_NO_OP, MOBILE | FLYING, pow2(FLAME) | pow2(COLD) | pow2(SLEEP), 'f' | CLRS(YELLOW, WHITE), "fairy", "good fairy dust", "B?"},
       {NULL, 0, 0, 0, 0, 0, 0, 121, 100, 50, 50, 20, 10, 10, 8, 3, 0, 0, 500, 3, 0, -1, -1, COMMON, M_TALK_EF, M_MOVE_RANDOM, M_NO_OP, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | FLYING | POISONOUS, pow2(FLAME) | pow2(COLD) | pow2(SLEEP), 'f' | CLRS(YELLOW, WHITE), "fairy", "evil fairy dust", "B?"},
       {NULL, 0, 0, 0, 0, 0, 0, 122, 500, 30, 50, 100, 5, 2, 8, 3, 100, 0, 500, 1000, 0, -1, WEAPONID + 23, COMMON, M_TALK_ROBOT, M_MOVE_SMART, M_MELEE_NORMAL, M_STRIKE_LBALL, M_SP_POISON_CLOUD, MOBILE | HOSTILE, pow2(ELECTRICITY) | pow2(POISON) | pow2(FEAR) | pow2(SLEEP), 'A' | CLRS(GREY, WHITE), "automatum major", "automatum major components", "A?A?R?R?"},
@@ -773,6 +820,12 @@ extern "C" void init_monsters()
       {NULL, 0, 0, 0, 0, 0, 0, 129, 250, 30, 30, 30, 10, 4, 8, 6, 0, 3, 700, 10, 75, -1, WEAPONID + 13, COMMON, M_TALK_SILENT, M_MOVE_SMART, M_MELEE_NORMAL, M_STRIKE_MISSILE, M_SP_SPELL, MOBILE | HOSTILE, pow2(SLEEP), '@' | CLR(RED), "militant priest", "dead militant priest", "A?A?A?B?B?"},
       {NULL, 0, 0, 0, 0, 0, 0, 130, 150, 25, 40, 30, 10, 4, 8, 5, 0, 3, 500, 10, 75, -1, -1, COMMON, M_TALK_SILENT, M_MOVE_SMART, M_MELEE_SLEEP, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | M_INVISIBLE, pow2(SLEEP), 'C' | CLRS(GREY, BROWN), "coma beast", "dead coma beast", "AXAXAXBX"},
       {NULL, 0, 0, 0, 0, 0, 0, 131, 250, 50, 40, 30, 10, 10, 8, 3, 0, 3, 500, 10, 0, -1, -1, COMMON, M_TALK_SILENT, M_MOVE_SMART, M_MELEE_NORMAL, M_STRIKE_FBOLT, M_SP_ANGEL, MOBILE | FLYING, pow2(FLAME) | pow2(FEAR) | pow2(SLEEP), 'A' | CLRS(YELLOW, WHITE), "high angel", "high angel's robes", "L?R?RXRX"},
+  };
+  _monsters.insert(_monsters.end(), mon.begin(), mon.end());
+}
+void init_mon_lvl_9()
+{
+  std::vector<monster> mon = {
       {NULL, 0, 0, 0, 0, 0, 0, 132, 750, 80, 50, 200, 10, 2, 9, 8, 90, 5, 1000, 500, 2000, -1, WEAPONID + 38, COMMON, M_TALK_GREEDY, M_MOVE_NORMAL, M_MELEE_NORMAL, M_STRIKE_MISSILE, M_SP_HUGE, MOBILE | HOSTILE | HUNGRY | GREEDY, pow2(COLD) | pow2(FEAR), 'J' | CLRS(GREY, BROWN), "jotun", "jotun's head", "AHAHB?"},
       {NULL, 0, 0, 0, 0, 0, 0, 133, 1000, 50, 30, 40, 20, 2, 9, 4, 40, 0, 750, 100, 200, CLOAKID + 2, -1, COMMON, M_TALK_SILENT, M_MOVE_FLUTTER, M_MELEE_NORMAL, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | FLYING | M_INVISIBLE, pow2(ELECTRICITY), 'i' | CLRS(BLACK, WHITE), "invisible slayer", "dead slayer", "AXAXAX"},
       {NULL, 0, 0, 0, 0, 0, 0, 134, 700, 50, 32, 50, 5, 2, 9, 3, 80, 4, 1000, 100, 50, RINGID + 6, -1, COMMON, M_TALK_GREEDY, M_MOVE_NORMAL, M_MELEE_POISON, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | GREEDY | FLYING, pow2(FLAME) | pow2(POISON), 'W' | CLRS(GREEN, RED), "king wyvern", "king wyvern's sting", "AXAXAXBXBX"},
@@ -781,6 +834,12 @@ extern "C" void init_monsters()
       {NULL, 0, 0, 0, 0, 0, 0, 137, 750, 70, 50, 50, 10, 1, 9, 2, 50, 0, 1000, 1, 200, CLOAKID + 1, -1, COMMON, M_TALK_EVIL, M_MOVE_SPIRIT, M_MELEE_SPIRIT, M_MELEE_SPIRIT, M_SP_SURPRISE, MOBILE | HOSTILE | FLYING | M_INVISIBLE, pow2(POISON) | pow2(FEAR) | pow2(SLEEP), 'V' | CLRS(BLACK, RED), "vampire lord", "vampire dust", "A?A?A?B?B?B?"},
       {NULL, 0, 0, 0, 0, 0, 0, 138, 1000, 100, 50, 50, 20, 20, 9, 2, 100, 5, 1500, 15, 3000, -1, WEAPONID + 34, COMMON, M_TALK_SILENT, M_MOVE_SMART, M_MELEE_NORMAL, M_MELEE_SLEEP, M_SP_ANGEL, MOBILE | FLYING, pow2(FLAME) | pow2(COLD) | pow2(POISON) | pow2(FEAR) | pow2(SLEEP) | pow2(OTHER_MAGIC), 'A' | CLRS(YELLOW, WHITE), "archangel", "archangel's diadem", "L?R?R?R?R?R?R?R?R?"},
       {NULL, 0, 0, 0, 0, 0, 0, 139, 800, 80, 40, 80, 12, 12, 9, 2, 0, 5, 1200, 4500, 3000, -1, WEAPONID + 24, COMMON, M_TALK_EVIL, M_MOVE_SMART, M_MELEE_NORMAL, M_MELEE_NORMAL, M_SP_DEMON, MOBILE | HOSTILE | FLYING | POISONOUS, pow2(FLAME) | pow2(POISON) | pow2(FEAR) | pow2(SLEEP) | pow2(OTHER_MAGIC), 'D' | CLRS(BLACK, RED), "demon prince", "dead demon prince", "LLLCLHRLRCRHRLRCRH"},
+  };
+  _monsters.insert(_monsters.end(), mon.begin(), mon.end());
+}
+void init_mon_lvl_10()
+{
+  std::vector<monster> mon = {
       {NULL, 0, 0, 0, 0, 0, 0, 140, 100, 10, 10, 1, 100, 100, 100, 10, 0, 0, 0, 0, 1, -1, WEAPONID + 39, UNIQUE_MADE, M_TALK_EVIL, M_MOVE_SMART, M_MELEE_DEATH, M_NO_OP, M_SP_DEATH, MOBILE | HOSTILE, pow2(FEAR) | pow2(SLEEP) | pow2(NEGENERGY) | pow2(OTHER_MAGIC), 'D' | CLRS(BLACK, WHITE), "Death", "No way can you be seeing this!", "AX"},
       {NULL, 0, 0, 0, 0, 0, 0, 141, 1000, 0, 20, 0, 3, 3, 10, 5, 50, 0, 10000, 1000, 250, STICKID + 13, -1, UNIQUE_MADE, M_TALK_SILENT, M_MOVE_RANDOM, M_NO_OP, M_NO_OP, M_SP_EATER, MOBILE, pow2(FLAME) | pow2(COLD) | pow2(ELECTRICITY) | pow2(POISON) | pow2(ACID) | pow2(FEAR) | pow2(SLEEP) | pow2(NEGENERGY) | pow2(OTHER_MAGIC) | pow2(THEFT) | pow2(GAZE) | pow2(INFECTION), 'E' | CLRS(BLACK, WHITE), "The Eater of Magic", "The Heart of the Eater of Magic", "B?B?B?B?B?"},
       {NULL, 0, 0, 0, 0, 0, 0, 142, 500, 50, 50, 50, 5, 3, 10, 5, 50, 0, 10000, 1000, 2000, -1, WEAPONID + 34, UNIQUE_MADE, M_TALK_LB, M_MOVE_SMART, M_MELEE_NORMAL, M_NO_OP, M_SP_LAWBRINGER, MOBILE, pow2(NORMAL_DAMAGE), 'L' | CLRS(BRIGHT_WHITE, BLUE), "The LawBringer", "The LawBringer's Crown", "A?A?B?B?B?B?"},
@@ -791,5 +850,19 @@ extern "C" void init_monsters()
       {NULL, 0, 0, 0, 0, 0, 0, 147, 1500, 100, 100, 100, 5, 1, 10, 5, 100, 0, 5000, 10, 1, -1, ARTIFACTID + 1, UNIQUE_MADE, M_TALK_SILENT, M_MOVE_NORMAL, M_MELEE_NORMAL, M_STRIKE_SNOWBALL, M_NO_OP, MOBILE | ONLYSWIM, pow2(COLD) | pow2(ELECTRICITY) | pow2(POISON) | pow2(ACID) | pow2(FEAR) | pow2(SLEEP) | pow2(NEGENERGY) | pow2(OTHER_MAGIC) | pow2(THEFT) | pow2(GAZE) | pow2(INFECTION), 'W' | CLRS(BLUE, WHITE), "The Elemental Lord of Water", "some water", "A?A?A?B?B?B?"},
       {NULL, 0, 0, 0, 0, 0, 0, 148, 1500, 200, 100, 300, 10, 1, 10, 3, 100, 0, 5000, 1000, 1, -1, ARTIFACTID + 2, UNIQUE_MADE, M_TALK_SILENT, M_MOVE_NORMAL, M_MELEE_FIRE, M_STRIKE_FBALL, M_NO_OP, MOBILE, pow2(FLAME) | pow2(ELECTRICITY) | pow2(POISON) | pow2(ACID) | pow2(FEAR) | pow2(SLEEP) | pow2(NEGENERGY) | pow2(OTHER_MAGIC) | pow2(THEFT) | pow2(GAZE) | pow2(INFECTION), 'F' | CLRS(LIGHT_RED, WHITE), "The Elemental Lord of Fire", "a spark", "A?A?A?R?R?R?R?"},
       {NULL, 0, 0, 0, 0, 0, 0, 149, 1000, 200, 200, 200, 20, 20, 10, 2, 0, 10, 10000, 10000, 1, -1, ARTIFACTID + 0, UNIQUE_MADE, M_TALK_EVIL, M_MOVE_SMART, M_MELEE_MASTER, M_STRIKE_MASTER, M_SP_MASTER, MOBILE | FLYING | SWIMMING, pow2(NORMAL_DAMAGE) | pow2(COLD) | pow2(ELECTRICITY) | pow2(POISON) | pow2(ACID) | pow2(FEAR) | pow2(SLEEP) | pow2(NEGENERGY) | pow2(OTHER_MAGIC) | pow2(THEFT) | pow2(GAZE) | pow2(INFECTION), 'M' | CLRS(PURPLE, WHITE), "The Elemental Master", "A burning mound of bubbling mud", "A?A?A?A?R?R?R?R?"}};
+  _monsters.insert(_monsters.end(), mon.begin(), mon.end());
+}
+extern "C" void init_monsters()
+{
+  init_mon_lvl_0();
+  init_mon_lvl_1();
+  init_mon_lvl_2();
+  init_mon_lvl_3();
+  init_mon_lvl_4();
+  init_mon_lvl_5();
+  init_mon_lvl_6();
+  init_mon_lvl_7();
+  init_mon_lvl_9();
+  init_mon_lvl_10();
   Monsters = _monsters.data();
 }
