@@ -555,7 +555,7 @@ void cavern_level()
     if ((Level->depth == CAVELEVELS) && (!gamestatusp(COMPLETED_CAVES)))
     {
       findspace(&tx, &ty, -1);
-      Level->mlist = ((pml)checkmalloc(sizeof(mltype)));
+      Level->mlist = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
       Level->mlist->next = NULL;
       Level->mlist->m =
           Level->site[tx][ty].creature =
@@ -569,7 +569,7 @@ void cavern_level()
     if (Level->depth == VOLCANOLEVELS)
     {
       findspace(&tx, &ty, -1);
-      Level->mlist = ((pml)checkmalloc(sizeof(mltype)));
+      Level->mlist = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
       Level->mlist->next = NULL;
       Level->mlist->m =
           Level->site[tx][ty].creature =
@@ -620,7 +620,7 @@ void sewer_level()
     if ((Level->depth == SEWERLEVELS) && (!gamestatusp(COMPLETED_SEWERS)))
     {
       findspace(&tx, &ty, -1);
-      Level->mlist = ((pml)checkmalloc(sizeof(mltype)));
+      Level->mlist = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
       Level->mlist->next = NULL;
       Level->mlist->m =
           Level->site[tx][ty].creature =

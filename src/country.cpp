@@ -596,7 +596,7 @@ void load_temple(int deity, int populate)
 {
 	int i, j;
 	char site;
-	pml ml;
+	Monsterlist* ml;
 	FILE *fd;
 
 	/* WDT HACK: I don't know why this is wrong.  Shrug.  David Givens
@@ -767,7 +767,7 @@ void random_temple_site(int i, int j, int deity, int populate)
 
 void make_high_priest(int i, int j, int deity)
 {
-	pml ml = ((pml)checkmalloc(sizeof(mltype)));
+	Monsterlist* ml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
 	pmt m = ((pmt)checkmalloc(sizeof(montype)));
 	make_hiscore_npc(m, deity);
 	m->x = i;

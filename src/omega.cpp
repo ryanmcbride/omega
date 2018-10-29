@@ -31,9 +31,9 @@ int DG_debug_flag = 0; /* debug flag -- set by -d commandline option */
 
 /* one of each spell */
 #ifndef MSDOS_SUPPORTED_ANTIQUE
-struct spell Spells[NUMSPELLS + 1];
+Spell Spells[NUMSPELLS + 1];
 #else
-struct spell Spells[NUMSPELLS + 1] = {0};
+Spell Spells[NUMSPELLS + 1] = {0};
 #endif
 
 /* locations of city sites [0] - found, [1] - x, [2] - y */

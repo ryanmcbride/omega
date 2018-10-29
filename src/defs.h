@@ -1375,7 +1375,8 @@ typedef int Symbol;
 
 /* structure definitions */
 
-struct room {
+class Room {
+  public:
   int lighted; 
   int left,right,top,bottom;
   int rsi; /* index into roomname switch */
@@ -1395,14 +1396,16 @@ class object {
 };
 
 
-struct spell {
+class Spell {
+  public:
   char known;
   char id;
   char powerdrain;
 } ;
 
 
-struct monster {
+class monster {
+  public:
   int* named_id;
   struct objectlist *possessions;
   unsigned char attacked;
@@ -1419,15 +1422,17 @@ struct monster {
 };
 
 
-struct monsterlist {
-  struct monster *m;
-  struct monsterlist *next;
+class Monsterlist {
+  public:
+  monster *m;
+  Monsterlist *next;
 };
 
 
 
 
-struct player {
+class player {
+  public:
   int str,con,dex,agi,iq,pow,maxstr,maxcon,maxdex,maxagi,maxiq,maxpow;
   long xp;
   int level,hp,maxhp,hit,dmg,absorption,speed,click;
@@ -1452,7 +1457,8 @@ struct player {
 };
 
 
-struct objectlist {
+class objectlist {
+  public:
   object *thing;
   struct objectlist *next;
 };
@@ -1460,7 +1466,8 @@ struct objectlist {
 
 
 /* terrain locations */
-struct terrain {
+class terrain {
+  public:
   Symbol base_terrain_type;
   Symbol current_terrain_type;
   char aux;
@@ -1468,7 +1475,8 @@ struct terrain {
 };
 
 /* dungeon locations */
-struct location {
+class location {
+  public:
   char p_locf; /* function executed when moved on */
   unsigned char lstatus; /* seen,stopsrun,lit,secret, */
   char roomnumber; /* so room can be named */
@@ -1481,7 +1489,8 @@ struct location {
  };
 
 
-struct level {
+class level {
+  public:
   char depth; /* which level is this */
   struct level *next; /* pointer to next level in dungeon */
 #ifndef SAVE_LEVELS
@@ -1493,7 +1502,7 @@ struct level {
   char generated; /* has the level been made (visited) yet? */
   char numrooms; /* number of rooms on level */
   char tunnelled; /* amount of tunnelling done on this level */
-  struct monsterlist *mlist; /* List of monsters on level */
+  Monsterlist *mlist; /* List of monsters on level */
   int environment; /* where kind of level is this? */
   int last_visited; /* time player was last on this level */
 };
@@ -1501,22 +1510,19 @@ struct level {
  
 /* random typedef's */
 
-typedef struct monsterlist mltype;
-typedef mltype *pml;
-
-typedef struct monster montype;
+typedef monster montype;
 typedef montype *pmt;
 
-typedef struct location loctype;
+typedef location loctype;
 typedef loctype *plc;
 
-typedef struct level levtype;
+typedef level levtype;
 typedef levtype *plv;
 
-typedef struct object objtype;
+typedef object objtype;
 typedef objtype *pob;
 
-typedef struct objectlist oltype;
+typedef objectlist oltype;
 typedef oltype *pol;
 
 /* random  function declarations from system libraries */

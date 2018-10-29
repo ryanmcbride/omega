@@ -196,7 +196,7 @@ void load_house(int kind, int populate)
 /* makes a log npc for houses and hovels */
 void make_house_npc(int i, int j)
 {
-      pml ml = ((pml)checkmalloc(sizeof(mltype)));
+      Monsterlist* ml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
       pob ob;
       ml->m = ((pmt)checkmalloc(sizeof(montype)));
       *(ml->m) = Monsters[NPC];
@@ -228,7 +228,7 @@ void make_house_npc(int i, int j)
 /* makes a hiscore npc for mansions */
 void make_mansion_npc(int i, int j)
 {
-      pml ml = ((pml)checkmalloc(sizeof(mltype)));
+      Monsterlist* ml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
       ml->m = ((pmt)checkmalloc(sizeof(montype)));
       *(ml->m) = Monsters[NPC];
       make_hiscore_npc(ml->m, random_range(14) + 1);

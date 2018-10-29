@@ -322,9 +322,9 @@ int save_level(FILE* fd, plv level)
   return ok;
 }
 
-int save_monsters(FILE* fd, pml ml)
+int save_monsters(FILE* fd, Monsterlist* ml)
 {
-  pml tml;
+  Monsterlist* tml;
   int nummonsters = 0;
   int ok = 1;
   unsigned char type;
@@ -1006,7 +1006,7 @@ void restore_hiscore_npc(pmt npc, int npcid)
 
 void restore_monsters(FILE* fd, plv level, int version)
 {
-  pml ml = NULL;
+  Monsterlist* ml = NULL;
   int i, nummonsters;
   char tempstr[80];
   int temp_x, temp_y;
@@ -1018,7 +1018,7 @@ void restore_monsters(FILE* fd, plv level, int version)
 
   for (i = 0; i < nummonsters; i++)
   {
-    ml = ((pml)checkmalloc(sizeof(mltype)));
+    ml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
     ml->m = ((pmt)checkmalloc(sizeof(montype)));
     ml->next = NULL;
     fread((char *)ml->m, sizeof(montype), 1, fd);

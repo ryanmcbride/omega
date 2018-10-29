@@ -9,7 +9,8 @@ level structure generation */
 /* monsters for tactical encounters */
 void make_country_monsters(Symbol terrain)
 {
-  pml tml, ml = NULL;
+  Monsterlist* tml = NULL;
+  Monsterlist* ml = NULL;
    int plains[10] =
       {BUNNY, BUNNY, HORNET, QUAIL, HAWK, DEER, WOLF, LION, BRIGAND, RANDOM};
   /*    {BUNNY,BUNNY,BLACKSNAKE,HAWK,IMPALA,WOLF,LION,BRIGAND,RANDOM};*/
@@ -65,7 +66,7 @@ void make_country_monsters(Symbol terrain)
   }
   for (i = 0; i < nummonsters; i++)
   {
-    tml = ((pml)checkmalloc(sizeof(mltype)));
+    tml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
     tml->m = ((pmt)checkmalloc(sizeof(montype)));
     if (monsters == NULL)
       tml->m =
@@ -97,7 +98,8 @@ is completely random, but also gets harder as it is explored;
 the astral and the volcano just stay hard... */
 void populate_level(int monstertype)
 {
-  pml head, tml;
+  Monsterlist* head = NULL;
+  Monsterlist* tml = NULL;
   int i, j, k, monsterid, nummonsters = (random_range(difficulty() / 3) + 1) * 3 + 8;
 
   if (monstertype == E_CASTLE)
@@ -107,7 +109,7 @@ void populate_level(int monstertype)
   else if (monstertype == E_VOLCANO)
     nummonsters += 20;
 
-  head = tml = ((pml)checkmalloc(sizeof(mltype)));
+  head = tml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
 
   for (k = 0; k < nummonsters; k++)
   {
@@ -396,7 +398,7 @@ void populate_level(int monstertype)
       lset(i, j, CHANGED);
     }
 
-    tml->next = ((pml)checkmalloc(sizeof(mltype)));
+    tml->next = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
     tml->next->m = Level->site[i][j].creature;
     tml = tml->next;
   }
@@ -417,11 +419,11 @@ void populate_level(int monstertype)
 void wandercheck()
 {
   int x, y;
-  pml tml;
+  Monsterlist* tml;
   if (random_range(MaxDungeonLevels) < difficulty())
   {
     findspace(&x, &y, -1);
-    tml = ((pml)checkmalloc(sizeof(mltype)));
+    tml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
     tml->next = Level->mlist;
     tml->m = Level->site[x][y].creature = m_create(x, y, WANDERING, difficulty());
     Level->mlist = tml;
@@ -431,7 +433,7 @@ void wandercheck()
 /* call make_creature and place created monster on Level->mlist and Level */
 void make_site_monster(int i, int j, int mid)
 {
-  pml ml = ((pml)checkmalloc(sizeof(mltype)));
+  Monsterlist* ml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
   pmt m;
   if (mid > -1)
     Level->site[i][j].creature = (m = make_creature(mid));

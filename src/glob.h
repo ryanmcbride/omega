@@ -26,7 +26,7 @@ extern char *Omegalib;
 extern struct monster* Monsters;
 
 /* one of each spell */
-extern struct spell Spells[NUMSPELLS+1];
+extern Spell Spells[NUMSPELLS+1];
 
 /* one of each item */
 extern object *Objects;

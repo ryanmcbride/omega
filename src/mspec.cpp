@@ -738,7 +738,7 @@ void m_aggravate(monster* m)
 
 void m_sp_merchant(monster* m)
 {
-  pml ml;
+  Monsterlist* ml;
   if (m_statusp(m, HOSTILE))
     if (Current_Environment == E_VILLAGE)
     {
@@ -757,7 +757,7 @@ void m_sp_merchant(monster* m)
 /* and the sorcerors' circle */
 void m_sp_court(monster* m)
 {
-  pml ml;
+  Monsterlist* ml;
   if (m_statusp(m, HOSTILE))
   {
     mprint("A storm of spells hits you!");
@@ -774,7 +774,7 @@ void m_sp_court(monster* m)
 /* The special function of the dragons in the dragons' lair */
 void m_sp_lair(monster* m)
 {
-  pml ml;
+  Monsterlist* ml;
   if (m_statusp(m, HOSTILE))
   {
     mprint("You notice a number of dragons waking up....");

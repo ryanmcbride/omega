@@ -327,7 +327,7 @@ void room_level()
     if (Level->depth == SEWERLEVELS)
     {
       findspace(&tx, &ty, -1);
-      Level->mlist = ((pml)checkmalloc(sizeof(mltype)));
+      Level->mlist = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
       Level->mlist->next = NULL;
       Level->mlist->m =
           Level->site[tx][ty].creature =
@@ -350,7 +350,7 @@ void room_level()
     if (Level->depth == VOLCANOLEVELS && !gamestatusp(COMPLETED_VOLCANO))
     {
       findspace(&tx, &ty, -1);
-      Level->mlist = ((pml)checkmalloc(sizeof(mltype)));
+      Level->mlist = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
       Level->mlist->next = NULL;
       Level->mlist->m =
           Level->site[tx][ty].creature =
@@ -482,7 +482,7 @@ void maze_level()
     if (!gamestatusp(COMPLETED_ASTRAL))
     {
       findspace(&tx, &ty, -1);
-      Level->mlist = ((pml)checkmalloc(sizeof(mltype)));
+      Level->mlist = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
       Level->mlist->next = NULL;
       Level->mlist->m =
           Level->site[tx][ty].creature =
@@ -496,7 +496,7 @@ void maze_level()
     if (Level->depth == VOLCANOLEVELS && !gamestatusp(COMPLETED_VOLCANO))
     {
       findspace(&tx, &ty, -1);
-      Level->mlist = ((pml)checkmalloc(sizeof(mltype)));
+      Level->mlist = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
       Level->mlist->next = NULL;
       Level->mlist->m =
           Level->site[tx][ty].creature =

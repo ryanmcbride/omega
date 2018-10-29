@@ -707,7 +707,7 @@ void plotmon(monster* m)
 /* if display, displays monsters, otherwise erases them */
 void drawmonsters(int display)
 {
-  pml ml;
+  Monsterlist* ml;
   for (ml = Level->mlist; ml != NULL; ml = ml->next)
   {
     if (ml->m->hp > 0)

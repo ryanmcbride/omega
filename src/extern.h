@@ -828,7 +828,7 @@ int save_country ARGS((FILE *));
 int save_item ARGS((FILE *,pob));
 int save_itemlist ARGS((FILE *,pol));
 int save_level ARGS((FILE *,plv));
-int save_monsters ARGS((FILE *,pml));
+int save_monsters ARGS((FILE *,Monsterlist*));
 int save_player ARGS((FILE *));
 void signalsave ARGS((int));
 
@@ -1062,7 +1062,7 @@ int nighttime ARGS((void));
 int offscreen ARGS((int));
 int ok_to_free ARGS((plv));
 void free_level ARGS((plv));
-void free_mons_and_objs ARGS((pml));
+void free_mons_and_objs ARGS((Monsterlist*));
 void free_objlist ARGS((pol));
 void *checkmalloc ARGS((unsigned int));
 int random_range ARGS((int));

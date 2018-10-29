@@ -70,7 +70,7 @@ void load_arena()
   Arena_Monster->sense = 50;
   m_pickup(Arena_Monster, box);
   m_status_set(Arena_Monster, AWAKE);
-  Level->mlist = (pml)checkmalloc(sizeof(mltype));
+  Level->mlist = (Monsterlist*)checkmalloc(sizeof(Monsterlist));
   Level->mlist->m = Arena_Monster;
   Level->mlist->next = NULL;
   /* hehehehe cackled the dungeon master.... */
@@ -214,7 +214,7 @@ void load_circle(int populate)
 /* make the prime sorceror */
 void make_prime(int i, int j)
 {
-  pml ml = ((pml)checkmalloc(sizeof(mltype)));
+  Monsterlist* ml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
   pmt m = ((pmt)checkmalloc(sizeof(montype)));
   pol ol;
   pob o;
@@ -342,7 +342,7 @@ void load_court(int populate)
 /* make the archmage */
 void make_archmage(int i, int j)
 {
-  pml ml = ((pml)checkmalloc(sizeof(mltype)));
+  Monsterlist* ml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
   pmt m = ((pmt)checkmalloc(sizeof(montype)));
   make_hiscore_npc(m, 9); /* 9 is index for archmage */
   m->x = i;

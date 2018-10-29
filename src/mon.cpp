@@ -132,7 +132,7 @@ void m_damage(monster* m, int dmg, int dtype)
 void m_death(monster* m)
 {
   pob corpse;
-  pml ml;
+  Monsterlist* ml;
   int x, y, found = FALSE;
   pol curr, prev = NULL;
 

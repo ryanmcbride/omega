@@ -51,7 +51,7 @@ void hourly_check()
 
 void indoors_random_event()
 {
-  pml ml;
+  Monsterlist* ml;
   pol ol;
   switch (random_range(1000))
   {
@@ -1262,7 +1262,7 @@ int stonecheck(int alignment)
 void alert_guards()
 {
   int foundguard = FALSE;
-  pml ml;
+  Monsterlist* ml;
   int suppress = 0;
   for (ml = Level->mlist; ml != NULL; ml = ml->next)
     if (((ml->m->id == GUARD) ||

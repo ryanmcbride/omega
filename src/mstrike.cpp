@@ -32,7 +32,7 @@ void m_snowball(monster* m)
 void m_blind_strike(monster* m)
 {
 
-  pml ml;
+  Monsterlist* ml;
   if ((Player.status[BLINDED] == 0) &&
       los_p(m->x, m->y, Player.x, Player.y) &&
       (distance(m->x, m->y, Player.x, Player.y) < 5))

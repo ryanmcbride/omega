@@ -13,7 +13,8 @@ the minute and 60 minutes to the hour.
 void time_clock(int reset)
 {
   int env;
-  pml ml, *prev;
+  Monsterlist* ml;
+  Monsterlist** prev;
 
   if (++Tick > 60)
   {

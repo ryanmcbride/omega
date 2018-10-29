@@ -8,7 +8,7 @@
 void load_city(int populate)
 {
   int i, j;
-  pml ml;
+  Monsterlist* ml;
   char site;
 
   FILE *fd;
@@ -468,7 +468,7 @@ void assign_city_function(int x, int y)
 /* makes a hiscore npc for mansions */
 void make_justiciar(int i, int j)
 {
-  pml ml = ((pml)checkmalloc(sizeof(mltype)));
+  Monsterlist* ml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
   ml->m = ((pmt)checkmalloc(sizeof(montype)));
   *(ml->m) = Monsters[NPC];
   make_hiscore_npc(ml->m, 15);

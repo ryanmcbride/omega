@@ -8,7 +8,7 @@
 void m_talk_druid(monster* m)
 {
   int i;
-  pml curr;
+  Monsterlist* curr;
 
   if (!m_statusp(m, HOSTILE))
   {

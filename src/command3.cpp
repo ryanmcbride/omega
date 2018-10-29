@@ -1157,7 +1157,7 @@ void hunt(Symbol terrain)
 
 void dismount_steed()
 {
-  pml ml;
+  Monsterlist* ml;
   if (!gamestatusp(MOUNTED))
     print3("You're on foot already!");
   else if (Current_Environment == E_COUNTRYSIDE)
@@ -1171,7 +1171,7 @@ void dismount_steed()
   {
     resetgamestatus(MOUNTED);
     ;
-    ml = ((pml)checkmalloc(sizeof(mltype)));
+    ml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
     ml->m = ((pmt)checkmalloc(sizeof(montype)));
     *(ml->m) = Monsters[HORSE];
     ml->m->x = Player.x;
