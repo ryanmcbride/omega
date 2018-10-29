@@ -807,7 +807,7 @@ void Monsterlist::free(){
   {
     mlist->m->possessions->free();
     tmp = mlist;
-    ::free(tmp->m);
+    delete tmp->m;
     mlist = mlist->next;
     delete tmp;
   }
