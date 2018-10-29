@@ -369,7 +369,7 @@ int save_monsters(FILE* fd, Monsterlist* ml)
 
 /* Save o unless it's null, then save a special flag byte instead */
 /* Use other values of flag byte to indicate what strings are saved */
-int save_item(FILE* fd, pob o)
+int save_item(FILE* fd, Object* o)
 {
   int ok = 1;
   unsigned char type;
@@ -389,7 +389,7 @@ int save_item(FILE* fd, pob o)
     if (strcmp(o->cursestr, Objects[o->id].cursestr))
       type |= 4;
     ok &= (fwrite((char *)&type, sizeof(type), 1, fd) > 0);
-    ok &= (fwrite((char *)o, sizeof(objtype), 1, fd) > 0);
+    ok &= (fwrite((char *)o, sizeof(Object), 1, fd) > 0);
     if (type & 1)
       ok &= (fprintf(fd, "%s\n", o->objstr) >= 0);
     if (type & 2)
@@ -723,17 +723,17 @@ void restore_player(FILE* fd, int version)
 
 /* Restore an item, the first byte tells us if it's NULL, and what strings */
 /* have been saved as different from the typical */
-pob restore_item(FILE* fd,int  version)
+Object* restore_item(FILE* fd,int  version)
 {
   char tempstr[80];
   unsigned char type;
-  pob obj = NULL;
+  Object* obj = NULL;
 
   fread((char *)&type, sizeof(type), 1, fd);
   if (type != 0xff)
   {
-    obj = ((pob)checkmalloc(sizeof(objtype)));
-    fread((char *)obj, sizeof(objtype), 1, fd);
+    obj = ((Object*)checkmalloc(sizeof(Object)));
+    fread((char *)obj, sizeof(Object), 1, fd);
     if (type & 1)
     {
       filescanstring(fd, tempstr);
@@ -928,7 +928,7 @@ void restore_level(FILE* fd, int version)
 
 void restore_hiscore_npc(pmt npc, int npcid)
 {
-  pob ob;
+  Object* ob;
   int level, behavior;
   long status;
 

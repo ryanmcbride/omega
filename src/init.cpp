@@ -4,7 +4,7 @@
 #include "defs.h"
 #include <vector>
 
-static std::vector<object> _objects;
+static std::vector<Object> _objects;
   int NUMSCROLLS;
   int NUMPOTIONS;
   int NUMFOODS;
@@ -37,12 +37,12 @@ static std::vector<object> _objects;
 
   int TOTALITEMS;
 
-  object *Objects;
+  Object *Objects;
 
 
 void init_things()
 {
-  std::vector<object> things = {
+  std::vector<Object> things = {
       {0, 10, 0, 0, 0, 0, 0, 1, 10, 50, 0, 0, 0, 0, COMMON, I_RAISE_PORTCULLIS, 2, THING, "small grey box with red button", "disposeable garage door opener", "disposeable garage door opener"},
       {1, 20, 0, 0, 0, 0, 0, 1, 20, 2000, 0, 0, 0, 0, COMMON, I_NO_OP, 4, THING, "some rocks", "uncut diamonds", "uncut diamonds"},
       {2, 15, 0, 0, 0, 0, 0, 1, 10, 50, 0, 0, 0, 0, COMMON, I_PICK, 2, THING, "twisted piece of metal", "thieve's pick", "thieve's pick"},
@@ -74,7 +74,7 @@ void init_things()
 }
 void init_foods()
 {
-  std::vector<object> things = {
+  std::vector<Object> things = {
       {26, 20, 0, 0, 0, 0, 8, 1, 0, 2, 0, 0, 0, 0, COMMON, I_FOOD, 0, FOOD, "red and white striped bucket", "food ration", "food ration"},
       {27, 10, 0, 0, 0, 0, 48, 1, 0, 200, 0, 0, 0, 0, COMMON, I_LEMBAS, 2, FOOD, "wafer of lembas", "wafer of lembas", "wafer of lembas"},
       {28, 1, 0, 0, 0, 0, 1, 1, 0, 50, 0, 0, 0, 0, COMMON, I_STIM, 3, FOOD, "small gray tablet", "stimtab", "stimtab"},
@@ -96,7 +96,7 @@ void init_foods()
 }
 void init_scrolls()
 {
-  std::vector<object> things = {
+  std::vector<Object> things = {
       {42, 5, 0, 0, 0, 0, 0, 1, 1, 5, 0, 0, 0, 0, COMMON, I_NOTHING, 0, SCROLL, "?", "blank scroll", "Antinomy!"},
       {43, 5, 0, 0, 0, 0, 0, 1, 1, 250, 0, 0, 0, 0, COMMON, I_SPELLS, 1, SCROLL, "?", "scroll of spells", "scroll of spell loss"},
       {44, 5, 0, 0, 0, 0, 0, 1, 1, 400, 0, 0, 0, 0, COMMON, I_BLESS, 2, SCROLL, "?", "scroll of blessing", "scroll of cursing"},
@@ -126,7 +126,7 @@ void init_scrolls()
 }
 void init_potions()
 {
-  std::vector<object> things = {
+  std::vector<Object> things = {
       {66, 20, 0, 0, 0, 0, 0, 1, 5, 0, 0, 0, 0, 0, COMMON, I_NO_OP, 0, POTION, "?", "potion of quenching thirst", "Antinomy!"},
       {67, 20, 0, 0, 0, 0, 0, 1, 5, 40, 0, 0, 0, 0, COMMON, I_HEAL, 2, POTION, "?", "potion of healing", "potion of disruption"},
       {68, 20, 0, 0, 0, 0, 0, 1, 5, 10, 0, 0, 0, 0, COMMON, I_OBJDET, 1, POTION, "?", "potion of object detection", "potion of object detection"},
@@ -150,7 +150,7 @@ void init_potions()
 }
 void init_weapons()
 {
-  std::vector<object> things = {
+  std::vector<Object> things = {
       {84, 10, 0, 0, 6, 12, 0, 1, 15, 5, 0, 0, 0, THRUSTING, COMMON, I_NORMAL_WEAPON, 0, WEAPON, "dagger", "dagger", "dagger"},
       {85, 25, 0, 0, 8, 11, 0, 1, 15, 40, 0, 0, 0, CUTTING, COMMON, I_NORMAL_WEAPON, 1, WEAPON, "short sword", "short sword", "short sword"},
       {86, 40, 0, 0, 12, 9, 0, 1, 15, 90, 0, 0, 0, CUTTING, COMMON, I_NORMAL_WEAPON, 2, WEAPON, "broad sword", "broad sword", "broad sword"},
@@ -198,7 +198,7 @@ void init_weapons()
 }
 void init_armors()
 {
-  std::vector<object> things = {
+  std::vector<Object> things = {
       {126, 100, 0, 0, 1, 0, 0, 1, 20, 5, 0, 0, 0, 0, COMMON, I_NORMAL_ARMOR, 0, ARMOR, "flak jacket", "flak jacket", "flak jacket"},
       {127, 200, 0, 0, 2, 0, 1, 1, 20, 10, 0, 0, 0, 0, COMMON, I_NORMAL_ARMOR, 1, ARMOR, "soft leather armor", "soft leather armor", "soft leather armor"},
       {128, 200, 0, 0, 2, 0, 1, 1, 20, 30, 0, 0, 0, 0, COMMON, I_NORMAL_ARMOR, 1, ARMOR, "cuirbouilli", "cuirbouilli", "cuirbouilli"},
@@ -221,7 +221,7 @@ void init_armors()
 }
 void init_shields()
 {
-  std::vector<object> things = {
+  std::vector<Object> things = {
       {143, 20, 0, 0, 0, 0, 1, 1, 15, 10, 0, 0, 0, 0, COMMON, I_NORMAL_SHIELD, 0, SHIELD, "buckler", "buckler", "buckler"},
       {144, 40, 0, 0, 0, 0, 2, 1, 15, 20, 0, 0, 0, 0, COMMON, I_NORMAL_SHIELD, 1, SHIELD, "small round shield", "small round shield", "small round shield"},
       {145, 100, 0, 0, 0, 0, 3, 1, 15, 50, 0, 0, 0, 0, COMMON, I_NORMAL_SHIELD, 2, SHIELD, "large round shield", "large round shield", "large round shield"},
@@ -235,7 +235,7 @@ void init_shields()
 }
 void init_cloaks()
 {
-  std::vector<object> things = {
+  std::vector<Object> things = {
       {151, 30, 0, 0, 0, 0, 0, 1, 4, 15, 0, 0, 0, 0, COMMON, I_NO_OP, 0, CLOAK, "?", "cloak of wool", "cloak of wool"},
       {152, 30, 0, 0, 0, 0, 0, 1, 4, 500, 0, 0, 0, 0, COMMON, I_PERM_NEGIMMUNE, 3, CLOAK, "?", "cloak of negimmunity", "cloak of level drain"},
       {153, 30, 0, 0, 0, 0, 0, 1, 4, 500, 0, 0, 0, 0, COMMON, I_PERM_INVISIBLE, 5, CLOAK, "?", "cloak of invisibility", "cloak of invisibility"},
@@ -248,7 +248,7 @@ void init_cloaks()
 }
 void init_boots()
 {
-  std::vector<object> things = {
+  std::vector<Object> things = {
       {158, 30, 0, 0, 0, 0, 0, 1, 6, 1000, 0, 0, 0, 0, COMMON, I_PERM_SPEED, 4, BOOTS, "?", "boots of speed", "boots of slowness"},
       {159, 30, 0, 0, 0, 0, 0, 1, 6, 1000, 0, 0, 0, 0, COMMON, I_PERM_HERO, 6, BOOTS, "?", "boots of heroism", "boots of cowardliness"},
       {160, 30, 0, 0, 0, 0, 0, 1, 6, 500, 0, 0, 0, 0, COMMON, I_PERM_LEVITATE, 3, BOOTS, "?", "boots of levitation", "boots of levitation"},
@@ -261,7 +261,7 @@ void init_boots()
 }
 void init_rings()
 {
-  std::vector<object> things = {
+  std::vector<Object> things = {
       {165, 1, 0, 0, 0, 0, 0, 1, 10, 400, 0, 0, 0, 0, COMMON, I_PERM_TRUESIGHT, 3, RING, "?", "ring of truesight", "ring of blindness"},
       {166, 1, 0, 0, 0, 0, 0, 1, 10, 1, 0, 0, -1, 0, COMMON, I_PERM_BURDEN, 0, RING, "?", "ring of burden", "ring of burden"},
       {167, 1, 0, 0, 0, 0, 0, 1, 10, 100, 0, 0, 0, 0, COMMON, I_PERM_STRENGTH, 1, RING, "?", "ring of strength", "ring of strength"},
@@ -277,7 +277,7 @@ void init_rings()
 }
 void init_sticks()
 {
-  std::vector<object> things = {
+  std::vector<Object> things = {
       {175, 80, 0, 0, 0, 0, 0, 1, 10, 500, 0, 0, 0, 0, COMMON, I_FIREBOLT, 3, STICK, "?", "staff of firebolts", "staff of firebolts"},
       {176, 80, 0, 0, 0, 0, 0, 1, 10, 10, 0, 0, 0, 0, COMMON, I_NOTHING, 0, STICK, "?", "walking stick", "walking stick"},
       {177, 80, 0, 0, 0, 0, 0, 1, 10, 100, 0, 0, 0, 0, COMMON, I_SLEEP_OTHER, 1, STICK, "?", "staff of sleep", "staff of sleep"},
@@ -300,7 +300,7 @@ void init_sticks()
 }
 void init_artifacts()
 {
-  std::vector<object> things = {
+  std::vector<Object> things = {
       {192, 500, 0, 0, 0, 0, 0, 1, 15, 10000, 0, 0, 0, 0, UNIQUE_MADE, I_ORBMASTERY, 10, ARTIFACT, "Mysterious Orb", "Orb of Mastery", "Orb of Mastery"},
       {193, 50, 0, 0, 0, 0, 0, 1, 15, 2000, 0, 0, 0, 0, COMMON, I_ORBFIRE, 9, ARTIFACT, "Mysterious Orb", "Orb of Fire", "Orb of Fire"},
       {194, 50, 0, 0, 0, 0, 0, 1, 15, 2000, 0, 0, 0, 0, COMMON, I_ORBWATER, 8, ARTIFACT, "Mysterious Orb", "Orb of Water", "Orb of Water"},
@@ -330,14 +330,14 @@ void init_artifacts()
 }
 void init_cash()
 {
-  std::vector<object> things = {
+  std::vector<Object> things = {
       {216, 0, 0, 0, 0, 0, 0, 1, 10, 0, 0, 0, 0, 0, COMMON, I_NO_OP, 0, CASH, "money", "money", "money (the root of all evil)"},
   };
   _objects.insert(_objects.end(), things.begin(), things.end());
 }
 void init_corpse()
 {
-  std::vector<object> things = {
+  std::vector<Object> things = {
       {217, 100, 0, 0, 0, 0, 0, 1, 10, 0, 0, 0, 0, 0, COMMON, I_CORPSE, 0, CORPSE, "a mysterious corpse", "a mysterious corpse", "a mysterious corpse"},
   };
   _objects.insert(_objects.end(), things.begin(), things.end());

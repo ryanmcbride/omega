@@ -84,7 +84,7 @@ void movemonster(monster* m, int newx, int newy)
 }
 
 /* give object o to monster m */
-void m_pickup(monster* m, object* o)
+void m_pickup(monster* m, Object* o)
 {
   Objectlist* tmp = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
   tmp->thing = o;
@@ -131,7 +131,7 @@ void m_damage(monster* m, int dmg, int dtype)
 
 void m_death(monster* m)
 {
-  pob corpse;
+  Object* corpse;
   Monsterlist* ml;
   int x, y, found = FALSE;
   Objectlist* curr = NULL;
@@ -200,7 +200,7 @@ void m_death(monster* m)
       Arena_Victory = TRUE; /* won this round of arena combat */
     if (random_range(2) || (m->uniqueness != COMMON))
     {
-      corpse = ((pob)checkmalloc(sizeof(objtype)));
+      corpse = ((Object*)checkmalloc(sizeof(Object)));
       make_corpse(corpse, m);
       drop_at(m->x, m->y, corpse);
     }
@@ -725,7 +725,7 @@ void monster_action(monster* m, int action)
 void make_hiscore_npc(pmt npc, int npcid)
 {
   int st = -1;
-  pob ob;
+  Object* ob;
   *npc = Monsters[HISCORE_NPC];
   npc->aux2 = npcid;
   /* each of the high score npcs can be created here */
@@ -810,7 +810,7 @@ void make_hiscore_npc(pmt npc, int npcid)
   }
   if (st > -1 && Objects[st].uniqueness == UNIQUE_MADE)
   {
-    ob = ((pob)checkmalloc(sizeof(objtype)));
+    ob = ((Object*)checkmalloc(sizeof(Object)));
     *ob = Objects[st];
     m_pickup(npc, ob);
   }
@@ -1401,7 +1401,7 @@ char *mantype()
 void strengthen_death(monster* m)
 {
   Objectlist* ol = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
-  pob scythe = ((pob)checkmalloc(sizeof(objtype)));
+  Object* scythe = ((Object*)checkmalloc(sizeof(Object)));
 #ifdef MSDOS_SUPPORTED_ANTIQUE
   unsigned tmp;
 #endif

@@ -4,15 +4,15 @@
 #include "glob.h"
 
 /* make a random new_obj object, returning pointer */
-pob create_object(int itemlevel)
+Object* create_object(int itemlevel)
 {
-  pob new_obj;
+  Object* new_obj;
   int r;
   int ok = FALSE;
 
   while (!ok)
   {
-    new_obj = ((pob)checkmalloc(sizeof(objtype)));
+    new_obj = ((Object*)checkmalloc(sizeof(Object)));
     r = random_range(135);
     if (r < 20)
       make_thing(new_obj, -1);
@@ -52,7 +52,7 @@ pob create_object(int itemlevel)
   return (new_obj);
 }
 
-void make_cash(pob new_obj, int level)
+void make_cash(Object* new_obj, int level)
 {
   *new_obj = Objects[CASHID];
   new_obj->basevalue = random_range(level * level + 10) + 1; /* aux is AU value */
@@ -60,14 +60,14 @@ void make_cash(pob new_obj, int level)
   new_obj->cursestr = new_obj->truename = new_obj->objstr;
 }
 
-void make_food(pob new_obj, int id)
+void make_food(Object* new_obj, int id)
 {
   if (id == -1)
     id = random_range(NUMFOODS);
   *new_obj = Objects[FOODID + id];
 }
 
-void make_corpse(pob new_obj, monster* m)
+void make_corpse(Object* new_obj, monster* m)
 {
   *new_obj = Objects[CORPSEID];
   new_obj->charge = m->id;
@@ -154,7 +154,7 @@ void make_corpse(pob new_obj, monster* m)
     
 }
 
-void make_ring(pob new_obj, int id)
+void make_ring(Object* new_obj, int id)
 {
   if (id == -1)
     id = random_range(NUMRINGS);
@@ -167,7 +167,7 @@ void make_ring(pob new_obj, int id)
     new_obj->plus = -1 - abs(new_obj->plus);
 }
 
-void make_thing(pob new_obj, int id)
+void make_thing(Object* new_obj, int id)
 {
   if (id == -1)
     id = random_range(NUMTHINGS);
@@ -179,7 +179,7 @@ void make_thing(pob new_obj, int id)
   }
 }
 
-void make_scroll(pob new_obj, int id)
+void make_scroll(Object* new_obj, int id)
 {
   if (id == -1)
     id = random_range(NUMSCROLLS);
@@ -191,7 +191,7 @@ void make_scroll(pob new_obj, int id)
   }
 }
 
-void make_potion(pob new_obj, int id)
+void make_potion(Object* new_obj, int id)
 {
   if (id == -1)
     id = random_range(NUMPOTIONS);
@@ -200,7 +200,7 @@ void make_potion(pob new_obj, int id)
     new_obj->plus = itemplus();
 }
 
-void make_weapon(pob new_obj, int id)
+void make_weapon(Object* new_obj, int id)
 {
   if (id == -1)
     id = random_range(NUMWEAPONS);
@@ -219,7 +219,7 @@ void make_weapon(pob new_obj, int id)
   }
 }
 
-void make_shield(pob new_obj, int id)
+void make_shield(Object* new_obj, int id)
 {
   if (id == -1)
     id = random_range(NUMSHIELDS);
@@ -234,7 +234,7 @@ void make_shield(pob new_obj, int id)
     new_obj->plus = 1 + abs(new_obj->plus);
 }
 
-void make_armor(pob new_obj, int id)
+void make_armor(Object* new_obj, int id)
 {
   if (id == -1)
     id = random_range(NUMARMOR);
@@ -249,7 +249,7 @@ void make_armor(pob new_obj, int id)
     new_obj->plus = 1 + abs(new_obj->plus);
 }
 
-void make_cloak(pob new_obj, int id)
+void make_cloak(Object* new_obj, int id)
 {
   if (id == -1)
     id = random_range(NUMCLOAKS);
@@ -259,7 +259,7 @@ void make_cloak(pob new_obj, int id)
     new_obj->blessing = itemblessing();
 }
 
-void make_boots(pob new_obj, int id)
+void make_boots(Object* new_obj, int id)
 {
   if (id == -1)
     id = random_range(NUMBOOTS);
@@ -268,7 +268,7 @@ void make_boots(pob new_obj, int id)
     new_obj->blessing = itemblessing();
 }
 
-void make_stick(pob new_obj, int id)
+void make_stick(Object* new_obj, int id)
 {
   if (id == -1)
     id = random_range(NUMSTICKS);
@@ -278,7 +278,7 @@ void make_stick(pob new_obj, int id)
     new_obj->blessing = itemblessing();
 }
 
-void make_artifact(pob new_obj, int id)
+void make_artifact(Object* new_obj, int id)
 {
   if (id == -1)
     do
@@ -715,7 +715,7 @@ int twohandedp(int id)
   
 }
 
-void item_use(object* o)
+void item_use(Object* o)
 {
   clearmsg();
   switch (o->usef)

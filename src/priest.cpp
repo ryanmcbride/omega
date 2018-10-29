@@ -462,7 +462,7 @@ void answer_prayer()
 
 void hp_req_test()
 {
-  pob o;
+  Object* o;
   switch (player.patron)
   {
   case ODIN:
@@ -542,7 +542,7 @@ void hp_req_print()
   }
 }
 
-void make_hp(pob o)
+void make_hp(Object* o)
 {
   print1("A full-scale heavenly choir chants 'Hallelujah' all around you!");
   print2("You notice a change in the symbol you carry....");

@@ -29,7 +29,7 @@ extern struct monster* Monsters;
 extern Spell Spells[NUMSPELLS+1];
 
 /* one of each item */
-extern object *Objects;
+extern Object *Objects;
 
 /* locations of city sites [0] - found, [1] - x, [2] - y */
 extern int CitySiteList[NUMCITYSITES][3];
@@ -122,7 +122,7 @@ extern int Date;
 extern int Pawndate;
 /* Pawn Shop item generation date */
 
-extern pob Pawnitems[PAWNITEMS];
+extern Object* Pawnitems[PAWNITEMS];
 /* items in pawn shop */
 
 extern int ViewHour;

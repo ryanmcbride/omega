@@ -458,7 +458,7 @@ void fight_monster(monster* m)
 }
 
 /* Attempt to break an object o */
-int damage_item(pob o)
+int damage_item(Object* o)
 {
   int i;
   /* special case -- break star gem */

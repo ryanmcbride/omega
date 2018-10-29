@@ -591,7 +591,7 @@ void breathe(int blessing)
   }
 }
 
-void i_chaos(pob o)
+void i_chaos(Object* o)
 {
   if (player.alignment < 0)
   {
@@ -606,7 +606,7 @@ void i_chaos(pob o)
   }
 }
 
-void i_law(pob o)
+void i_law(Object* o)
 {
   if (player.alignment > 0)
   {

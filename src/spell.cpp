@@ -180,7 +180,7 @@ void s_fear()
    Eventually will be more interesting */
 void s_ritual()
 {
-  pob symbol;
+  Object* symbol;
   int i, roomno;
   int x, y;
 
@@ -306,7 +306,7 @@ void s_ritual()
               if ((player.rank[PRIESTHOOD] < SPRIEST) &&
                   (!find_item(&symbol, ARTIFACTID + 19, -1)))
               {
-                symbol = ((pob)checkmalloc(sizeof(objtype)));
+                symbol = ((Object*)checkmalloc(sizeof(Object)));
                 *symbol = Objects[ARTIFACTID + 19];
                 symbol->known = 2;
                 symbol->charge = 17;

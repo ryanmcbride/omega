@@ -277,7 +277,7 @@ void version()
 void fire()
 {
   int index, x1, y1, x2, y2;
-  pob obj;
+  Object* obj;
   struct monster *m;
 
   clearmsg();

@@ -892,7 +892,7 @@ void truesight(int blessing)
 void dispel(int blessing)
 {
   int i, x = player.x, y = player.y;
-  pob o;
+  Object* o;
   if (blessing > -1)
   {
     setspot(&x, &y);

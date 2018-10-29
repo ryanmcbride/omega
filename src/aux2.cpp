@@ -570,7 +570,7 @@ long expval(int plevel)
 }
 
 /* If an item is unidentified, it isn't worth much to those who would buy it */
-long item_value(pob item)
+long item_value(Object* item)
 {
   if (item->known == 0)
   {
@@ -591,7 +591,7 @@ long item_value(pob item)
 }
 
 /* figures value based on item base-value, charge, plus, and blessing */
-long true_item_value(pob item)
+long true_item_value(Object* item)
 {
   long value = item->basevalue;
 
@@ -679,7 +679,7 @@ void p_drown()
 }
 
 /* the effect of some weapon on monster m, with dmgmod a bonus to damage */
-void weapon_use(int dmgmod, pob weapon, monster *m)
+void weapon_use(int dmgmod, Object* weapon, monster *m)
 {
   int aux = (weapon == NULL ? -2 : weapon->aux); /* bare hands */
   switch (aux)

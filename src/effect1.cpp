@@ -753,7 +753,7 @@ void acquire(int blessing)
 {
   char otype;
   int index, id = ABORT;
-  pob newthing;
+  Object* newthing;
 
   if (blessing < 0)
   {
@@ -771,7 +771,7 @@ void acquire(int blessing)
   }
   else
   {
-    newthing = ((pob)checkmalloc(sizeof(objtype)));
+    newthing = ((Object*)checkmalloc(sizeof(Object)));
     newthing->id = -1;
     if (gamestatusp(CHEATED))
       print1("Acquire which kind of item: !?][}{)/=%%\\& ");

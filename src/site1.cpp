@@ -204,7 +204,7 @@ void buyfromstock(int base, int numitems)
 {
 	int i;
 	char item;
-	pob newitem;
+	Object* newitem;
 
 	print2("Purchase which item? [ESCAPE to quit] ");
 	menuclear();
@@ -224,7 +224,7 @@ void buyfromstock(int base, int numitems)
 	if (item != ESCAPE)
 	{
 		i = item - 'a';
-		newitem = ((pob)checkmalloc(sizeof(objtype)));
+		newitem = ((Object*)checkmalloc(sizeof(Object)));
 		*newitem = Objects[base + i];
 		newitem->known = 2;
 		clearmsg();
@@ -393,7 +393,7 @@ void l_healer()
 
 void statue_random(int x, int y)
 {
-	pob item;
+	Object* item;
 	int i, j;
 	switch (random_range(difficulty() + 3) - 1)
 	{
@@ -675,7 +675,7 @@ void l_casino()
 void l_commandant()
 {
 	int num;
-	pob food;
+	Object* food;
 	print1("Commandant Sonder's Rampart-fried Lyzzard partes. Open 24 hrs.");
 	print2("Buy a bucket! Only 5 Au. Make a purchase? [yn] ");
 	if (ynq2() == 'y')
@@ -690,7 +690,7 @@ void l_commandant()
 		else
 		{
 			player.cash -= num * 5;
-			food = ((pob)checkmalloc(sizeof(objtype)));
+			food = ((Object*)checkmalloc(sizeof(Object)));
 			*food = Objects[FOODID + 0]; /* food ration */
 			food->number = num;
 			if (num == 1)
@@ -909,7 +909,7 @@ void l_alchemist()
 {
 	int i, done = FALSE, mlevel;
 	char response;
-	pob obj;
+	Object* obj;
 	print1("Ambrosias' Potions et cie.");
 	if (nighttime())
 		print2("Ambrosias doesn't seem to be in right now.");
@@ -1298,7 +1298,7 @@ void l_pawn_shop()
 							free((char *)Pawnitems[0]);
 							for (j = 0; j < PAWNITEMS - 1; j++)
 								Pawnitems[j] = Pawnitems[j + 1];
-							Pawnitems[PAWNITEMS - 1] = ((pob)checkmalloc(sizeof(objtype)));
+							Pawnitems[PAWNITEMS - 1] = ((Object*)checkmalloc(sizeof(Object)));
 							*(Pawnitems[PAWNITEMS - 1]) = *(player.possessions[i]);
 							Pawnitems[PAWNITEMS - 1]->number = number;
 							Pawnitems[PAWNITEMS - 1]->known = 2;
@@ -1330,7 +1330,7 @@ void l_pawn_shop()
 								free((char *)Pawnitems[0]);
 								for (j = 0; j < PAWNITEMS - 1; j++)
 									Pawnitems[j] = Pawnitems[j + 1];
-								Pawnitems[PAWNITEMS - 1] = ((pob)checkmalloc(sizeof(objtype)));
+								Pawnitems[PAWNITEMS - 1] = ((Object*)checkmalloc(sizeof(Object)));
 								*(Pawnitems[PAWNITEMS - 1]) = *(player.pack[i]);
 								Pawnitems[PAWNITEMS - 1]->number = number;
 								Pawnitems[PAWNITEMS - 1]->known = 2;

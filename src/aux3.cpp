@@ -146,7 +146,7 @@ void indoors_random_event()
 void outdoors_random_event()
 {
   int num, i, j;
-  pob ob;
+  Object* ob;
 
   switch (random_range(300))
   {
@@ -187,7 +187,7 @@ void outdoors_random_event()
     morewait();
     mprint("Using your herbalist lore you cook a cake of lembas....");
     morewait();
-    ob = ((pob)checkmalloc(sizeof(objtype)));
+    ob = ((Object*)checkmalloc(sizeof(Object)));
     *ob = Objects[FOODID + 1];
     gain_item(ob);
     break;
@@ -283,7 +283,7 @@ void outdoors_random_event()
     {
       mprint("A tendril of the storm condenses and falls into your hands.");
       morewait();
-      ob = ((pob)checkmalloc(sizeof(objtype)));
+      ob = ((Object*)checkmalloc(sizeof(Object)));
       make_artifact(ob, -1);
       gain_item(ob);
     }

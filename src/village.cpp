@@ -190,7 +190,7 @@ void make_food_bin(int i, int j)
   for (k = 0; k < 10; k++)
   {
     tol = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
-    tol->thing = ((pob)checkmalloc(sizeof(objtype)));
+    tol->thing = ((Object*)checkmalloc(sizeof(Object)));
     make_food(tol->thing, 15); /* grain */
     tol->next = level->site[i][j].things;
     level->site[i][j].things = tol;

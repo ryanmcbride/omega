@@ -9,7 +9,7 @@ void load_arena()
 {
   int i, j;
   char site;
-  pob box = ((pob)checkmalloc(sizeof(objtype)));
+  Object* box = ((Object*)checkmalloc(sizeof(Object)));
   FILE *fd;
 
   *box = Objects[THINGID + 0];
@@ -217,7 +217,7 @@ void make_prime(int i, int j)
   Monsterlist* ml = ((Monsterlist*)checkmalloc(sizeof(Monsterlist)));
   pmt m = ((pmt)checkmalloc(sizeof(montype)));
   Objectlist* ol;
-  pob o;
+  Object* o;
   make_hiscore_npc(m, 10); /* 10 is index for prime */
   m->x = i;
   m->y = j;
@@ -229,7 +229,7 @@ void make_prime(int i, int j)
   if (Objects[ARTIFACTID + 21].uniqueness != UNIQUE_TAKEN)
   {
     ol = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
-    o = ((pob)checkmalloc(sizeof(objtype)));
+    o = ((Object*)checkmalloc(sizeof(Object)));
     *o = Objects[ARTIFACTID + 21];
     ol->thing = o;
     ol->next = NULL;

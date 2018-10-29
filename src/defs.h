@@ -1382,7 +1382,7 @@ class Room {
   int rsi; /* index into roomname switch */
 };
 
-class object {
+class Object {
   public:
   int id,weight,plus,charge,dmg,hit,aux,number,fragility;
   long basevalue;
@@ -1397,7 +1397,7 @@ class object {
 
 class Objectlist {
   public:
-  object *thing;
+  Object *thing;
   Objectlist *next;
 };
 
@@ -1433,9 +1433,6 @@ class Monsterlist {
   Monsterlist *next;
 };
 
-
-
-
 class Player {
   public:
   int str,con,dex,agi,iq,pow,maxstr,maxcon,maxdex,maxagi,maxiq,maxpow;
@@ -1456,8 +1453,8 @@ class Player {
   long guildxp[NUMRANKS];
   char name[64];
   char meleestr[64];
-  object *possessions[MAXITEMS];
-  object *pack[MAXPACK];
+  Object *possessions[MAXITEMS];
+  Object *pack[MAXPACK];
   int packptr;
 };
 
@@ -1508,9 +1505,6 @@ class Level {
 
 typedef monster montype;
 typedef montype *pmt;
-
-typedef object objtype;
-typedef objtype *pob;
 
 /* random  function declarations from system libraries */
 

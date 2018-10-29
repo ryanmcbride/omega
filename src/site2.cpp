@@ -1009,7 +1009,7 @@ void l_hovel()
 void l_safe()
 {
   char response;
-  pob newitem;
+  Object* newitem;
   int attempt = 0;
   print1("You have discovered a safe!");
   print2("Pick the lock [p], Force the door [f], or ignore [ESCAPE]");

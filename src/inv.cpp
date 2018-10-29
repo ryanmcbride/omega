@@ -17,7 +17,7 @@
 /* drops money, heh heh */
 void drop_money()
 {
-  pob money;
+  Object* money;
 
   /* WDT HACK!  Let me guess -- this is yet another memory leak, right? */
   money = detach_money();
@@ -37,15 +37,15 @@ void drop_money()
 
 /* returns some money from player back into "money" item.
    for giving and dropping money */
-pob detach_money()
+Object* detach_money()
 {
   long c;
-  pob cash = NULL;
+  Object* cash = NULL;
   c = get_money(player.cash);
   if (c != ABORT)
   {
     player.cash -= c;
-    cash = ((pob)checkmalloc(sizeof(objtype)));
+    cash = ((Object*)checkmalloc(sizeof(Object)));
     make_cash(cash, difficulty());
     cash->basevalue = c;
   }
@@ -135,7 +135,7 @@ signed char index_to_key(signed int index)
 
 /* criteria for being able to put some item in some slot */
 /* WDT -- why on earth does the 'slottable' function print stuff???? */
-int aux_slottable(pob o, int slot)
+int aux_slottable(Object* o, int slot)
 {
   int ok = TRUE;
   if (o == NULL)
@@ -180,17 +180,17 @@ int aux_slottable(pob o, int slot)
 
 /* put all of o on objlist at x,y on level->depth */
 /* Not necessarily dropped by character; just dropped... */
-void drop_at(int x, int y, pob o)
+void drop_at(int x, int y, Object* o)
 {
   Objectlist* tmp;
-  pob cpy;
+  Object* cpy;
 
   if (Current_Environment != E_COUNTRYSIDE)
   {
     if ((level->site[x][y].locchar != VOID_CHAR) &&
         (level->site[x][y].locchar != ABYSS))
     {
-      cpy = ((pob)checkmalloc(sizeof(objtype)));
+      cpy = ((Object*)checkmalloc(sizeof(Object)));
       tmp = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
       *cpy = *o;
       cpy->used = FALSE;
@@ -204,7 +204,7 @@ void drop_at(int x, int y, pob o)
 }
 
 /* put n of o on objlist at x,y on level->depth */
-void p_drop_at(int x, int y, int n, pob o)
+void p_drop_at(int x, int y, int n, Object* o)
 {
   Objectlist* tmp;
   if (Current_Environment != E_COUNTRYSIDE)
@@ -212,7 +212,7 @@ void p_drop_at(int x, int y, int n, pob o)
         (level->site[x][y].locchar != ABYSS))
     {
       tmp = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
-      tmp->thing = ((pob)checkmalloc(sizeof(objtype)));
+      tmp->thing = ((Object*)checkmalloc(sizeof(Object)));
       *(tmp->thing) = *o;
       tmp->thing->used = FALSE;
       tmp->thing->number = n;
@@ -227,7 +227,7 @@ void p_drop_at(int x, int y, int n, pob o)
 }
 
 /* returns a string for identified items */
-char *itemid(pob obj)
+char *itemid(Object* obj)
 {
   char tstr[80];
   if (obj->objchar == CASH)
@@ -314,7 +314,7 @@ char *cashstr()
 }
 
 /* return an object's plus as a string */
-void setplustr(pob obj, char* pstr)
+void setplustr(Object* obj, char* pstr)
 {
   pstr[0] = ' ';
   pstr[1] = (obj->plus < 0 ? '-' : '+');
@@ -332,7 +332,7 @@ void setplustr(pob obj, char* pstr)
 }
 
 /* return an object's number as a string */
-void setnumstr(pob obj, char* nstr)
+void setnumstr(Object* obj, char* nstr)
 {
   if (obj->number < 2)
     nstr[0] = 0;
@@ -356,7 +356,7 @@ void setnumstr(pob obj, char* nstr)
 }
 
 /* return object with charges */
-void setchargestr(pob obj, char* cstr)
+void setchargestr(Object* obj, char* cstr)
 {
   cstr[0] = ' ';
   cstr[1] = '[';
@@ -386,7 +386,7 @@ void setchargestr(pob obj, char* cstr)
 
 void give_money(monster* m)
 {
-  pob cash;
+  Object* cash;
 
   cash = detach_money();
   if (cash == NULL)
@@ -395,7 +395,7 @@ void give_money(monster* m)
     givemonster(m, cash);
 }
 
-void givemonster(monster* m, object* o)
+void givemonster(monster* m, Object* o)
 {
   /* special case -- give gem to LawBringer */
   if ((m->id == LAWBRINGER) && (o->id == ARTIFACTID + 21))
@@ -491,7 +491,7 @@ void givemonster(monster* m, object* o)
 }
 
 /* will clear all, not just one of an object. */
-void conform_lost_object(pob obj)
+void conform_lost_object(Object* obj)
 {
   if (obj != NULL)
     conform_lost_objects(obj->number, obj);
@@ -499,7 +499,7 @@ void conform_lost_object(pob obj)
 
 /* removes n of object from inventory; frees object if appropriate. */
 
-void dispose_lost_objects(int n, pob obj)
+void dispose_lost_objects(int n, Object* obj)
 {
   int i, conformed = FALSE, subtracted = FALSE;
 
@@ -529,7 +529,7 @@ void dispose_lost_objects(int n, pob obj)
 
 /* removes n of object from inventory without freeing object.
    Removes all instances of pointer (might be 2 handed weapon, etc) */
-void conform_lost_objects(int n, pob obj)
+void conform_lost_objects(int n, Object* obj)
 {
   int i, conformed = FALSE, subtracted = FALSE;
   if (obj != NULL)
@@ -554,7 +554,7 @@ void conform_lost_objects(int n, pob obj)
 }
 
 /* clears unused possession */
-void conform_unused_object(pob obj)
+void conform_unused_object(Object* obj)
 {
   if (obj->used)
   {
@@ -661,7 +661,7 @@ int badobject(char slotchar)
 }
 
 #ifndef MSDOS_SUPPORTED_ANTIQUE
-/* this takes the numerical index directly for the same effect as badobject*/
+/* this takes the numerical index directly for the same effect as badObject*/
 int baditem(int slotnum)
 {
   if ((slotnum < 1) || (slotnum >= MAXITEMS))
@@ -672,7 +672,7 @@ int baditem(int slotnum)
 #endif
 
 /* formerly add_item_to_pack */
-void gain_item(object* o) 
+void gain_item(Object* o) 
 {
   if (o->uniqueness == UNIQUE_MADE)
     Objects[o->id].uniqueness = UNIQUE_TAKEN;
@@ -699,7 +699,7 @@ void gain_item(object* o)
 }
 
 /* inserts the item at the start of the pack array */
-void push_pack(pob o)
+void push_pack(Object* o)
 {
   int i;
   for (i = player.packptr; i > 0; i--)
@@ -709,7 +709,7 @@ void push_pack(pob o)
 }
 
 /* Adds item to pack list */
-void add_to_pack(pob o)
+void add_to_pack(Object* o)
 {
   if (player.packptr >= MAXPACK)
   {
@@ -724,7 +724,7 @@ void add_to_pack(pob o)
 }
 
 /* Adds item to pack list, maybe going into inventory mode if pack is full */
-int get_to_pack(pob o)
+int get_to_pack(Object* o)
 {
   if (player.packptr >= MAXPACK)
   {
@@ -759,7 +759,7 @@ int pack_item_cost(int index)
 /* WDT -- 'response' must be an index into the pack. */
 int use_pack_item(int response, int slot)
 {
-  pob item;
+  Object* item;
   int i;
   i = pack_item_cost(response);
   if (i > 10)
@@ -915,7 +915,7 @@ int aux_top_take_from_pack(int slot, int display)
 {
   char response;
   int i, quit = FALSE, ok = TRUE, displayed = FALSE;
-  pob item;
+  Object* item;
   if (player.possessions[slot] != NULL)
     slot = O_UP_IN_AIR;
   if (player.possessions[slot] != NULL)
@@ -1340,7 +1340,7 @@ int get_inventory_slot()
 }
 
 /* returns some number between 0 and o->number */
-int get_item_number(pob o)
+int get_item_number(Object* o)
 {
   int n = 0;
   if (o->number == 1)
@@ -1392,7 +1392,9 @@ void drop_from_slot(int slot)
 void put_to_pack(int slot)
 {
   int waitflag, num = 1;
-  pob temp, oslot = player.possessions[slot];
+  Object* temp;;
+  Object* oslot = player.possessions[slot];
+  
   if (oslot == NULL)
     print3("Slot is empty!");
   else if (cursed(oslot) == TRUE + TRUE)
@@ -1415,12 +1417,12 @@ void put_to_pack(int slot)
 /* splits num off of item to make newitem which is returned */
 /* something else (conform_lost_objects) has to reduce the actual
    number value of item and player.itemweight */
-pob split_item(int num, pob item)
+Object* split_item(int num, Object* item)
 {
-  pob newitem = NULL;
+  Object* newitem = NULL;
   if (item != NULL)
   {
-    newitem = ((pob)checkmalloc(sizeof(objtype)));
+    newitem = ((Object*)checkmalloc(sizeof(Object)));
     *newitem = *item;
     if (num <= item->number)
       newitem->number = num;
@@ -1437,9 +1439,9 @@ is greater than one, requests how many to move. */
 
 void switch_to_slot(int slot)
 {
-  pob oslot = player.possessions[slot];
-  pob oair = player.possessions[O_UP_IN_AIR];
-  pob otemp = NULL;
+  Object* oslot = player.possessions[slot];
+  Object* oair = player.possessions[O_UP_IN_AIR];
+  Object* otemp = NULL;
   int slotnull, airnull, num = 1, trade = FALSE, put = FALSE, take = FALSE, merge = FALSE;
   int s2h = FALSE, a2h = FALSE;
 
@@ -1464,7 +1466,7 @@ void switch_to_slot(int slot)
 
     /* figure out which action to take */
 
-    /* merge if both are same kind of object */
+    /* merge if both are same kind of Object */
     merge = objequal(oslot, oair);
 
     take = ((!merge) && (!slotnull) && airnull);
@@ -1570,7 +1572,7 @@ void merge_item(int slot)
 
 /* are two objects equal except for their number field? */
 /* returns false if either object is null */
-int objequal(object* o, object* p)
+int objequal(Object* o, Object* p)
 {
   if ((o == NULL) || (p == NULL))
     return (FALSE);
@@ -1589,7 +1591,7 @@ int objequal(object* o, object* p)
 }
 
 /* criteria for being able to put some item in some slot */
-int slottable(pob o, int slot)
+int slottable(Object* o, int slot)
 {
   int ok = TRUE;
   if (o == NULL)
@@ -1641,7 +1643,7 @@ int slottable(pob o, int slot)
  * printing SILLY stuff out. */
 /* whether or not an item o can be used in a slot. Assumes o can in
    fact be placed in the slot. */
-int item_useable(pob o, int slot)
+int item_useable(Object* o, int slot)
 {
   /* don't have to check the object in the first if since only armor
   can go in armor slot, cloak in cloak slot, etc */
@@ -1686,7 +1688,7 @@ int item_useable(pob o, int slot)
 
 /* returns FALSE if not cursed, TRUE if cursed but not used,
    TRUE + TRUE if cursed and used */
-int cursed(pob obj)
+int cursed(Object* obj)
 {
   return ((obj == NULL) ? FALSE : ((obj->blessing < 0) ? (obj->used == TRUE) + TRUE : FALSE));
 }
@@ -1694,7 +1696,7 @@ int cursed(pob obj)
 /* returns true if item with id and charge is found in pack or in
    inventory slot. charge is used to differentiate
    corpses instead of aux, which is their food value. */
-int find_item(pob* o, int id, int chargeval)
+int find_item(Object** o, int id, int chargeval)
 {
   int i, found = FALSE;
   *o = NULL;
@@ -1726,7 +1728,7 @@ int find_item(pob* o, int id, int chargeval)
 int find_and_remove_item(int id, int chargeval)
 {
   int i, found = FALSE;
-  pob o = NULL;
+  Object* o = NULL;
 
   for (i = 1; ((i < MAXITEMS) && (!found)); i++)
     if (player.possessions[i] != NULL)
@@ -1781,9 +1783,9 @@ void lose_all_items()
 }
 
 /* prevents people from wielding 3 short swords, etc. */
-void pack_extra_items(pob item)
+void pack_extra_items(Object* item)
 {
-  pob extra = ((pob)checkmalloc(sizeof(objtype)));
+  Object* extra = ((Object*)checkmalloc(sizeof(Object)));
   *extra = *item;
   extra->number = item->number - 1;
   extra->used = FALSE;
@@ -1810,7 +1812,7 @@ void pack_extra_items(pob item)
 /* makes sure player.pack is OK, (used after sale from pack) */
 void fixpack()
 {
-  pob tpack[MAXPACK];
+  Object* tpack[MAXPACK];
   int i, tctr = 0;
   for (i = 0; i < MAXPACK; i++)
     tpack[i] = NULL;

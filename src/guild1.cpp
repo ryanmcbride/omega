@@ -10,7 +10,7 @@
 
 void l_merc_guild()
 {
-  pob newitem;
+  Object* newitem;
 
   print1("Legion of Destiny, Mercenary Guild, Inc.");
   if (nighttime())
@@ -73,10 +73,10 @@ void l_merc_guild()
           print2("You are now a Legionaire.");
           morewait();
           clearmsg();
-          newitem = ((pob)checkmalloc(sizeof(objtype)));
+          newitem = ((Object*)checkmalloc(sizeof(Object)));
           *newitem = Objects[WEAPONID + 1]; /* shortsword */
           gain_item(newitem);
-          newitem = ((pob)checkmalloc(sizeof(objtype)));
+          newitem = ((Object*)checkmalloc(sizeof(Object)));
           *newitem = Objects[ARMORID + 1]; /* leather */
           gain_item(newitem);
           player.cash += 500;
@@ -207,7 +207,7 @@ void l_merc_guild()
 
 void l_castle()
 {
-  pob o;
+  Object* o;
   int x, y;
 
   if (player.level < 3)
@@ -337,7 +337,7 @@ void l_castle()
 void l_arena()
 {
   char response;
-  pob newitem;
+  Object* newitem;
   int i, prize, monsterlevel;
   char *name, *corpse, *melee = NULL;
 
@@ -376,10 +376,10 @@ void l_arena()
       print2("Here's a wooden sword, and a shield");
       morewait();
       clearmsg();
-      newitem = ((pob)checkmalloc(sizeof(objtype)));
+      newitem = ((Object*)checkmalloc(sizeof(Object)));
       *newitem = Objects[WEAPONID + 17]; /* club */
       gain_item(newitem);
-      newitem = ((pob)checkmalloc(sizeof(objtype)));
+      newitem = ((Object*)checkmalloc(sizeof(Object)));
       *newitem = Objects[SHIELDID + 2]; /* shield */
       gain_item(newitem);
       player.rank[ARENA] = TRAINEE;
@@ -557,7 +557,7 @@ void l_arena()
           save_hiscore_npc(11);
           print1("You are awarded the Champion's Spear: Victrix!");
           morewait();
-          newitem = ((pob)checkmalloc(sizeof(objtype)));
+          newitem = ((Object*)checkmalloc(sizeof(Object)));
           *newitem = Objects[WEAPONID + 35];
           gain_item(newitem);
         }

@@ -56,7 +56,7 @@ void rest()
 void peruse()
 {
   int index;
-  object *obj;
+  Object *obj;
 
   clearmsg();
 
@@ -92,7 +92,7 @@ void peruse()
 void quaff()
 {
   int index;
-  object *obj;
+  Object *obj;
   clearmsg();
   print1("Quaff --");
   index = getitem(POTION);
@@ -150,7 +150,7 @@ void activate()
 void eat()
 {
   int index;
-  object *obj;
+  Object *obj;
 
   clearmsg();
 
@@ -342,7 +342,7 @@ void talk()
 void disarm()
 {
   int x, y, index = 0;
-  pob o;
+  Object* o;
 
   clearmsg();
   print1("Disarm -- ");
@@ -368,7 +368,7 @@ void disarm()
         print1("You disarmed the trap!");
         if (random_range(100) < player.dex + player.rank[THIEVES] * 10)
         {
-          o = ((pob)checkmalloc(sizeof(objtype)));
+          o = ((Object*)checkmalloc(sizeof(Object)));
           switch (level->site[x][y].p_locf)
           {
           case L_TRAP_DART:
@@ -437,7 +437,7 @@ void give()
   int index;
   int dx, dy, dindex = 0;
   struct monster *m;
-  pob obj;
+  Object* obj;
 
   clearmsg();
 
@@ -468,7 +468,7 @@ void give()
         give_money(m);
       else if (!cursed(player.possessions[index]))
       {
-        obj = ((pob)checkmalloc(sizeof(objtype)));
+        obj = ((Object*)checkmalloc(sizeof(Object)));
         *obj = *(player.possessions[index]);
         obj->used = FALSE;
         conform_lost_objects(1, player.possessions[index]);
@@ -497,7 +497,7 @@ void give()
 void zapwand()
 {
   int index;
-  object *obj;
+  Object *obj;
 
   clearmsg();
 
@@ -735,7 +735,7 @@ void setoptions()
 void callitem()
 {
   int index;
-  pob obj;
+  Object* obj;
 
   clearmsg();
   setgamestatus(SKIP_MONSTERS);
@@ -986,7 +986,7 @@ void bash_location()
 void bash_item()
 {
   int item;
-  pob obj;
+  Object* obj;
 
   clearmsg();
   print1("Destroy an item --");

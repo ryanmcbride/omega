@@ -510,7 +510,7 @@ pmt m_create(int x, int y, int kind, int level)
 pmt make_creature(int mid)
 {
   pmt newmonster = ((pmt)checkmalloc(sizeof(montype)));
-  pob ob;
+  Object* ob;
   int i, treasures;
 
   if (mid == -1)
@@ -590,7 +590,7 @@ pmt make_creature(int mid)
     if (newmonster->startthing > -1 &&
         Objects[newmonster->startthing].uniqueness <= UNIQUE_MADE)
     {
-      ob = ((pob)checkmalloc(sizeof(objtype)));
+      ob = ((Object*)checkmalloc(sizeof(Object)));
       *ob = Objects[newmonster->startthing];
       m_pickup(newmonster, ob);
     }
@@ -599,7 +599,7 @@ pmt make_creature(int mid)
     {
       do
       {
-        ob = (pob)(create_object(newmonster->level));
+        ob = (Object*)(create_object(newmonster->level));
         if (ob->uniqueness != COMMON)
         {
           Objects[ob->id].uniqueness = UNIQUE_UNMADE;
@@ -631,7 +631,7 @@ void stock_level()
     i = random_range(WIDTH);
     j = random_range(LENGTH);
     level->site[i][j].things = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
-    level->site[i][j].things->thing = ((pob)checkmalloc(sizeof(objtype)));
+    level->site[i][j].things->thing = ((Object*)checkmalloc(sizeof(Object)));
     make_cash(level->site[i][j].things->thing, difficulty());
     level->site[i][j].things->next = NULL;
     /* caves have more random cash strewn around */
@@ -640,13 +640,13 @@ void stock_level()
       i = random_range(WIDTH);
       j = random_range(LENGTH);
       level->site[i][j].things = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
-      level->site[i][j].things->thing = ((pob)checkmalloc(sizeof(objtype)));
+      level->site[i][j].things->thing = ((Object*)checkmalloc(sizeof(Object)));
       make_cash(level->site[i][j].things->thing, difficulty());
       level->site[i][j].things->next = NULL;
       i = random_range(WIDTH);
       j = random_range(LENGTH);
       level->site[i][j].things = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
-      level->site[i][j].things->thing = ((pob)checkmalloc(sizeof(objtype)));
+      level->site[i][j].things->thing = ((Object*)checkmalloc(sizeof(Object)));
       make_cash(level->site[i][j].things->thing, difficulty());
       level->site[i][j].things->next = NULL;
     }
@@ -657,7 +657,7 @@ void stock_level()
 void make_site_treasure(int i, int j, int itemlevel)
 {
   Objectlist* tmp = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
-  tmp->thing = ((pob)create_object(itemlevel));
+  tmp->thing = ((Object*)create_object(itemlevel));
   tmp->next = level->site[i][j].things;
   level->site[i][j].things = tmp;
 }
@@ -669,7 +669,7 @@ void make_specific_treasure(int i, int j, int itemid)
   if (Objects[itemid].uniqueness == UNIQUE_TAKEN)
     return;
   tmp = ((Objectlist*)checkmalloc(sizeof(Objectlist)));
-  tmp->thing = ((pob)checkmalloc(sizeof(objtype)));
+  tmp->thing = ((Object*)checkmalloc(sizeof(Object)));
   *(tmp->thing) = Objects[itemid];
   tmp->next = level->site[i][j].things;
   level->site[i][j].things = tmp;
