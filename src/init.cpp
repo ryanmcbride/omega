@@ -1,15 +1,10 @@
 /* omega copyright (c) 1987,1988,1989 by Laurence Raphael Brothers */
 /* init.c */
 
-extern "C"
-{
 #include "defs.h"
-}
 #include <vector>
 
 static std::vector<object> _objects;
-extern "C"
-{
   int NUMSCROLLS;
   int NUMPOTIONS;
   int NUMFOODS;
@@ -42,8 +37,8 @@ extern "C"
 
   int TOTALITEMS;
 
-  struct object *Objects;
-}
+  object *Objects;
+
 
 void init_things()
 {
@@ -455,8 +450,6 @@ void init_items()
 /* This file defines and initializes the Monsters Array */
 
 static std::vector<monster> _monsters;
-extern "C"
-{
   struct monster *Monsters;
 
   int ML0;
@@ -633,7 +626,7 @@ extern "C"
   int LORD_WATER;
   int LORD_FIRE;
   int ELEM_MASTER;
-}
+
 void init_mon_lvl_0()
 {
   std::vector<monster> mon = {

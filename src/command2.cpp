@@ -56,7 +56,7 @@ void rest()
 void peruse()
 {
   int index;
-  struct object *obj;
+  object *obj;
 
   clearmsg();
 
@@ -92,7 +92,7 @@ void peruse()
 void quaff()
 {
   int index;
-  struct object *obj;
+  object *obj;
   clearmsg();
   print1("Quaff --");
   index = getitem(POTION);
@@ -150,7 +150,7 @@ void activate()
 void eat()
 {
   int index;
-  struct object *obj;
+  object *obj;
 
   clearmsg();
 
@@ -497,7 +497,7 @@ void give()
 void zapwand()
 {
   int index;
-  struct object *obj;
+  object *obj;
 
   clearmsg();
 

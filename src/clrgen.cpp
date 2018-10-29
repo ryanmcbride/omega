@@ -6,9 +6,7 @@
 #include <curses.h>
 #include <stdio.h>
 #include <stdlib.h>
-extern "C" {
 #include "clrgen.h"
-}
 
 void clrgen_init(void)
 {

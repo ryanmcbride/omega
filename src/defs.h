@@ -1381,6 +1381,18 @@ struct room {
   int rsi; /* index into roomname switch */
 };
 
+class object {
+  public:
+  int id,weight,plus,charge,dmg,hit,aux,number,fragility;
+  long basevalue;
+  unsigned char known,used;
+  int blessing;
+  unsigned char type,uniqueness;
+  int usef;
+  unsigned char level;
+  Symbol objchar;
+  char *objstr,*truename,*cursestr;
+};
 
 
 struct spell {
@@ -1434,27 +1446,14 @@ struct player {
   long guildxp[NUMRANKS];
   char name[64];
   char meleestr[64];
-  struct object *possessions[MAXITEMS];
-  struct object *pack[MAXPACK];
+  object *possessions[MAXITEMS];
+  object *pack[MAXPACK];
   int packptr;
 };
 
-struct object {
-  int id,weight,plus,charge,dmg,hit,aux,number,fragility;
-  long basevalue;
-  unsigned char known,used;
-  int blessing;
-  unsigned char type,uniqueness;
-  int usef;
-  unsigned char level;
-  Symbol objchar;
-  char *objstr,*truename,*cursestr;
-};
-
-
 
 struct objectlist {
-  struct object *thing;
+  object *thing;
   struct objectlist *next;
 };
 

@@ -1,6 +1,3 @@
-#ifdef __cplusplus
-extern "C" {
-#endif
 #ifndef __GLOB_H__
 #define __GLOB_H__
 /* omega copyright (c) 1987,1988,1989 by Laurence Raphael Brothers */
@@ -32,7 +29,7 @@ extern struct monster* Monsters;
 extern struct spell Spells[NUMSPELLS+1];
 
 /* one of each item */
-extern struct object *Objects;
+extern object *Objects;
 
 /* locations of city sites [0] - found, [1] - x, [2] - y */
 extern int CitySiteList[NUMCITYSITES][3];
@@ -258,7 +255,4 @@ extern int boot_ids[30];
 
 extern int deepest[E_MAX + 1];
 extern int level_seed[E_MAX + 1];
-#endif
-#ifdef __cplusplus
-}
 #endif
