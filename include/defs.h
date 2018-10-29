@@ -1391,6 +1391,7 @@ struct spell {
 
 
 struct monster {
+  int* named_id;
   struct objectlist *possessions;
   unsigned char attacked;
   int aux1,aux2,x,y,click;
