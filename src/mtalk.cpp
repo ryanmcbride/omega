@@ -884,9 +884,50 @@ void m_talk_wereking(Monster* m)
 {
   if (!m_statusp(m, HOSTILE))
   {
-      print1("The Werewolf King nods brusquely at you, removes a gem from his");
-      print2("sleeve, places it on the floor, and vanishes wordlessly.");
-  }
+    switch (player.rank[WEREWOLF])
+    {
+      case 0:
+        print1("The Werewolf King looks at you, do you wish");
+        print2("sleeve, places it on the floor, and vanishes wordlessly.");
+
+        morewait();
+        print2("Do you wish to join the Pack? [yn] ");
+        if (ynq2() == 'y')
+        {
+          clearmsg();
+        
+          print1("You are tested for strength and stamina...");
+          morewait();
+          nprint1(" and you pass!");
+          print2("Commandant ");
+          nprint2(Commandant);
+          nprint2(" shakes your hand.");
+          morewait();
+          print2("The Legion pays you a 500Au induction fee.");
+          morewait();
+          print1("You are also issued a shortsword and leather.");
+          print2("You are now a Legionaire.");
+          morewait();
+          clearmsg();
+          auto newitem = Object::create();
+          *newitem = Objects[WEAPONID + 1]; /* shortsword */
+          gain_item(newitem);
+          newitem = Object::create();
+          *newitem = Objects[ARMORID + 1]; /* leather */
+          gain_item(newitem);
+          player.cash += 500;
+          player.rank[LEGION] = LEGIONAIRE;
+          player.guildxp[LEGION] = 1;
+          player.str++;
+          player.con++;
+          player.maxstr++;
+          player.maxcon++;
+        }
+      break;
+      case 1:
+      break;
+      }
+    }
   else
     m_talk_evil(m);
 }
