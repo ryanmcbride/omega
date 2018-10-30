@@ -17,7 +17,8 @@
         "new": "cpp",
         "stdexcept": "cpp",
         "type_traits": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "map": "cpp"
     },
     "terminal.integrated.shell.windows": "cmd.exe"
 }

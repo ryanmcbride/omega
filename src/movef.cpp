@@ -3,392 +3,158 @@
 /* the movefunctions switch functions, for player and monster*/
 
 #include "glob.h"
+#include <map>
+#include <functional>
 
 void p_movefunction(int movef)
 {
   /* loc functs above traps should be activated whether levitating or not */
   drawvision(player.x, player.y);
   sign_print(player.x, player.y, FALSE);
-  if (player.status[SHADOWFORM])
-    switch (movef)
-    { /* player in shadow form is unable to do most things */
-    case L_CHAOS:
-      l_chaos();
-      break;
-    case L_ABYSS:
-      l_abyss();
-      break;
-    case L_ARENA_EXIT:
-      l_arena_exit();
-      break;
-    case L_ENTER_COURT:
-      l_enter_court();
-      break;
-    case L_ESCALATOR:
-      l_escalator();
-      break;
-    case L_COLLEGE:
-      l_college();
-      break;
-    case L_SORCERORS:
-      l_sorcerors();
-      break;
-    case L_ALTAR:
-      l_altar();
-      break;
-    case L_TACTICAL_EXIT:
-      l_tactical_exit();
-      break;
-    case L_HOUSE_EXIT:
-      l_house_exit();
-      break;
-    case L_HOUSE:
-      l_house();
-      break;
-    case L_HOVEL:
-      l_hovel();
-      break;
-    case L_MANSION:
-      l_mansion();
-      break;
-    case L_COUNTRYSIDE:
-      l_countryside();
-      break;
-    case L_ORACLE:
-      l_oracle();
-      break;
-    case L_TEMPLE_WARNING:
-      l_temple_warning();
-      break;
-    case L_ENTER_CIRCLE:
-      l_enter_circle();
-      break;
-    case L_CIRCLE_LIBRARY:
-      l_circle_library();
-      break;
-    case L_TOME1:
-      l_tome1();
-      break;
-    case L_TOME2:
-      l_tome2();
-      break;
-    case L_ADEPT:
-      l_adept();
-      break;
-    case L_VOICE1:
-      l_voice1();
-      break;
-    case L_VOICE2:
-      l_voice2();
-      break;
-    case L_VOICE3:
-      l_voice3();
-      break;
-    case L_VOID:
-      l_void();
-      break;
-    case L_FIRE_STATION:
-      l_fire_station();
-      break;
-    case L_EARTH_STATION:
-      l_earth_station();
-      break;
-    case L_WATER_STATION:
-      l_water_station();
-      break;
-    case L_AIR_STATION:
-      l_air_station();
-      break;
-    case L_VOID_STATION:
-      l_void_station();
-      break;
-    }
-  else if ((!player.status[LEVITATING]) ||
+  if (player.status[SHADOWFORM]){
+    static std::map<int,std::function<void()>> move_map = { /* player in shadow form is unable to do most things */
+    {L_CHAOS,l_chaos},
+    {L_ABYSS,l_abyss},
+    {L_ARENA_EXIT,l_arena_exit},
+    {L_ENTER_COURT,l_enter_court},
+    {L_ESCALATOR,l_escalator},
+    {L_COLLEGE,l_college},
+    {L_SORCERORS,l_sorcerors},
+    {L_ALTAR,l_altar},
+    {L_TACTICAL_EXIT,l_tactical_exit},
+    {L_HOUSE_EXIT,l_house_exit},
+    {L_HOUSE,l_house},
+    {L_HOVEL,l_hovel},
+    {L_MANSION,l_mansion},
+    {L_COUNTRYSIDE,l_countryside},
+    {L_ORACLE,l_oracle},
+    {L_TEMPLE_WARNING,l_temple_warning},
+    {L_ENTER_CIRCLE,l_enter_circle},
+    {L_CIRCLE_LIBRARY,l_circle_library},
+    {L_TOME1,l_tome1},
+    {L_TOME2,l_tome2},
+    {L_ADEPT,l_adept},
+    {L_VOICE1,l_voice1},
+    {L_VOICE2,l_voice2},
+    {L_VOICE3,l_voice3},
+    {L_VOID,l_void},
+    {L_FIRE_STATION,l_fire_station},
+    {L_EARTH_STATION,l_earth_station},
+    {L_WATER_STATION,l_water_station},
+    {L_AIR_STATION,l_air_station},
+    {L_VOID_STATION,l_void_station}};
+    auto move = move_map[movef];
+      if(move != nullptr){
+        move();      
+      }
+  } else if ((!player.status[LEVITATING]) ||
            gamestatusp(MOUNTED) ||
            (Cmd == '@') || /* @ command activates all effects under player */
            (movef < LEVITATION_AVOIDANCE))
   {
+    static std::map<int,std::function<void()>> move_map = {
+    {L_NO_OP,l_no_op},
+    {L_HEDGE,l_hedge},
+    {L_WATER,l_water},
+    {L_LIFT,l_lift},
+    {L_LAVA,l_lava},
+    {L_FIRE,l_fire},
+    {L_WHIRLWIND,l_whirlwind},
+    {L_RUBBLE,l_rubble},
+    {L_MAGIC_POOL,l_magic_pool},
+    {L_CHAOS,l_chaos},
+    {L_ABYSS,l_abyss},
 
-    switch (movef)
-    {
-      /* miscellaneous */
-    case L_NO_OP:
-      l_no_op();
-      break;
-    case L_HEDGE:
-      l_hedge();
-      break;
-    case L_WATER:
-      l_water();
-      break;
-    case L_LIFT:
-      l_lift();
-      break;
-    case L_LAVA:
-      l_lava();
-      break;
-    case L_FIRE:
-      l_fire();
-      break;
-    case L_WHIRLWIND:
-      l_whirlwind();
-      break;
-    case L_RUBBLE:
-      l_rubble();
-      break;
-    case L_MAGIC_POOL:
-      l_magic_pool();
-      break;
-    case L_CHAOS:
-      l_chaos();
-      break;
-    case L_ABYSS:
-      l_abyss();
-      break;
+    {L_PORTCULLIS_TRAP,l_portcullis_trap},
+    {L_RAISE_PORTCULLIS,l_raise_portcullis},
+    {L_DROP_EVERY_PORTCULLIS,l_drop_every_portcullis},
+    {L_ARENA_EXIT,l_arena_exit},
+    {L_TRIFID,l_trifid},
+    {L_ENTER_COURT,l_enter_court},
+    {L_ESCALATOR,l_escalator},
+    {L_THRONE,l_throne},
 
-    case L_PORTCULLIS_TRAP:
-      l_portcullis_trap();
-      break;
-    case L_RAISE_PORTCULLIS:
-      l_raise_portcullis();
-      break;
-    case L_DROP_EVERY_PORTCULLIS:
-      l_drop_every_portcullis();
-      break;
-    case L_ARENA_EXIT:
-      l_arena_exit();
-      break;
-    case L_TRIFID:
-      l_trifid();
-      break;
-    case L_ENTER_COURT:
-      l_enter_court();
-      break;
-    case L_ESCALATOR:
-      l_escalator();
-      break;
-    case L_THRONE:
-      l_throne();
-      break;
-
-    case L_TRAP_DART:
-      l_trap_dart();
-      break;
-    case L_TRAP_SIREN:
-      l_trap_siren();
-      break;
-    case L_TRAP_PIT:
-      l_trap_pit();
-      break;
-    case L_TRAP_DOOR:
-      l_trap_door();
-      break;
-    case L_TRAP_SNARE:
-      l_trap_snare();
-      break;
-    case L_TRAP_BLADE:
-      l_trap_blade();
-      break;
-    case L_TRAP_FIRE:
-      l_trap_fire();
-      break;
-    case L_TRAP_TELEPORT:
-      l_trap_teleport();
-      break;
-    case L_TRAP_DISINTEGRATE:
-      l_trap_disintegrate();
-      break;
-    case L_TRAP_SLEEP_GAS:
-      l_trap_sleepgas();
-      break;
-    case L_TRAP_MANADRAIN:
-      l_trap_manadrain();
-      break;
-    case L_TRAP_ACID:
-      l_trap_acid();
-      break;
-    case L_TRAP_ABYSS:
-      l_trap_abyss();
-      break;
+    {L_TRAP_DART,l_trap_dart},
+    {L_TRAP_SIREN,l_trap_siren},
+    {L_TRAP_PIT,l_trap_pit},
+    {L_TRAP_DOOR,l_trap_door},
+    {L_TRAP_SNARE,l_trap_snare},
+    {L_TRAP_BLADE,l_trap_blade},
+    {L_TRAP_FIRE,l_trap_fire},
+    {L_TRAP_TELEPORT,l_trap_teleport},
+    {L_TRAP_DISINTEGRATE,l_trap_disintegrate},
+    {L_TRAP_SLEEP_GAS,l_trap_sleepgas},
+    {L_TRAP_MANADRAIN,l_trap_manadrain},
+    {L_TRAP_ACID,l_trap_acid},
+    {L_TRAP_ABYSS,l_trap_abyss},
 
       /*door functions */
-    case L_BANK:
-      l_bank();
-      break;
-    case L_ARMORER:
-      l_armorer();
-      break;
-    case L_CLUB:
-      l_club();
-      break;
-    case L_GYM:
-      l_gym();
-      break;
-    case L_BROTHEL:
-      l_brothel();
-      break;
-    case L_THIEVES_GUILD:
-      l_thieves_guild();
-      break;
-    case L_COLLEGE:
-      l_college();
-      break;
-    case L_HEALER:
-      l_healer();
-      break;
-    case L_STATUE_WAKE:
-      l_statue_wake();
-      break;
-    case L_CASINO:
-      l_casino();
-      break;
-    case L_COMMANDANT:
-      l_commandant();
-      break;
-    case L_DINER:
-      l_diner();
-      break;
-    case L_CRAP:
-      l_crap();
-      break;
-    case L_TAVERN:
-      l_tavern();
-      break;
-    case L_MERC_GUILD:
-      l_merc_guild();
-      break;
-    case L_ALCHEMIST:
-      l_alchemist();
-      break;
-    case L_SORCERORS:
-      l_sorcerors();
-      break;
-    case L_CASTLE:
-      l_castle();
-      break;
-    case L_ARENA:
-      l_arena();
-      break;
-    case L_VAULT:
-      l_vault();
-      break;
-    case L_DPW:
-      l_dpw();
-      break;
-    case L_LIBRARY:
-      l_library();
-      break;
-    case L_PAWN_SHOP:
-      l_pawn_shop();
-      break;
-    case L_CONDO:
-      l_condo();
-      break;
-    case L_ALTAR:
-      l_altar();
-      break;
-    case L_TACTICAL_EXIT:
-      l_tactical_exit();
-      break;
-    case L_HOUSE_EXIT:
-      l_house_exit();
-      break;
-    case L_SAFE:
-      l_safe();
-      break;
-    case L_HOUSE:
-      l_house();
-      break;
-    case L_HOVEL:
-      l_hovel();
-      break;
-    case L_MANSION:
-      l_mansion();
-      break;
-    case L_COUNTRYSIDE:
-      l_countryside();
-      break;
-    case L_ORACLE:
-      l_oracle();
-      break;
-    case L_ORDER:
-      l_order();
-      break;
-    case L_CARTOGRAPHER:
-      l_cartographer();
-      break;
+    {L_BANK,l_bank},
+    {L_ARMORER,l_armorer},
+    {L_CLUB,l_club},
+    {L_GYM,l_gym},
+    {L_BROTHEL,l_brothel},
+    {L_THIEVES_GUILD,l_thieves_guild},
+    {L_COLLEGE,l_college},
+    {L_HEALER,l_healer},
+    {L_STATUE_WAKE,l_statue_wake},
+    {L_CASINO,l_casino},
+    {L_COMMANDANT,l_commandant},
+    {L_DINER,l_diner},
+    {L_CRAP,l_crap},
+    {L_TAVERN,l_tavern},
+    {L_MERC_GUILD,l_merc_guild},
+    {L_ALCHEMIST,l_alchemist},
+    {L_SORCERORS,l_sorcerors},
+    {L_CASTLE,l_castle},
+    {L_ARENA,l_arena},
+    {L_VAULT,l_vault},
+    {L_DPW,l_dpw},
+    {L_LIBRARY,l_library},
+    {L_PAWN_SHOP,l_pawn_shop},
+    {L_CONDO,l_condo},
+    {L_ALTAR,l_altar},
+    {L_TACTICAL_EXIT,l_tactical_exit},
+    {L_HOUSE_EXIT,l_house_exit},
+    {L_SAFE,l_safe},
+    {L_HOUSE,l_house},
+    {L_HOVEL,l_hovel},
+    {L_MANSION,l_mansion},
+    {L_COUNTRYSIDE,l_countryside},
+    {L_ORACLE,l_oracle},
+    {L_ORDER,l_order},
+    {L_CARTOGRAPHER,l_cartographer},
 
-    case L_TEMPLE_WARNING:
-      l_temple_warning();
-      break;
-    case L_ENTER_CIRCLE:
-      l_enter_circle();
-      break;
-    case L_CIRCLE_LIBRARY:
-      l_circle_library();
-      break;
-    case L_TOME1:
-      l_tome1();
-      break;
-    case L_TOME2:
-      l_tome2();
-      break;
+    {L_TEMPLE_WARNING,l_temple_warning},
+    {L_ENTER_CIRCLE,l_enter_circle},
+    {L_CIRCLE_LIBRARY,l_circle_library},
+    {L_TOME1,l_tome1},
+    {L_TOME2,l_tome2},
 
-    case L_CHARITY:
-      l_charity();
-      break;
+    {L_CHARITY,l_charity},
 
-    case L_CHAOSTONE:
-      l_chaostone();
-      break;
-    case L_VOIDSTONE:
-      l_voidstone();
-      break;
-    case L_BALANCESTONE:
-      l_balancestone();
-      break;
-    case L_LAWSTONE:
-      l_lawstone();
-      break;
-    case L_SACRIFICESTONE:
-      l_sacrificestone();
-      break;
-    case L_MINDSTONE:
-      l_mindstone();
-      break;
+    {L_CHAOSTONE,l_chaostone},
+    {L_VOIDSTONE,l_voidstone},
+    {L_BALANCESTONE,l_balancestone},
+    {L_LAWSTONE,l_lawstone},
+    {L_SACRIFICESTONE,l_sacrificestone},
+    {L_MINDSTONE,l_mindstone},
 
     /* challenge functions */
-    case L_ADEPT:
-      l_adept();
-      break;
-    case L_VOICE1:
-      l_voice1();
-      break;
-    case L_VOICE2:
-      l_voice2();
-      break;
-    case L_VOICE3:
-      l_voice3();
-      break;
-    case L_VOID:
-      l_void();
-      break;
-    case L_FIRE_STATION:
-      l_fire_station();
-      break;
-    case L_EARTH_STATION:
-      l_earth_station();
-      break;
-    case L_WATER_STATION:
-      l_water_station();
-      break;
-    case L_AIR_STATION:
-      l_air_station();
-      break;
-    case L_VOID_STATION:
-      l_void_station();
-      break;
-    }
+    {L_ADEPT,l_adept},
+    {L_VOICE1,l_voice1},
+    {L_VOICE2,l_voice2},
+    {L_VOICE3,l_voice3},
+    {L_VOID,l_void},
+    {L_FIRE_STATION,l_fire_station},
+    {L_EARTH_STATION,l_earth_station},
+    {L_WATER_STATION,l_water_station},
+    {L_AIR_STATION,l_air_station},
+    {L_VOID_STATION,l_void_station}};
+      auto move = move_map[movef];
+      if(move != nullptr){
+        move();      
+      }
     if (movef != L_NO_OP)
     {
       resetgamestatus(FAST_MOVE);
@@ -401,71 +167,36 @@ void p_movefunction(int movef)
 void m_movefunction(Monster* m, int movef)
 {
   /* loc functs above traps should be activated whether levitating or not */
-  if (!m_statusp(m, FLYING) && !m_statusp(m, INTANGIBLE))
-    switch (movef)
-    {
-
+  if (!m_statusp(m, FLYING) && !m_statusp(m, INTANGIBLE)) {
+    static std::map<int,std::function<void(Monster*)>> move_map = {
     /* miscellaneous */
-    case L_NO_OP:
-      m_no_op(m);
-      break;
-    case L_WATER:
-      m_water(m);
-      break;
-    case L_LAVA:
-      m_lava(m);
-      break;
-    case L_FIRE:
-      m_fire(m);
-      break;
-    case L_MAGIC_POOL:
-      m_water(m);
-      break;
-    case L_ABYSS:
-      m_abyss(m);
-      break;
+    {L_NO_OP,m_no_op},
+    {L_WATER,m_water},
+    {L_LAVA,m_lava},
+    {L_FIRE,m_fire},
+    {L_MAGIC_POOL,m_water},
+    {L_ABYSS,m_abyss},
 
-    case L_TRAP_DART:
-      m_trap_dart(m);
-      break;
-    case L_TRAP_PIT:
-      m_trap_pit(m);
-      break;
-    case L_TRAP_DOOR:
-      m_trap_door(m);
-      break;
-    case L_TRAP_SNARE:
-      m_trap_snare(m);
-      break;
-    case L_TRAP_BLADE:
-      m_trap_blade(m);
-      break;
-    case L_TRAP_FIRE:
-      m_trap_fire(m);
-      break;
-    case L_TRAP_TELEPORT:
-      m_trap_teleport(m);
-      break;
-    case L_TRAP_DISINTEGRATE:
-      m_trap_disintegrate(m);
-      break;
-    case L_TRAP_MANADRAIN:
-      m_trap_manadrain(m);
-      break;
-    case L_TRAP_SLEEP_GAS:
-      m_trap_sleepgas(m);
-      break;
-    case L_TRAP_ACID:
-      m_trap_acid(m);
-      break;
-    case L_TRAP_ABYSS:
-      m_trap_abyss(m);
-      break;
+    {L_TRAP_DART,m_trap_dart},
+    {L_TRAP_PIT,m_trap_pit},
+    {L_TRAP_DOOR,m_trap_door},
+    {L_TRAP_SNARE,m_trap_snare},
+    {L_TRAP_BLADE,m_trap_blade},
+    {L_TRAP_FIRE,m_trap_fire},
+    {L_TRAP_TELEPORT,m_trap_teleport},
+    {L_TRAP_DISINTEGRATE,m_trap_disintegrate},
+    {L_TRAP_MANADRAIN,m_trap_manadrain},
+    {L_TRAP_SLEEP_GAS,m_trap_sleepgas},
+    {L_TRAP_ACID,m_trap_acid},
+    {L_TRAP_ABYSS,m_trap_abyss},
 
-    case L_ALTAR:
-      m_altar(m);
-      break;
-    }
+    {L_ALTAR,m_altar},
+    };
+    auto move = move_map[movef];
+      if(move != nullptr){
+        move(m);      
+      }
+  }
 }
 
 #ifdef MSDOS_SUPPORTED_ANTIQUE
