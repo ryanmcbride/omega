@@ -215,7 +215,7 @@ void load_circle(int populate)
 void make_prime(int i, int j)
 {
   Monsterlist* ml = Monsterlist::create();
-  pmt m = monster::create();
+  Monster* m = Monster::create();
   Objectlist* ol;
   Object* o;
   make_hiscore_npc(m, 10); /* 10 is index for prime */
@@ -343,7 +343,7 @@ void load_court(int populate)
 void make_archmage(int i, int j)
 {
   Monsterlist* ml = Monsterlist::create();
-  pmt m = monster::create();
+  Monster* m = Monster::create();
   make_hiscore_npc(m, 9); /* 9 is index for archmage */
   m->x = i;
   m->y = j;

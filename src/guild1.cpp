@@ -394,7 +394,7 @@ void l_arena()
   {
     print1("OK, we're arranging a match....");
     morewait();
-    Arena_Monster = monster::create();
+    Arena_Monster = Monster::create();
     Arena_Victory = FALSE;
     switch (Arena_Opponent)
     {

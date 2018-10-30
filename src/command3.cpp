@@ -278,7 +278,7 @@ void fire()
 {
   int index, x1, y1, x2, y2;
   Object* obj;
-  struct monster *m;
+  Monster *m;
 
   clearmsg();
 
@@ -889,7 +889,7 @@ void tacoptions()
 void pickpocket()
 {
   int dx, dy, index = 0;
-  struct monster *m;
+  Monster *m;
 
   clearmsg();
 
@@ -1172,7 +1172,7 @@ void dismount_steed()
     resetgamestatus(MOUNTED);
     ;
     ml = Monsterlist::create();
-    ml->m = monster::create();
+    ml->m = Monster::create();
     *(ml->m) = Monsters[HORSE];
     ml->m->x = player.x;
     ml->m->y = player.y;

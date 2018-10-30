@@ -331,7 +331,7 @@ void room_level()
       level->mlist->next = NULL;
       level->mlist->m =
           level->site[tx][ty].creature =
-              ((pmt)make_creature(GREAT_WYRM)); /* The Great Wyrm */
+              ((Monster*)make_creature(GREAT_WYRM)); /* The Great Wyrm */
       level->mlist->m->x = tx;
       level->mlist->m->y = ty;
     }
@@ -354,7 +354,7 @@ void room_level()
       level->mlist->next = NULL;
       level->mlist->m =
           level->site[tx][ty].creature =
-              ((pmt)make_creature(DEMON_EMP)); /* The demon emp */
+              ((Monster*)make_creature(DEMON_EMP)); /* The demon emp */
       level->mlist->m->x = tx;
       level->mlist->m->y = ty;
     }
@@ -486,7 +486,7 @@ void maze_level()
       level->mlist->next = NULL;
       level->mlist->m =
           level->site[tx][ty].creature =
-              ((pmt)make_creature(mid));
+              ((Monster*)make_creature(mid));
       level->mlist->m->x = tx;
       level->mlist->m->y = ty;
     }
@@ -500,7 +500,7 @@ void maze_level()
       level->mlist->next = NULL;
       level->mlist->m =
           level->site[tx][ty].creature =
-              ((pmt)make_creature(DEMON_EMP)); /* The demon emp */
+              ((Monster*)make_creature(DEMON_EMP)); /* The demon emp */
       level->mlist->m->x = tx;
       level->mlist->m->y = ty;
     }

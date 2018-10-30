@@ -509,7 +509,7 @@ m_pulse follows it).
 /*               Revised function                   */ 
 /* consider one monster's action */
 void m_pulse(m)
-struct monster *m;
+Monster *m;
 {
   int range = distance(m->x, m->y, Player.x,Player.y)
   int STRIKE=FALSE;
@@ -570,7 +570,7 @@ struct monster *m;
 /*                 Original Function                     */ 
 /* consider one monster's action */
 void m_pulse(m)
-struct monster *m;
+Monster *m;
 {
   int range = distance(m->x, m->y, Player.x,Player.y);
   pol prev;

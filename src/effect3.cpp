@@ -191,7 +191,7 @@ void sleep_monster(int blessing)
 {
   Monsterlist* ml;
   int x = player.x, y = player.y;
-  struct monster *target;
+  Monster *target;
 
   if (blessing == 0)
     setspot(&x, &y);
@@ -361,7 +361,7 @@ void level_drain(int levels, char* source)
 
 void disrupt(int x, int y, int amount)
 {
-  struct monster *target;
+  Monster *target;
 
   if ((x == player.x) && (y == player.y))
   {
@@ -398,7 +398,7 @@ void disrupt(int x, int y, int amount)
 
 void disintegrate(int x, int y)
 {
-  struct monster *target;
+  Monster *target;
   if (!inbounds(x, y))
     mprint("You feel a sense of wastage.");
   else if ((x == player.x) && (y == player.y))
@@ -988,7 +988,7 @@ void dispel(int blessing)
 void polymorph(int blessing)
 {
   int x = player.x, y = player.y, newmonster;
-  struct monster *m;
+  Monster *m;
   setspot(&x, &y);
   clearmsg();
   if ((x == player.x) && (y == player.y))
@@ -1067,7 +1067,7 @@ void polymorph(int blessing)
 
 void hellfire(int x, int y, int blessing)
 {
-  struct monster *m;
+  Monster *m;
   if ((x == player.x) && (y == player.y))
   {
     mprint("You have been completely annihilated. Congratulations.");
@@ -1111,7 +1111,7 @@ void hellfire(int x, int y, int blessing)
 void drain(int blessing)
 {
   int x = player.x, y = player.y;
-  struct monster *m;
+  Monster *m;
   setspot(&x, &y);
   mprint("You begin to drain energy...");
   if ((x == player.x) && (y == player.y))
@@ -1298,7 +1298,7 @@ void drain_life(int amount)
 
 void inflict_fear(int x, int y)
 {
-  struct monster *m;
+  Monster *m;
   if ((player.x == x) && (player.y == y))
   {
     mprint("You shudder with otherworldly dread.");

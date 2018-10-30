@@ -85,7 +85,7 @@ void time_clock(int reset)
 }
 
 /* remedies occasional defective monsters */
-void fix_phantom(monster* m)
+void fix_phantom(Monster* m)
 {
   if (level->site[m->x][m->y].creature == NULL)
   {

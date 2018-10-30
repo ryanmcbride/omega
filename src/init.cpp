@@ -449,8 +449,8 @@ void init_items()
 /* minit.h */
 /* This file defines and initializes the Monsters Array */
 
-static std::vector<monster> _monsters;
-  struct monster *Monsters;
+static std::vector<Monster> _monsters;
+  Monster *Monsters;
 
   int ML0;
   int NML_0;
@@ -630,7 +630,7 @@ static std::vector<monster> _monsters;
 
 void init_mon_lvl_0()
 {
-  std::vector<monster> mon = {
+  std::vector<Monster> mon = {
       {&HORNET, NULL, 0, 0, 0, 0, 0, 0, 0, 1, 1, 10, 2, 4, 1, 0, 1, 50, 0, 1, 1, 1, -1, -1, COMMON, M_TALK_STUPID, M_MOVE_FLUTTER, M_MELEE_NORMAL, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | FLYING | POISONOUS, 0, 'h' | CLR(YELLOW), "hornet", "dead hornet", "AXAX"},
       {&MEND_PRIEST, NULL, 0, 0, 0, 0, 0, 0, 1, 30, 0, 0, 0, 10, 10, 0, 5, 100, 2, 15, 1000, 0, -1, -1, COMMON, M_TALK_MP, M_MOVE_FOLLOW, M_MELEE_MP, M_NO_OP, M_SP_MP, MOBILE | NEEDY, 0, '@' | CLR(RED), "mendicant priest", "dead mendicant priest", "BX"},
       {&ITIN_MERCH, NULL, 0, 0, 0, 0, 0, 0, 2, 15, 0, 0, 0, 10, 10, 0, 7, 0, 3, 5, 1000, 0, -1, -1, COMMON, M_TALK_IM, M_MOVE_FOLLOW, M_NO_OP, M_NO_OP, M_SP_ESCAPE, MOBILE, 0, '@' | CLR(RED), "itinerant merchant", "dead itinerant merchant", "BX"},
@@ -645,7 +645,7 @@ void init_mon_lvl_0()
 }
 void init_mon_lvl_1()
 {
-  std::vector<monster> mon = {
+  std::vector<Monster> mon = {
       {&GRUNT, NULL, 0, 0, 0, 0, 0, 0, 9, 25, 12, 5, 15, 3, 3, 1, 8, 100, 0, 10, 100, 0, -1, WEAPONID + 17, COMMON, M_TALK_STUPID, M_MOVE_NORMAL, M_MELEE_NORMAL, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | HUNGRY | POISONOUS, pow2(FLAME) | pow2(COLD) | pow2(ELECTRICITY), 'g' | CLR(BROWN), "grunt", "dead grunt", "ACAC"},
       {&TSETSE, NULL, 0, 0, 0, 0, 0, 0, 10, 1, 10, 5, 2, 10, 10, 1, 4, 0, 0, 3, 1, 5, POTIONID + 5, -1, COMMON, M_TALK_STUPID, M_MOVE_FLUTTER, M_MELEE_SLEEP, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | FLYING, 0, 't' | CLR(PURPLE), "tse-tse fly", "dead tse-tse fly", "AX"},
       {&FNORD, NULL, 0, 0, 0, 0, 0, 0, 11, 1, 0, 0, 0, 10, 10, 1, 10, 0, 1, 5, 2, 50, SCROLLID + 21, -1, COMMON, M_TALK_STUPID, M_MOVE_FLUTTER, M_NO_OP, M_NO_OP, M_SP_SUMMON, 0, 0, 'f' | CLR(PURPLE), "fnord", "fnord's antennae", ""},
@@ -674,7 +674,7 @@ void init_mon_lvl_1()
 }
 void init_mon_lvl_2()
 {
-  std::vector<monster> mon = {
+  std::vector<Monster> mon = {
       {&APPR_NINJA, NULL, 0, 0, 0, 0, 0, 0, 31, 20, 16, 10, 15, 10, 3, 2, 3, 50, 1, 40, 1000, 0, -1, WEAPONID + 1, COMMON, M_TALK_NINJA, M_MOVE_SMART, M_MELEE_NORMAL, M_NO_OP, M_SP_SURPRISE, MOBILE | HOSTILE | M_INVISIBLE, 0, 'n' | CLR(GREY), "apprentice ninja", "dead ninja", "A?A?B?B?"},
       {&NIGHT_GAUNT, NULL, 0, 0, 0, 0, 0, 0, 32, 30, 15, 10, 5, 10, 10, 2, 6, 0, 0, 35, 250, 100, -1, -1, COMMON, M_TALK_TITTER, M_MOVE_FLUTTER, M_MELEE_NG, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | FLYING | POISONOUS, 0, 'n' | CLR(GREY), "night gaunt", "dead night gaunt", "ACAC"},
       {&SNEAK_THIEF, NULL, 0, 0, 0, 0, 0, 0, 33, 32, 0, 10, 0, 10, 10, 2, 2, 0, 3, 20, 1000, 0, -1, -1, COMMON, M_TALK_THIEF, M_MOVE_SMART, M_NO_OP, M_NO_OP, M_SP_THIEF, MOBILE | HOSTILE | GREEDY, 0, '@' | CLR(RED), "sneak-thief", "dead sneak-thief", "AXB?B?B?"},
@@ -694,7 +694,7 @@ void init_mon_lvl_2()
 }
 void init_mon_lvl_3()
 {
-  std::vector<monster> mon = {
+  std::vector<Monster> mon = {
       {&SALAMANDER, NULL, 0, 0, 0, 0, 0, 0, 45, 35, 15, 5, 30, 4, 1, 3, 4, 50, 0, 75, 50, 50, RINGID + 4, -1, COMMON, M_TALK_STUPID, M_MOVE_FLUTTER, M_MELEE_FIRE, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | GREEDY, pow2(FLAME), 's' | CLR(LIGHT_RED), "salamander", "salamander scales", "AXAX"},
       {&CATOBLEPAS, NULL, 0, 0, 0, 0, 0, 0, 46, 100, 10, 10, 20, 5, 2, 3, 8, 50, 0, 50, 10, 50, RINGID + 3, -1, COMMON, M_TALK_STUPID, M_MOVE_NORMAL, M_MELEE_NORMAL, M_STRIKE_BLIND, M_NO_OP, MOBILE | HOSTILE | HUNGRY | GREEDY, 0, 'C' | CLR(GREEN), "catoblepas", "catoblepas' eyes", "AXBX"},
       {&L_FDEMON, NULL, 0, 0, 0, 0, 0, 0, 47, 15, 18, 15, 15, 3, 3, 3, 4, 0, 2, 80, 25, 50, STICKID + 10, -1, COMMON, M_TALK_EVIL, M_MOVE_SMART, M_MELEE_COLD, M_NO_OP, M_SP_DEMON, MOBILE | HOSTILE, pow2(COLD) | pow2(POISON) | pow2(FEAR) | pow2(SLEEP), 'f' | CLR(LIGHT_BLUE), "lesser frost demon", "lesser frost demon's heart", "A?A?B?"},
@@ -715,7 +715,7 @@ void init_mon_lvl_3()
 }
 void init_mon_lvl_4()
 {
-  std::vector<monster> mon = {
+  std::vector<Monster> mon = {
       {&MANTICORE, NULL, 0, 0, 0, 0, 0, 0, 60, 100, 15, 12, 25, 6, 2, 4, 6, 25, 2, 150, 300, 20, STICKID + 11, -1, COMMON, M_TALK_HUNGRY, M_MOVE_NORMAL, M_MELEE_NORMAL, M_STRIKE_MISSILE, M_NO_OP, MOBILE | HOSTILE | HUNGRY | FLYING, 0, 'M' | CLR(YELLOW), "manticore", "manticore spikes", "AXAX"},
       {&TASMANIAN, NULL, 0, 0, 0, 0, 0, 0, 61, 50, 12, 10, 10, 10, 10, 4, 2, 50, 0, 100, 300, 10, POTIONID + 6, -1, COMMON, M_TALK_HUNGRY, M_MOVE_FLUTTER, M_MELEE_NORMAL, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | HUNGRY, 0, 'T' | CLR(BROWN), "tasmanian devil", "dead tasmanian devil", "AXAXAXAX"},
       {&AUTO_MINOR, NULL, 0, 0, 0, 0, 0, 0, 62, 100, 15, 15, 50, 5, 2, 4, 7, 100, 0, 100, 100, 0, -1, -1, COMMON, M_TALK_ROBOT, M_MOVE_SMART, M_MELEE_NORMAL, M_NO_OP, M_SP_POISON_CLOUD, MOBILE | HOSTILE, pow2(ELECTRICITY) | pow2(POISON) | pow2(FEAR) | pow2(SLEEP), 'a' | CLR(GREY), "automatum minor", "automatum minor battery", "ACBC"},
@@ -739,7 +739,7 @@ void init_mon_lvl_4()
 }
 void init_mon_lvl_5()
 {
-  std::vector<monster> mon = {
+  std::vector<Monster> mon = {
       {&DRAGONETTE, NULL, 0, 0, 0, 0, 0, 0, 78, 50, 20, 15, 40, 10, 2, 5, 3, 90, 4, 180, 500, 50, RINGID + 4, -1, COMMON, M_TALK_GREEDY, M_MOVE_NORMAL, M_MELEE_DRAGON, M_STRIKE_FBOLT, M_NO_OP, MOBILE | HOSTILE | HUNGRY | GREEDY | FLYING | EDIBLE, pow2(FLAME), 'd' | CLR(LIGHT_RED), "dragonette", "dragon steak", "AXAXBXBX"},
       {&TESLA, NULL, 0, 0, 0, 0, 0, 0, 79, 50, 15, 10, 40, 10, 2, 5, 12, 40, 0, 150, 100, 200, STICKID + 3, -1, COMMON, M_TALK_STUPID, M_MOVE_FLUTTER, M_MELEE_ELEC, M_STRIKE_LBALL, M_NO_OP, MOBILE | HOSTILE, pow2(ELECTRICITY), 't' | CLR(LIGHT_BLUE), "tesla monster", "tesla monster whip", "AXAX"},
       {&WYVERN, NULL, 0, 0, 0, 0, 0, 0, 80, 100, 20, 12, 20, 4, 2, 5, 4, 80, 2, 150, 100, 150, RINGID + 6, -1, COMMON, M_TALK_GREEDY, M_MOVE_NORMAL, M_MELEE_POISON, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | GREEDY | FLYING | POISONOUS, pow2(FLAME), 'W' | CLR(LIGHT_RED), "wyvern", "wyvern's sting", "AXAXBXBX"},
@@ -759,7 +759,7 @@ void init_mon_lvl_5()
 }
 void init_mon_lvl_6()
 {
-  std::vector<monster> mon = {
+  std::vector<Monster> mon = {
       {&FIRE_ELEM, NULL, 0, 0, 0, 0, 0, 0, 92, 125, 30, 0, 50, 10, 2, 6, 4, 100, 0, 250, 1, 200, STICKID + 7, -1, COMMON, M_TALK_SILENT, M_MOVE_NORMAL, M_MELEE_FIRE, M_STRIKE_FBALL, M_NO_OP, MOBILE | HOSTILE | FLYING, pow2(FLAME) | pow2(POISON) | pow2(ACID) | pow2(SLEEP), 'F' | CLRS(WHITE, RED), "fire elemental", "essence of fire elemental", "AXAXAXRXRX"},
       {&AIR_ELEM, NULL, 0, 0, 0, 0, 0, 0, 93, 125, 25, 0, 20, 10, 2, 6, 2, 100, 0, 250, 1, 200, CLOAKID + 2, -1, COMMON, M_TALK_SILENT, M_MOVE_FLUTTER, M_MELEE_NORMAL, M_NO_OP, M_SP_WHIRL, MOBILE | HOSTILE | FLYING | INTANGIBLE, pow2(ELECTRICITY) | pow2(POISON) | pow2(ACID) | pow2(SLEEP), 'A' | CLRS(WHITE, BLUE), "air elemental", "essence of air elemental", "AXAXAXAXBXBX"},
       {&WATER_ELEM, NULL, 0, 0, 0, 0, 0, 0, 94, 100, 15, 10, 30, 5, 1, 6, 6, 100, 0, 250, 1, 200, STICKID + 14, -1, COMMON, M_TALK_SILENT, M_MOVE_NORMAL, M_MELEE_NORMAL, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | ONLYSWIM, pow2(COLD) | pow2(SLEEP), 'W' | CLRS(WHITE, BLUE), "water elemental", "essence of water elemental", "AXAXBXBX"},
@@ -778,7 +778,7 @@ void init_mon_lvl_6()
 }
 void init_mon_lvl_7()
 {
-  std::vector<monster> mon = {
+  std::vector<Monster> mon = {
       {&BEHEMOTH, NULL, 0, 0, 0, 0, 0, 0, 105, 300, 30, 5, 120, 3, 3, 7, 15, 100, 0, 400, 500, 50, RINGID + 2, -1, COMMON, M_TALK_STUPID, M_MOVE_NORMAL, M_MELEE_NORMAL, M_NO_OP, M_SP_HUGE, MOBILE | HOSTILE | SWIMMING, pow2(ELECTRICITY), 'B' | CLRS(BLACK, BROWN), "behemoth", "behemoth's gonads", "AHBXBX"},
       {&NAZGUL, NULL, 0, 0, 0, 0, 0, 0, 106, 250, 40, 20, 20, 10, 5, 7, 5, 0, 0, 500, 100, 2000, -1, WEAPONID + 24, COMMON, M_TALK_EVIL, M_MOVE_SPIRIT, M_MELEE_SPIRIT, M_NO_OP, M_SP_SPELL, MOBILE | HOSTILE | FLYING, pow2(COLD) | pow2(POISON) | pow2(FEAR) | pow2(SLEEP), 'N' | CLRS(BLACK, WHITE), "nazgul", "nazgul's husk", "A?A?A?B?B?"},
       {&UNICORN, NULL, 0, 0, 0, 0, 0, 0, 107, 100, 100, 30, 50, 10, 3, 7, 2, 50, 0, 400, 100, 500, RINGID + 6, -1, COMMON, M_TALK_SILENT, M_MOVE_NORMAL, M_MELEE_NORMAL, M_NO_OP, M_MOVE_SCAREDY, MOBILE | SWIMMING, pow2(POISON) | pow2(FEAR), 'U' | CLRS(BLACK, WHITE), "unicorn", "unicorn's horn", "ACACB?B?B?B?B?B?B?"},
@@ -799,7 +799,7 @@ void init_mon_lvl_7()
 }
 void init_mon_lvl_8()
 {
-  std::vector<monster> mon = {
+  std::vector<Monster> mon = {
       {&GOOD_FAIRY, NULL, 0, 0, 0, 0, 0, 0, 120, 1, 0, 100, 0, 6, 2, 8, 3, 0, 0, 50, 100, 0, -1, -1, COMMON, M_TALK_GF, M_MOVE_RANDOM, M_NO_OP, M_NO_OP, M_NO_OP, MOBILE | FLYING, pow2(FLAME) | pow2(COLD) | pow2(SLEEP), 'f' | CLRS(YELLOW, WHITE), "fairy", "good fairy dust", "B?"},
       {&BAD_FAIRY, NULL, 0, 0, 0, 0, 0, 0, 121, 100, 50, 50, 20, 10, 10, 8, 3, 0, 0, 500, 3, 0, -1, -1, COMMON, M_TALK_EF, M_MOVE_RANDOM, M_NO_OP, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | FLYING | POISONOUS, pow2(FLAME) | pow2(COLD) | pow2(SLEEP), 'f' | CLRS(YELLOW, WHITE), "fairy", "evil fairy dust", "B?"},
       {&AUTO_MAJOR, NULL, 0, 0, 0, 0, 0, 0, 122, 500, 30, 50, 100, 5, 2, 8, 3, 100, 0, 500, 1000, 0, -1, WEAPONID + 23, COMMON, M_TALK_ROBOT, M_MOVE_SMART, M_MELEE_NORMAL, M_STRIKE_LBALL, M_SP_POISON_CLOUD, MOBILE | HOSTILE, pow2(ELECTRICITY) | pow2(POISON) | pow2(FEAR) | pow2(SLEEP), 'A' | CLRS(GREY, WHITE), "automatum major", "automatum major components", "A?A?R?R?"},
@@ -817,7 +817,7 @@ void init_mon_lvl_8()
 }
 void init_mon_lvl_9()
 {
-  std::vector<monster> mon = {
+  std::vector<Monster> mon = {
       {&JOTUN, NULL, 0, 0, 0, 0, 0, 0, 132, 750, 80, 50, 200, 10, 2, 9, 8, 90, 5, 1000, 500, 2000, -1, WEAPONID + 38, COMMON, M_TALK_GREEDY, M_MOVE_NORMAL, M_MELEE_NORMAL, M_STRIKE_MISSILE, M_SP_HUGE, MOBILE | HOSTILE | HUNGRY | GREEDY, pow2(COLD) | pow2(FEAR), 'J' | CLRS(GREY, BROWN), "jotun", "jotun's head", "AHAHB?"},
       {&INVIS_SLAY, NULL, 0, 0, 0, 0, 0, 0, 133, 1000, 50, 30, 40, 20, 2, 9, 4, 40, 0, 750, 100, 200, CLOAKID + 2, -1, COMMON, M_TALK_SILENT, M_MOVE_FLUTTER, M_MELEE_NORMAL, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | FLYING | M_INVISIBLE, pow2(ELECTRICITY), 'i' | CLRS(BLACK, WHITE), "invisible slayer", "dead slayer", "AXAXAX"},
       {&KING_WYV, NULL, 0, 0, 0, 0, 0, 0, 134, 700, 50, 32, 50, 5, 2, 9, 3, 80, 4, 1000, 100, 50, RINGID + 6, -1, COMMON, M_TALK_GREEDY, M_MOVE_NORMAL, M_MELEE_POISON, M_NO_OP, M_NO_OP, MOBILE | HOSTILE | GREEDY | FLYING, pow2(FLAME) | pow2(POISON), 'W' | CLRS(GREEN, RED), "king wyvern", "king wyvern's sting", "AXAXAXBXBX"},
@@ -831,7 +831,7 @@ void init_mon_lvl_9()
 }
 void init_mon_lvl_10()
 {
-  std::vector<monster> mon = {
+  std::vector<Monster> mon = {
       {&DEATH, NULL, 0, 0, 0, 0, 0, 0, 140, 100, 10, 10, 1, 100, 100, 100, 10, 0, 0, 0, 0, 1, -1, WEAPONID + 39, UNIQUE_MADE, M_TALK_EVIL, M_MOVE_SMART, M_MELEE_DEATH, M_NO_OP, M_SP_DEATH, MOBILE | HOSTILE, pow2(FEAR) | pow2(SLEEP) | pow2(NEGENERGY) | pow2(OTHER_MAGIC), 'D' | CLRS(BLACK, WHITE), "Death", "No way can you be seeing this!", "AX"},
       {&EATER, NULL, 0, 0, 0, 0, 0, 0, 141, 1000, 0, 20, 0, 3, 3, 10, 5, 50, 0, 10000, 1000, 250, STICKID + 13, -1, UNIQUE_MADE, M_TALK_SILENT, M_MOVE_RANDOM, M_NO_OP, M_NO_OP, M_SP_EATER, MOBILE, pow2(FLAME) | pow2(COLD) | pow2(ELECTRICITY) | pow2(POISON) | pow2(ACID) | pow2(FEAR) | pow2(SLEEP) | pow2(NEGENERGY) | pow2(OTHER_MAGIC) | pow2(THEFT) | pow2(GAZE) | pow2(INFECTION), 'E' | CLRS(BLACK, WHITE), "The Eater of Magic", "The Heart of the Eater of Magic", "B?B?B?B?B?"},
       {&LAWBRINGER, NULL, 0, 0, 0, 0, 0, 0, 142, 500, 50, 50, 50, 5, 3, 10, 5, 50, 0, 10000, 1000, 2000, -1, WEAPONID + 34, UNIQUE_MADE, M_TALK_LB, M_MOVE_SMART, M_MELEE_NORMAL, M_NO_OP, M_SP_LAWBRINGER, MOBILE, pow2(NORMAL_DAMAGE), 'L' | CLRS(BRIGHT_WHITE, BLUE), "The LawBringer", "The LawBringer's Crown", "A?A?B?B?B?B?"},

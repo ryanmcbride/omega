@@ -15,7 +15,7 @@ int statmod(int stat)
 }
 
 /* effects of hitting */
-void p_hit(monster* m, int dmg, int dtype)
+void p_hit(Monster* m, int dmg, int dtype)
 {
   int dmult;
 
@@ -80,7 +80,7 @@ void p_hit(monster* m, int dmg, int dtype)
 }
 
 /* and effects of missing */
-void player_miss(monster *m, int dtype)
+void player_miss(Monster *m, int dtype)
 {
   if (random_range(30) == 1) /* fumble 1 in 30 */
     p_fumble(dtype);
@@ -678,8 +678,8 @@ void p_drown()
   return;
 }
 
-/* the effect of some weapon on monster m, with dmgmod a bonus to damage */
-void weapon_use(int dmgmod, Object* weapon, monster *m)
+/* the effect of some weapon on Monster m, with dmgmod a bonus to damage */
+void weapon_use(int dmgmod, Object* weapon, Monster *m)
 {
   int aux = (weapon == NULL ? -2 : weapon->aux); /* bare hands */
   switch (aux)
@@ -757,8 +757,8 @@ char *actionlocstr(char dir)
   return (Str3);
 }
 
-/* execute player combat actions versus monster m */
-void tacplayer(monster *m)
+/* execute player combat actions versus Monster m */
+void tacplayer(Monster *m)
 {
   int i = 0;
 
@@ -819,8 +819,8 @@ void tacplayer(monster *m)
   }
 }
 
-/* checks to see if player hits with hitmod vs. monster m at location hitloc */
-int player_hit(int hitmod, char hitloc, monster *m)
+/* checks to see if player hits with hitmod vs. Monster m at location hitloc */
+int player_hit(int hitmod, char hitloc, Monster *m)
 {
   int i = 0, blocks = FALSE, goodblocks = 0, hit;
   if (m->hp < 1)

@@ -67,7 +67,7 @@ void make_country_monsters(Symbol terrain)
   for (i = 0; i < nummonsters; i++)
   {
     tml = Monsterlist::create();
-    tml->m = monster::create();
+    tml->m = Monster::create();
     if (monsters == NULL)
       tml->m =
           m_create(random_range(WIDTH), random_range(LENGTH), TRUE, difficulty());
@@ -434,7 +434,7 @@ void wandercheck()
 void make_site_monster(int i, int j, int mid)
 {
   Monsterlist* ml = Monsterlist::create();
-  pmt m;
+  Monster* m;
   if (mid > -1)
     level->site[i][j].creature = (m = make_creature(mid));
   else
@@ -449,9 +449,9 @@ void make_site_monster(int i, int j, int mid)
 /* make and return an appropriate monster for the level and depth*/
 /* called by populate_level, doesn't actually add to mlist for some reason*/
 /* eventually to be more intelligent */
-pmt m_create(int x, int y, int kind, int level)
+Monster* m_create(int x, int y, int kind, int level)
 {
-  pmt newmonster;
+  Monster* newmonster;
   int monster_range;
   int mid;
 
@@ -507,9 +507,9 @@ pmt m_create(int x, int y, int kind, int level)
 
 /* make creature # mid, totally random if mid == -1 */
 /* make creature allocates space for the creature */
-pmt make_creature(int mid)
+Monster* make_creature(int mid)
 {
-  pmt newmonster = monster::create();
+  Monster* newmonster = Monster::create();
   Object* ob;
   int i, treasures;
 

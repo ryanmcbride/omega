@@ -76,7 +76,7 @@ int unblocked(int x, int y)
 }
 
 /* do monsters want to move through a spot */
-int m_unblocked(monster* m, int x, int y)
+int m_unblocked(Monster* m, int x, int y)
 {
   if ((!inbounds(x, y)) || ((x == player.x) && (y == player.y)))
     return (FALSE);
@@ -779,8 +779,8 @@ int ok_to_free(Level* level)
             (level->environment != E_VILLAGE) &&
             (level->environment != Current_Dungeon));
 }
-monster* monster::create(){
-  return new monster;
+Monster* Monster::create(){
+  return new Monster;
 }
 Objectlist* Objectlist::create(){
   return new Objectlist;

@@ -198,7 +198,7 @@ void make_house_npc(int i, int j)
 {
       Monsterlist* ml = Monsterlist::create();
       Object* ob;
-      ml->m = monster::create();
+      ml->m = Monster::create();
       *(ml->m) = Monsters[NPC];
       make_log_npc(ml->m);
       if (ml->m->id == NPC)
@@ -229,7 +229,7 @@ void make_house_npc(int i, int j)
 void make_mansion_npc(int i, int j)
 {
       Monsterlist* ml = Monsterlist::create();
-      ml->m = monster::create();
+      ml->m = Monster::create();
       *(ml->m) = Monsters[NPC];
       make_hiscore_npc(ml->m, random_range(14) + 1);
       mprint("You detect signs of life in this house.");

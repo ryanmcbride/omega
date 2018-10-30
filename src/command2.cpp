@@ -279,7 +279,7 @@ void talk()
 {
   int dx, dy, index = 0;
   char response;
-  struct monster *m;
+  Monster *m;
 
   clearmsg();
 
@@ -436,7 +436,7 @@ void give()
 {
   int index;
   int dx, dy, dindex = 0;
-  struct monster *m;
+  Monster *m;
   Object* obj;
 
   clearmsg();

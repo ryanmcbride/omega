@@ -5,19 +5,19 @@
 #include "glob.h"
 
 /* like m_normal_move, but can open doors */
-void m_smart_move(monster* m)
+void m_smart_move(Monster* m)
 {
   m_simple_move(m);
 }
 
 /* not very smart, but not altogether stupid movement */
-void m_normal_move(monster* m)
+void m_normal_move(Monster* m)
 {
   m_simple_move(m);
 }
 
 /* used by both m_normal_move and m_smart_move */
-void m_simple_move(monster* m)
+void m_simple_move(Monster* m)
 {
   int dx = sign(player.x - m->x);
   int dy = sign(player.y - m->y);
@@ -78,7 +78,7 @@ void m_simple_move(monster* m)
   }
 }
 
-void m_move_animal(monster* m)
+void m_move_animal(Monster* m)
 {
   if (m_statusp(m, HOSTILE))
     m_normal_move(m);
@@ -87,7 +87,7 @@ void m_move_animal(monster* m)
 }
 
 /* same as simple move except run in opposite direction */
-void m_scaredy_move(monster* m)
+void m_scaredy_move(Monster* m)
 {
   int dx = -sign(player.x - m->x);
   int dy = -sign(player.y - m->y);
@@ -126,7 +126,7 @@ void m_scaredy_move(monster* m)
 
 /* for spirits (and earth creatures) who can ignore blockages because
    either they are noncorporeal or they can move through stone */
-void m_spirit_move(monster* m)
+void m_spirit_move(Monster* m)
 {
   int dx = sign(player.x - m->x);
   int dy = sign(player.y - m->y);
@@ -144,7 +144,7 @@ void m_spirit_move(monster* m)
 }
 
 /* fluttery dumb movement */
-void m_flutter_move(monster* m)
+void m_flutter_move(Monster* m)
 {
   int trange, range = distance(m->x, m->y, player.x, player.y);
   int i, tx, ty, nx = m->x, ny = m->y;
@@ -178,7 +178,7 @@ void m_flutter_move(monster* m)
   }
 }
 
-void m_follow_move(monster* m)
+void m_follow_move(Monster* m)
 {
   if (!m_statusp(m, HOSTILE))
     m_normal_move(m);
@@ -187,7 +187,7 @@ void m_follow_move(monster* m)
 }
 
 /* allows monsters to fall into pools, revealed traps, etc */
-void m_confused_move(monster* m)
+void m_confused_move(Monster* m)
 {
   int i, nx, ny, done = FALSE;
   erase_monster(m);
@@ -205,7 +205,7 @@ void m_confused_move(monster* m)
   }
 }
 
-void m_random_move(monster* m)
+void m_random_move(Monster* m)
 {
   int i, nx, ny, done = FALSE;
   erase_monster(m);
@@ -224,7 +224,7 @@ void m_random_move(monster* m)
 }
 
 /* monster removed from play */
-void m_vanish(monster* m)
+void m_vanish(Monster* m)
 {
   if (m->uniqueness == COMMON)
   {
@@ -241,7 +241,7 @@ void m_vanish(monster* m)
 }
 
 /* monster still in play */
-void m_teleport(monster* m)
+void m_teleport(Monster* m)
 {
   erase_monster(m);
   if (m_statusp(m, AWAKE))
@@ -253,7 +253,7 @@ void m_teleport(monster* m)
   }
 }
 
-void m_move_leash(monster* m)
+void m_move_leash(Monster* m)
 {
   m_simple_move(m);
   if (m->aux1 == 0)

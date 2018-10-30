@@ -67,7 +67,7 @@ void make_food(Object* new_obj, int id)
   *new_obj = Objects[FOODID + id];
 }
 
-void make_corpse(Object* new_obj, monster* m)
+void make_corpse(Object* new_obj, Monster* m)
 {
   *new_obj = Objects[CORPSEID];
   new_obj->charge = m->id;

@@ -384,7 +384,7 @@ void setchargestr(Object* obj, char* cstr)
   }
 }
 
-void give_money(monster* m)
+void give_money(Monster* m)
 {
   Object* cash;
 
@@ -395,7 +395,7 @@ void give_money(monster* m)
     givemonster(m, cash);
 }
 
-void givemonster(monster* m, Object* o)
+void givemonster(Monster* m, Object* o)
 {
   /* special case -- give gem to LawBringer */
   if ((m->id == LAWBRINGER) && (o->id == ARTIFACTID + 21))

@@ -4,7 +4,7 @@
 
 #include "glob.h"
 
-void m_sp_mp(monster* m)
+void m_sp_mp(Monster* m)
 {
   if (m->attacked && (random_range(3) == 1))
   {
@@ -23,7 +23,7 @@ void m_sp_mp(monster* m)
   }
 }
 
-void m_sp_ng(monster* m)
+void m_sp_ng(Monster* m)
 {
   if (distance(m->x, m->y, player.x, player.y) < 2)
     if ((random_range(5) == 1) || (player.status[VULNERABLE] > 0))
@@ -36,7 +36,7 @@ void m_sp_ng(monster* m)
     }
 }
 
-void m_sp_poison_cloud(monster* m)
+void m_sp_poison_cloud(Monster* m)
 {
   if (distance(m->x, m->y, player.x, player.y) < 3)
   {
@@ -48,7 +48,7 @@ void m_sp_poison_cloud(monster* m)
   }
 }
 
-void m_sp_explode(monster* m)
+void m_sp_explode(Monster* m)
 {
   if ((distance(player.x, player.y, m->x, m->y) < 2) &&
       (m->hp > 0) &&
@@ -56,7 +56,7 @@ void m_sp_explode(monster* m)
     fball(m->x, m->y, m->x, m->y, m->hp);
 }
 
-void m_sp_demon(monster* m)
+void m_sp_demon(Monster* m)
 {
   int mid;
 
@@ -107,20 +107,20 @@ void m_sp_demon(monster* m)
   }
 }
 
-void m_sp_acid_cloud(monster* m)
+void m_sp_acid_cloud(Monster* m)
 {
   if (m_statusp(m, HOSTILE) &&
       (distance(m->x, m->y, player.x, player.y) < 3))
     acid_cloud();
 }
 
-void m_sp_escape(monster* m)
+void m_sp_escape(Monster* m)
 {
   if (m_statusp(m, HOSTILE))
     m_vanish(m);
 }
 
-void m_sp_ghost(monster* m)
+void m_sp_ghost(Monster* m)
 {
   if (m_statusp(m, HOSTILE))
   {
@@ -135,7 +135,7 @@ void m_sp_ghost(monster* m)
 }
 
 /* random spell cast by monster */
-void m_sp_spell(monster* m)
+void m_sp_spell(Monster* m)
 {
   char action[80];
   if (m_statusp(m, HOSTILE) && los_p(player.x, player.y, m->x, m->y))
@@ -224,7 +224,7 @@ void m_sp_spell(monster* m)
 
 /* monsters with this have some way to hide, camouflage, etc until they 
    attack */
-void m_sp_surprise(monster* m)
+void m_sp_surprise(Monster* m)
 {
   if (m->attacked)
   {
@@ -263,7 +263,7 @@ void m_sp_surprise(monster* m)
   }
 }
 
-void m_sp_whistleblower(monster* m)
+void m_sp_whistleblower(Monster* m)
 {
   if (m_statusp(m, HOSTILE))
   {
@@ -272,7 +272,7 @@ void m_sp_whistleblower(monster* m)
   }
 }
 
-void m_sp_seductor(monster* m)
+void m_sp_seductor(Monster* m)
 {
   if (m_statusp(m, HOSTILE))
   {
@@ -294,13 +294,13 @@ void m_sp_seductor(monster* m)
     m_talk_seductor(m);
 }
 
-void m_sp_demonlover(monster* m)
+void m_sp_demonlover(Monster* m)
 {
   if (distance(player.x, player.y, m->x, m->y) < 2)
     m_talk_demonlover(m);
 }
 
-void m_sp_eater(monster* m)
+void m_sp_eater(Monster* m)
 {
   int i;
   if (player.rank[COLLEGE])
@@ -326,7 +326,7 @@ void m_sp_eater(monster* m)
   }
 }
 
-void m_sp_dragonlord(monster* m)
+void m_sp_dragonlord(Monster* m)
 {
   if (m_statusp(m, HOSTILE))
   {
@@ -382,7 +382,7 @@ void m_sp_dragonlord(monster* m)
     mprint("You are extremely impressed at the sight of the Dragonlord.");
 }
 
-void m_sp_blackout(monster* m)
+void m_sp_blackout(Monster* m)
 {
   if ((distance(m->x, m->y, player.x, player.y) < 4) &&
       (player.status[BLINDED] == 0))
@@ -408,7 +408,7 @@ void m_sp_blackout(monster* m)
   }
 }
 
-void m_sp_bogthing(monster* m)
+void m_sp_bogthing(Monster* m)
 {
   if (player.status[IMMOBILE] &&
       (distance(player.x, player.y, m->x, m->y) < 2))
@@ -434,7 +434,7 @@ void m_sp_bogthing(monster* m)
   }
 }
 
-void m_sp_were(monster* m)
+void m_sp_were(Monster* m)
 {
   int mid;
   if (m_statusp(m, HOSTILE) || (Phase == 6))
@@ -475,7 +475,7 @@ void m_sp_were(monster* m)
   }
 }
 
-void m_sp_servant(monster* m)
+void m_sp_servant(Monster* m)
 {
   if ((m->id == SERV_LAW) && (player.alignment < 0))
     m_status_set(m, HOSTILE);
@@ -483,7 +483,7 @@ void m_sp_servant(monster* m)
     m_status_set(m, HOSTILE);
 }
 
-void m_sp_av(monster* m)
+void m_sp_av(Monster* m)
 {
   if (player.mana > 0)
   {
@@ -493,7 +493,7 @@ void m_sp_av(monster* m)
   }
 }
 
-void m_sp_lw(monster* m)
+void m_sp_lw(Monster* m)
 {
   if (random_range(2))
   {
@@ -512,7 +512,7 @@ void m_sp_lw(monster* m)
   }
 }
 
-void m_sp_angel(monster* m)
+void m_sp_angel(Monster* m)
 {
   int mid, hostile = FALSE;
   switch (m->aux1)
@@ -556,7 +556,7 @@ void m_sp_angel(monster* m)
 }
 
 /* Could completely fill up level */
-void m_sp_swarm(monster* m)
+void m_sp_swarm(Monster* m)
 {
   if (random_range(5) == 1)
   {
@@ -569,7 +569,7 @@ void m_sp_swarm(monster* m)
 }
 
 /* raise nearby corpses from the dead.... */
-void m_sp_raise(monster* m)
+void m_sp_raise(Monster* m)
 {
   int x, y;
   Objectlist* t;
@@ -587,7 +587,7 @@ void m_sp_raise(monster* m)
           }
 }
 
-void m_sp_mb(monster* m)
+void m_sp_mb(Monster* m)
 {
   if (distance(m->x, m->y, player.x, player.y) == 1)
   {
@@ -616,7 +616,7 @@ void m_sp_mb(monster* m)
   }
 }
 
-void m_sp_mirror(monster* m)
+void m_sp_mirror(Monster* m)
 {
   int i, x, y;
   if (view_los_p(m->x, m->y, player.x, player.y))
@@ -640,7 +640,7 @@ void m_sp_mirror(monster* m)
   }
 }
 
-void m_illusion(monster* m)
+void m_illusion(Monster* m)
 {
   int i = random_range(NUMMONSTERS);
   if (i == NPC || i == HISCORE_NPC || i == ZERO_NPC)
@@ -657,7 +657,7 @@ void m_illusion(monster* m)
   }
 }
 
-void m_huge_sounds(monster* m)
+void m_huge_sounds(Monster* m)
 {
   if (m_statusp(m, AWAKE) &&
       (!los_p(m->x, m->y, player.x, player.y)) &&
@@ -665,7 +665,7 @@ void m_huge_sounds(monster* m)
     mprint("The dungeon shakes!");
 }
 
-void m_thief_f(monster* m)
+void m_thief_f(Monster* m)
 {
   int i = random_item();
   if (random_range(3) == 1)
@@ -707,7 +707,7 @@ void m_thief_f(monster* m)
   }
 }
 
-void m_summon(monster* m)
+void m_summon(Monster* m)
 {
   if ((distance(player.x, player.y, m->x, m->y) < 2) &&
       (random_range(3) == 1))
@@ -717,7 +717,7 @@ void m_summon(monster* m)
   }
 }
 
-void m_aggravate(monster* m)
+void m_aggravate(Monster* m)
 {
 
   if (m_statusp(m, HOSTILE))
@@ -736,7 +736,7 @@ void m_aggravate(monster* m)
   }
 }
 
-void m_sp_merchant(monster* m)
+void m_sp_merchant(Monster* m)
 {
   Monsterlist* ml;
   if (m_statusp(m, HOSTILE))
@@ -755,7 +755,7 @@ void m_sp_merchant(monster* m)
 
 /* The special function of the various people in the court of the archmage */
 /* and the sorcerors' circle */
-void m_sp_court(monster* m)
+void m_sp_court(Monster* m)
 {
   Monsterlist* ml;
   if (m_statusp(m, HOSTILE))
@@ -772,7 +772,7 @@ void m_sp_court(monster* m)
 }
 
 /* The special function of the dragons in the dragons' lair */
-void m_sp_lair(monster* m)
+void m_sp_lair(Monster* m)
 {
   Monsterlist* ml;
   if (m_statusp(m, HOSTILE))
@@ -793,7 +793,7 @@ void m_sp_lair(monster* m)
   }
 }
 
-void m_sp_prime(monster* m)
+void m_sp_prime(Monster* m)
 {
   if (m_statusp(m, HOSTILE))
   {

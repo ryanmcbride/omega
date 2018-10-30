@@ -1412,9 +1412,9 @@ class Spell {
 } ;
 
 
-class monster {
+class Monster {
   public:
-  static monster* create();
+  static Monster* create();
   int* named_id;
   Objectlist *possessions;
   unsigned char attacked;
@@ -1434,7 +1434,7 @@ class monster {
 class Monsterlist {
   public:
   static Monsterlist* create();
-  monster *m;
+  Monster *m;
   Monsterlist *next;
   void free();
 };
@@ -1484,7 +1484,7 @@ class Location {
   int aux; /* signifies various things */
   unsigned char buildaux; /* used in constructing level */
   Objectlist *things; 
-  struct monster *creature;
+  Monster *creature;
  };
 
 
@@ -1510,9 +1510,6 @@ class Level {
 
  
 /* random typedef's */
-
-typedef monster montype;
-typedef montype *pmt;
 
 /* random  function declarations from system libraries */
 

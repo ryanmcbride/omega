@@ -768,7 +768,7 @@ void random_temple_site(int i, int j, int deity, int populate)
 void make_high_priest(int i, int j, int deity)
 {
 	Monsterlist* ml = Monsterlist::create();
-	pmt m = monster::create();
+	Monster* m = Monster::create();
 	make_hiscore_npc(m, deity);
 	m->x = i;
 	m->y = j;

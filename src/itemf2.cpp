@@ -209,7 +209,7 @@ void i_perm_breathing(Object* o)
 
 /* weapons functions */
 
-void weapon_acidwhip(int dmgmod, Object* o, monster* m)
+void weapon_acidwhip(int dmgmod, Object* o, Monster* m)
 {
   if ((random_range(2) == 1) && (!m_immunityp(m, NORMAL_DAMAGE)))
   {
@@ -219,7 +219,7 @@ void weapon_acidwhip(int dmgmod, Object* o, monster* m)
   p_hit(m, player.dmg + dmgmod, ACID);
 }
 
-void weapon_scythe(int dmgmod, Object* o, monster* m)
+void weapon_scythe(int dmgmod, Object* o, Monster* m)
 {
   mprint("Slice!");
   m_death(m);
@@ -231,7 +231,7 @@ void weapon_scythe(int dmgmod, Object* o, monster* m)
   }
 }
 
-void weapon_demonblade(int dmgmod, Object* o, monster* m)
+void weapon_demonblade(int dmgmod, Object* o, Monster* m)
 {
   if (o->blessing > -1)
   {
@@ -282,7 +282,7 @@ void weapon_demonblade(int dmgmod, Object* o, monster* m)
   }
 }
 
-void weapon_lightsabre(int dmgmod, Object* o, monster* m)
+void weapon_lightsabre(int dmgmod, Object* o, Monster* m)
 {
   if (!o->known)
   {
@@ -306,7 +306,7 @@ void weapon_lightsabre(int dmgmod, Object* o, monster* m)
   }
 }
 
-void weapon_tangle(int dmgmod, Object* o, monster* m)
+void weapon_tangle(int dmgmod, Object* o, Monster* m)
 {
   if ((random_range(2) == 1) && (!m_immunityp(m, NORMAL_DAMAGE)))
   {
@@ -317,7 +317,7 @@ void weapon_tangle(int dmgmod, Object* o, monster* m)
 }
 
 /* if wielding a bow, add bow damage to arrow damage */
-void weapon_arrow(int dmgmod, Object* o, monster* m)
+void weapon_arrow(int dmgmod, Object* o, Monster* m)
 {
   if ((player.possessions[O_WEAPON_HAND] != NULL) &&
       (player.possessions[O_WEAPON_HAND]->id == WEAPONID + 26)) /* ie, using a bow */
@@ -327,7 +327,7 @@ void weapon_arrow(int dmgmod, Object* o, monster* m)
 }
 
 /* if wielding a crossbow, add bow damage to arrow damage */
-void weapon_bolt(int dmgmod, Object* o, monster* m)
+void weapon_bolt(int dmgmod, Object* o, Monster* m)
 {
   if ((player.possessions[O_WEAPON_HAND] != NULL) &&
       (player.possessions[O_WEAPON_HAND]->id == WEAPONID + 27) && /*ie using a crossbow */
@@ -340,7 +340,7 @@ void weapon_bolt(int dmgmod, Object* o, monster* m)
     p_hit(m, o->plus + o->dmg, NORMAL_DAMAGE);
 }
 
-void weapon_mace_disrupt(int dmgmod, Object* o, monster* m)
+void weapon_mace_disrupt(int dmgmod, Object* o, Monster* m)
 {
   if (m->meleef == M_MELEE_SPIRIT)
   {
@@ -351,13 +351,13 @@ void weapon_mace_disrupt(int dmgmod, Object* o, monster* m)
     p_hit(m, player.dmg + dmgmod, UNSTOPPABLE);
 }
 
-void weapon_normal_hit(int dmgmod, Object* o, monster* m)
+void weapon_normal_hit(int dmgmod, Object* o, Monster* m)
 {
   p_hit(m, player.dmg + dmgmod, NORMAL_DAMAGE);
 }
 
 /* will be updated eventually */
-void weapon_bare_hands(int dmgmod, monster* m)
+void weapon_bare_hands(int dmgmod, Monster* m)
 {
   p_hit(m, player.dmg + dmgmod, NORMAL_DAMAGE);
 }
@@ -399,7 +399,7 @@ void i_mace_disrupt(Object* o)
   mprint("That's a damned heavy mace!");
 }
 
-void weapon_vorpal(int dmgmod, Object* o, monster* m)
+void weapon_vorpal(int dmgmod, Object* o, Monster* m)
 {
   if ((random_range(10) < 3) && (!m_immunityp(m, NORMAL_DAMAGE)))
   {
@@ -414,7 +414,7 @@ void weapon_vorpal(int dmgmod, Object* o, monster* m)
     weapon_normal_hit(dmgmod, o, m);
 }
 
-void weapon_desecrate(int dmgmod, Object* o, monster* m)
+void weapon_desecrate(int dmgmod, Object* o, Monster* m)
 {
   o->known = 2;
   if (player.alignment < 0)
@@ -439,7 +439,7 @@ void weapon_desecrate(int dmgmod, Object* o, monster* m)
   }
 }
 
-void weapon_firestar(int dmgmod, Object* o, monster* m)
+void weapon_firestar(int dmgmod, Object* o, Monster* m)
 {
   if (random_range(3) == 1)
   {
@@ -450,7 +450,7 @@ void weapon_firestar(int dmgmod, Object* o, monster* m)
     weapon_normal_hit(dmgmod, o, m);
 }
 
-void weapon_mjolnir(int dmgmod, Object* o, monster* m)
+void weapon_mjolnir(int dmgmod, Object* o, Monster* m)
 {
   if (random_range(3) == 1)
   {
@@ -461,7 +461,7 @@ void weapon_mjolnir(int dmgmod, Object* o, monster* m)
     weapon_normal_hit(dmgmod, o, m);
 }
 
-void weapon_defend(int dmgmod, Object* o, monster* m)
+void weapon_defend(int dmgmod, Object* o, Monster* m)
 {
   if ((player.alignment < 0) && (o->blessing > 0))
   {
@@ -485,7 +485,7 @@ void weapon_defend(int dmgmod, Object* o, monster* m)
   weapon_normal_hit(dmgmod, o, m);
 }
 
-void weapon_victrix(int dmgmod, Object* o, monster* m)
+void weapon_victrix(int dmgmod, Object* o, Monster* m)
 {
   if (m->meleef == M_MELEE_SPIRIT)
   {

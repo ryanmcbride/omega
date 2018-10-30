@@ -23,7 +23,7 @@ extern int DG_debug_flag;
 extern char *Omegalib;
 
 /* one of each monster */
-extern struct monster* Monsters;
+extern Monster* Monsters;
 
 /* one of each spell */
 extern Spell Spells[NUMSPELLS+1];
@@ -95,7 +95,7 @@ extern char Cmd;
 extern int Command_Duration;
 /* how long does current command take */
 
-extern struct monster *Arena_Monster;
+extern Monster *Arena_Monster;
 /* Opponent in arena */
 
 extern int Arena_Opponent;

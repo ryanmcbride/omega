@@ -408,7 +408,7 @@ void calc_melee()
 }
 
 /* player attacks monster m */
-void fight_monster(monster* m)
+void fight_monster(Monster* m)
 {
   int hitmod = 0;
   int reallyfight = TRUE;
@@ -704,7 +704,7 @@ int getdir()
 }
 
 /* functions describes monster m's state for examine function */
-char *mstatus_string(monster* m)
+char *mstatus_string(Monster* m)
 {
   if (m_statusp(m, M_INVISIBLE) && !player.status[TRUESIGHT])
     strcpy(Str2, "Some invisible creature");
@@ -915,7 +915,7 @@ void roomcheck()
 }
 
 /* ask for mercy */
-void surrender(monster* m)
+void surrender(Monster* m)
 {
   int i;
   long bestitem, bestvalue;
@@ -1011,7 +1011,7 @@ void surrender(monster* m)
 }
 
 /* threaten a monster */
-void threaten(monster* m)
+void threaten(Monster* m)
 {
   char response;
   switch (random_range(4))

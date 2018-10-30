@@ -4,32 +4,32 @@
 
 #include "glob.h"
 
-void m_firebolt(monster* m)
+void m_firebolt(Monster* m)
 {
   fbolt(m->x, m->y, player.x, player.y, m->hit, m->dmg);
 }
 
-void m_nbolt(monster* m)
+void m_nbolt(Monster* m)
 {
   nbolt(m->x, m->y, player.x, player.y, m->hit, m->dmg);
 }
 
-void m_lball(monster* m)
+void m_lball(Monster* m)
 {
   lball(m->x, m->y, player.x, player.y, m->dmg);
 }
 
-void m_fireball(monster* m)
+void m_fireball(Monster* m)
 {
   fball(m->x, m->y, player.x, player.y, m->dmg);
 }
 
-void m_snowball(monster* m)
+void m_snowball(Monster* m)
 {
   snowball(m->x, m->y, player.x, player.y, m->dmg);
 }
 
-void m_blind_strike(monster* m)
+void m_blind_strike(Monster* m)
 {
 
   Monsterlist* ml;
@@ -58,7 +58,7 @@ void m_blind_strike(monster* m)
   }
 }
 
-void m_strike_sonic(monster* m)
+void m_strike_sonic(Monster* m)
 {
   if (m->uniqueness == COMMON)
   {

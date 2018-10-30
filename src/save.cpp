@@ -342,7 +342,7 @@ int save_monsters(FILE* fd, Monsterlist* ml)
   {
     if (tml->m->hp > 0)
     {
-      ok &= (fwrite((char *)tml->m, sizeof(montype), 1, fd) > 0);
+      ok &= (fwrite((char *)tml->m, sizeof(Monster), 1, fd) > 0);
       if (tml->m->id != HISCORE_NPC)
       {
         type = 0x0;
@@ -926,7 +926,7 @@ void restore_level(FILE* fd, int version)
   }
 }
 
-void restore_hiscore_npc(pmt npc, int npcid)
+void restore_hiscore_npc(Monster* npc, int npcid)
 {
   Object* ob;
   int level, behavior;
@@ -1022,9 +1022,9 @@ void restore_monsters(FILE* fd, Level* level, int version)
   for (i = 0; i < nummonsters; i++)
   {
     ml = Monsterlist::create();
-    ml->m = monster::create();
+    ml->m = Monster::create();
     ml->next = NULL;
-    fread((char *)ml->m, sizeof(montype), 1, fd);
+    fread((char *)ml->m, sizeof(Monster), 1, fd);
     if (ml->m->id == HISCORE_NPC)
       if (version == 80)
       {
