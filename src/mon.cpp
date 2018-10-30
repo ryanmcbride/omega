@@ -612,6 +612,9 @@ void monster_action(Monster* m, int action)
     case M_TALK_PRIME:
       m_talk_prime(m);
       break;
+    case M_TALK_WEREKING:
+      m_talk_wereking(m);
+      break;
 
     case M_SP_BOG:
       m_sp_bogthing(m);
@@ -681,6 +684,9 @@ void monster_action(Monster* m, int action)
       break;
     case M_SP_DRAGONLORD:
       m_sp_dragonlord(m);
+      break;
+    case M_SP_WEREKING:
+      m_sp_wereking(m);
       break;
     case M_SP_BLACKOUT:
       m_sp_blackout(m);

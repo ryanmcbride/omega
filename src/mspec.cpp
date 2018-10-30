@@ -382,6 +382,62 @@ void m_sp_dragonlord(Monster* m)
     mprint("You are extremely impressed at the sight of the Dragonlord.");
 }
 
+void m_sp_wereking(Monster* m)
+{
+  if (m_statusp(m, HOSTILE))
+  {
+    if (distance(m->x, m->y, player.x, player.y) < 2)
+    {
+      if (!player.status[IMMOBILE])
+      {
+        mprint("A swipe from the Werewolf King's fist knocks you down!");
+        p_damage(25, NORMAL_DAMAGE, "the Werewolf King");
+        setgamestatus(SKIP_PLAYER);
+        player.status[IMMOBILE] += 2;
+      }
+      else if (!Constriction)
+      {
+        mprint("The Werewolf King grabs your throat");
+        Constriction = 25;
+        player.status[IMMOBILE] += 1;
+      }
+      else if (random_range(2))
+      {
+        mprint("His fist squeezes tighter and tighter...");
+        p_damage(Constriction, NORMAL_DAMAGE, "the Werewolf King");
+        player.status[IMMOBILE] += 1;
+        Constriction *= 2;
+      }
+      else
+      {
+        mprint("The Werewolf King hurls you to the ground!");
+        p_damage(2 * Constriction, NORMAL_DAMAGE, "the Werewolf King");
+        Constriction = 0;
+      }
+      m_sp_spell(m);
+    }
+    else
+    {
+      Constriction = 0;
+      if (view_los_p(m->x, m->y, player.x, player.y))
+      {
+        if ((!player.immunity[FEAR]) && (!player.status[AFRAID]))
+        {
+          mprint("You are awestruck at the sight of the Werewolf King.");
+          player.status[AFRAID] += 5;
+        }
+        if (random_range(3))
+        {
+          m_sp_spell(m);
+          m_sp_spell(m);
+        }
+      }
+    }
+  }
+  else if (distance(m->x, m->y, player.x, player.y) < 2)
+    mprint("You are extremely impressed at the sight of the Werewolf King.");
+}
+
 void m_sp_blackout(Monster* m)
 {
   if ((distance(m->x, m->y, player.x, player.y) < 4) &&

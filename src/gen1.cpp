@@ -261,6 +261,9 @@ char *roomname(int index)
   case RS_MAGIC_ISLE:
     strcpy(Str4, "An island positively reeking of magic");
     break;
+  case RS_WERE_DEN:
+    strcpy(Str4, "The Lair of the Great Wolf");
+    break;
   case RS_STARPEAK:
     strcpy(Str4, "Near the oddly glowing peak of a mountain");
     break;

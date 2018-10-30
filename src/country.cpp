@@ -535,15 +535,15 @@ void load_werewolf_den(int empty, int populate)
 		{
 			level->site[i][j].lstatus = 0;
 			lset(i, j, SEEN);
-			level->site[i][j].roomnumber = RS_MAGIC_ISLE;
+			level->site[i][j].roomnumber = RS_WERE_DEN;
 			level->site[i][j].p_locf = L_NO_OP;
 			site = getc(fd) ^ site;
 			switch (site)
 			{
-			case 'E':
+			case 'W':
 				level->site[i][j].locchar = FLOOR;
 				if (!empty)
-					make_site_monster(i, j, EATER); /* eater of magic */
+					make_site_monster(i, j, WEREWOLF_KING);
 				break;
 			case 'm':
 				level->site[i][j].locchar = FLOOR;

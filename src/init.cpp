@@ -627,6 +627,7 @@ static std::vector<Monster> _monsters;
   int LORD_WATER;
   int LORD_FIRE;
   int ELEM_MASTER;
+  int WEREWOLF_KING;
 
 void init_mon_lvl_0()
 {
@@ -841,7 +842,8 @@ void init_mon_lvl_10()
       {&LORD_AIR, NULL, 0, 0, 0, 0, 0, 0, 146, 1000, 100, 50, 50, 20, 1, 10, 1, 100, 0, 5000, 0, 1, -1, ARTIFACTID + 3, UNIQUE_MADE, M_TALK_SILENT, M_MOVE_SPIRIT, M_MELEE_NORMAL, M_STRIKE_LBALL, M_SP_WHIRL, MOBILE | FLYING | INTANGIBLE | M_INVISIBLE, pow2(FLAME) | pow2(COLD) | pow2(ELECTRICITY) | pow2(POISON) | pow2(ACID) | pow2(FEAR) | pow2(SLEEP) | pow2(NEGENERGY) | pow2(THEFT) | pow2(GAZE) | pow2(INFECTION), 'A' | CLRS(LIGHT_BLUE, WHITE), "The Elemental Lord of Air", "some air", "A?A?A?A?A?A?A?A?A?B?"},
       {&LORD_WATER, NULL, 0, 0, 0, 0, 0, 0, 147, 1500, 100, 100, 100, 5, 1, 10, 5, 100, 0, 5000, 10, 1, -1, ARTIFACTID + 1, UNIQUE_MADE, M_TALK_SILENT, M_MOVE_NORMAL, M_MELEE_NORMAL, M_STRIKE_SNOWBALL, M_NO_OP, MOBILE | ONLYSWIM, pow2(COLD) | pow2(ELECTRICITY) | pow2(POISON) | pow2(ACID) | pow2(FEAR) | pow2(SLEEP) | pow2(NEGENERGY) | pow2(OTHER_MAGIC) | pow2(THEFT) | pow2(GAZE) | pow2(INFECTION), 'W' | CLRS(BLUE, WHITE), "The Elemental Lord of Water", "some water", "A?A?A?B?B?B?"},
       {&LORD_FIRE, NULL, 0, 0, 0, 0, 0, 0, 148, 1500, 200, 100, 300, 10, 1, 10, 3, 100, 0, 5000, 1000, 1, -1, ARTIFACTID + 2, UNIQUE_MADE, M_TALK_SILENT, M_MOVE_NORMAL, M_MELEE_FIRE, M_STRIKE_FBALL, M_NO_OP, MOBILE, pow2(FLAME) | pow2(ELECTRICITY) | pow2(POISON) | pow2(ACID) | pow2(FEAR) | pow2(SLEEP) | pow2(NEGENERGY) | pow2(OTHER_MAGIC) | pow2(THEFT) | pow2(GAZE) | pow2(INFECTION), 'F' | CLRS(LIGHT_RED, WHITE), "The Elemental Lord of Fire", "a spark", "A?A?A?R?R?R?R?"},
-      {&ELEM_MASTER, NULL, 0, 0, 0, 0, 0, 0, 149, 1000, 200, 200, 200, 20, 20, 10, 2, 0, 10, 10000, 10000, 1, -1, ARTIFACTID + 0, UNIQUE_MADE, M_TALK_EVIL, M_MOVE_SMART, M_MELEE_MASTER, M_STRIKE_MASTER, M_SP_MASTER, MOBILE | FLYING | SWIMMING, pow2(NORMAL_DAMAGE) | pow2(COLD) | pow2(ELECTRICITY) | pow2(POISON) | pow2(ACID) | pow2(FEAR) | pow2(SLEEP) | pow2(NEGENERGY) | pow2(OTHER_MAGIC) | pow2(THEFT) | pow2(GAZE) | pow2(INFECTION), 'M' | CLRS(PURPLE, WHITE), "The Elemental Master", "A burning mound of bubbling mud", "A?A?A?A?R?R?R?R?"}};
+      {&ELEM_MASTER, NULL, 0, 0, 0, 0, 0, 0, 149, 1000, 200, 200, 200, 20, 20, 10, 2, 0, 10, 10000, 10000, 1, -1, ARTIFACTID + 0, UNIQUE_MADE, M_TALK_EVIL, M_MOVE_SMART, M_MELEE_MASTER, M_STRIKE_MASTER, M_SP_MASTER, MOBILE | FLYING | SWIMMING, pow2(NORMAL_DAMAGE) | pow2(COLD) | pow2(ELECTRICITY) | pow2(POISON) | pow2(ACID) | pow2(FEAR) | pow2(SLEEP) | pow2(NEGENERGY) | pow2(OTHER_MAGIC) | pow2(THEFT) | pow2(GAZE) | pow2(INFECTION), 'M' | CLRS(PURPLE, WHITE), "The Elemental Master", "A burning mound of bubbling mud", "A?A?A?A?R?R?R?R?"},
+      {&WEREWOLF_KING, NULL, 0, 0, 0, 0, 0, 0, 150, 1000, 200, 200, 200, 20, 20, 10, 2, 0, 10, 10000, 10000, 1, -1, -1, UNIQUE_MADE, M_TALK_WEREKING, M_MOVE_SMART, M_MELEE_MASTER, M_STRIKE_MASTER, M_SP_WEREKING, MOBILE, pow2(NORMAL_DAMAGE) | pow2(POISON) | pow2(FEAR) | pow2(NEGENERGY) | pow2(OTHER_MAGIC) | pow2(GAZE) | pow2(INFECTION), 'W' | CLRS(BLACK, RED), "The Werewolf King", "the corpse of a small boy", "A?A?A?A?R?R?R?R?"}};
   _monsters.insert(_monsters.end(), mon.begin(), mon.end());
 }
 void init_monsters()

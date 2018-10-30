@@ -879,3 +879,14 @@ void m_talk_prime(Monster* m)
   else
     m_talk_evil(m);
 }
+
+void m_talk_wereking(Monster* m)
+{
+  if (!m_statusp(m, HOSTILE))
+  {
+      print1("The Werewolf King nods brusquely at you, removes a gem from his");
+      print2("sleeve, places it on the floor, and vanishes wordlessly.");
+  }
+  else
+    m_talk_evil(m);
+}

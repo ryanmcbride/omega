@@ -311,7 +311,7 @@ on save and restore. */
 #define S_WISH 40
 
 /* ranks in guilds, etc */
-#define NUMRANKS 9
+#define NUMRANKS 10
 
 #define LEGION 0
 #define ARENA 1
@@ -322,6 +322,13 @@ on save and restore. */
 #define NOBILITY 6
 #define PRIESTHOOD 7
 #define ADEPT 8
+#define WEREWOLF 9
+
+#define PUP 1
+#define DELTA 2
+#define BETA 3
+#define ALPHA 4
+#define KING 5
 
 #define LEGIONAIRE 1
 #define CENTURION 2
@@ -464,7 +471,8 @@ on save and restore. */
 #define NUMROOMNAMES 30
 
 /* normal room name indices start after the RS_ constants */
-#define ROOMBASE 39
+#define ROOMBASE 40
+#define RS_WERE_DEN 39
 #define RS_COURT 38
 #define RS_ZORCH 37
 #define RS_CIRCLE 36
@@ -933,6 +941,7 @@ for example. */
 #define M_TALK_DRUID 134
 #define M_TALK_ARCHMAGE 135
 #define M_TALK_PRIME 136
+#define M_TALK_WEREKING 137
 
 /* ability functions */
 #define M_SP_SURPRISE 201
@@ -976,6 +985,8 @@ for example. */
 #define M_SP_COURT 240
 #define M_SP_LAIR 241
 #define M_SP_PRIME 242
+#define M_SP_WEREKING 243
+
 
 /* rangestrike functions */
 #define M_STRIKE_MISSILE 301
@@ -1199,6 +1210,7 @@ extern int LORD_AIR;
 extern int LORD_WATER;
 extern int LORD_FIRE;
 extern int ELEM_MASTER;
+extern int WEREWOLF_KING;
 
 /* location functions */
 #define L_NO_OP 0

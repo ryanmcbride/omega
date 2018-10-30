@@ -114,7 +114,23 @@ void show_screen()
 
 char mgetc()
 {
-  return (wgetch(Msgw));
+  keypad(Msgw, TRUE);
+  int val = wgetch(Msgw);
+  switch(val){
+    case 260:
+      val = 'h';
+    break;
+    case 258:
+      val = 'j';
+    break;
+    case 259:
+      val = 'k';
+    break;
+    case 261:
+      val = 'l';
+    break;
+  }
+  return val;
 }
 
 /* case insensitive mgetc -- sends uppercase to lowercase */
