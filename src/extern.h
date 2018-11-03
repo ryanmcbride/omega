@@ -667,6 +667,7 @@ void monster_strike ARGS((Monster *));
 void monster_talk ARGS((Monster *));
 void movemonster ARGS((Monster *,int,int));
 void strengthen_death ARGS((Monster *));
+void resurrect_wereking(Monster*);
 
 /* move.c functions */
 

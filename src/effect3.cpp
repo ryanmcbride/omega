@@ -1067,13 +1067,13 @@ void polymorph(int blessing)
 
 void hellfire(int x, int y, int blessing)
 {
-  Monster *m;
+  Monster *m = level->site[x][y].creature;
   if ((x == player.x) && (y == player.y))
   {
     mprint("You have been completely annihilated. Congratulations.");
     p_death("hellfire");
   }
-  else if ((m = level->site[x][y].creature) == NULL)
+  else if (m == NULL)
   {
     mprint("The gods are angry over your waste of power...");
     level_drain(5, "indiscriminate use of hellfire");
@@ -1081,7 +1081,7 @@ void hellfire(int x, int y, int blessing)
   else
   {
     mprint("The monster writhes in the flames...");
-    if (blessing < 0)
+    if (m->id == WEREWOLF_KING ||  blessing < 0)
     {
       mprint("...and appears stronger.");
       morewait();

@@ -346,6 +346,30 @@ void knowledge(int blessing)
       menunumprint(player.guildxp[PRIESTHOOD]);
       menuprint(" XP).\n");
     }
+    switch (player.rank[WEREWOLF])
+    {
+    case PUP:
+      menuprint("Werewolf Pack: Pup");
+      break;
+    case DELTA:
+      menuprint("Werewolf Pack: Delta");
+      break;
+    case BETA:
+      menuprint("Werewolf Pack: Beta");
+      break;
+    case ALPHA:
+      menuprint("Werewolf Pack: Alpha");
+      break;
+    case KING:
+      menuprint("Werewolf Pack: King");
+      break;
+    }
+    if (player.rank[WEREWOLF] > 0)
+    {
+      menuprint(" (");
+      menunumprint(player.guildxp[WEREWOLF]);
+      menuprint(" XP).\n");
+    }
     if (player.rank[ADEPT] > 0)
       menuprint("**************\n*Omegan Adept*\n**************\n");
     showmenu();

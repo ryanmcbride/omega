@@ -392,6 +392,35 @@ void m_death(Monster* m)
         mprint("'Return to the Prime Plane via the Circle of Sorcerors....'");
       }
     } /* elem mast */
+    else if (m->id == WEREWOLF_KING){
+      if (player.rank[WEREWOLF] == ALPHA && player.guildxp[WEREWOLF] >= 10000){
+        mprint("You stand over the bloody corpse of your former master");
+        mprint("You eat the heart of the dead king");
+        mprint("You feel mighty");
+        mprint("You feel like a King");
+        player.rank[WEREWOLF] = KING;
+        player.str += 5;
+        player.maxstr += 5;
+        player.maxcon += 5;
+        player.con += 5;
+        player.maxpow += 5;
+        player.pow += 5;
+        player.maxhp *= 1.5;
+        player.hp = player.maxhp * 2;
+        player.immunity[FEAR] += 1500;
+        player.immunity[POISON] += 1500;
+        player.immunity[INFECTION] += 1500;
+        player.status[HASTED] += 1500;
+        dataprint();
+        showflags();
+      }
+      else {
+        mprint("The hulking create lies dead on the ground......");
+        mprint("it then twitches and gets back to its feet.");
+        mprint("'You're not wolf enough to kill me'");
+        resurrect_wereking(m);
+      }
+    }
 
     switch (m->specialf)
     {
@@ -1429,6 +1458,17 @@ void strengthen_death(Monster* m)
   ol->thing = scythe;
   ol->next = NULL;
   m->possessions = ol;
+}
+
+void resurrect_wereking(Monster* m)
+{
+  m->xpv += min(10000, m->xpv + 1000);
+  m->hit += min(1000, m->hit + 10);
+  m->dmg = min(10000, m->dmg * 2);
+  m->ac += min(1000, m->ac + 10);
+  m->speed = max(m->speed - 1, 1);
+  m->movef = M_MOVE_SMART;
+  m->hp = min(100000, 100 + m->dmg * 10);
 }
 
 void m_no_op(Monster* m)

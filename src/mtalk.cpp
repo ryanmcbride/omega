@@ -880,54 +880,137 @@ void m_talk_prime(Monster* m)
     m_talk_evil(m);
 }
 
-void m_talk_wereking(Monster* m)
+void m_talk_wereking(Monster *m)
 {
   if (!m_statusp(m, HOSTILE))
   {
     switch (player.rank[WEREWOLF])
     {
-      case 0:
-        print1("The Werewolf King looks at you, do you wish");
-        print2("sleeve, places it on the floor, and vanishes wordlessly.");
+    case 0:
+      print1("You submissively appraoch the Werewolf King.");
+      morewait();
+      print2("Do you wish to join the Pack? [yn] ");
+      if (ynq2() == 'y')
+      {
+        clearmsg();
 
+        print1("He savagely attacks you...");
         morewait();
-        print2("Do you wish to join the Pack? [yn] ");
-        if (ynq2() == 'y')
-        {
-          clearmsg();
-        
-          print1("You are tested for strength and stamina...");
-          morewait();
-          nprint1(" and you pass!");
-          print2("Commandant ");
-          nprint2(Commandant);
-          nprint2(" shakes your hand.");
-          morewait();
-          print2("The Legion pays you a 500Au induction fee.");
-          morewait();
-          print1("You are also issued a shortsword and leather.");
-          print2("You are now a Legionaire.");
-          morewait();
-          clearmsg();
-          auto newitem = Object::create();
-          *newitem = Objects[WEAPONID + 1]; /* shortsword */
-          gain_item(newitem);
-          newitem = Object::create();
-          *newitem = Objects[ARMORID + 1]; /* leather */
-          gain_item(newitem);
-          player.cash += 500;
-          player.rank[LEGION] = LEGIONAIRE;
-          player.guildxp[LEGION] = 1;
-          player.str++;
-          player.con++;
-          player.maxstr++;
-          player.maxcon++;
-        }
-      break;
-      case 1:
-      break;
+        nprint1(" until you are almost dead.");
+        morewait();
+        print1("The Werewolf King says \"If you survive...");
+        morewait();
+        print2("you will be stronger than ever.\"");
+        morewait();
+        clearmsg();
+        player.cash = 1;
+        player.rank[WEREWOLF] = PUP;
+        player.guildxp[WEREWOLF] = 1;
+        player.status[DISEASED] = 1100;
+        player.str++;
+        player.con++;
+        player.maxstr++;
+        player.maxcon++;
+        player.hp = 1;
+        player.maxhp *= 2;
+        dataprint();
+        showflags();
+      }else{
+        clearmsg();
+        print1("He savagely attacks you...");
+        m_status_set(m,HOSTILE);
       }
+      break;
+    case PUP:
+      clearmsg();
+      print1("The King smells your nethers");
+      if (player.guildxp[WEREWOLF] < 400)
+        print2("and decides that you're not ready to advance");
+      else
+      {
+        print2("and decides you smell like a Delta wolf");
+        morewait();
+        clearmsg();
+        print1("You're given a bloody heart to eat");
+        player.rank[WEREWOLF] = DELTA;
+        player.str++;
+        player.maxstr++;
+        player.maxcon++;
+        player.con++;
+        player.maxpow++;
+        player.pow++;
+        player.maxhp *= 1.5;
+        player.hp = player.maxhp * 2;
+        dataprint();
+        showflags();
+        dataprint();
+        showflags();
+      }
+      break;
+      case DELTA:
+      clearmsg();
+      print1("The King's hackles rise as he sniff's the air.");
+      if (player.guildxp[WEREWOLF] < 1500)
+        print2("You are too weak, go away!");
+      else
+      {
+        print2("I'm impressed by your power");
+        morewait();
+        clearmsg();
+        print1("You drink a potion of pure moonlight");
+        player.rank[WEREWOLF] = BETA;
+        player.str += 2;
+        player.maxstr += 2;
+        player.maxcon += 2;
+        player.con += 2;
+        player.maxpow += 2;
+        player.pow += 2;
+        player.maxhp *= 1.5;
+        player.hp = player.maxhp * 2;
+        dataprint();
+        showflags();
+      }
+      break;
+      case BETA:
+      clearmsg();
+      print1("The King's glares at you");
+      if (player.guildxp[WEREWOLF] < 4000)
+        print2("and then turns his back and ignores you");
+      else
+      {
+        print2("You are truly an impressive beast");
+        morewait();
+        clearmsg();
+        print1("The Kings carves a pentagram into your hand");
+        player.rank[WEREWOLF] = ALPHA;
+        player.str += 2;
+        player.maxstr += 2;
+        player.maxcon += 2;
+        player.con += 2;
+        player.maxpow += 2;
+        player.pow += 2;
+        player.maxhp *= 1.5;
+        player.hp = player.maxhp * 2;
+        dataprint();
+        showflags();
+      }
+      break;
+      case ALPHA:
+      clearmsg();
+      print1("The King seems agitated by your presense");
+      if (player.guildxp[WEREWOLF] < 10000)
+        print2("and glares angrily at you for a while");
+      else
+      {
+        print2("You are a threat to my supremecy");
+        morewait();
+        clearmsg();
+        print1("The Werewolf King attacks...");
+        m_status_set(m,HOSTILE);
+      }
+      break;
     }
+  }
   else
     m_talk_evil(m);
 }
