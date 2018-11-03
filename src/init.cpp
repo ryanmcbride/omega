@@ -4,6 +4,8 @@
 #include "defs.h"
 #include <vector>
 
+unsigned int PLAYER = ('@' | CLR(WHITE));
+
 static std::vector<Object> _objects;
   int NUMSCROLLS;
   int NUMPOTIONS;

@@ -625,7 +625,7 @@ on save and restore. */
 #define STAIRS_UP ('<' | CLR(WHITE))
 #define STAIRS_DOWN ('>' | CLR(WHITE))
 #define FLOOR ('.' | CLR(BROWN))
-#define PLAYER ('@' | CLR(WHITE))
+extern unsigned int PLAYER;
 #define CORPSE ('+' | CLR(RED))
 #define STATUE ('1' | CLR(GREY))
 #define RUBBLE ('4' | CLR(GREY))

@@ -11,6 +11,8 @@
 
 #include "glob.h"
 #include "date.h"
+#include <map>
+#include <string>
 
 /* look at some spot */
 void examine()
@@ -458,123 +460,60 @@ void charid()
     if ((id >= 'a' && id <= 'z') || (id >= 'A' && id <= 'Z') || id == '@')
       mprint("A monster or NPC -- examine (x) to find out exactly.");
     else
-      switch (id)
+    {
+      static std::multimap<char, std::string> lookMap = {
+          {SPACE & 0xff, " : An airless void (if seen) or unknown region (if unseen)"},
+          {WALL & 0xff, " : An (impenetrable?) wall"},
+          {OPEN_DOOR & 0xff, " : An open door"},
+          {CLOSED_DOOR & 0xff, " : A closed (possibly locked) door"},
+          {LAVA & 0xff, " : A pool of lava"},
+          {HEDGE & 0xff, " : A dense hedge"},
+          {WATER & 0xff, " : A deep body of water"},
+          {FIRE & 0xff, " : A curtain of fire"},
+          {TRAP & 0xff, " : An uncovered trap"},
+          {STAIRS_UP & 0xff, " : A stairway leading up"},
+          {STAIRS_DOWN & 0xff, " : A stairway leading down"},
+          {FLOOR & 0xff, " : The dungeon floor"},
+          {PORTCULLIS & 0xff, " : A heavy steel portcullis"},
+          {ABYSS & 0xff, " : An entrance to the infinite abyss"},
+          {PLAYER & 0xff, " : You, the player"},
+          {CORPSE & 0xff, " : The remains of some creature"},
+          {THING & 0xff, " : Some random miscellaneous object"},
+          {SAFE & 0xff, " : A steel safe inset into the floor"},
+          {RUBBLE & 0xff, " : A dangerous-looking pile of rubble"},
+          {STATUE & 0xff, " : A statue"},
+          {ALTAR & 0xff, " : A (un?)holy altar"},
+          {CASH & 0xff, " : Bills, specie, gems: cash"},
+          {PILE & 0xff, " : A pile of objects"},
+          {FOOD & 0xff, " : Something edible"},
+          {WEAPON & 0xff, " : Some kind of weapon"},
+          {MISSILEWEAPON & 0xff, " : Some kind of missile weapon"},
+          {SCROLL & 0xff, " : Something readable"},
+          {POTION & 0xff, " : Something drinkable"},
+          {ARMOR & 0xff, " : A suit of armor"},
+          {SHIELD & 0xff, " : A shield"},
+          {CLOAK & 0xff, " : A cloak"},
+          {BOOTS & 0xff, " : A pair of boots"},
+          {STICK & 0xff, " : A stick"},
+          {RING & 0xff, " : A ring"},
+          {ARTIFACT & 0xff, " : An artifact"},
+          {CHAIR & 0xff, " : A chair"},
+          {WHIRLWIND & 0xff, " : A whirlwind"},
+      };
+      if (lookMap.count(id) <= 0)
       {
-      case (SPACE & 0xff):
-        mprint(" : An airless void (if seen) or unknown region (if unseen)");
-        break;
-      case (WALL & 0xff):
-        mprint(" : An (impenetrable?) wall");
-        break;
-      case (OPEN_DOOR & 0xff):
-        mprint(" : An open door");
-        break;
-      case (CLOSED_DOOR & 0xff):
-        mprint(" : A closed (possibly locked) door");
-        break;
-      case (LAVA & 0xff):
-        mprint(" : A pool of lava");
-        break;
-      case (HEDGE & 0xff):
-        mprint(" : A dense hedge");
-        break;
-      case (WATER & 0xff):
-        mprint(" : A deep body of water");
-        break;
-      case (FIRE & 0xff):
-        mprint(" : A curtain of fire");
-        break;
-      case (TRAP & 0xff):
-        mprint(" : An uncovered trap");
-        break;
-      case (STAIRS_UP & 0xff):
-        mprint(" : A stairway leading up");
-        break;
-      case (STAIRS_DOWN & 0xff):
-        mprint(" : A stairway leading down");
-        break;
-      case (FLOOR & 0xff):
-        mprint(" : The dungeon floor");
-        break;
-      case (PORTCULLIS & 0xff):
-        mprint(" : A heavy steel portcullis");
-        break;
-      case (ABYSS & 0xff):
-        mprint(" : An entrance to the infinite abyss");
-        break;
-      case (PLAYER & 0xff):
-        mprint(" : You, the player");
-        break;
-      case (CORPSE & 0xff):
-        mprint(" : The remains of some creature");
-        break;
-      case (THING & 0xff):
-        mprint(" : Some random miscellaneous object");
-        break;
-      case (SAFE & 0xff):
-        mprint(" : A steel safe inset into the floor");
-        break;
-      case (RUBBLE & 0xff):
-        mprint(" : A dangerous-looking pile of rubble");
-        break;
-      case (STATUE & 0xff):
-        mprint(" : A statue");
-        break;
-      case (ALTAR & 0xff):
-        mprint(" : A (un?)holy altar");
-        break;
-      case (CASH & 0xff):
-        mprint(" : Bills, specie, gems: cash");
-        break;
-      case (PILE & 0xff):
-        mprint(" : A pile of objects");
-        break;
-      case (FOOD & 0xff):
-        mprint(" : Something edible");
-        break;
-      case (WEAPON & 0xff):
-        mprint(" : Some kind of weapon");
-        break;
-      case (MISSILEWEAPON & 0xff):
-        mprint(" : Some kind of missile weapon");
-        break;
-      case (SCROLL & 0xff):
-        mprint(" : Something readable");
-        break;
-      case (POTION & 0xff):
-        mprint(" : Something drinkable");
-        break;
-      case (ARMOR & 0xff):
-        mprint(" : A suit of armor");
-        break;
-      case (SHIELD & 0xff):
-        mprint(" : A shield");
-        break;
-      case (CLOAK & 0xff):
-        mprint(" : A cloak");
-        break;
-      case (BOOTS & 0xff):
-        mprint(" : A pair of boots");
-        break;
-      case (STICK & 0xff):
-        mprint(" : A stick");
-        break;
-      case (RING & 0xff):
-        mprint(" : A ring");
-        break;
-      case (ARTIFACT & 0xff):
-        mprint(" : An artifact");
-        break;
-      case (CHAIR & 0xff):
-        mprint(" : A chair");
-        break;
-      case (WHIRLWIND & 0xff):
-        mprint(" : A whirlwind");
-        break;
-      default:
         mprint("That character is unused.");
-        break;
       }
+      else
+      {
+        auto result = lookMap.equal_range(id);
+        std::string out;
+        for (auto it = result.first; it != result.second; it++){
+          out += it->second;
+        }
+        mprint(out);
+      }
+    }
   }
 }
 
