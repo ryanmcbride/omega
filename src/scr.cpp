@@ -23,7 +23,7 @@
 #endif
 
 #include "glob.h"
-#include "clrgen.h"
+#include "../include/clrgen.h"
 
 #ifdef EXCESSIVE_REDRAW
 #undef wclear
@@ -301,50 +301,50 @@ void erase_level()
 }
 
 /* direct print to first msg line */
-void print1(char* s)
+void print1(std::string s)
 {
   if (!gamestatusp(SUPPRESS_PRINTING))
   {
     buffercycle(s);
     wclear(Msg1w);
-    wprintw(Msg1w, s);
+    wprintw(Msg1w, s.c_str());
     wrefresh(Msg1w);
   }
 }
 
 /* for run on-messages -- print1 clears first.... */
-void nprint1(char* s)
+void nprint1(std::string s)
 {
   if (!gamestatusp(SUPPRESS_PRINTING))
   {
     if (bufferappend(s))
     {
-      wprintw(Msg1w, s);
+      wprintw(Msg1w, s.c_str());
       wrefresh(Msg1w);
     }
   }
 }
 
 /* direct print to second msg line */
-void print2(char* s)
+void print2(std::string s)
 {
   if (!gamestatusp(SUPPRESS_PRINTING))
   {
     buffercycle(s);
     wclear(Msg2w);
-    wprintw(Msg2w, s);
+    wprintw(Msg2w, s.c_str());
     wrefresh(Msg2w);
   }
 }
 
 /* for run on-messages -- print2 clears first.... */
-void nprint2(char* s)
+void nprint2(std::string s)
 {
   if (!gamestatusp(SUPPRESS_PRINTING))
   {
     if (bufferappend(s))
     {
-      wprintw(Msg2w, s);
+      wprintw(Msg2w, s.c_str());
       wrefresh(Msg2w);
     }
   }
@@ -352,25 +352,25 @@ void nprint2(char* s)
 
 /* msg line 3 is not part of the region that mprint or printm can reach */
 /* typical use of print3 is for "you can't do that" type error messages */
-void print3(char* s)
+void print3(std::string s)
 {
   if (!gamestatusp(SUPPRESS_PRINTING))
   {
     buffercycle(s);
     wclear(Msg3w);
-    wprintw(Msg3w, s);
+    wprintw(Msg3w, s.c_str());
     wrefresh(Msg3w);
   }
 }
 
 /* for run on-messages -- print3 clears first.... */
-void nprint3(char* s)
+void nprint3(std::string s)
 {
   if (!gamestatusp(SUPPRESS_PRINTING))
   {
     if (bufferappend(s))
     {
-      wprintw(Msg3w, s);
+      wprintw(Msg3w, s.c_str());
       wrefresh(Msg3w);
     }
   }
@@ -378,13 +378,13 @@ void nprint3(char* s)
 
 /* prints wherever cursor is in window, but checks to see if
 it should morewait and clear window */
-void mprint(char* s)
+void mprint(std::string s)
 {
   int x, y;
   if (!gamestatusp(SUPPRESS_PRINTING))
   {
     getyx(Msgw, y, x);
-    if (x + strlen(s) >= WIDTH)
+    if (x + s.length() >= WIDTH)
     {
       buffercycle(s);
       if (Msgw == Msg1w)
@@ -405,7 +405,7 @@ void mprint(char* s)
       bufferappend(s);
     else
       buffercycle(s);
-    wprintw(Msgw, s);
+    wprintw(Msgw, s.c_str());
     waddch(Msgw, ' ');
     wrefresh(Msgw);
   }
@@ -967,7 +967,7 @@ void menuspellprint(int i)
   wprintw(Menuw, "(%d)\n", Spells[i].powerdrain);
 }
 
-void menuprint(char* s)
+void menuprint(std::string s)
 {
   int x, y;
   getyx(Menuw, y, x);
@@ -978,7 +978,7 @@ void menuprint(char* s)
     wclear(Menuw);
     touchwin(Menuw);
   }
-  wprintw(Menuw, s);
+  wprintw(Menuw, s.c_str());
 }
 
 void showmenu()
@@ -1055,10 +1055,10 @@ char *msgscanstring()
   return (instring);
 }
 
-void locprint(char* s)
+void locprint(std::string s)
 {
   wclear(Locw);
-  wprintw(Locw, s);
+  wprintw(Locw, s.c_str());
   wrefresh(Locw);
 }
 
@@ -1197,7 +1197,7 @@ void maddch(char c)
   wrefresh(Msgw);
 }
 
-void display_death(char* source)
+void display_death(std::string source)
 {
   clear();
   touchwin(stdscr);
@@ -1206,7 +1206,7 @@ void display_death(char* source)
   printw(player.name);
   printw(" (%ld points)", calc_points());
   strcpy(Str4, "Killed by ");
-  strcat(Str4, source);
+  strcat(Str4, source.c_str());
   printw("\n");
   printw(Str4);
   printw(".");
@@ -1760,22 +1760,22 @@ void clear_if_necessary()
 
 int bufferpos = 0;
 
-void buffercycle(char* s)
+void buffercycle(std::string s)
 {
-  strcpy(Stringbuffer[bufferpos++], s);
+  strcpy(Stringbuffer[bufferpos++], s.c_str());
   if (bufferpos >= STRING_BUFFER_SIZE)
     bufferpos = 0;
 }
 
-int bufferappend(char* s)
+int bufferappend(std::string s)
 {
   int pos = bufferpos - 1;
 
   if (pos < 0)
     pos = STRING_BUFFER_SIZE - 1;
-  if (strlen(Stringbuffer[pos]) + strlen(s) < 80 - 1)
+  if (strlen(Stringbuffer[pos]) + s.length() < 80 - 1)
   {
-    strcat(Stringbuffer[pos], s);
+    strcat(Stringbuffer[pos], s.c_str());
     return 1;
   }
   else

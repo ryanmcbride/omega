@@ -67,7 +67,7 @@ void make_corpse(Object* new_obj, Monster* m)
   new_obj->basevalue = m->corpsevalue;
   new_obj->known = 2;
   new_obj->objstr = m->corpsestr;
-  new_obj->truename = new_obj->cursestr = new_obj->objstr;
+  new_obj->cursestr = new_obj->truename = new_obj->objstr;
 /* DG I_CANNIBAL not implemented... fall through to code in I_CORPSE */
 #if 0 /* WDT HACK, of course -- we need to implement I_CANNIBAL. */
   if ((m->monchar&0xff) == '@')
@@ -167,7 +167,7 @@ void make_thing(Object* new_obj, int id)
   if (strcmp(new_obj->objstr, "grot") == 0)
   {
     new_obj->objstr = grotname();
-    new_obj->truename = new_obj->cursestr = new_obj->objstr;
+    new_obj->cursestr = new_obj->truename = new_obj->objstr;
   }
 }
 

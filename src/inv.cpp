@@ -260,7 +260,7 @@ char *itemid(Object* obj)
       if (obj->blessing < 0)
       {
         strcat(Str4, "cursed ");
-        strcat(Str4, obj->cursestr);
+        strcat(Str4, obj->cursestr.c_str());
       }
       else if (obj->blessing > 0)
       {

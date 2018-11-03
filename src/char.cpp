@@ -111,8 +111,8 @@ FILE *omegarc_check()
   {
     print2("Use omega.rc charcter record in current directory? [yn] ");
 #else
-  sprintf(Str1, "%s/.omegarc", getenv("HOME"));
-  if ((fd = fopen(Str1, "r")) != NULL)
+  std::string str = std::string(getenv("HOME"))+"/.omegarc";
+  if ((fd = fopen(str.c_str(), "r")) != NULL)
   {
     print2("Use .omegarc in home directory? [yn] ");
 #endif
@@ -158,8 +158,8 @@ void save_omegarc()
 #if defined(MSDOS) || defined(AMIGA)
   fd = fopen("omega.rc", "wb");
 #else
-  sprintf(Str1, "%s/.omegarc", getenv("HOME"));
-  fd = fopen(Str1, "w");
+  std::string str = std::string(getenv("HOME"))+"/.omegarc";
+  fd = fopen(str.c_str(), "w");
 #endif
   if (fd == NULL)
 #if defined(MSDOS) || defined(AMIGA)
@@ -622,9 +622,8 @@ void omegan_character_stats()
   do
   {
     i++;
-    sprintf(Str1, "You have only %d chance%s to reroll... ", REROLLS - i,
-            (i == (REROLLS - 1)) ? "" : "s");
-    print2(Str1);
+    std::string str = "You have only "+std::to_string(REROLLS - i)+" chance"+(i == (REROLLS - 1) ? "" : "s")+" to reroll... ";
+    print2(str);
     player.iq = player.maxiq = 4 + random_range(5) +
                                (share1 = random_range(6)) + (share2 = random_range(6));
     player.pow = player.maxpow = 4 + random_range(5) + share1 + share2;

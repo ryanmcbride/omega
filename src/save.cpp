@@ -386,7 +386,7 @@ int save_item(FILE* fd, Object* o)
       type |= 1;
     if (strcmp(o->truename, Objects[o->id].truename))
       type |= 2;
-    if (strcmp(o->cursestr, Objects[o->id].cursestr))
+    if (o->cursestr == Objects[o->id].cursestr)
       type |= 4;
     ok &= (fwrite((char *)&type, sizeof(type), 1, fd) > 0);
     ok &= (fwrite((char *)o, sizeof(Object), 1, fd) > 0);
@@ -395,7 +395,7 @@ int save_item(FILE* fd, Object* o)
     if (type & 2)
       ok &= (fprintf(fd, "%s\n", o->truename) >= 0);
     if (type & 4)
-      ok &= (fprintf(fd, "%s\n", o->cursestr) >= 0);
+      ok &= (fprintf(fd, "%s\n", o->cursestr.c_str()) >= 0);
   }
   return ok;
 }

@@ -148,9 +148,8 @@ void drop_weapon()
 {
   if (player.possessions[O_WEAPON_HAND] != NULL)
   {
-    strcpy(Str1, "You dropped your ");
-    strcat(Str1, player.possessions[O_WEAPON_HAND]->objstr);
-    mprint(Str1);
+    std::string str = std::string("You dropped your ")+player.possessions[O_WEAPON_HAND]->objstr;
+    mprint(str);
     morewait();
     p_drop_at(player.x, player.y, 1, player.possessions[O_WEAPON_HAND]);
     conform_lost_objects(1, player.possessions[O_WEAPON_HAND]);
@@ -164,10 +163,8 @@ void break_weapon()
 {
   if (player.possessions[O_WEAPON_HAND] != NULL)
   {
-    strcpy(Str1, "Your ");
-    strcat(Str1, itemid(player.possessions[O_WEAPON_HAND]));
-    strcat(Str1, " vibrates in your hand....");
-    mprint(Str1);
+    std::string str = std::string("Your ")+itemid(player.possessions[O_WEAPON_HAND])+" vibrates in your hand....";
+    mprint(str);
     (void)damage_item(player.possessions[O_WEAPON_HAND]);
     morewait();
   }
@@ -761,7 +758,7 @@ char *actionlocstr(char dir)
 void tacplayer(Monster *m)
 {
   int i = 0;
-
+  std::string str;
   while (i < strlen(player.meleestr))
   {
     if (m->hp > 0)
@@ -771,12 +768,12 @@ void tacplayer(Monster *m)
       case 't':
       case 'T':
         if (player.possessions[O_WEAPON_HAND] == NULL)
-          strcpy(Str1, "You punch ");
+          str = "You punch ";
         else
-          strcpy(Str1, "You thrust ");
-        strcat(Str1, actionlocstr(player.meleestr[i + 1]));
+          str = "You thrust ";
+        str += actionlocstr(player.meleestr[i + 1]);
         if (Verbosity == VERBOSE)
-          mprint(Str1);
+          mprint(str);
         if (player_hit(2 * statmod(player.dex), player.meleestr[i + 1], m))
           weapon_use(0, player.possessions[O_WEAPON_HAND], m);
         else
@@ -785,16 +782,16 @@ void tacplayer(Monster *m)
       case 'c':
       case 'C':
         if (player.possessions[O_WEAPON_HAND] == NULL)
-          strcpy(Str1, "You punch ");
+          str = "You punch ";
         else if (player.possessions[O_WEAPON_HAND]->type == CUTTING)
-          strcpy(Str1, "You cut ");
+          str = "You cut ";
         else if (player.possessions[O_WEAPON_HAND]->type == STRIKING)
-          strcpy(Str1, "You strike ");
+          str = "You strike ";
         else
-          strcpy(Str1, "You attack ");
-        strcat(Str1, actionlocstr(player.meleestr[i + 1]));
+          str = "You attack ";
+        str += actionlocstr(player.meleestr[i + 1]);
         if (Verbosity == VERBOSE)
-          mprint(Str1);
+          mprint(str);
         if (player_hit(0, player.meleestr[i + 1], m))
           weapon_use(2 * statmod(player.str),
                      player.possessions[O_WEAPON_HAND],
@@ -804,10 +801,10 @@ void tacplayer(Monster *m)
         break;
       case 'l':
       case 'L':
-        strcpy(Str1, "You lunge ");
-        strcat(Str1, actionlocstr(player.meleestr[i + 1]));
+        str = "You lunge ";
+        str += actionlocstr(player.meleestr[i + 1]);
         if (Verbosity == VERBOSE)
-          mprint(Str1);
+          mprint(str);
         if (player_hit(player.level + player.dex, player.meleestr[i + 1], m))
           weapon_use(player.level, player.possessions[O_WEAPON_HAND], m);
         else
@@ -851,16 +848,17 @@ int player_hit(int hitmod, char hitloc, Monster *m)
     hit = hitp(player.hit + hitmod, m->ac + goodblocks * 10);
     if ((!hit) && (goodblocks > 0))
     {
+      std::string str;
       if (m->uniqueness == COMMON)
       {
-        strcpy(Str1, "The ");
-        strcat(Str1, m->monstring);
+        str = "The ";
+        str += m->monstring;
       }
       else
-        strcpy(Str1, m->monstring);
-      strcat(Str1, " blocks it!");
+        str = m->monstring;
+      str +=" blocks it!";
       if (Verbosity == VERBOSE)
-        mprint(Str1);
+        mprint(str);
     }
     return (hit);
   }

@@ -1411,7 +1411,9 @@ class Object {
   int usef;
   unsigned char level;
   Symbol objchar;
-  char *objstr,*truename,*cursestr;
+  char* objstr;
+  char* truename;
+  std::string cursestr;
 };
 
 class Objectlist {

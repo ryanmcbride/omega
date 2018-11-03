@@ -447,11 +447,11 @@ void charid()
   if (Current_Environment == E_COUNTRYSIDE)
   {
     countryside = TRUE;
-    strcpy(cstr, countryid(id));
-    if (strcmp(cstr, "I have no idea.") == 0)
+    auto s = countryid(id);
+    if (s == "I have no idea.")
       countryside = FALSE;
     else
-      mprint(cstr);
+      mprint(s);
   }
   if (!countryside)
   {

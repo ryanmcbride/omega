@@ -303,10 +303,10 @@ void talk()
     {
       m = level->site[player.x + dx][player.y + dy].creature;
       menuclear();
-      strcpy(Str1, "     Talk to ");
-      strcat(Str1, m->monstring);
-      strcat(Str1, ":");
-      menuprint(Str1);
+      std::string str = "     Talk to ";
+      str += m->monstring;
+      str += ":";
+      menuprint(str);
       menuprint("\na: Greet.");
       menuprint("\nb: Threaten.");
       menuprint("\nc: Surrender.");
@@ -1104,8 +1104,7 @@ void save(int compress, int force)
 #endif
     if (fname[pos])
     {
-      sprintf(Str1, "Illegal character '%c' in filename - Save aborted.", fname[pos]);
-      print1(Str1);
+      print1("Illegal character '%c' in filename - Save aborted."+ std::to_string(fname[pos]));
       ok = FALSE;
     }
 #ifdef MSDOS

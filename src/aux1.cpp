@@ -53,90 +53,77 @@ void tunnelcheck()
 /* displays a room's name */
 void showroom(int i)
 {
-  strcpy(Str1, "");
-  strcpy(Str2, "");
+  std::string str1;
+  std::string str2;
   switch (Current_Environment)
   {
   case E_MANSION:
-    strcpy(Str2, "A luxurious mansion: ");
+    str2 = "A luxurious mansion: ";
     break;
   case E_HOUSE:
-    strcpy(Str2, "A house: ");
+    str2 = "A house: ";
     break;
   case E_HOVEL:
-    strcpy(Str2, "A hovel: ");
+    str2 = "A hovel: ";
     break;
   case E_CITY:
-    strcpy(Str2, "The City of Rampart");
+    str2 = "The City of Rampart";
     break;
   case E_VILLAGE:
     switch (Villagenum)
     {
     case 1:
-      strcpy(Str2, "The Village of Star View");
+      str2 = "The Village of Star View";
       break;
     case 2:
-      strcpy(Str2, "The Village of Woodmere");
+      str2 = "The Village of Woodmere";
       break;
     case 3:
-      strcpy(Str2, "The Village of Stormwatch");
+      str2 = "The Village of Stormwatch";
       break;
     case 4:
-      strcpy(Str2, "The Village of Thaumaris");
+      str2 = "The Village of Thaumaris";
       break;
     case 5:
-      strcpy(Str2, "The Village of Skorch");
+      str2 = "The Village of Skorch";
       break;
     case 6:
-      strcpy(Str2, "The Village of Whorfen");
+      str2 = "The Village of Whorfen";
       break;
     }
     break;
   case E_CAVES:
-    strcpy(Str2, "The Goblin Caves: ");
+    str2 = "The Goblin Caves: ";
     break;
   case E_CASTLE:
-    strcpy(Str2, "The Archmage's Castle: ");
+    str2 = "The Archmage's Castle: ";
     break;
   case E_ASTRAL:
-    strcpy(Str2, "The Astral Plane: ");
+    str2 = "The Astral Plane: ";
     break;
   case E_VOLCANO:
-    strcpy(Str2, "The Volcano: ");
+    str2 = "The Volcano: ";
     break;
   case E_SEWERS:
-    strcpy(Str2, "The Sewers: ");
+    str2 = "The Sewers: ";
     break;
   case E_TACTICAL_MAP:
-    strcpy(Str2, "The Tactical Map ");
+    str2 = "The Tactical Map ";
     break;
   default:
-    strcpy(Str2, "");
+    str2 = "";
     break;
   }
   if (Current_Environment == Current_Dungeon)
   {
-    strcpy(Str1, "Level ");
-    if (level->depth < 10)
-    {
-      Str1[6] = level->depth + '0';
-      Str1[7] = 0;
-    }
-    else
-    {
-      Str1[6] = (level->depth / 10) + '0';
-      Str1[7] = (level->depth % 10) + '0';
-      Str1[8] = 0;
-    }
-    strcat(Str1, " (");
-    strcat(Str1, roomname(i));
-    strcat(Str1, ")");
+    str1 = "Level "+std::to_string((int)level->depth);
+    str1 += std::string(" (") + roomname(i) + ")";
   }
-  else if (strlen(Str2) == 0 || Current_Environment == E_MANSION ||
+  else if (str2.length() == 0 || Current_Environment == E_MANSION ||
            Current_Environment == E_HOUSE || Current_Environment == E_HOVEL)
-    strcpy(Str1, roomname(i));
-  strcat(Str2, Str1);
-  locprint(Str2);
+    str1 = roomname(i);
+  str2 += str1;
+  locprint(str2);
 }
 
 int player_on_sanctuary()
@@ -504,10 +491,10 @@ int damage_item(Object* o)
     {
       if (o->objchar == STICK)
       {
-        strcpy(Str1, "Your ");
-        strcat(Str1, (o->blessing >= 0 ? o->truename : o->cursestr));
-        strcat(Str1, " explodes!");
-        print1(Str1);
+        std::string str = "Your "
+        +(o->blessing >= 0 ? o->truename : o->cursestr)
+        + " explodes!";
+        print1(str);
         morewait();
         if (o->charge < 1)
           nprint1(" Fzzz... Out of Power... Oh well...");
@@ -523,25 +510,20 @@ int damage_item(Object* o)
       }
       else if ((o->blessing > 0) && (o->level > random_range(10)))
       {
-        strcpy(Str1, "Your ");
-        strcat(Str1, itemid(o));
-        strcat(Str1, " glows strongly.");
-        print1(Str1);
+        std::string str =  std::string("Your ")+itemid(o)+" glows strongly.";
+        print1(str);
         return 0;
       }
       else if ((o->blessing < -1) && (o->level > random_range(10)))
       {
-        strcpy(Str1, "You hear an evil giggle from your ");
-        strcat(Str1, itemid(o));
-        print1(Str1);
+        std::string str = std::string("You hear an evil giggle from your ")+itemid(o);
+        print1(str);
         return 0;
       }
       else if (o->plus > 0)
       {
-        strcpy(Str1, "Your ");
-        strcat(Str1, itemid(o));
-        strcat(Str1, " glows and then fades.");
-        print1(Str1);
+       std::string str = std::string("Your ")+itemid(o)+" glows and then fades.";
+        print1(str);
         o->plus--;
         return 0;
       }
@@ -551,10 +533,8 @@ int damage_item(Object* o)
           print1("You hear a faint despairing cry!");
         else if (o->blessing < 0)
           print1("You hear an agonized scream!");
-        strcpy(Str1, "Your ");
-        strcat(Str1, itemid(o));
-        strcat(Str1, " shatters in a thousand lost fragments!");
-        print2(Str1);
+        std::string str = std::string("Your ")+itemid(o)+" shatters in a thousand lost fragments!";
+        print2(str);
         morewait();
         dispose_lost_objects(1, o);
         return 1;

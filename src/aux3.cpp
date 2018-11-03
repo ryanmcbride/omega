@@ -849,75 +849,76 @@ void countrysearch()
       }
 }
 
-char *countryid(Symbol terrain)
+std::string countryid(Symbol terrain)
 {
+  std::string str;
   switch (terrain & 0xff)
   {
   case MOUNTAINS & 0xff:
-    strcpy(Str1, "Almost impassable mountains");
+    str = "Almost impassable mountains";
     break;
   case PLAINS & 0xff:
-    strcpy(Str1, "Seemingly endless plains");
+    str = "Seemingly endless plains";
     break;
   case TUNDRA & 0xff:
-    strcpy(Str1, "A frosty stretch of tundra");
+    str = "A frosty stretch of tundra";
     break;
   case ROAD & 0xff:
-    strcpy(Str1, "A paved highway");
+    str = "A paved highway";
     break;
   case PASS & 0xff:
-    strcpy(Str1, "A secret mountain pass");
+    str = "A secret mountain pass";
     break;
   case RIVER & 0xff:
-    strcpy(Str1, "A rolling river");
+    str = "A rolling river";
     break;
   case CITY & 0xff:
-    strcpy(Str1, "The city of Rampart");
+    str = "The city of Rampart";
     break;
   case VILLAGE & 0xff:
-    strcpy(Str1, "A rural village");
+    str = "A rural village";
     break;
   case FOREST & 0xff:
-    strcpy(Str1, "A verdant forest");
+    str = "A verdant forest";
     break;
   case JUNGLE & 0xff:
-    strcpy(Str1, "A densely overgrown jungle");
+    str = "A densely overgrown jungle";
     break;
   case SWAMP & 0xff:
-    strcpy(Str1, "A swampy fen");
+    str = "A swampy fen";
     break;
   case VOLCANO & 0xff:
-    strcpy(Str1, "A huge active volcano");
+    str = "A huge active volcano";
     break;
   case CASTLE & 0xff:
-    strcpy(Str1, "An imposing castle");
+    str = "An imposing castle";
     break;
   case STARPEAK & 0xff:
-    strcpy(Str1, "A mysterious mountain.");
+    str = "A mysterious mountain.";
     break;
   case DRAGONLAIR & 0xff:
-    strcpy(Str1, "A cavern filled with treasure.");
+    str = "A cavern filled with treasure.";
     break;
   case MAGIC_ISLE & 0xff:
-    strcpy(Str1, "An island emanating magic.");
+    str = "An island emanating magic.";
     break;
   case CAVES & 0xff:
-    strcpy(Str1, "A hidden cave entrance");
+    str = "A hidden cave entrance";
     break;
   case TEMPLE & 0xff:
-    strcpy(Str1, "A neoclassical temple");
+    str = "A neoclassical temple";
     break;
   case DESERT & 0xff:
-    strcpy(Str1, "A sere desert");
+    str = "A sere desert";
     break;
   case CHAOS_SEA & 0xff:
-    strcpy(Str1, "The Sea of Chaos");
+    str = "The Sea of Chaos";
     break;
   default:
-    strcpy(Str1, "I have no idea.");
+    str = "I have no idea.";
     break;
   }
-  return (Str1);
+  return str;
 }
 
 static char *sitenames[] = {/* alphabetical listing */

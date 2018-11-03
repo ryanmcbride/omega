@@ -469,7 +469,7 @@ void weapon_defend(int dmgmod, Object* o, Monster* m)
     mprint("You stagger before the sound of its rage....");
     p_damage(50, UNSTOPPABLE, "a pissed-off Holy Defender");
     mprint("The weapon finally quiets. It seems less holy now.");
-    o->truename = o->cursestr;
+    o->truename = (char*)o->cursestr.c_str();
     player.status[PROTECTION] -= (o->hit);
     o->plus = 0 - abs(o->plus);
     o->blessing = -1;
