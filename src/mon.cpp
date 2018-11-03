@@ -1436,7 +1436,7 @@ char *mantype()
 void strengthen_death(Monster* m)
 {
   Objectlist* ol = Objectlist::create();
-  Object* scythe = Object::create();
+  Object* scythe = Object::create("Scythe of Death");
 #ifdef MSDOS_SUPPORTED_ANTIQUE
   unsigned tmp;
 #endif
@@ -1454,7 +1454,6 @@ void strengthen_death(Monster* m)
   tmp = 100 + m->dmg * 10;
   m->hp = (tmp > 30000) ? 30000 : tmp;
 #endif
-  *scythe = Objects[WEAPONID + 39];
   ol->thing = scythe;
   ol->next = NULL;
   m->possessions = ol;

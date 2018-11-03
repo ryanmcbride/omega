@@ -10,14 +10,6 @@
 
 #include "glob.h"
 
-Object* findObjectWithTrueName(char* name){
-  for(int i = 0; i < TOTALITEMS; i++){
-    if(strcmp(name,Objects[i].truename)==0){
-      return &Objects[i];
-    }
-  }
-  return &Objects[0];
-}
 /* set player to begin with */
 void initplayer()
 {
@@ -106,9 +98,8 @@ void initplayer()
   calc_melee();
   ScreenOffset = -1000; /* to force a redraw */
 
-  newitem = Object::create();
-          *newitem = *findObjectWithTrueName("Mjolnir");
-          gain_item(newitem);
+  newitem = Object::create("Mjolnir");
+  gain_item(newitem);
   player.cash += 5000000;
 }
 

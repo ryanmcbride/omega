@@ -94,8 +94,7 @@ void l_thieves_guild()
 							print2("You are taught the spell of Object Detection.");
 							morewait();
 							Spells[S_OBJ_DET].known = TRUE;
-							lockpick = Object::create();
-							*lockpick = Objects[THINGID + 2]; /* lock pick */
+							lockpick = Object::create("thieve's pick");
 							gain_item(lockpick);
 							player.cash -= dues;
 							dataprint();
@@ -745,8 +744,7 @@ void l_order()
 		clearmsg();
 		print1("You are awarded a blessed shield of deflection!");
 		morewait();
-		newitem = Object::create();
-		*newitem = Objects[SHIELDID + 7]; /* shield of deflection */
+		newitem = Object::create("shield of deflection");
 		newitem->blessing = 9;
 		gain_item(newitem);
 		morewait();
@@ -793,8 +791,7 @@ void l_order()
 				player.rank[ORDER] = GALLANT;
 				player.guildxp[ORDER] = 1;
 				setgamestatus(MOUNTED);
-				newitem = Object::create();
-				*newitem = Objects[WEAPONID + 19]; /* spear */
+				newitem = Object::create("spear");
 				newitem->blessing = 9;
 				newitem->plus = 1;
 				newitem->known = 2;
@@ -841,8 +838,7 @@ void l_order()
 				print1("You are made a Paladin of the Order!");
 				print2("You learn the Spell of Heroism and get Mithril Plate!");
 				morewait();
-				newitem = Object::create();
-				*newitem = Objects[ARMORID + 11]; /* mithril plate armor */
+				newitem = Object::create("mithril plate armor");
 				newitem->blessing = 9;
 				newitem->known = 2;
 				gain_item(newitem);
@@ -874,8 +870,7 @@ void l_order()
 				print2("You are given a Mace of Disruption!");
 				morewait();
 				clearmsg();
-				newitem = Object::create();
-				*newitem = Objects[WEAPONID + 25]; /* mace of disruption */
+				newitem = Object::create("mace of disruption");
 				newitem->known = 2;
 				gain_item(newitem);
 			}
@@ -896,8 +891,7 @@ void l_order()
 				morewait();
 				clearmsg();
 				player.rank[ORDER] = GUARDIAN;
-				newitem = Object::create();
-				*newitem = Objects[ARTIFACTID + 7]; /* holy hand grenade. */
+				newitem = Object::create("Holy Hand-Grenade of Antioch");
 				newitem->known = 2;
 				gain_item(newitem);
 			}

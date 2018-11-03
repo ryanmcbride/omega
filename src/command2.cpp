@@ -368,34 +368,41 @@ void disarm()
         print1("You disarmed the trap!");
         if (random_range(100) < player.dex + player.rank[THIEVES] * 10)
         {
-          o = Object::create();
           switch (level->site[x][y].p_locf)
           {
           case L_TRAP_DART:
-            *o = Objects[THINGID + 17];
+          o = Object::create("dart-trap component");
             break;
           case L_TRAP_DISINTEGRATE:
+          o = Object::create("disintegration-trap component");
             *o = Objects[THINGID + 23];
             break;
           case L_TRAP_SLEEP_GAS:
+          o = Object::create("sleepgas-trap component");
             *o = Objects[THINGID + 22];
             break;
           case L_TRAP_TELEPORT:
+          o = Object::create("teleport-trap component");
             *o = Objects[THINGID + 21];
             break;
           case L_TRAP_ABYSS:
+          o = Object::create("abyss-trap component");
             *o = Objects[THINGID + 24];
             break;
           case L_TRAP_FIRE:
+          o = Object::create("fire-trap component");
             *o = Objects[THINGID + 20];
             break;
           case L_TRAP_SNARE:
+          o = Object::create("snare component");
             *o = Objects[THINGID + 19];
             break;
           case L_TRAP_ACID:
+          o = Object::create("acid-trap component");
             *o = Objects[THINGID + 18];
             break;
           case L_TRAP_MANADRAIN:
+          o = Object::create("manadrain-trap component");
             *o = Objects[THINGID + 25];
             break;
           default:

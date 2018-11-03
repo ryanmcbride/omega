@@ -1,5 +1,6 @@
 #ifndef __DEF_H__
 #define __DEF_H__
+#include <string>
 /* omega copyright (c) 1987,1988,1989 by Laurence Raphael Brothers */
 /* This file is the header file for all omega modules */
 /* defs.h */
@@ -68,7 +69,7 @@ on save and restore. */
 
 #define CATCH_SIGNALS 1
 
-
+#define BSD
 /*---------------------------SYSTEM DEFINITIONS---------------------------*/
 
 /* Don't change anything from here on (unless you know what you're doing) */
@@ -79,7 +80,7 @@ on save and restore. */
 #ifndef MSDOS
 #ifndef BSD
 #ifndef SYSV
-    ERROR! - One of these should be set - edit the makefile appropriately
+    #error "One of these should be set - edit the makefile appropriately"
 #endif
 #endif
 #endif
@@ -591,7 +592,7 @@ on save and restore. */
 #  define CLR(fg)	OMEGA_CLRGEN1 fg
 #  define CLRS(fg, bg)	OMEGA_CLRGEN2 fg bg
 # else
-#  include "clrgen.h"
+#  include "../include/clrgen.h"
 #  define CLR(fg)	CLR_##fg##_BLACK
 #  define CLRS(fg, bg)	CLR_##fg##_##bg
 # endif
@@ -1396,7 +1397,12 @@ class Room {
 
 class Object {
   public:
-  static Object* create();
+  static Object* create(std::string name ="");
+  static int getIdByName(std::string name);
+  static Object* getObjectByName(std::string name);
+  static Object* makeCash(int level);
+  static Object* makeWeapon(int,Object* o = nullptr);
+  bool operator ==(std::string);
   int id,weight,plus,charge,dmg,hit,aux,number,fragility;
   long basevalue;
   unsigned char known,used;

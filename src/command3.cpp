@@ -293,9 +293,9 @@ void fire()
     print3("You can't seem to get rid of it!");
   /* load a crossbow */
   else if ((player.possessions[O_WEAPON_HAND] != NULL) &&
-           (player.possessions[O_WEAPON_HAND]->id == WEAPONID + 27) &&
+           (*player.possessions[O_WEAPON_HAND] == "crossbow") &&
            (player.possessions[O_WEAPON_HAND]->aux != LOADED) &&
-           (player.possessions[index]->id == WEAPONID + 29))
+           (*player.possessions[index] == "bolt"))
   {
     mprint("You crank back the crossbow and load a bolt.");
     player.possessions[O_WEAPON_HAND]->aux = LOADED;
@@ -346,7 +346,7 @@ void fire()
         else if (hitp(player.hit, m->ac))
         { /* ok already, hit the damn thing */
           weapon_use(2 * statmod(player.str), obj, m);
-          if ((obj->id == WEAPONID + 28 || obj->id == WEAPONID + 29) &&
+          if ((*obj == "arrow" || *obj == "bolt") &&
               !random_range(4))
             dispose_lost_objects(1, obj);
           else

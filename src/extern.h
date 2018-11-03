@@ -1,5 +1,6 @@
 #ifndef __EXTERN_H__
 #define __EXTERN_H__
+#include "defs.h"
 /* omega copyright (c) 1987,1988,1989 by Laurence Raphael Brothers */
 /* extern.h -- function declarations */
 
@@ -442,7 +443,6 @@ void item_use ARGS((Object *));
 void make_armor ARGS((Object*, int));
 void make_artifact ARGS((Object*, int));
 void make_boots ARGS((Object*, int));
-void make_cash ARGS((Object*, int));
 void make_cloak ARGS((Object*, int));
 void make_corpse ARGS((Object*, Monster *));
 void make_food ARGS((Object*, int));
@@ -452,7 +452,6 @@ void make_scroll ARGS((Object*, int));
 void make_shield ARGS((Object*, int));
 void make_stick ARGS((Object*, int));
 void make_thing ARGS((Object*, int));
-void make_weapon ARGS((Object*, int));
 
 /* itemf1.c functions */
 

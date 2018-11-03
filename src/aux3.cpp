@@ -187,8 +187,7 @@ void outdoors_random_event()
     morewait();
     mprint("Using your herbalist lore you cook a cake of lembas....");
     morewait();
-    ob = Object::create();
-    *ob = Objects[FOODID + 1];
+    ob = Object::create("wafer of lembas");
     gain_item(ob);
     break;
   case 3:

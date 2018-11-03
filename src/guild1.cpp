@@ -73,11 +73,9 @@ void l_merc_guild()
           print2("You are now a Legionaire.");
           morewait();
           clearmsg();
-          newitem = Object::create();
-          *newitem = Objects[WEAPONID + 1]; /* shortsword */
+          newitem = Object::create("short sword");
           gain_item(newitem);
-          newitem = Object::create();
-          *newitem = Objects[ARMORID + 1]; /* leather */
+          newitem = Object::create("soft leather armor");
           gain_item(newitem);
           player.cash += 500;
           player.rank[LEGION] = LEGIONAIRE;
@@ -262,7 +260,7 @@ void l_castle()
     }
     else if (player.rank[NOBILITY] == ESQUIRE)
     {
-      if (find_and_remove_item(WEAPONID + 34, -1))
+      if (find_and_remove_item(Object::getIdByName("Defender"), -1))
       {
         print1("My thanks, squire. In return, I dub thee knight!");
         player.rank[NOBILITY] = KNIGHT;
@@ -376,11 +374,9 @@ void l_arena()
       print2("Here's a wooden sword, and a shield");
       morewait();
       clearmsg();
-      newitem = Object::create();
-      *newitem = Objects[WEAPONID + 17]; /* club */
+      newitem = Object::create("club");
       gain_item(newitem);
-      newitem = Object::create();
-      *newitem = Objects[SHIELDID + 2]; /* shield */
+      newitem = Object::create("large round shield");
       gain_item(newitem);
       player.rank[ARENA] = TRAINEE;
       Arena_Opponent = 3;
@@ -557,8 +553,7 @@ void l_arena()
           save_hiscore_npc(11);
           print1("You are awarded the Champion's Spear: Victrix!");
           morewait();
-          newitem = Object::create();
-          *newitem = Objects[WEAPONID + 35];
+          newitem = Object::create("Victrix");
           gain_item(newitem);
         }
         else

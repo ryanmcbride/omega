@@ -631,8 +631,7 @@ void stock_level()
     i = random_range(WIDTH);
     j = random_range(LENGTH);
     level->site[i][j].things = Objectlist::create();
-    level->site[i][j].things->thing = Object::create();
-    make_cash(level->site[i][j].things->thing, difficulty());
+    level->site[i][j].things->thing = Object::makeCash(difficulty());
     level->site[i][j].things->next = NULL;
     /* caves have more random cash strewn around */
     if (Current_Dungeon == E_CAVES)
@@ -640,14 +639,12 @@ void stock_level()
       i = random_range(WIDTH);
       j = random_range(LENGTH);
       level->site[i][j].things = Objectlist::create();
-      level->site[i][j].things->thing = Object::create();
-      make_cash(level->site[i][j].things->thing, difficulty());
+      level->site[i][j].things->thing = Object::makeCash(difficulty());
       level->site[i][j].things->next = NULL;
       i = random_range(WIDTH);
       j = random_range(LENGTH);
       level->site[i][j].things = Objectlist::create();
-      level->site[i][j].things->thing = Object::create();
-      make_cash(level->site[i][j].things->thing, difficulty());
+      level->site[i][j].things->thing = Object::makeCash(difficulty());
       level->site[i][j].things->next = NULL;
     }
   }

@@ -23,6 +23,7 @@
 #endif
 
 #include "glob.h"
+#include "clrgen.h"
 
 #ifdef EXCESSIVE_REDRAW
 #undef wclear

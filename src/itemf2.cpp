@@ -320,7 +320,7 @@ void weapon_tangle(int dmgmod, Object* o, Monster* m)
 void weapon_arrow(int dmgmod, Object* o, Monster* m)
 {
   if ((player.possessions[O_WEAPON_HAND] != NULL) &&
-      (player.possessions[O_WEAPON_HAND]->id == WEAPONID + 26)) /* ie, using a bow */
+      (*player.possessions[O_WEAPON_HAND] == "longbow")) /* ie, using a bow */
     p_hit(m, player.dmg + o->plus + o->dmg + dmgmod, NORMAL_DAMAGE);
   else
     p_hit(m, o->plus + o->dmg + dmgmod, NORMAL_DAMAGE);
@@ -330,7 +330,7 @@ void weapon_arrow(int dmgmod, Object* o, Monster* m)
 void weapon_bolt(int dmgmod, Object* o, Monster* m)
 {
   if ((player.possessions[O_WEAPON_HAND] != NULL) &&
-      (player.possessions[O_WEAPON_HAND]->id == WEAPONID + 27) && /*ie using a crossbow */
+      (*player.possessions[O_WEAPON_HAND] == "crossbow") && /*ie using a crossbow */
       (player.possessions[O_WEAPON_HAND]->aux == LOADED))
   {
     p_hit(m, player.dmg + o->plus + o->dmg + dmgmod, NORMAL_DAMAGE);

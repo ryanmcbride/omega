@@ -23,7 +23,7 @@ Object* create_object(int itemlevel)
     else if (r < 60)
       make_potion(new_obj, -1);
     else if (r < 70)
-      make_weapon(new_obj, -1);
+      Object::makeWeapon(-1,new_obj);
     else if (r < 80)
       make_armor(new_obj, -1);
     else if (r < 90)
@@ -50,14 +50,6 @@ Object* create_object(int itemlevel)
   if (new_obj->uniqueness == UNIQUE_UNMADE)
     Objects[new_obj->id].uniqueness = UNIQUE_MADE;
   return (new_obj);
-}
-
-void make_cash(Object* new_obj, int level)
-{
-  *new_obj = Objects[CASHID];
-  new_obj->basevalue = random_range(level * level + 10) + 1; /* aux is AU value */
-  new_obj->objstr = cashstr();
-  new_obj->cursestr = new_obj->truename = new_obj->objstr;
 }
 
 void make_food(Object* new_obj, int id)
@@ -198,25 +190,6 @@ void make_potion(Object* new_obj, int id)
   *new_obj = Objects[POTIONID + id];
   if (new_obj->plus == 0)
     new_obj->plus = itemplus();
-}
-
-void make_weapon(Object* new_obj, int id)
-{
-  if (id == -1)
-    id = random_range(NUMWEAPONS);
-  *new_obj = Objects[WEAPONID + id];
-  if ((id == 28) || (id == 29)) /* bolt or arrow */
-    new_obj->number = random_range(20) + 1;
-  if (new_obj->blessing == 0)
-    new_obj->blessing = itemblessing();
-  if (new_obj->plus == 0)
-  {
-    new_obj->plus = itemplus();
-    if (new_obj->blessing < 0)
-      new_obj->plus = -1 - abs(new_obj->plus);
-    else if (new_obj->blessing > 0)
-      new_obj->plus = 1 + abs(new_obj->plus);
-  }
 }
 
 void make_shield(Object* new_obj, int id)
@@ -699,16 +672,16 @@ int itemblessing()
 
 int twohandedp(int id)
 {
-  if(id == WEAPONID + 5 ||
-  id ==  WEAPONID + 12 ||
-  id ==  WEAPONID + 18 ||
-  id ==  WEAPONID + 20 ||
-  id ==  WEAPONID + 26 ||
-  id ==  WEAPONID + 27 ||
-  id ==  WEAPONID + 32 ||
-  id ==  WEAPONID + 36 ||
-  id ==  WEAPONID + 38 ||
-  id ==  WEAPONID + 39)
+  if(id == Object::getIdByName("great-sword")||
+  id ==  Object::getIdByName("great-axe") ||
+  id ==  Object::getIdByName("quarterstaff")||
+  id ==  Object::getIdByName("halberd")||
+  id ==  Object::getIdByName("longbow") ||
+  id ==  Object::getIdByName("crossbow") ||
+  id ==  Object::getIdByName("Desecrator") ||
+  id ==  Object::getIdByName("Goblins' Hewer") ||
+  id ==  Object::getIdByName("giant club") ||
+  id ==  Object::getIdByName("Scythe of Death"))
     return (TRUE);
   else
     return (FALSE);

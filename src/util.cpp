@@ -812,11 +812,6 @@ void Monsterlist::free(){
     delete tmp;
   }
 }
-Object* Object::create(){
-  return new Object;
-}
-
-
   Level* Level::create(){
     return new Level;
   }

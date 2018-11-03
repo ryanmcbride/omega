@@ -848,7 +848,7 @@ void acquire(int blessing)
       if (id < 0)
         print2("You feel stupid.");
       else
-        make_weapon(newthing, id);
+        Object::makeWeapon(id,newthing);
       break;
     case (BOOTS & 0xff):
       if (blessing > 0)

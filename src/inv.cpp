@@ -45,8 +45,7 @@ Object* detach_money()
   if (c != ABORT)
   {
     player.cash -= c;
-    cash = Object::create();
-    make_cash(cash, difficulty());
+    cash = Object::makeCash(difficulty());
     cash->basevalue = c;
   }
   return (cash);

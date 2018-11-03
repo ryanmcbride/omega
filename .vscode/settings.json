@@ -18,7 +18,10 @@
         "stdexcept": "cpp",
         "type_traits": "cpp",
         "typeinfo": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "bitset": "cpp",
+        "ios": "cpp",
+        "locale": "cpp"
     },
     "terminal.integrated.shell.windows": "cmd.exe"
 }
