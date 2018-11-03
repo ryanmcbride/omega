@@ -1205,10 +1205,10 @@ void l_pawn_shop()
 			for (i = 0; i < PAWNITEMS; i++)
 				if (Pawnitems[i] != NULL)
 				{
-					strcpy(Str3, " :");
-					Str3[0] = i + 'a';
-					strcat(Str3, itemid(Pawnitems[i]));
-					menuprint(Str3);
+					std::string str = " :";
+					str[0] = i + 'a';
+					str += itemid(Pawnitems[i]);
+					menuprint(str);
 					menuprint("\n");
 				}
 			showmenu();

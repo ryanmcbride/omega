@@ -1523,7 +1523,7 @@ void display_pack()
     menuprint("Items in Pack:\n");
     for (i = 0; i < player.packptr; i++)
     {
-      sprintf(Str1, "  %c: %s\n", i + 'A', itemid(player.pack[i]));
+      sprintf(Str1, "  %c: %s\n", i + 'A', itemid(player.pack[i]).c_str());
       menuprint(Str1);
     }
     showmenu();
@@ -1608,7 +1608,7 @@ void display_inventory_slot(int slotnum, int topline)
   if (player.possessions[slotnum] == NULL)
     wprintw(W, "(slot vacant)");
   else
-    wprintw(W, itemid(player.possessions[slotnum]));
+    wprintw(W, itemid(player.possessions[slotnum]).c_str());
   wrefresh(W);
 }
 

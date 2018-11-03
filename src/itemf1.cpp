@@ -72,11 +72,11 @@ void i_jane_t(Object* o)
     Objects[i].known = 1;
     v = Objects[i].truename[0];
     if ((v >= 'A' && v <= 'Z') || volume == 3)
-      sprintf(Str1, "   %s\n", Objects[i].truename);
+      sprintf(Str1, "   %s\n", Objects[i].truename.c_str());
     else if (v == 'a' || v == 'e' || v == 'i' || v == 'o' || v == 'u')
-      sprintf(Str1, "   an %s\n", Objects[i].truename);
+      sprintf(Str1, "   an %s\n", Objects[i].truename.c_str());
     else
-      sprintf(Str1, "   a %s\n", Objects[i].truename);
+      sprintf(Str1, "   a %s\n", Objects[i].truename.c_str());
     menuprint(Str1);
   }
   showmenu();

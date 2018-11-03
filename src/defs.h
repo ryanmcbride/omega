@@ -1412,7 +1412,7 @@ class Object {
   unsigned char level;
   Symbol objchar;
   char* objstr;
-  char* truename;
+  std::string truename;
   std::string cursestr;
 };
 

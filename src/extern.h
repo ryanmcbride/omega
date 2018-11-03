@@ -381,7 +381,7 @@ int  key_to_index ARGS((signed char));
 signed char index_to_key ARGS((int));
 long get_money ARGS((long));
 char *cashstr ARGS((void));
-char *itemid ARGS((Object*));
+std::string itemid(Object*);
 int baditem ARGS((int));
 int badobject ARGS((char));
 int cursed ARGS((Object*));

@@ -226,13 +226,13 @@ void p_drop_at(int x, int y, int n, Object* o)
 }
 
 /* returns a string for identified items */
-char *itemid(Object* obj)
+std::string itemid(Object* obj)
 {
   char tstr[80];
+  std::string str;
   if (obj->objchar == CASH)
   {
-    strcpy(Str4, obj->truename);
-    return (Str4);
+    return obj->truename;
   }
   else
   {
@@ -240,42 +240,42 @@ char *itemid(Object* obj)
       obj->known = Objects[obj->id].known;
 
     setnumstr(obj, tstr);
-    strcpy(Str4, tstr);
+    str = tstr;
     if (obj->known == 0)
-      strcat(Str4, obj->objstr);
+      str += obj->objstr;
     else if (obj->known == 1)
     {
       if (obj->id == ARTIFACTID + 8 || obj->id == ARTIFACTID + 20 ||
           obj->id == ARTIFACTID + 21)
-        strcat(Str4, "the ");
-      strcat(Str4, obj->truename);
+        str += "the ";
+      str += obj->truename;
     }
     else
     {
       if (obj->id == ARTIFACTID + 8 || obj->id == ARTIFACTID + 20 ||
           obj->id == ARTIFACTID + 21)
-        strcat(Str4, "the ");
+        str += "the ";
       if (obj->usef == I_NOTHING && Objects[obj->id].usef != I_NOTHING)
-        strcat(Str4, "disenchanted ");
+        str += "disenchanted ";
       if (obj->blessing < 0)
       {
-        strcat(Str4, "cursed ");
-        strcat(Str4, obj->cursestr.c_str());
+        str += "cursed ";
+        str += obj->cursestr.c_str();
       }
       else if (obj->blessing > 0)
       {
-        strcat(Str4, "blessed ");
-        strcat(Str4, obj->truename);
+        str += "blessed ";
+        str += obj->truename;
       }
       else
-        strcat(Str4, obj->truename);
+        str += obj->truename;
       if (obj->number > 1)
-        strcat(Str4, "s");
+        str += "s";
       switch (obj->objchar)
       {
       case STICK:
         setchargestr(obj, tstr);
-        strcat(Str4, tstr);
+        str += tstr;
         break;
       case MISSILEWEAPON:
       case ARMOR:
@@ -283,14 +283,14 @@ char *itemid(Object* obj)
       case SHIELD:
       case WEAPON:
         setplustr(obj, tstr);
-        strcat(Str4, tstr);
+        str += tstr;
         break;
       default:
-        strcat(Str4, "");
+        str += "";
         break;
       }
     }
-    return (Str4);
+    return str;
   }
 }
 
@@ -822,7 +822,7 @@ int aux_display_pack(int start_item, int slot)
         else
           depth_string = "  ";
         sprintf(Str1, "  %c: %s %s\n", i + 'a', depth_string,
-                itemid(player.pack[i]));
+                itemid(player.pack[i]).c_str());
         if (items == 0)
           menuprint("Items in Pack:\n");
         menuprint(Str1);
@@ -1039,14 +1039,13 @@ void inventory_control()
       Str1[0] = '\0';
       if (player.possessions[slot] != NULL)
       {
-        if (!strcmp(itemid(player.possessions[slot]),
-                    player.possessions[slot]->objstr))
+        if (itemid(player.possessions[slot]) != player.possessions[slot]->objstr)
           print3("You notice nothing new about it.");
         else
         {
           if (player.possessions[slot]->uniqueness == COMMON)
             strcat(Str1, "Your ");
-          strcat(Str1, itemid(player.possessions[slot]));
+          strcat(Str1, itemid(player.possessions[slot]).c_str());
           if (player.possessions[slot]->objchar == BOOTS)
             strcat(Str1, " look like ");
           else
@@ -1219,14 +1218,13 @@ void top_inventory_control()
       slot = get_inventory_slot();
       if (player.possessions[slot] != NULL)
       {
-        if (!strcmp(itemid(player.possessions[slot]),
-                    player.possessions[slot]->objstr))
+        if (itemid(player.possessions[slot]) != player.possessions[slot]->objstr)
           print3("You notice nothing new about it.");
         else
         {
           if (player.possessions[slot]->uniqueness == COMMON)
             strcat(Str1, "Your ");
-          strcat(Str1, itemid(player.possessions[slot]));
+          strcat(Str1, itemid(player.possessions[slot]).c_str());
           if (player.possessions[slot]->objchar == BOOTS)
             strcat(Str1, " look like ");
           else
