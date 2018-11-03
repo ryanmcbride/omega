@@ -1388,30 +1388,42 @@ typedef int Symbol;
 
 /* structure definitions */
 
-class Room {
-  public:
-  int lighted; 
-  int left,right,top,bottom;
+class Room
+{
+public:
+  int lighted;
+  int left, right, top, bottom;
   int rsi; /* index into roomname switch */
 };
 
-class Object {
-  public:
-  static Object* create(std::string name ="");
+class Object
+{
+public:
+  static Object *create(std::string name = "");
   static int getIdByName(std::string name);
-  static Object* getObjectByName(std::string name);
-  static Object* makeCash(int level);
-  static Object* makeWeapon(int,Object* o = nullptr);
-  bool operator ==(std::string);
-  int id,weight,plus,charge,dmg,hit,aux,number,fragility;
+  static Object *getObjectByName(std::string name);
+  static Object *makeCash(int level);
+  static Object *makeWeapon(int, Object *o = nullptr);
+  bool operator==(std::string);
+  int id;
+  int weight;
+  int plus;
+  int charge;
+  int dmg;
+  int hit;
+  int aux;
+  int number;
+  int fragility;
   long basevalue;
-  unsigned char known,used;
+  unsigned char known;
+  unsigned char used;
   int blessing;
-  unsigned char type,uniqueness;
+  unsigned char type;
+  unsigned char uniqueness;
   int usef;
   unsigned char level;
   Symbol objchar;
-  char* objstr;
+  std::string objstr;
   std::string truename;
   std::string cursestr;
 };

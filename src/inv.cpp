@@ -1036,7 +1036,8 @@ void inventory_control()
       Command_Duration++;
       break;
     case 'l':
-      Str1[0] = '\0';
+    {
+      std::string str;
       if (player.possessions[slot] != NULL)
       {
         if (itemid(player.possessions[slot]) != player.possessions[slot]->objstr)
@@ -1044,13 +1045,13 @@ void inventory_control()
         else
         {
           if (player.possessions[slot]->uniqueness == COMMON)
-            strcat(Str1, "Your ");
+            str += "Your ";
           strcat(Str1, itemid(player.possessions[slot]).c_str());
           if (player.possessions[slot]->objchar == BOOTS)
-            strcat(Str1, " look like ");
+            str += " look like ";
           else
           {
-            strcat(Str1, " looks like a");
+            str += " looks like a";
             letter = player.possessions[slot]->objstr[0];
             if (letter == 'a' || letter == 'A' || letter == 'e' ||
                 letter == 'E' || letter == 'i' || letter == 'I' ||
@@ -1059,12 +1060,13 @@ void inventory_control()
             else
               strcat(Str1, " ");
           }
-          strcat(Str1, player.possessions[slot]->objstr);
-          print3(Str1);
+          str += player.possessions[slot]->objstr;
+          print3(str);
         }
       }
       else
         print3("Nothing in selected slot!");
+    }
       break;
     case 'p':
       if (player.possessions[slot] != NULL)
@@ -1214,7 +1216,8 @@ void top_inventory_control()
       Command_Duration++;
       break;
     case 'l':
-      Str1[0] = '\0';
+    {
+      std::string str;
       slot = get_inventory_slot();
       if (player.possessions[slot] != NULL)
       {
@@ -1223,27 +1226,28 @@ void top_inventory_control()
         else
         {
           if (player.possessions[slot]->uniqueness == COMMON)
-            strcat(Str1, "Your ");
+            str += "Your ";
           strcat(Str1, itemid(player.possessions[slot]).c_str());
           if (player.possessions[slot]->objchar == BOOTS)
-            strcat(Str1, " look like ");
+            str += " look like ";
           else
           {
-            strcat(Str1, " looks like a");
+            str += " looks like a";
             letter = player.possessions[slot]->objstr[0];
             if (letter == 'a' || letter == 'A' || letter == 'e' ||
                 letter == 'E' || letter == 'i' || letter == 'I' ||
                 letter == 'o' || letter == 'O' || letter == 'u' || letter == 'U')
-              strcat(Str1, "n ");
+              str += "n ";
             else
-              strcat(Str1, " ");
+              str += " ";
           }
-          strcat(Str1, player.possessions[slot]->objstr);
-          print3(Str1);
+          str += player.possessions[slot]->objstr;
+          print3(str);
         }
       }
       else
         print3("Nothing in selected slot!");
+    }
       break;
     case 'p':
       if (player.possessions[O_UP_IN_AIR] == NULL)

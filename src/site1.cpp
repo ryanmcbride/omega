@@ -210,10 +210,10 @@ void buyfromstock(int base, int numitems)
 	menuclear();
 	for (i = 0; i < numitems; i++)
 	{
-		strcpy(Str4, " :");
-		Str4[0] = i + 'a';
-		strcat(Str4, Objects[base + i].objstr);
-		menuprint(Str4);
+		std::string str = " :";
+		str[0] = i + 'a';
+		str += Objects[base + i].objstr;
+		menuprint(str);
 		menuprint("\n");
 	}
 	showmenu();

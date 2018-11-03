@@ -66,7 +66,7 @@ void i_jane_t(Object* o)
     break;
   }
   menuclear();
-  menuprint("You could probably now recognise:\n");
+  menuprint("You could probably now recognize:\n");
   for (i = j; i < k; i++)
   {
     Objects[i].known = 1;

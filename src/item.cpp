@@ -164,7 +164,7 @@ void make_thing(Object* new_obj, int id)
   if (id == -1)
     id = random_range(NUMTHINGS);
   *new_obj = Objects[THINGID + id];
-  if (strcmp(new_obj->objstr, "grot") == 0)
+  if (new_obj->objstr == "grot")
   {
     new_obj->objstr = grotname();
     new_obj->cursestr = new_obj->truename = new_obj->objstr;
