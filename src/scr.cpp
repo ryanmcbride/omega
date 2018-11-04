@@ -766,10 +766,9 @@ Symbol getspot(int x, int y, int showmonster)
 {
   if (loc_statusp(x, y, SECRET))
     return (WALL);
-  else
-    switch (level->site[x][y].locchar)
-    {
-    case WATER:
+  else{
+    auto lc = level->site[x][y].locchar;
+    if(lc == WATER){
       if (level->site[x][y].creature == NULL)
         return (WATER);
       else if (m_statusp(level->site[x][y].creature, SWIMMING))
@@ -778,15 +777,14 @@ Symbol getspot(int x, int y, int showmonster)
         return (level->site[x][y].creature->monchar);
       else
         return (WATER);
-    /* these sites never show anything but their location char's */
-    case CLOSED_DOOR:
-    case LAVA:
-    case FIRE:
-    case ABYSS:
+        /* these sites never show anything but their location char's */
+    } else if(lc == CLOSED_DOOR ||
+    lc == LAVA ||
+    lc == FIRE ||
+    lc == ABYSS)
       return (level->site[x][y].locchar);
+    else if(lc == RUBBLE || lc == HEDGE) {
     /* rubble and hedge don't show items on their location */
-    case RUBBLE:
-    case HEDGE:
       if (showmonster && (level->site[x][y].creature != NULL))
       {
         if ((m_statusp(level->site[x][y].creature, M_INVISIBLE)) &&
@@ -797,9 +795,9 @@ Symbol getspot(int x, int y, int showmonster)
       }
       else
         return (level->site[x][y].locchar);
+    }else {
     /* everywhere else, first try to show monster, next show items, next show
      location char */
-    default:
       if (showmonster && (level->site[x][y].creature != NULL))
       {
         if ((m_statusp(level->site[x][y].creature, M_INVISIBLE)) &&
@@ -818,6 +816,7 @@ Symbol getspot(int x, int y, int showmonster)
       else
         return (level->site[x][y].locchar);
     }
+  }
 }
 
 void commanderror()

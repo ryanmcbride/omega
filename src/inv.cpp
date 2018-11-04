@@ -271,23 +271,24 @@ std::string itemid(Object* obj)
         str += obj->truename;
       if (obj->number > 1)
         str += "s";
-      switch (obj->objchar)
+      if (obj->objchar == STICK)
       {
-      case STICK:
         setchargestr(obj, tstr);
         str += tstr;
-        break;
-      case MISSILEWEAPON:
-      case ARMOR:
-      case RING:
-      case SHIELD:
-      case WEAPON:
+      }
+      else if (
+          obj->objchar == MISSILEWEAPON ||
+          obj->objchar == ARMOR ||
+          obj->objchar == RING ||
+          obj->objchar == SHIELD ||
+          obj->objchar == WEAPON)
+      {
         setplustr(obj, tstr);
         str += tstr;
-        break;
-      default:
+      }
+      else
+      {
         str += "";
-        break;
       }
     }
     return str;

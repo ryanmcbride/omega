@@ -4,43 +4,174 @@
 #include "defs.h"
 #include <vector>
 
-unsigned int PLAYER = ('@' | CLR(WHITE));
+int PLAYER;
+
+int SPACE;
+int WALL;
+int PORTCULLIS;
+int OPEN_DOOR;
+int CLOSED_DOOR;
+int WHIRLWIND;
+int ABYSS;
+int VOID_CHAR;
+int LAVA;
+int HEDGE;
+int WATER;
+int FIRE;
+int TRAP;
+int LIFT;
+int STAIRS_UP;
+int STAIRS_DOWN;
+int FLOOR;
+int CORPSE;
+int STATUE;
+int RUBBLE;
+int ALTAR;
+int CASH;
+int PILE;
+int FOOD;
+int WEAPON;
+int MISSILEWEAPON;
+int SCROLL;
+int POTION;
+int ARMOR;
+int SHIELD;
+int CLOAK;
+int BOOTS;
+int STICK;
+
+int RING;
+int THING;
+int ARTIFACT;
+
+/* TERRAIN TYPES */
+int PLAINS;
+int TUNDRA;
+int ROAD;
+int MOUNTAINS;
+int PASS;
+int RIVER;
+int CITY;
+int VILLAGE;
+int FOREST;
+int JUNGLE;
+int SWAMP;
+int VOLCANO;
+int CASTLE;
+int TEMPLE;
+int CAVES;
+int DESERT;
+int CHAOS_SEA;
+int STARPEAK;
+int DRAGONLAIR;
+int MAGIC_ISLE;
+int WEREWOLF_DEN;
+
+int CHAIR;
+int SAFE;
+int FURNITURE;
+int BED;
+
+void init_glyphs()
+{
+  PLAYER = ('@' | CLR(WHITE));
+  SPACE = (' ' | CLR(WHITE));
+  WALL = ('#' | CLR(GREY));
+  PORTCULLIS = ('7' | CLR(WHITE));
+  OPEN_DOOR = ('|' | CLR(BROWN));
+  CLOSED_DOOR = ('-' | CLR(BROWN));
+  WHIRLWIND = ('6' | CLR(LIGHT_BLUE));
+  ABYSS = ('0' | CLRS(BLACK, BROWN));
+  VOID_CHAR = (' ' | CLR(WHITE));
+  LAVA = ('`' | CLR(RED));
+  HEDGE = ('\"' | CLR(GREEN));
+  WATER = ('~' | CLR(BLUE));
+  FIRE = (';' | CLR(LIGHT_RED));
+  TRAP = ('^' | CLR(RED));
+  LIFT = ('_' | CLR(BRIGHT_WHITE));
+  STAIRS_UP = ('<' | CLR(WHITE));
+  STAIRS_DOWN = ('>' | CLR(WHITE));
+  FLOOR = ('.' | CLR(BROWN));
+  CORPSE = ('+' | CLR(RED));
+  STATUE = ('1' | CLR(GREY));
+  RUBBLE = ('4' | CLR(GREY));
+  ALTAR = ('8' | CLR(LIGHT_BLUE));
+  CASH = ('$' | CLR(YELLOW));       /* various kinds of money */
+  PILE = ('*' | CLR(BRIGHT_WHITE)); /* several objects in one place */
+  FOOD = ('%' | CLR(BROWN));
+  WEAPON = (')' | CLR(GREY));
+  MISSILEWEAPON = ('(' | CLR(BROWN));
+  SCROLL = ('?' | CLR(YELLOW));
+  POTION = ('!' | CLR(LIGHT_GREEN));
+  ARMOR = (']' | CLR(GREY));
+  SHIELD = ('[' | CLR(BROWN));
+  CLOAK = ('}' | CLR(CYAN));
+  BOOTS = ('{' | CLR(BROWN));
+  STICK = ('/' | CLR(BROWN));
+  RING = ('=' | CLR(YELLOW));
+  THING = ('\\' | CLR(WHITE));
+  ARTIFACT = ('&' | CLR(YELLOW));
+  PLAINS = ('-' | CLR(LIGHT_GREEN));
+  TUNDRA = ('_' | CLR(GREY));
+  ROAD = ('.' | CLR(BROWN));
+  MOUNTAINS = ('^' | CLR(GREY));
+  PASS = ('v' | CLR(BROWN));
+  RIVER = ('~' | CLR(BLUE));
+  CITY = ('O' | CLR(WHITE));
+  VILLAGE = ('o' | CLR(WHITE));
+  FOREST = ('(' | CLR(LIGHT_GREEN));
+  JUNGLE = (')' | CLR(GREEN));
+  SWAMP = ('=' | CLR(GREEN));
+  VOLCANO = ('!' | CLR(RED));
+  CASTLE = ('%' | CLR(GREY));
+  TEMPLE = ('X' | CLR(BROWN));
+  CAVES = ('*' | CLRS(BLACK, BROWN));
+  DESERT = ('\"' | CLR(YELLOW));
+  CHAOS_SEA = ('+' | CLR(LIGHT_PURPLE));
+  STARPEAK = ('|' | CLR(LIGHT_BLUE));
+  DRAGONLAIR = ('$' | CLR(BROWN));
+  MAGIC_ISLE = ('&' | CLR(PURPLE));
+  WEREWOLF_DEN = (ACS_PI | CLR(BROWN));
+  CHAIR = ('5' | CLR(BROWN));
+  SAFE = ('3' | CLR(GREY));
+  FURNITURE = ('2' | CLR(BROWN));
+  BED = ('9' | CLR(CYAN));
+}
 
 static std::vector<Object> _objects;
-  int NUMSCROLLS;
-  int NUMPOTIONS;
-  int NUMFOODS;
-  int NUMTHINGS;
-  int NUMWEAPONS;
-  int NUMARMOR;
-  int NUMSHIELDS;
-  int NUMCLOAKS;
-  int NUMBOOTS;
-  int NUMRINGS;
-  int NUMSTICKS;
-  int NUMARTIFACTS;
+int NUMSCROLLS;
+int NUMPOTIONS;
+int NUMFOODS;
+int NUMTHINGS;
+int NUMWEAPONS;
+int NUMARMOR;
+int NUMSHIELDS;
+int NUMCLOAKS;
+int NUMBOOTS;
+int NUMRINGS;
+int NUMSTICKS;
+int NUMARTIFACTS;
 
-  /* running sum of itemtypes, for indexing into Objects array */
-  int THINGID;
-  int FOODID;
-  int SCROLLID;
-  int POTIONID;
-  int WEAPONID;
-  int ARMORID;
-  int SHIELDID;
-  int CLOAKID;
-  int BOOTID;
-  int RINGID;
-  int STICKID;
-  int ARTIFACTID;
-  int CASHID;
-  /* Corpse's aux field is monster id */
-  int CORPSEID;
+/* running sum of itemtypes, for indexing into Objects array */
+int THINGID;
+int FOODID;
+int SCROLLID;
+int POTIONID;
+int WEAPONID;
+int ARMORID;
+int SHIELDID;
+int CLOAKID;
+int BOOTID;
+int RINGID;
+int STICKID;
+int ARTIFACTID;
+int CASHID;
+/* Corpse's aux field is monster id */
+int CORPSEID;
 
-  int TOTALITEMS;
+int TOTALITEMS;
 
-  Object *Objects;
-
+Object *Objects;
 
 void init_things()
 {
@@ -147,54 +278,6 @@ void init_potions()
       {81, 20, 0, 0, 0, 0, 0, 1, 5, 200, 0, 0, 0, 0, COMMON, I_ACCURACY, 3, POTION, "?", "potion of accuracy", "potion of fuzziness"},
       {82, 20, 0, 0, 0, 0, 0, 1, 5, 50, 0, 0, 0, 0, COMMON, I_LEVITATION, 1, POTION, "?", "potion of levitation", "potion of levitation"},
       {83, 20, 0, 0, 0, 0, 0, 1, 5, 50, 0, 0, 0, 0, COMMON, I_CURE, 1, POTION, "?", "potion of curing", "potion of disease"},
-  };
-  _objects.insert(_objects.end(), things.begin(), things.end());
-}
-void init_weapons()
-{
-  std::vector<Object> things = {
-      {84, 10, 0, 0, 6, 12, 0, 1, 15, 5, 0, 0, 0, THRUSTING, COMMON, I_NORMAL_WEAPON, 0, WEAPON, "dagger", "dagger", "dagger"},
-      {85, 25, 0, 0, 8, 11, 0, 1, 15, 40, 0, 0, 0, CUTTING, COMMON, I_NORMAL_WEAPON, 1, WEAPON, "short sword", "short sword", "short sword"},
-      {86, 40, 0, 0, 12, 9, 0, 1, 15, 90, 0, 0, 0, CUTTING, COMMON, I_NORMAL_WEAPON, 2, WEAPON, "broad sword", "broad sword", "broad sword"},
-      {87, 50, 0, 0, 16, 8, 0, 1, 15, 250, 0, 0, 0, CUTTING, COMMON, I_NORMAL_WEAPON, 3, WEAPON, "bastard sword", "bastard sword", "bastard sword"},
-      {88, 50, 0, 0, 16, 10, 0, 1, 15, 500, 0, 0, 0, CUTTING, COMMON, I_NORMAL_WEAPON, 4, WEAPON, "katana", "katana", "katana"},
-      {89, 75, 0, 0, 20, 7, 0, 1, 15, 400, 0, 0, 0, CUTTING, COMMON, I_NORMAL_WEAPON, 5, WEAPON, "great-sword", "great-sword", "great-sword"},
-      {90, 15, 0, 0, 6, 15, 0, 1, 15, 50, 0, 0, 0, THRUSTING, COMMON, I_NORMAL_WEAPON, 2, WEAPON, "epee", "epee", "epee"},
-      {91, 20, 0, 0, 8, 13, 0, 1, 15, 250, 0, 0, 0, THRUSTING, COMMON, I_NORMAL_WEAPON, 3, WEAPON, "rapier", "rapier", "rapier"},
-      {92, 25, 0, 0, 11, 12, 0, 1, 15, 500, 0, 0, 0, THRUSTING, COMMON, I_NORMAL_WEAPON, 5, WEAPON, "estoc", "estoc", "estoc"},
-      {93, 35, 0, 0, 8, 8, 0, 1, 15, 40, 0, 0, 0, CUTTING, COMMON, I_NORMAL_WEAPON, 1, WEAPON, "cutlass", "cutlass", "cutlass"},
-      {94, 25, 0, 0, 8, 10, 0, 1, 15, 50, 0, 0, 0, CUTTING, COMMON, I_NORMAL_WEAPON, 1, WEAPON, "hand-axe", "hand-axe", "hand-axe"},
-      {95, 50, 0, 0, 12, 8, 0, 1, 15, 100, 0, 0, 0, CUTTING, COMMON, I_NORMAL_WEAPON, 2, WEAPON, "battle-axe", "battle-axe", "battle-axe"},
-      {96, 100, 0, 0, 24, 7, 0, 1, 15, 200, 0, 0, 0, CUTTING, COMMON, I_NORMAL_WEAPON, 5, WEAPON, "great-axe", "great-axe", "great-axe"},
-      {97, 50, 0, 0, 12, 8, 0, 1, 15, 50, 0, 0, 0, STRIKING, COMMON, I_NORMAL_WEAPON, 2, WEAPON, "mace", "mace", "mace"},
-      {98, 50, 0, 0, 14, 6, 0, 1, 15, 60, 0, 0, 0, STRIKING, COMMON, I_NORMAL_WEAPON, 2, WEAPON, "war-hammer", "war-hammer", "war-hammer"},
-      {99, 60, 0, 0, 16, 7, 0, 1, 15, 150, 0, 0, 0, STRIKING, COMMON, I_NORMAL_WEAPON, 5, WEAPON, "morning-star", "morning-star", "morning-star"},
-      {100, 50, 0, 0, 12, 7, 0, 1, 15, 50, 0, 0, 0, STRIKING, COMMON, I_NORMAL_WEAPON, 3, WEAPON, "flail", "flail", "flail"},
-      {101, 30, 0, 0, 6, 10, 0, 1, 15, 5, 0, 0, 0, STRIKING, COMMON, I_NORMAL_WEAPON, 0, WEAPON, "club", "club", "club"},
-      {102, 80, 0, 0, 9, 12, 0, 1, 15, 30, 0, 0, 0, STRIKING, COMMON, I_NORMAL_WEAPON, 1, WEAPON, "quarterstaff", "quarterstaff", "quarterstaff"},
-      {103, 50, 0, 0, 10, 10, 0, 1, 15, 50, 0, 0, 0, THRUSTING, COMMON, I_NORMAL_WEAPON, 2, WEAPON, "spear", "spear", "spear"},
-      {104, 100, 0, 0, 16, 6, 0, 1, 15, 100, 0, 0, 0, CUTTING, COMMON, I_NORMAL_WEAPON, 3, WEAPON, "halberd", "halberd", "halberd"},
-      {105, 80, 0, 0, 12, 7, 0, 1, 15, 75, 0, 0, 0, THRUSTING, COMMON, I_NORMAL_WEAPON, 3, WEAPON, "trident", "trident", "trident"},
-      {106, 20, 0, 0, 4, 8, 1005, 1, 15, 100, 0, 0, 0, STRIKING, COMMON, I_NORMAL_WEAPON, 2, WEAPON, "whip", "whip", "whip"},
-      {107, 20, 0, 0, 30, 20, 1002, 1, 15, 2000, 0, 0, 0, THRUSTING, COMMON, I_LIGHTSABRE, 9, WEAPON, "grey metal cylinder", "lightsabre", "lightsabre"},
-      {108, 500, 8, 0, 16, 8, 1003, 1, 15, 1000, 0, 0, -8, CUTTING, COMMON, I_DEMONBLADE, 9, WEAPON, "bastard sword", "Demonblade", "Demonblade"},
-      {109, 250, 7, 0, 17, 10, 1004, 1, 15, 3000, 0, 0, 7, STRIKING, COMMON, I_MACE_DISRUPT, 7, WEAPON, "mace", "mace of disruption", "mace"},
-      {110, 100, 0, 0, 12, 15, 0, 1, 15, 300, 0, 0, 0, MISSILE, COMMON, I_NORMAL_WEAPON, 2, MISSILEWEAPON, "longbow", "longbow", "longbow"},
-      {111, 150, 0, 0, 20, 15, 0, 1, 15, 500, 0, 0, 0, MISSILE, COMMON, I_NORMAL_WEAPON, 3, MISSILEWEAPON, "crossbow", "crossbow", "crossbow"},
-      {112, 2, 0, 0, 3, 3, 1006, 1, 15, 2, 0, 0, 0, MISSILE, COMMON, I_NORMAL_WEAPON, 1, MISSILEWEAPON, "arrow", "arrow", "arrow"},
-      {113, 2, 0, 0, 3, 0, 1007, 1, 15, 5, 0, 0, 0, MISSILE, COMMON, I_NORMAL_WEAPON, 1, MISSILEWEAPON, "bolt", "bolt", "bolt"},
-      {114, 50, 0, 0, 3, 10, 1005, 1, 15, 50, 0, 0, 0, MISSILE, COMMON, I_NORMAL_WEAPON, 2, MISSILEWEAPON, "bola", "bola", "bola"},
-      {115, 40, 5, 0, 12, 9, 1008, 1, 15, 3000, 0, 0, 0, CUTTING, COMMON, I_NORMAL_WEAPON, 7, WEAPON, "broad sword", "vorpal sword", "sword of self-mutilation"},
-      {116, 100, 7, 0, 20, 7, 1009, 1, 15, 5000, 0, 0, -7, CUTTING, COMMON, I_DESECRATE, 9, WEAPON, "great-sword", "Desecrator", "Desecrator"},
-      {117, 60, 7, 0, 16, 7, 1010, 1, 15, 2000, 0, 0, 0, STRIKING, COMMON, I_PERM_FIRE_RESIST, 6, WEAPON, "morning-star", "Firestar", "Firestar"},
-      {118, 50, 7, 0, 10, 12, 1011, 1, 15, 3000, 0, 0, 7, THRUSTING, COMMON, I_DEFEND, 7, WEAPON, "estoc", "Defender", "Defender"},
-      {119, 50, 10, 0, 100, 10, 1012, 1, 15, 5000, 0, 0, 10, THRUSTING, UNIQUE_MADE, I_VICTRIX, 10, WEAPON, "ivory spear", "Victrix", "Victrix"},
-      {120, 500, 6, 0, 32, 6, 0, 1, 15, 2000, 0, 0, 0, CUTTING, UNIQUE_MADE, I_NORMAL_WEAPON, 7, WEAPON, "great-axe", "Goblins' Hewer", "Goblins' Hewer"},
-      {121, 100, 20, 0, 30, 10, 0, 1, 15, 500, 0, 0, -10, CUTTING, COMMON, I_NORMAL_WEAPON, 6, WEAPON, "scythe", "scythe of slicing", "scythe of slicing"},
-      {122, 250, 0, 0, 50, -10, 0, 1, 15, 100, 0, 0, 0, STRIKING, COMMON, I_NORMAL_WEAPON, 5, WEAPON, "giant club", "giant club", "giant club"},
-      {123, 500, 0, 0, 10000, 1000, 1014, 1, 15, 10000, 0, 0, 0, CUTTING, UNIQUE_MADE, I_NORMAL_WEAPON, 10, WEAPON, "Scythe of Death", "Scythe of Death", "Scythe of Death"},
-      {124, 30, 0, 0, 16, 16, 1015, 1, 15, 1000, 0, 0, 0, STRIKING, COMMON, I_NORMAL_WEAPON, 4, WEAPON, "whip", "Acid whip", "Acid whip"},
-      {125, 60, 7, 0, 75, 50, 1016, 1, 15, 2000, 0, 0, 0, STRIKING, COMMON, I_PERM_ENERGY_RESIST, 6, WEAPON, "war-hammer", "Mjolnir", "Mjolnir"},
   };
   _objects.insert(_objects.end(), things.begin(), things.end());
 }
@@ -350,7 +433,7 @@ void init_items()
   init_things();
   init_foods();
   init_potions();
-  init_weapons();
+  Weapon::init(_objects);
   init_armors();
   init_shields();
   init_cloaks();
@@ -452,184 +535,184 @@ void init_items()
 /* This file defines and initializes the Monsters Array */
 
 static std::vector<Monster> _monsters;
-  Monster *Monsters;
+Monster *Monsters;
 
-  int ML0;
-  int NML_0;
-  int ML1;
-  int NML_1;
-  int ML2;
-  int NML_2;
-  int ML3;
-  int NML_3;
-  int ML4;
-  int NML_4;
-  int ML5;
-  int NML_5;
-  int ML6;
-  int NML_6;
-  int ML7;
-  int NML_7;
-  int ML8;
-  int NML_8;
-  int ML9;
-  int NML_9;
-  int ML10;
-  int NML_10;
-  int NUMMONSTERS;
-  int RANDOM = -1;
+int ML0;
+int NML_0;
+int ML1;
+int NML_1;
+int ML2;
+int NML_2;
+int ML3;
+int NML_3;
+int ML4;
+int NML_4;
+int ML5;
+int NML_5;
+int ML6;
+int NML_6;
+int ML7;
+int NML_7;
+int ML8;
+int NML_8;
+int ML9;
+int NML_9;
+int ML10;
+int NML_10;
+int NUMMONSTERS;
+int RANDOM = -1;
 
-  int HORNET;
-  int MEND_PRIEST;
-  int ITIN_MERCH;
-  int GUARD;
-  int NPC;
-  int SHEEP;
-  int MERCHANT;
-  int ZERO_NPC;
-  int HISCORE_NPC;
-  int GRUNT;
-  int TSETSE;
-  int FNORD;
-  int SEWER_RAT;
-  int AGGRAVATOR;
-  int BLIPPER;
-  int GOBLIN;
-  int PHANTASTICON;
-  int ROBOT;
-  int GEEK;
-  int BOROGROVE;
-  int QUAIL;
-  int BADGER;
-  int HAWK;
-  int DEER;
-  int CAMEL;
-  int ANTEATER;
-  int BUNNY;
-  int TROUT;
-  int BASS;
-  int PARROT;
-  int HYENA;
-  int APPR_NINJA;
-  int NIGHT_GAUNT;
-  int SNEAK_THIEF;
-  int EYE;
-  int TOVE;
-  int NASTY;
-  int GHOST;
-  int ENCHANTOR; /* use 'OR' to avoid conflict with circle rank */
-  int MURK;
-  int GOBLIN_CHIEF;
-  int WOLF;
-  int ANT;
-  int ELEPHANT;
-  int HORSE;
-  int SALAMANDER;
-  int CATOBLEPAS;
-  int L_FDEMON;
-  int ACID_CLOUD;
-  int PHANTOM;
-  int GOBLIN_KING;
-  int PTERODACTYL;
-  int GOBLIN_SHAMAN;
-  int LION;
-  int BRIGAND;
-  int BEAR;
-  int MAMBA;
-  int MANOWAR;
-  int WEREHUMAN;
-  int THOUGHTFORM;
-  int MANTICORE;
-  int TASMANIAN;
-  int AUTO_MINOR;
-  int DENEBIAN;
-  int JUBJUB;
-  int HAUNT;
-  int INCUBUS;
-  int SATYR;
-  int CROC;
-  int TORPOR;
-  int DOBERMAN;
-  int FUZZY;
-  int SERV_LAW;
-  int SERV_CHAOS;
-  int SWARM;
-  int BAN_SIDHE;
-  int GRUE;
-  int GENIN;
-  int DRAGONETTE;
-  int TESLA;
-  int WYVERN;
-  int CATEAGLE;
-  int FROST_DEMON;
-  int SPECTRE;
-  int NECROMANCER;
-  int SHADOW;
-  int BOGTHING;
-  int ASTRAL_VAMP;
-  int LAVA_WORM;
-  int MANABURST;
-  int OUTER_DEMON;
-  int MIRRORSHADE;
-  int FIRE_ELEM;
-  int AIR_ELEM;
-  int WATER_ELEM;
-  int EARTH_ELEM;
-  int BANDERSNATCH;
-  int LICHE;
-  int TRITON;
-  int MAST_THIEF;
-  int TRICER;
-  int RAKSHASA;
-  int DEMON_SERP;
-  int ANGEL;
-  int CHUNIN;
-  int BEHEMOTH;
-  int NAZGUL;
-  int UNICORN;
-  int ROUS;
-  int ILL_FIEND;
-  int GREAT_WYRM;
-  int FLAME_DEV;
-  int LURKER;
-  int SANDMAN;
-  int MIRRORMAST;
-  int ELDER_GRUE;
-  int LOATHLY;
-  int ZOMBIE;
-  int RICOCHET;
-  int INNER_DEMON;
-  int GOOD_FAIRY;
-  int BAD_FAIRY;
-  int AUTO_MAJOR;
-  int DRAGON;
-  int JABBERWOCK;
-  int FDEMON_L;
-  int TIGERSHARK;
-  int JONIN;
-  int SHADOW_SLAY;
-  int MIL_PRIEST;
-  int COMA;
-  int HIGH_ANGEL;
-  int JOTUN;
-  int INVIS_SLAY;
-  int KING_WYV;
-  int DEATHSTAR;
-  int THAUMATURGIST;
-  int VAMP_LORD;
-  int ARCHANGEL;
-  int DEMON_PRINCE;
-  int DEATH;
-  int EATER;
-  int LAWBRINGER;
-  int DRAGON_LORD;
-  int DEMON_EMP;
-  int LORD_EARTH;
-  int LORD_AIR;
-  int LORD_WATER;
-  int LORD_FIRE;
-  int ELEM_MASTER;
-  int WEREWOLF_KING;
+int HORNET;
+int MEND_PRIEST;
+int ITIN_MERCH;
+int GUARD;
+int NPC;
+int SHEEP;
+int MERCHANT;
+int ZERO_NPC;
+int HISCORE_NPC;
+int GRUNT;
+int TSETSE;
+int FNORD;
+int SEWER_RAT;
+int AGGRAVATOR;
+int BLIPPER;
+int GOBLIN;
+int PHANTASTICON;
+int ROBOT;
+int GEEK;
+int BOROGROVE;
+int QUAIL;
+int BADGER;
+int HAWK;
+int DEER;
+int CAMEL;
+int ANTEATER;
+int BUNNY;
+int TROUT;
+int BASS;
+int PARROT;
+int HYENA;
+int APPR_NINJA;
+int NIGHT_GAUNT;
+int SNEAK_THIEF;
+int EYE;
+int TOVE;
+int NASTY;
+int GHOST;
+int ENCHANTOR; /* use 'OR' to avoid conflict with circle rank */
+int MURK;
+int GOBLIN_CHIEF;
+int WOLF;
+int ANT;
+int ELEPHANT;
+int HORSE;
+int SALAMANDER;
+int CATOBLEPAS;
+int L_FDEMON;
+int ACID_CLOUD;
+int PHANTOM;
+int GOBLIN_KING;
+int PTERODACTYL;
+int GOBLIN_SHAMAN;
+int LION;
+int BRIGAND;
+int BEAR;
+int MAMBA;
+int MANOWAR;
+int WEREHUMAN;
+int THOUGHTFORM;
+int MANTICORE;
+int TASMANIAN;
+int AUTO_MINOR;
+int DENEBIAN;
+int JUBJUB;
+int HAUNT;
+int INCUBUS;
+int SATYR;
+int CROC;
+int TORPOR;
+int DOBERMAN;
+int FUZZY;
+int SERV_LAW;
+int SERV_CHAOS;
+int SWARM;
+int BAN_SIDHE;
+int GRUE;
+int GENIN;
+int DRAGONETTE;
+int TESLA;
+int WYVERN;
+int CATEAGLE;
+int FROST_DEMON;
+int SPECTRE;
+int NECROMANCER;
+int SHADOW;
+int BOGTHING;
+int ASTRAL_VAMP;
+int LAVA_WORM;
+int MANABURST;
+int OUTER_DEMON;
+int MIRRORSHADE;
+int FIRE_ELEM;
+int AIR_ELEM;
+int WATER_ELEM;
+int EARTH_ELEM;
+int BANDERSNATCH;
+int LICHE;
+int TRITON;
+int MAST_THIEF;
+int TRICER;
+int RAKSHASA;
+int DEMON_SERP;
+int ANGEL;
+int CHUNIN;
+int BEHEMOTH;
+int NAZGUL;
+int UNICORN;
+int ROUS;
+int ILL_FIEND;
+int GREAT_WYRM;
+int FLAME_DEV;
+int LURKER;
+int SANDMAN;
+int MIRRORMAST;
+int ELDER_GRUE;
+int LOATHLY;
+int ZOMBIE;
+int RICOCHET;
+int INNER_DEMON;
+int GOOD_FAIRY;
+int BAD_FAIRY;
+int AUTO_MAJOR;
+int DRAGON;
+int JABBERWOCK;
+int FDEMON_L;
+int TIGERSHARK;
+int JONIN;
+int SHADOW_SLAY;
+int MIL_PRIEST;
+int COMA;
+int HIGH_ANGEL;
+int JOTUN;
+int INVIS_SLAY;
+int KING_WYV;
+int DEATHSTAR;
+int THAUMATURGIST;
+int VAMP_LORD;
+int ARCHANGEL;
+int DEMON_PRINCE;
+int DEATH;
+int EATER;
+int LAWBRINGER;
+int DRAGON_LORD;
+int DEMON_EMP;
+int LORD_EARTH;
+int LORD_AIR;
+int LORD_WATER;
+int LORD_FIRE;
+int ELEM_MASTER;
+int WEREWOLF_KING;
 
 void init_mon_lvl_0()
 {
@@ -845,7 +928,7 @@ void init_mon_lvl_10()
       {&LORD_WATER, NULL, 0, 0, 0, 0, 0, 0, 147, 1500, 100, 100, 100, 5, 1, 10, 5, 100, 0, 5000, 10, 1, -1, ARTIFACTID + 1, UNIQUE_MADE, M_TALK_SILENT, M_MOVE_NORMAL, M_MELEE_NORMAL, M_STRIKE_SNOWBALL, M_NO_OP, MOBILE | ONLYSWIM, pow2(COLD) | pow2(ELECTRICITY) | pow2(POISON) | pow2(ACID) | pow2(FEAR) | pow2(SLEEP) | pow2(NEGENERGY) | pow2(OTHER_MAGIC) | pow2(THEFT) | pow2(GAZE) | pow2(INFECTION), 'W' | CLRS(BLUE, WHITE), "The Elemental Lord of Water", "some water", "A?A?A?B?B?B?"},
       {&LORD_FIRE, NULL, 0, 0, 0, 0, 0, 0, 148, 1500, 200, 100, 300, 10, 1, 10, 3, 100, 0, 5000, 1000, 1, -1, ARTIFACTID + 2, UNIQUE_MADE, M_TALK_SILENT, M_MOVE_NORMAL, M_MELEE_FIRE, M_STRIKE_FBALL, M_NO_OP, MOBILE, pow2(FLAME) | pow2(ELECTRICITY) | pow2(POISON) | pow2(ACID) | pow2(FEAR) | pow2(SLEEP) | pow2(NEGENERGY) | pow2(OTHER_MAGIC) | pow2(THEFT) | pow2(GAZE) | pow2(INFECTION), 'F' | CLRS(LIGHT_RED, WHITE), "The Elemental Lord of Fire", "a spark", "A?A?A?R?R?R?R?"},
       {&ELEM_MASTER, NULL, 0, 0, 0, 0, 0, 0, 149, 1000, 200, 200, 200, 20, 20, 10, 2, 0, 10, 10000, 10000, 1, -1, ARTIFACTID + 0, UNIQUE_MADE, M_TALK_EVIL, M_MOVE_SMART, M_MELEE_MASTER, M_STRIKE_MASTER, M_SP_MASTER, MOBILE | FLYING | SWIMMING, pow2(NORMAL_DAMAGE) | pow2(COLD) | pow2(ELECTRICITY) | pow2(POISON) | pow2(ACID) | pow2(FEAR) | pow2(SLEEP) | pow2(NEGENERGY) | pow2(OTHER_MAGIC) | pow2(THEFT) | pow2(GAZE) | pow2(INFECTION), 'M' | CLRS(PURPLE, WHITE), "The Elemental Master", "A burning mound of bubbling mud", "A?A?A?A?R?R?R?R?"},
-      {&WEREWOLF_KING, NULL, 0, 0, 0, 0, 0, 0, 150, 1000, 200, 200, 200, 20, 20, 10, 2, 0, 10, 10000, 10000, 1, -1, -1, UNIQUE_MADE, M_TALK_WEREKING, M_MOVE_SMART, M_MELEE_MASTER, M_STRIKE_MASTER, M_SP_WEREKING, MOBILE, pow2(NORMAL_DAMAGE) | pow2(POISON) | pow2(FEAR) | pow2(NEGENERGY) | pow2(OTHER_MAGIC) | pow2(GAZE) | pow2(INFECTION), 'W' | CLRS(BLACK, RED), "The Werewolf King", "the corpse of a small boy", "A?A?A?A?R?R?R?R?"}};
+      {&WEREWOLF_KING, NULL, 0, 0, 0, 0, 0, 0, 150, 1000, 200, 200, 200, 20, 20, 10, 2, 0, 10, 10000, 10000, 1, -1, -1, UNIQUE_MADE, M_TALK_WEREKING, M_MOVE_SMART, M_MELEE_NORMAL, M_STRIKE_MASTER, M_SP_WEREKING, MOBILE, pow2(NORMAL_DAMAGE) | pow2(POISON) | pow2(FEAR) | pow2(NEGENERGY) | pow2(OTHER_MAGIC) | pow2(GAZE) | pow2(INFECTION), 'W' | CLRS(BLACK, RED), "The Werewolf King", "the corpse of a small boy", "A?A?A?A?R?R?R?R?"}};
   _monsters.insert(_monsters.end(), mon.begin(), mon.end());
 }
 void init_monsters()

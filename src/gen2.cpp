@@ -3,7 +3,7 @@
 /* level generator functions */
 
 #include "glob.h"
-
+#include <map>
 /* For each level, there should be one stairway going up and one down. 
 fromlevel determines whether the player is placed on the up or the down
 staircase. The aux value is currently unused elsewhere, but is set 
@@ -61,30 +61,19 @@ void make_country_screen(Symbol terrain)
   clear_level(level);
   level->environment = E_TACTICAL_MAP;
   level->generated = TRUE;
-  switch (terrain)
-  {
-  case FOREST:
-    make_forest();
-    break;
-  case JUNGLE:
-    make_jungle();
-    break;
-  case SWAMP:
-    make_swamp();
-    break;
-  case RIVER:
-    make_river();
-    break;
-  case MOUNTAINS:
-  case PASS:
-    make_mountains();
-    break;
-  case ROAD:
-    make_road();
-    break;
-  default:
+  std::map<unsigned char,std::function<void()>> terrainMap = {
+    {FOREST,make_forest},
+    {JUNGLE,make_jungle},
+    {SWAMP,make_swamp},
+    {RIVER,make_river},
+    {MOUNTAINS,make_mountains},
+    {PASS,make_mountains},
+    {ROAD,make_road},
+  };
+  if(terrainMap.count(terrain)>0){
+    terrainMap[terrain]();
+  } else {
     make_plains();
-    break;
   }
   if (nighttime())
   {
@@ -113,24 +102,25 @@ void make_general_map(char* terrain)
         curr = level->site[i - 1][j].locchar & 0xff;
       else
         curr = level->site[i][j - 1].locchar & 0xff;
-      switch (curr)
+      if (curr == (FLOOR & 0xff))
       {
-      case (FLOOR & 0xff):
         level->site[i][j].locchar = level->site[i][j].showchar = FLOOR;
         level->site[i][j].p_locf = L_NO_OP;
-        break;
-      case (HEDGE & 0xff):
+      }
+      if (curr == (HEDGE & 0xff))
+      {
         level->site[i][j].locchar = level->site[i][j].showchar = HEDGE;
         level->site[i][j].p_locf = L_HEDGE;
-        break;
-      case (WATER & 0xff):
+      }
+      if (curr == (WATER & 0xff))
+      {
         level->site[i][j].locchar = level->site[i][j].showchar = WATER;
         level->site[i][j].p_locf = L_WATER;
-        break;
-      case (RUBBLE & 0xff):
+      }
+      if (curr == (RUBBLE & 0xff))
+      {
         level->site[i][j].locchar = level->site[i][j].showchar = RUBBLE;
         level->site[i][j].p_locf = L_RUBBLE;
-        break;
       }
       level->site[i][j].lstatus = SEEN + LIT;
       level->site[i][j].roomnumber = RS_COUNTRYSIDE;

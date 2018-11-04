@@ -6,6 +6,7 @@
    and aux2.c are not huge */
 
 #include "glob.h"
+#include <map>
 
 /* check every ten minutes */
 void tenminute_check()
@@ -151,15 +152,11 @@ void outdoors_random_event()
   switch (random_range(300))
   {
   case 0:
-    switch (Country[player.x][player.y].current_terrain_type)
-    {
-    case TUNDRA:
+    if (Country[player.x][player.y].current_terrain_type == TUNDRA)
       mprint("It begins to snow. Heavily.");
-      break;
-    case DESERT:
+    else if (Country[player.x][player.y].current_terrain_type == DESERT)
       mprint("A sandstorm swirls around you.");
-      break;
-    default:
+    else {
       if ((Date > 75) && (Date < 330))
         mprint("You are drenched by a sudden downpour!");
       else
@@ -528,9 +525,9 @@ void terrain_check(int takestime)
       print2("The road goes ever onward....");
       break;
     }
-  switch (Country[player.x][player.y].current_terrain_type)
+  auto ttype = Country[player.x][player.y].current_terrain_type;
+  if (ttype == RIVER)
   {
-  case RIVER:
     if ((player.y < 6) && (player.x > 20))
       locprint("Star Lake.");
     else if (player.y < 41)
@@ -553,16 +550,18 @@ void terrain_check(int takestime)
       Time += 60;
       hourly_check();
     }
-    break;
-  case ROAD:
+  }
+  else if (ttype == ROAD)
+  {
     locprint("A well-maintained road.");
     if (takestime)
     {
       Time += 60;
       hourly_check();
     }
-    break;
-  case PLAINS:
+  }
+  else if (ttype == PLAINS)
+  {
     locprint("A rippling sea of grass.");
     if (takestime)
     {
@@ -574,8 +573,9 @@ void terrain_check(int takestime)
         hourly_check();
       }
     }
-    break;
-  case TUNDRA:
+  }
+  else if (ttype == TUNDRA)
+  {
     locprint("The Great Northern Wastes.");
     if (takestime)
     {
@@ -587,8 +587,9 @@ void terrain_check(int takestime)
         hourly_check();
       }
     }
-    break;
-  case FOREST:
+  }
+  else if (ttype == FOREST)
+  {
     if (player.y < 10)
       locprint("The Deepwood.");
     else if (player.y < 18)
@@ -610,8 +611,9 @@ void terrain_check(int takestime)
         }
       }
     }
-    break;
-  case JUNGLE:
+  }
+  else if (ttype == JUNGLE)
+  {
     locprint("Greenshriek Jungle.");
     if (takestime)
     {
@@ -627,8 +629,9 @@ void terrain_check(int takestime)
         hourly_check();
       }
     }
-    break;
-  case DESERT:
+  }
+  else if (ttype == DESERT)
+  {
     locprint("The Waste of Time.");
     if (takestime)
     {
@@ -644,8 +647,9 @@ void terrain_check(int takestime)
         hourly_check();
       }
     }
-    break;
-  case MOUNTAINS:
+  }
+  else if (ttype == MOUNTAINS)
+  {
     if ((player.y < 9) && (player.x < 12))
       locprint("The Magic Mountains");
     else if ((player.y < 9) && (player.y > 2) && (player.x < 40))
@@ -676,16 +680,18 @@ void terrain_check(int takestime)
         hourly_check();
       }
     }
-    break;
-  case PASS:
+  }
+  else if (ttype == PASS)
+  {
     locprint("A hidden pass.");
     if (takestime)
     {
       Time += 60;
       hourly_check();
     }
-    break;
-  case CHAOS_SEA:
+  }
+  else if (ttype == CHAOS_SEA)
+  {
     locprint("The Sea of Chaos.");
     if (takestime)
     {
@@ -695,8 +701,9 @@ void terrain_check(int takestime)
     mprint("You have entered the sea of chaos...");
     morewait();
     l_chaos();
-    break;
-  case SWAMP:
+  }
+  else if (ttype == SWAMP)
+  {
     locprint("The Loathly Swamp.");
     if (takestime)
     {
@@ -720,24 +727,27 @@ void terrain_check(int takestime)
         hourly_check();
       }
     }
-    break;
-  case CITY:
+  }
+  else if (ttype == CITY)
+  {
     if (gamestatusp(LOST))
     {
       resetgamestatus(LOST);
       mprint("Well, I guess you know where you are now....");
     }
     locprint("Outside Rampart, the city.");
-    break;
-  case VILLAGE:
+  }
+  else if (ttype == VILLAGE)
+  {
     if (gamestatusp(LOST))
     {
       resetgamestatus(LOST);
       mprint("The village guards let you know where you are....");
     }
     locprint("Outside a small village.");
-    break;
-  case CAVES:
+  }
+  else if (ttype == CAVES)
+  {
     locprint("A deserted hillside.");
     if (takestime)
     {
@@ -745,8 +755,9 @@ void terrain_check(int takestime)
       hourly_check();
     }
     mprint("You notice a concealed entrance into the hill.");
-    break;
-  case CASTLE:
+  }
+  else if (ttype == CASTLE)
+  {
     locprint("Near a fortified castle.");
     if (takestime)
     {
@@ -754,8 +765,9 @@ void terrain_check(int takestime)
       hourly_check();
     }
     mprint("The castle is hewn from solid granite. The drawbridge is down.");
-    break;
-  case TEMPLE:
+  }
+  else if (ttype == TEMPLE)
+  {
     switch (Country[player.x][player.y].aux)
     {
     case ODIN:
@@ -783,8 +795,9 @@ void terrain_check(int takestime)
       hourly_check();
     }
     mprint("You notice an entrance conveniently at hand.");
-    break;
-  case MAGIC_ISLE:
+  }
+  else if (ttype == MAGIC_ISLE)
+  {
     locprint("A strange island in the midst of the Sea of Chaos.");
     if (takestime)
     {
@@ -792,8 +805,9 @@ void terrain_check(int takestime)
       hourly_check();
     }
     mprint("There is a narrow causeway to the island from here.");
-    break;
-  case STARPEAK:
+  }
+  else if (ttype == STARPEAK)
+  {
     locprint("Star Peak.");
     if (takestime)
     {
@@ -801,8 +815,9 @@ void terrain_check(int takestime)
       hourly_check();
     }
     mprint("The top of the mountain seems to glow with a allochroous aura.");
-    break;
-  case DRAGONLAIR:
+  }
+  else if (ttype == DRAGONLAIR)
+  {
     locprint("A rocky chasm.");
     if (takestime)
     {
@@ -810,8 +825,9 @@ void terrain_check(int takestime)
       hourly_check();
     }
     mprint("You are at a cave entrance from which you see the glint of gold.");
-    break;
-  case VOLCANO:
+  }
+  else if (ttype == VOLCANO)
+  {
     locprint("HellWell Volcano.");
     if (takestime)
     {
@@ -819,10 +835,10 @@ void terrain_check(int takestime)
       hourly_check();
     }
     mprint("A shimmer of heat lightning plays about the crater rim.");
-    break;
-  default:
+  }
+  else
+  {
     locprint("I haven't any idea where you are!!!");
-    break;
   }
   outdoors_random_event();
 }
@@ -852,73 +868,32 @@ void countrysearch()
 std::string countryid(Symbol terrain)
 {
   std::string str;
-  switch (terrain & 0xff)
-  {
-  case MOUNTAINS & 0xff:
-    str = "Almost impassable mountains";
-    break;
-  case PLAINS & 0xff:
-    str = "Seemingly endless plains";
-    break;
-  case TUNDRA & 0xff:
-    str = "A frosty stretch of tundra";
-    break;
-  case ROAD & 0xff:
-    str = "A paved highway";
-    break;
-  case PASS & 0xff:
-    str = "A secret mountain pass";
-    break;
-  case RIVER & 0xff:
-    str = "A rolling river";
-    break;
-  case CITY & 0xff:
-    str = "The city of Rampart";
-    break;
-  case VILLAGE & 0xff:
-    str = "A rural village";
-    break;
-  case FOREST & 0xff:
-    str = "A verdant forest";
-    break;
-  case JUNGLE & 0xff:
-    str = "A densely overgrown jungle";
-    break;
-  case SWAMP & 0xff:
-    str = "A swampy fen";
-    break;
-  case VOLCANO & 0xff:
-    str = "A huge active volcano";
-    break;
-  case CASTLE & 0xff:
-    str = "An imposing castle";
-    break;
-  case STARPEAK & 0xff:
-    str = "A mysterious mountain.";
-    break;
-  case DRAGONLAIR & 0xff:
-    str = "A cavern filled with treasure.";
-    break;
-  case MAGIC_ISLE & 0xff:
-    str = "An island emanating magic.";
-    break;
-  case CAVES & 0xff:
-    str = "A hidden cave entrance";
-    break;
-  case TEMPLE & 0xff:
-    str = "A neoclassical temple";
-    break;
-  case DESERT & 0xff:
-    str = "A sere desert";
-    break;
-  case CHAOS_SEA & 0xff:
-    str = "The Sea of Chaos";
-    break;
-  default:
-    str = "I have no idea.";
-    break;
-  }
-  return str;
+  std::map<unsigned char, std::string> countryMap = {
+      {MOUNTAINS & 0xff, "Almost impassable mountains"},
+      {PLAINS & 0xff, "Seemingly endless plains"},
+      {TUNDRA & 0xff, "A frosty stretch of tundra"},
+      {ROAD & 0xff, "A paved highway"},
+      {PASS & 0xff, "A secret mountain pass"},
+      {RIVER & 0xff, "A rolling river"},
+      {CITY & 0xff, "The city of Rampart"},
+      {VILLAGE & 0xff, "A rural village"},
+      {FOREST & 0xff, "A verdant forest"},
+      {JUNGLE & 0xff, "A densely overgrown jungle"},
+      {SWAMP & 0xff, "A swampy fen"},
+      {VOLCANO & 0xff, "A huge active volcano"},
+      {CASTLE & 0xff, "An imposing castle"},
+      {STARPEAK & 0xff, "A mysterious mountain."},
+      {DRAGONLAIR & 0xff, "A cavern filled with treasure."},
+      {MAGIC_ISLE & 0xff, "An island emanating magic."},
+      {CAVES & 0xff, "A hidden cave entrance"},
+      {TEMPLE & 0xff, "A neoclassical temple"},
+      {DESERT & 0xff, "A sere desert"},
+      {CHAOS_SEA & 0xff, "The Sea of Chaos"},
+  };
+  if (countryMap.count(terrain) > 0)
+    return countryMap[terrain];
+
+  return "I have no idea.";
 }
 
 static char *sitenames[] = {/* alphabetical listing */

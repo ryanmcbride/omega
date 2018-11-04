@@ -4,6 +4,7 @@
 /* accessible from the country and don't have their own files */
 
 #include "glob.h"
+#include <map>
 
 /* loads the countryside level from the data file */
 void load_country()
@@ -25,105 +26,136 @@ void load_country()
 			site = getc(fd) ^ site;
 			Country[i][j].aux = 0;
 			Country[i][j].status = 0;
-			switch (site)
-			{
-			case (PASS & 0xff):
-				Country[i][j].base_terrain_type = PASS;
-				Country[i][j].current_terrain_type = MOUNTAINS;
-				break;
-			case (CASTLE & 0xff):
-				Country[i][j].base_terrain_type = CASTLE;
-				Country[i][j].current_terrain_type = MOUNTAINS;
-				break;
-			case (STARPEAK & 0xff):
-				Country[i][j].base_terrain_type = STARPEAK;
-				Country[i][j].current_terrain_type = MOUNTAINS;
-				break;
-			case (CAVES & 0xff):
-				Country[i][j].base_terrain_type = CAVES;
-				Country[i][j].current_terrain_type = MOUNTAINS;
-				break;
-			case (VOLCANO & 0xff):
-				Country[i][j].base_terrain_type = VOLCANO;
-				Country[i][j].current_terrain_type = MOUNTAINS;
-				break;
-			case (DRAGONLAIR & 0xff):
-				Country[i][j].base_terrain_type = DRAGONLAIR;
-				Country[i][j].current_terrain_type = DESERT;
-				break;
-			case (MAGIC_ISLE & 0xff):
-				Country[i][j].base_terrain_type = MAGIC_ISLE;
-				Country[i][j].current_terrain_type = CHAOS_SEA;
-				break;
-			case ('W'):
-				Country[i][j].base_terrain_type = WEREWOLF_DEN;
-				Country[i][j].current_terrain_type = PLAINS;
-				break;
-			case 'a':
-			case 'b':
-			case 'c':
-			case 'd':
-			case 'e':
-			case 'f':
-				Country[i][j].current_terrain_type =
+			std::map<unsigned char, std::function<void()>> siteMap = {
+				{PASS & 0xff, [&]() {
+					 Country[i][j].base_terrain_type = PASS;
+					 Country[i][j].current_terrain_type = MOUNTAINS;
+				 }},
+				{CASTLE & 0xff, [&]() {
+					 Country[i][j].base_terrain_type = CASTLE;
+					 Country[i][j].current_terrain_type = MOUNTAINS;
+				 }},
+				{STARPEAK & 0xff, [&]() {
+					 Country[i][j].base_terrain_type = STARPEAK;
+					 Country[i][j].current_terrain_type = MOUNTAINS;
+				 }},
+				{CAVES & 0xff, [&]() {
+					 Country[i][j].base_terrain_type = CAVES;
+					 Country[i][j].current_terrain_type = MOUNTAINS;
+				 }},
+				{VOLCANO & 0xff, [&]() {
+					 Country[i][j].base_terrain_type = VOLCANO;
+					 Country[i][j].current_terrain_type = MOUNTAINS;
+				 }},
+				{DRAGONLAIR & 0xff, [&]() {
+					 Country[i][j].base_terrain_type = DRAGONLAIR;
+					 Country[i][j].current_terrain_type = DESERT;
+				 }},
+				{MAGIC_ISLE & 0xff, [&]() {
+					 Country[i][j].base_terrain_type = MAGIC_ISLE;
+					 Country[i][j].current_terrain_type = CHAOS_SEA;
+				 }},
+				{'W', [&]() {
+					auto thing = Country[i][j].base_terrain_type;
+					thing = WEREWOLF_DEN;
+					 Country[i][j].base_terrain_type = WEREWOLF_DEN;
+					 Country[i][j].current_terrain_type = PLAINS;
+				 }},
+				{'a', [&]() {Country[i][j].current_terrain_type =
 						Country[i][j].base_terrain_type = VILLAGE;
-				Country[i][j].aux = 1 + site - 'a';
-				break;
-			case '1':
-			case '2':
-			case '3':
-			case '4':
-			case '5':
-			case '6':
-				Country[i][j].current_terrain_type =
-						Country[i][j].base_terrain_type = TEMPLE;
-				Country[i][j].aux = site - '0';
-				break;
-			case (PLAINS & 0xff):
-				Country[i][j].current_terrain_type =
-						Country[i][j].base_terrain_type = PLAINS;
-				break;
-			case (TUNDRA & 0xff):
-				Country[i][j].current_terrain_type =
-						Country[i][j].base_terrain_type = TUNDRA;
-				break;
-			case (ROAD & 0xff):
-				Country[i][j].current_terrain_type =
-						Country[i][j].base_terrain_type = ROAD;
-				break;
-			case (MOUNTAINS & 0xff):
-				Country[i][j].current_terrain_type =
-						Country[i][j].base_terrain_type = MOUNTAINS;
-				break;
-			case (RIVER & 0xff):
-				Country[i][j].current_terrain_type =
-						Country[i][j].base_terrain_type = RIVER;
-				break;
-			case (CITY & 0xff):
-				Country[i][j].current_terrain_type =
-						Country[i][j].base_terrain_type = CITY;
-				break;
-			case (FOREST & 0xff):
-				Country[i][j].current_terrain_type =
-						Country[i][j].base_terrain_type = FOREST;
-				break;
-			case (JUNGLE & 0xff):
-				Country[i][j].current_terrain_type =
-						Country[i][j].base_terrain_type = JUNGLE;
-				break;
-			case (SWAMP & 0xff):
-				Country[i][j].current_terrain_type =
-						Country[i][j].base_terrain_type = SWAMP;
-				break;
-			case (DESERT & 0xff):
-				Country[i][j].current_terrain_type =
-						Country[i][j].base_terrain_type = DESERT;
-				break;
-			case (CHAOS_SEA & 0xff):
-				Country[i][j].current_terrain_type =
-						Country[i][j].base_terrain_type = CHAOS_SEA;
-				break;
-			}
+				Country[i][j].aux = 1 + site - 'a'; }},
+				{'b', [&]() {Country[i][j].current_terrain_type =
+						Country[i][j].base_terrain_type = VILLAGE;
+				Country[i][j].aux = 1 + site - 'a'; }},
+				{'c', [&]() {Country[i][j].current_terrain_type =
+						Country[i][j].base_terrain_type = VILLAGE;
+				Country[i][j].aux = 1 + site - 'a'; }},
+				{'d', [&]() {Country[i][j].current_terrain_type =
+						Country[i][j].base_terrain_type = VILLAGE;
+				Country[i][j].aux = 1 + site - 'a'; }},
+				{'e', [&]() {Country[i][j].current_terrain_type =
+						Country[i][j].base_terrain_type = VILLAGE;
+				Country[i][j].aux = 1 + site - 'a'; }},
+				{'f', [&]() {Country[i][j].current_terrain_type =
+						Country[i][j].base_terrain_type = VILLAGE;
+				Country[i][j].aux = 1 + site - 'a'; }},
+				{'1', [&]() {
+					 Country[i][j].current_terrain_type =
+						 Country[i][j].base_terrain_type = TEMPLE;
+					 Country[i][j].aux = site - '0';
+				 }},
+				{'2', [&]() {
+					 Country[i][j].current_terrain_type =
+						 Country[i][j].base_terrain_type = TEMPLE;
+					 Country[i][j].aux = site - '0';
+				 }},
+				{'3', [&]() {
+					 Country[i][j].current_terrain_type =
+						 Country[i][j].base_terrain_type = TEMPLE;
+					 Country[i][j].aux = site - '0';
+				 }},
+				{'4', [&]() {
+					 Country[i][j].current_terrain_type =
+						 Country[i][j].base_terrain_type = TEMPLE;
+					 Country[i][j].aux = site - '0';
+				 }},
+				{'5', [&]() {
+					 Country[i][j].current_terrain_type =
+						 Country[i][j].base_terrain_type = TEMPLE;
+					 Country[i][j].aux = site - '0';
+				 }},
+				{'6', [&]() {
+					 Country[i][j].current_terrain_type =
+						 Country[i][j].base_terrain_type = TEMPLE;
+					 Country[i][j].aux = site - '0';
+				 }},
+				{PLAINS & 0xff, [&]() {
+					 Country[i][j].current_terrain_type =
+						 Country[i][j].base_terrain_type = PLAINS;
+				 }},
+				{TUNDRA & 0xff, [&]() {
+					 Country[i][j].current_terrain_type =
+						 Country[i][j].base_terrain_type = TUNDRA;
+				 }},
+				{ROAD & 0xff, [&]() {
+					 Country[i][j].current_terrain_type =
+						 Country[i][j].base_terrain_type = ROAD;
+				 }},
+				{MOUNTAINS & 0xff, [&]() {
+					 Country[i][j].current_terrain_type =
+						 Country[i][j].base_terrain_type = MOUNTAINS;
+				 }},
+				{RIVER & 0xff, [&]() {
+					 Country[i][j].current_terrain_type =
+						 Country[i][j].base_terrain_type = RIVER;
+				 }},
+				{CITY & 0xff, [&]() {
+					 Country[i][j].current_terrain_type =
+						 Country[i][j].base_terrain_type = CITY;
+				 }},
+				{FOREST & 0xff, [&]() {
+					 Country[i][j].current_terrain_type =
+						 Country[i][j].base_terrain_type = FOREST;
+				 }},
+				{JUNGLE & 0xff, [&]() {
+					 Country[i][j].current_terrain_type =
+						 Country[i][j].base_terrain_type = JUNGLE;
+				 }},
+				{SWAMP & 0xff, [&]() {
+					 Country[i][j].current_terrain_type =
+						 Country[i][j].base_terrain_type = SWAMP;
+				 }},
+				{DESERT & 0xff, [&]() {
+					 Country[i][j].current_terrain_type =
+						 Country[i][j].base_terrain_type = DESERT;
+				 }},
+				{CHAOS_SEA & 0xff, [&]() {
+					 Country[i][j].current_terrain_type =
+						 Country[i][j].base_terrain_type = CHAOS_SEA;
+				 }},
+			};
+			if(siteMap.count(site)>0)
+				siteMap[site]();
 		}
 		site = getc(fd) ^ site;
 	}

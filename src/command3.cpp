@@ -12,6 +12,7 @@
 #include "glob.h"
 #include "date.h"
 #include <map>
+#include <functional>
 #include <string>
 
 /* look at some spot */
@@ -60,25 +61,20 @@ void examine()
         describe_player();
       if (loc_statusp(x, y, SECRET))
         print2("An age-worn stone wall.");
-      else
-        switch (level->site[x][y].locchar)
-        {
-        case SPACE:
+      else{
+        auto lc = level->site[x][y].locchar;
+        if(lc == SPACE){
           print2("An infinite void.");
-          break;
-        case PORTCULLIS:
+        } else if (lc == PORTCULLIS){
           print2("A heavy steel portcullis");
-          break;
-        case ABYSS:
+        } else if (lc == ABYSS) {
           print2("An entrance to the infinite abyss");
-          break;
-        case FLOOR:
+        } else if (lc == FLOOR){
           if (Current_Dungeon == Current_Environment)
             print2("A dirty stone floor.");
           else
             print2("The ground.");
-          break;
-        case WALL:
+        } else if (lc == WALL){
           if (level->site[x][y].aux == 0)
             print2("A totally impervious wall.");
           else if (level->site[x][y].aux < 10)
@@ -100,53 +96,38 @@ void examine()
           }
           else
             print2("An almost totally impervious wall.");
-          break;
-        case RUBBLE:
+        } else if (lc == RUBBLE){
           print2("A dangerous-looking pile of rubble.");
-          break;
-        case SAFE:
+        } else if (lc == SAFE){
           print2("A steel safe inset into the floor.");
-          break;
-        case CLOSED_DOOR:
+        } else if (lc ==  CLOSED_DOOR){
           print2("A solid oaken door, now closed.");
-          break;
-        case OPEN_DOOR:
+        } else if (lc == OPEN_DOOR){
           print2("A solid oaken door, now open.");
-          break;
-        case STATUE:
+        } else if (lc ==  STATUE){
           print2("A strange-looking statue.");
-          break;
-        case STAIRS_UP:
+        } else if (lc == STAIRS_UP){
           print2("A stairway leading up.");
-          break;
-        case STAIRS_DOWN:
+        } else if (lc == STAIRS_DOWN){
           print2("A stairway leading down....");
-          break;
-        case TRAP:
+        } else if (lc == TRAP){
           print2(trapid(level->site[x][y].p_locf));
-          break;
-        case HEDGE:
+        } else if (lc == HEDGE){
           if (level->site[x][y].p_locf == L_EARTH_STATION)
             print2("A weird fibrillation of oozing tendrils.");
           else
             print2("A brambly, thorny hedge.");
-          break;
-        case LAVA:
+        } else if (lc == LAVA){
           print2("A bubbling pool of lava.");
-          break;
-        case LIFT:
+        } else if (lc == LIFT){
           print2("A strange glowing disk.");
-          break;
-        case ALTAR:
+        } else if (lc == ALTAR){
           print2("An (un?)holy altar.");
-          break;
-        case CHAIR:
+        } else if (lc == CHAIR){
           print2("A chair.");
-          break;
-        case WHIRLWIND:
+        } else if (lc == WHIRLWIND){
           print2("A strange cyclonic electrical storm.");
-          break;
-        case WATER:
+        } else if (lc == WATER){
           if (level->site[x][y].p_locf == L_WATER)
             print2("A deep pool of water.");
           else if (level->site[x][y].p_locf == L_CHAOS)
@@ -155,14 +136,13 @@ void examine()
             print2("A bubbling pool of acid.");
           else
             print2("An eerie pool of water.");
-          break;
-        case FIRE:
+        } else if (lc == FIRE){
           print2("A curtain of fire.");
-          break;
-        default:
+        } else {
           print2("Wow, I haven't the faintest idea!");
-          break;
         }
+      }
+      
       if ((ol = level->site[x][y].things) != NULL && !loc_statusp(x, y, SECRET))
       {
         if (ol->next == NULL)
@@ -1010,73 +990,70 @@ void tunnel()
 void hunt(Symbol terrain)
 {
   int fertility = 0;
-  switch (terrain)
-  {
-  case SWAMP:
-    mprint("You hesitate to hunt for food in the marshy wasteland.");
-    break;
-  case VOLCANO:
-  case CASTLE:
-  case TEMPLE:
-  case CAVES:
-  case STARPEAK:
-  case MAGIC_ISLE:
-  case DRAGONLAIR:
-    mprint("There is nothing alive here (or so it seems)");
-    break;
-  case VILLAGE:
-  case CITY:
-    mprint("You can find no food here; perhaps if you went inside....");
-    break;
-  case ROAD:
-    mprint("You feel it would be a better idea to hunt off the road.");
-    break;
-  case CHAOS_SEA:
-    mprint("Food in the Sea of Chaos? Go on!");
-    break;
-  case DESERT:
-    mprint("You wander off into the trackless desert in search of food...");
-    Time += 100;
-    hourly_check();
-    fertility = 10;
-    break;
-  case JUNGLE:
-    mprint("You search the lush and verdant jungle for game....");
-    Time += 100;
-    hourly_check();
-    fertility = 80;
-    break;
-  case PLAINS:
-    mprint("You set off through the tall grass; the game is afoot.");
-    Time += 100;
-    hourly_check();
-    fertility = 50;
-    break;
-  case TUNDRA:
-    mprint("You blaze a trail through the frozen wasteland....");
-    Time += 100;
-    hourly_check();
-    fertility = 30;
-    break;
-  case FOREST:
-    mprint("You try to follow the many tracks through the forest loam....");
-    Time += 100;
-    hourly_check();
-    fertility = 70;
-    break;
-  case MOUNTAINS:
-  case PASS:
-    mprint("You search the cliff walls looking for something to eat....");
-    Time += 100;
-    hourly_check();
-    fertility = 30;
-    break;
-  case RIVER:
-    mprint("The halcyon river is your hopeful food source...");
-    Time += 100;
-    hourly_check();
-    fertility = 80;
-    break;
+  std::map<unsigned int, std::function<void()>> huntMap = {
+      {SWAMP, []() { mprint("You hesitate to hunt for food in the marshy wasteland."); }},
+      {VOLCANO, []() { mprint("There is nothing alive here (or so it seems)"); }},
+      {CASTLE, []() { mprint("There is nothing alive here (or so it seems)"); }},
+      {TEMPLE, []() { mprint("There is nothing alive here (or so it seems)"); }},
+      {CAVES, []() { mprint("There is nothing alive here (or so it seems)"); }},
+      {STARPEAK, []() { mprint("There is nothing alive here (or so it seems)"); }},
+      {MAGIC_ISLE, []() { mprint("There is nothing alive here (or so it seems)"); }},
+      {DRAGONLAIR, []() { mprint("There is nothing alive here (or so it seems)"); }},
+      {VILLAGE, []() { mprint("You can find no food here; perhaps if you went inside...."); }},
+      {CITY, []() { mprint("You can find no food here; perhaps if you went inside...."); }},
+      {ROAD, []() { mprint("You feel it would be a better idea to hunt off the road."); }},
+      {CHAOS_SEA, []() { mprint("Food in the Sea of Chaos? Go on!"); }},
+      {DESERT, [&]() {
+         mprint("You wander off into the trackless desert in search of food...");
+         Time += 100;
+         hourly_check();
+         fertility = 10;
+       }},
+      {JUNGLE, [&]() {
+         mprint("You search the lush and verdant jungle for game....");
+         Time += 100;
+         hourly_check();
+         fertility = 80;
+       }},
+      {PLAINS, [&]() {
+         mprint("You set off through the tall grass; the game is afoot.");
+         Time += 100;
+         hourly_check();
+         fertility = 50;
+       }},
+      {TUNDRA, [&]() {
+         mprint("You blaze a trail through the frozen wasteland....");
+         Time += 100;
+         hourly_check();
+         fertility = 30;
+       }},
+      {FOREST, [&]() {
+         mprint("You try to follow the many tracks through the forest loam....");
+         Time += 100;
+         hourly_check();
+         fertility = 70;
+       }},
+      {MOUNTAINS, [&]() {
+         mprint("You search the cliff walls looking for something to eat....");
+         Time += 100;
+         hourly_check();
+         fertility = 30;
+       }},
+      {PASS, [&]() {
+         mprint("You search the cliff walls looking for something to eat....");
+         Time += 100;
+         hourly_check();
+         fertility = 30;
+       }},
+      {RIVER, [&]() {
+         mprint("The halcyon river is your hopeful food source...");
+         Time += 100;
+         hourly_check();
+         fertility = 80;
+       }},
+  };
+  if(huntMap.count(terrain) > 0){
+    huntMap[terrain]();
   }
   if (((Date % 360 < 60) || (Date % 360 > 300)) &&
       (terrain != DESERT) &&

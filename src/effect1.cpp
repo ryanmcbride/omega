@@ -2,6 +2,7 @@
 /* effect1.c */
 
 #include "glob.h"
+#include <map>
 
 /* enchant */
 void enchant(int delta)
@@ -778,20 +779,17 @@ void acquire(int blessing)
     else
       print1("Acquire which kind of item: !?][}{)/=%%\\ ");
     otype = mgetc();
-    switch (otype)
-    {
-    case (POTION & 0xff):
-      if (blessing > 0)
+    std::map<unsigned char, std::function<void()>> objMap = {
+      {POTION & 0xff,[&](){if (blessing > 0)
         id = itemlist(POTIONID, NUMPOTIONS);
       else
         id = random_range(NUMPOTIONS);
       if (id < 0)
         print2("You feel stupid.");
       else
-        make_potion(newthing, id);
-      break;
-    case (SCROLL & 0xff):
-      if (blessing > 0)
+        make_potion(newthing, id);}},
+        {SCROLL & 0xff,[&](){
+          if (blessing > 0)
         id = itemlist(SCROLLID, NUMSCROLLS);
       else
         id = random_range(NUMSCROLLS);
@@ -799,9 +797,9 @@ void acquire(int blessing)
         print2("You feel stupid.");
       else
         make_scroll(newthing, id);
-      break;
-    case (RING & 0xff):
-      if (blessing > 0)
+        }},
+        {RING & 0xff,[&](){
+                if (blessing > 0)
         id = itemlist(RINGID, NUMRINGS);
       else
         id = random_range(NUMRINGS);
@@ -809,9 +807,9 @@ void acquire(int blessing)
         print2("You feel stupid.");
       else
         make_ring(newthing, id);
-      break;
-    case (STICK & 0xff):
-      if (blessing > 0)
+        }},
+        {STICK & 0xff,[&](){
+                if (blessing > 0)
         id = itemlist(STICKID, NUMSTICKS);
       else
         id = random_range(NUMSTICKS);
@@ -819,9 +817,9 @@ void acquire(int blessing)
         print2("You feel stupid.");
       else
         make_stick(newthing, id);
-      break;
-    case (ARMOR & 0xff):
-      if (blessing > 0)
+        }},
+        {ARMOR & 0xff,[&](){
+                if (blessing > 0)
         id = itemlist(ARMORID, NUMARMOR);
       else
         id = random_range(NUMARMOR);
@@ -829,9 +827,9 @@ void acquire(int blessing)
         print2("You feel stupid.");
       else
         make_armor(newthing, id);
-      break;
-    case (SHIELD & 0xff):
-      if (blessing > 0)
+        }},
+        {SHIELD & 0xff,[&](){
+          if (blessing > 0)
         id = itemlist(SHIELDID, NUMSHIELDS);
       else
         id = random_range(NUMSHIELDS);
@@ -839,9 +837,9 @@ void acquire(int blessing)
         print2("You feel stupid.");
       else
         make_shield(newthing, id);
-      break;
-    case (WEAPON & 0xff):
-      if (blessing > 0)
+        }},
+        {WEAPON & 0xff,[&](){
+                if (blessing > 0)
         id = itemlist(WEAPONID, NUMWEAPONS);
       else
         id = random_range(NUMWEAPONS);
@@ -849,9 +847,9 @@ void acquire(int blessing)
         print2("You feel stupid.");
       else
         Object::makeWeapon(id,newthing);
-      break;
-    case (BOOTS & 0xff):
-      if (blessing > 0)
+        }},
+        {BOOTS & 0xff,[&](){
+                if (blessing > 0)
         id = itemlist(BOOTID, NUMBOOTS);
       else
         id = random_range(NUMBOOTS);
@@ -859,9 +857,9 @@ void acquire(int blessing)
         print2("You feel stupid.");
       else
         make_boots(newthing, id);
-      break;
-    case (CLOAK & 0xff):
-      if (blessing > 0)
+        }},
+        {CLOAK & 0xff,[&](){
+                if (blessing > 0)
         id = itemlist(CLOAKID, NUMCLOAKS);
       else
         id = random_range(NUMCLOAKS);
@@ -869,9 +867,9 @@ void acquire(int blessing)
         print2("You feel stupid.");
       else
         make_cloak(newthing, id);
-      break;
-    case (FOOD & 0xff):
-      if (blessing > 0)
+        }},
+        {FOOD & 0xff,[&](){
+                if (blessing > 0)
         id = itemlist(FOODID, NUMFOODS);
       else
         id = random_range(NUMFOODS);
@@ -879,9 +877,9 @@ void acquire(int blessing)
         print2("You feel stupid.");
       else
         make_food(newthing, id);
-      break;
-    case (THING & 0xff):
-      if (blessing > 0)
+        }},
+        {THING & 0xff,[&](){
+                if (blessing > 0)
         id = itemlist(THINGID, NUMTHINGS);
       else
         id = random_range(NUMTHINGS);
@@ -889,9 +887,9 @@ void acquire(int blessing)
         print2("You feel stupid.");
       else
         make_thing(newthing, id);
-      break;
-    case (ARTIFACT & 0xff):
-      if (gamestatusp(CHEATED))
+        }},
+        {ARTIFACT & 0xff,[&](){
+                if (gamestatusp(CHEATED))
         id = itemlist(ARTIFACTID, NUMARTIFACTS);
       else
         id = -1;
@@ -899,10 +897,13 @@ void acquire(int blessing)
         print2("You feel stupid.");
       else
         make_artifact(newthing, id);
-      break;
-    default:
+        }},
+    };
+    if(objMap.count(otype)>0)
+      objMap[otype]();
+    else
       print2("You feel stupid.");
-    }
+    
     xredraw();
     if (id != ABORT)
     {

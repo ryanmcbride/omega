@@ -606,74 +606,82 @@ on save and restore. */
 #endif
 #endif
 
+/* typedefs needed by structs */
+
+#if defined(MSDOS_SUPPORTED_ANTIQUE) || defined(AMIGA)
+typedef short Symbol;
+#else
+typedef int Symbol;
+#endif
+
 /* objects, locations, and terrain; characters to draw */
 #define NULL_ITEM '\0'
-#define SPACE (' ' | CLR(WHITE))
-#define WALL ('#' | CLR(GREY))
-#define PORTCULLIS ('7' | CLR(WHITE))
-#define OPEN_DOOR ('|' | CLR(BROWN))
-#define CLOSED_DOOR ('-' | CLR(BROWN))
-#define WHIRLWIND ('6' | CLR(LIGHT_BLUE))
-#define ABYSS ('0' | CLRS(BLACK,BROWN))
-#define VOID_CHAR (' ' | CLR(WHITE))
-#define LAVA ('`' | CLR(RED))
-#define HEDGE ('\"' | CLR(GREEN))
-#define WATER ('~' | CLR(BLUE))
-#define FIRE (';' | CLR(LIGHT_RED))
-#define TRAP ('^' | CLR(RED))
-#define LIFT ('_' | CLR(BRIGHT_WHITE))
-#define STAIRS_UP ('<' | CLR(WHITE))
-#define STAIRS_DOWN ('>' | CLR(WHITE))
-#define FLOOR ('.' | CLR(BROWN))
-extern unsigned int PLAYER;
-#define CORPSE ('+' | CLR(RED))
-#define STATUE ('1' | CLR(GREY))
-#define RUBBLE ('4' | CLR(GREY))
-#define ALTAR ('8' | CLR(LIGHT_BLUE))
-#define CASH ('$' | CLR(YELLOW))	/* various kinds of money */
-#define PILE ('*' | CLR(BRIGHT_WHITE))	/* several objects in one place */
-#define FOOD ('%' | CLR(BROWN))
-#define WEAPON (')' | CLR(GREY))
-#define MISSILEWEAPON ('(' | CLR(BROWN))
-#define SCROLL ('?' | CLR(YELLOW))
-#define POTION ('!' | CLR(LIGHT_GREEN))
-#define ARMOR (']' | CLR(GREY))
-#define SHIELD ('[' | CLR(BROWN))
-#define CLOAK ('}' | CLR(CYAN))
-#define BOOTS ('{' | CLR(BROWN))
-#define STICK ('/' | CLR(BROWN))
+extern int SPACE;
+extern int WALL;
+extern int PORTCULLIS;
+extern int OPEN_DOOR;
+extern int CLOSED_DOOR;
+extern int WHIRLWIND;
+extern int ABYSS;
+extern int VOID_CHAR;
+extern int LAVA;
+extern int HEDGE;
+extern int WATER;
+extern int FIRE;
+extern int TRAP;
+extern int LIFT;
+extern int STAIRS_UP;
+extern int STAIRS_DOWN;
+extern int FLOOR;
+extern int PLAYER;
+extern int CORPSE;
+extern int STATUE;
+extern int RUBBLE;
+extern int ALTAR;
+extern int CASH;	/* various kinds of money */
+extern int PILE;	/* several objects in one place */
+extern int FOOD;
+extern int WEAPON;
+extern int MISSILEWEAPON;
+extern int SCROLL;
+extern int POTION;
+extern int ARMOR;
+extern int SHIELD;
+extern int CLOAK;
+extern int BOOTS;
+extern int STICK;
 
-#define RING ('=' | CLR(YELLOW))
-#define THING ('\\' | CLR(WHITE))
-#define ARTIFACT ('&' | CLR(YELLOW))
+extern int RING;
+extern int THING;
+extern int ARTIFACT;
 
 /* TERRAIN TYPES */
-#define PLAINS ('-' | CLR(LIGHT_GREEN))
-#define TUNDRA ('_' | CLR(GREY))
-#define ROAD ('.' | CLR(BROWN))
-#define MOUNTAINS ('^' | CLR(GREY))
-#define PASS ('v' | CLR(BROWN))
-#define RIVER ('~' | CLR(BLUE))
-#define CITY ('O' | CLR(WHITE))
-#define VILLAGE ('o' | CLR(WHITE))
-#define FOREST ('(' | CLR(LIGHT_GREEN))
-#define JUNGLE (')' | CLR(GREEN))
-#define SWAMP ('=' | CLR(GREEN))
-#define VOLCANO ('!' | CLR(RED))
-#define CASTLE ('%' | CLR(GREY))
-#define TEMPLE ('X' | CLR(BROWN))
-#define CAVES ('*' | CLRS(BLACK,BROWN))
-#define DESERT ('\"' | CLR(YELLOW))
-#define CHAOS_SEA ('+' | CLR(LIGHT_PURPLE))
-#define STARPEAK ('|' | CLR(LIGHT_BLUE))
-#define DRAGONLAIR ('$' | CLR(BROWN))
-#define MAGIC_ISLE ('&' | CLR(PURPLE))
-#define WEREWOLF_DEN (ACS_PI | CLR(BROWN))
+extern int PLAINS;
+extern int TUNDRA;
+extern int ROAD;
+extern int MOUNTAINS;
+extern int PASS;
+extern int RIVER;
+extern int CITY;
+extern int VILLAGE;
+extern int FOREST;
+extern int JUNGLE;
+extern int SWAMP;
+extern int VOLCANO;
+extern int CASTLE;
+extern int TEMPLE;
+extern int CAVES;
+extern int DESERT;
+extern int CHAOS_SEA;
+extern int STARPEAK;
+extern int DRAGONLAIR;
+extern int MAGIC_ISLE;
+extern int WEREWOLF_DEN;
 
-#define CHAIR ('5' | CLR(BROWN))
-#define SAFE ('3' | CLR(GREY))
-#define FURNITURE ('2' | CLR(BROWN))
-#define BED ('9' | CLR(CYAN))
+extern int CHAIR;
+extern int SAFE;
+extern int FURNITURE;
+extern int BED;
 
 /* wow, all characters used! */
 
@@ -1377,15 +1385,6 @@ extern int WEREWOLF_KING;
 #define O_RING3 14
 #define O_RING4 15
 
-/* typedefs needed by structs */
-
-#if defined(MSDOS_SUPPORTED_ANTIQUE) || defined(AMIGA)
-typedef short Symbol;
-#else
-typedef int Symbol;
-#endif
-
-
 /* structure definitions */
 
 class Room
@@ -1426,6 +1425,56 @@ public:
   std::string objstr;
   std::string truename;
   std::string cursestr;
+};
+class Weapon : public Object
+{
+public:
+static void init(std::vector<Object>&);
+  Weapon(
+      int id,
+      int weight,
+      int plus,
+      int charge,
+      int dmg,
+      int hit,
+      int aux,
+      int number,
+      int fragility,
+      long basevalue,
+      unsigned char known,
+      unsigned char used,
+      int blessing,
+      unsigned char type,
+      unsigned char uniqueness,
+      int usef,
+      unsigned char level,
+      Symbol objchar,
+      std::string objstr,
+      std::string truename,
+      std::string cursestr) : Object({id,
+                                      weight,
+                                      plus,
+                                      charge,
+                                      dmg,
+                                      hit,
+                                      aux,
+                                      number,
+                                      fragility,
+                                      basevalue,
+                                      known,
+                                      used,
+                                      blessing,
+                                      type,
+                                      uniqueness,
+                                      usef,
+                                      level,
+                                      objchar,
+                                      objstr,
+                                      truename,
+                                      cursestr})
+  {
+
+  }
 };
 
 class Objectlist {

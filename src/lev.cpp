@@ -33,37 +33,27 @@ void make_country_monsters(Symbol terrain)
 
   nummonsters = (random_range(5) + 1) * (random_range(3) + 1);
 
-  switch (terrain)
-  {
-  case PLAINS:
+  if (terrain == PLAINS)
     monsters = plains;
-    break;
-  case FOREST:
+  else if (terrain == FOREST)
     monsters = forest;
-    break;
-  case JUNGLE:
+  else if (terrain == JUNGLE)
     monsters = jungle;
-    break;
-  case RIVER:
+  else if (terrain == RIVER)
     monsters = river;
-    break;
-  case SWAMP:
+  else if (terrain == SWAMP)
     monsters = swamp;
-    break;
-  case MOUNTAINS:
-  case PASS:
-  case VOLCANO:
+  else if (terrain == MOUNTAINS ||
+           terrain == PASS ||
+           terrain == VOLCANO)
     monsters = mountain;
-    break;
-  case DESERT:
+  else if (terrain == DESERT)
     monsters = desert;
-    break;
-  case TUNDRA:
+  else if (terrain == TUNDRA)
     monsters = tundra;
-    break;
-  default:
+  else
     monsters = NULL;
-  }
+
   for (i = 0; i < nummonsters; i++)
   {
     tml = Monsterlist::create();

@@ -6,6 +6,7 @@
    and aux3.c are not huge */
 
 #include "glob.h"
+#include <map>
 
 /* Player stats like str, agi, etc give modifications to various abilities
    chances to do things, etc. Positive is good, negative bad. */
@@ -904,42 +905,22 @@ void toggle_item_use(int on)
 
 void enter_site(Symbol site)
 {
-  switch (site)
-  {
-  case CITY:
-    change_environment(E_CITY);
-    break;
-  case VILLAGE:
-    change_environment(E_VILLAGE);
-    break;
-  case CAVES:
-    change_environment(E_CAVES);
-    break;
-  case CASTLE:
-    change_environment(E_CASTLE);
-    break;
-  case VOLCANO:
-    change_environment(E_VOLCANO);
-    break;
-  case TEMPLE:
-    change_environment(E_TEMPLE);
-    break;
-  case DRAGONLAIR:
-    change_environment(E_DLAIR);
-    break;
-  case STARPEAK:
-    change_environment(E_STARPEAK);
-    break;
-  case MAGIC_ISLE:
-    change_environment(E_MAGIC_ISLE);
-    break;
-  default:
-    if(site == WEREWOLF_DEN)
-      change_environment(E_WEREWOLF_DEN);
-    else
-      print3("There's nothing to enter here!");
-    break;
-  }
+  std::map<Symbol, unsigned int> siteMap = {
+    {CITY,E_CITY},
+    {VILLAGE,E_VILLAGE},
+    {CAVES,E_CAVES},
+    {CASTLE,E_CASTLE},
+    {VOLCANO,E_VOLCANO},
+    {TEMPLE,E_TEMPLE},
+    {DRAGONLAIR,E_DLAIR},
+    {STARPEAK,E_STARPEAK},
+    {MAGIC_ISLE,E_MAGIC_ISLE},
+    {WEREWOLF_DEN,E_WEREWOLF_DEN}
+  };
+  if(siteMap.count(site) > 0)
+    change_environment(siteMap[site]);
+  else
+    print3("There's nothing to enter here!");    
 }
 
 /* Switches context dungeon/countryside/city, etc */

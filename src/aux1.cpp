@@ -3,6 +3,7 @@
 /* auxiliary functions for those in com.c, also see aux2.c and aux3.c */
 
 #include "glob.h"
+#include <map>
 
 /* check to see if too much tunneling has been done in this level */
 void tunnelcheck()
@@ -24,20 +25,17 @@ void tunnelcheck()
     if (player.status[SHADOWFORM])
     {
       change_environment(E_COUNTRYSIDE);
-      switch (Country[player.x][player.y].base_terrain_type)
-      {
-      case CASTLE:
-      case STARPEAK:
-      case CAVES:
-      case VOLCANO:
-        Country[player.x][player.y].current_terrain_type = MOUNTAINS;
-        break;
-      case DRAGONLAIR:
-        Country[player.x][player.y].current_terrain_type = DESERT;
-        break;
-      case MAGIC_ISLE:
-        Country[player.x][player.y].current_terrain_type = CHAOS_SEA;
-        break;
+      static std::map<unsigned int,unsigned int> terrainMap = {
+        {CASTLE,MOUNTAINS},
+        {STARPEAK,MOUNTAINS},
+        {CAVES,MOUNTAINS},
+        {VOLCANO,MOUNTAINS},
+        {DRAGONLAIR,DESERT},
+        {MAGIC_ISLE,CHAOS_SEA},
+      };
+      if(terrainMap.count(Country[player.x][player.y].base_terrain_type) > 0){
+        Country[player.x][player.y].current_terrain_type = 
+        terrainMap[Country[player.x][player.y].base_terrain_type];
       }
       Country[player.x][player.y].base_terrain_type =
           Country[player.x][player.y].current_terrain_type;

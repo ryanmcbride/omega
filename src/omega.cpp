@@ -17,6 +17,7 @@
 
 /* most globals originate in omega.c */
 
+  void init_glyphs();
   void init_items();
   void init_monsters();
 
@@ -288,10 +289,11 @@ int main(int argc, char* argv[])
     exit(0);
 
   /* all kinds of initialization */
+  initgraf();
+  init_glyphs();
   init_items();
   init_monsters();
   init_perms();
-  initgraf();
 #ifndef MSDOS_SUPPORTED_ANTIQUE
   initdirs();
 #endif

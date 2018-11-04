@@ -1079,7 +1079,7 @@ void calc_weight ARGS((void));
 void change_to_game_perms ARGS((void));
 void change_to_user_perms ARGS((void));
 void do_los ARGS((Symbol,int *,int *,int,int));
-void do_object_los ARGS((int,int *,int *,int,int));
+void do_object_los(Symbol,int *,int *,int,int);
 void findspace ARGS((int *,int *,int));
 void initdirs ARGS((void));
 #ifdef NO_USLEEP
