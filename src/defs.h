@@ -15,7 +15,7 @@ string.h instead of strings.h (try man string) */
 
 #define STRING
 
-/* Implementor should uncomment the following if random and srandom 
+/* Implementor should uncomment the following if random and srandom
    are not available  (try man random) */
 
 /* #define NORANDOM */
@@ -41,7 +41,7 @@ on save and restore. */
 
 /* #define NO_USLEEP */
 
-/* OMEGALIB is where all the data files reside. 
+/* OMEGALIB is where all the data files reside.
    Note the final / is necessary.
    msdos note: \ is the C string escape character, so you need \\ in the
    path given in OMEGALIB
@@ -80,7 +80,7 @@ on save and restore. */
 #ifndef MSDOS
 #ifndef BSD
 #ifndef SYSV
-    #error "One of these should be set - edit the makefile appropriately"
+#error "One of these should be set - edit the makefile appropriately"
 #endif
 #endif
 #endif
@@ -91,17 +91,17 @@ on save and restore. */
 #endif
 
 #ifdef COMPRESS_SAVE_FILES
-# ifdef USE_GZIP
-# define COMPRESSOR "gzip"
-# define UNCOMPRESSOR "gunzip"
-# define COMPRESS_EXT "gz"
-# define EXT_LENGTH 2
-# else
-# define COMPRESSOR "compress"
-# define UNCOMPRESSOR "uncompress"
-# define COMPRESS_EXT "Z"
-# define EXT_LENGTH 1
-# endif
+#ifdef USE_GZIP
+#define COMPRESSOR "gzip"
+#define UNCOMPRESSOR "gunzip"
+#define COMPRESS_EXT "gz"
+#define EXT_LENGTH 2
+#else
+#define COMPRESSOR "compress"
+#define UNCOMPRESSOR "uncompress"
+#define COMPRESS_EXT "Z"
+#define EXT_LENGTH 1
+#endif
 #endif
 
 #define VACANT 0
@@ -125,13 +125,13 @@ on save and restore. */
 /* number of lines back strings are recalled */
 #define STRING_BUFFER_SIZE 25
 
-/* number of rerolls allowed +1 */  /* added by dagibbs (DG) */
+/* number of rerolls allowed +1 */ /* added by dagibbs (DG) */
 #define REROLLS 31
 
 /* Verbosity levels */
 #define TERSE 0
 #define MEDIUM 1
-#define VERBOSE 2 
+#define VERBOSE 2
 
 /* Arbitrary. Max of the levels in the dungeons */
 #define MAXLEVELS 21
@@ -145,35 +145,35 @@ on save and restore. */
 
 /* Overall Game Progress Vector Bits */
 /* Long had BETTER have at least 32 bits.... */
-#define SPOKE_TO_DRUID		0x1
-#define COMPLETED_CAVES		0x2
-#define COMPLETED_SEWERS	0x4
-#define COMPLETED_CASTLE	0x8
-#define COMPLETED_ASTRAL	0x10
-#define COMPLETED_VOLCANO	0x20
-#define KILLED_DRAGONLORD	0x40
-#define KILLED_EATER		0x80
-#define KILLED_LAWBRINGER	0x100
-#define COMPLETED_CHALLENGE	0x200
-#define SOLD_CONDO		0x400
-#define FAST_MOVE		0x800
-#define SKIP_PLAYER		0x1000
-#define SKIP_MONSTERS		0x2000
-#define MOUNTED			0x4000
-#define SUPPRESS_PRINTING	0x8000
-#define LOST			0x10000
-#define ARENA_MODE		0x20000
-#define CHEATED			0x40000
-#define BANK_BROKEN		0x80000
-#define CLUB_MEMBER		0x100000
-#define PREPARED_VOID		0x200000
-#define DESTROYED_ORDER		0x400000
-#define GAVE_STARGEM		0x800000
-#define ATTACKED_ORACLE		0x1000000
-#define UNDEAD_GUARDS		0x2000000
+#define SPOKE_TO_DRUID 0x1
+#define COMPLETED_CAVES 0x2
+#define COMPLETED_SEWERS 0x4
+#define COMPLETED_CASTLE 0x8
+#define COMPLETED_ASTRAL 0x10
+#define COMPLETED_VOLCANO 0x20
+#define KILLED_DRAGONLORD 0x40
+#define KILLED_EATER 0x80
+#define KILLED_LAWBRINGER 0x100
+#define COMPLETED_CHALLENGE 0x200
+#define SOLD_CONDO 0x400
+#define FAST_MOVE 0x800
+#define SKIP_PLAYER 0x1000
+#define SKIP_MONSTERS 0x2000
+#define MOUNTED 0x4000
+#define SUPPRESS_PRINTING 0x8000
+#define LOST 0x10000
+#define ARENA_MODE 0x20000
+#define CHEATED 0x40000
+#define BANK_BROKEN 0x80000
+#define CLUB_MEMBER 0x100000
+#define PREPARED_VOID 0x200000
+#define DESTROYED_ORDER 0x400000
+#define GAVE_STARGEM 0x800000
+#define ATTACKED_ORACLE 0x1000000
+#define UNDEAD_GUARDS 0x2000000
 
 /* non-existant environments for the random number seeding routine */
- /* added 12/30/98 (DG) */
+/* added 12/30/98 (DG) */
 #define E_RESTORE -2
 #define E_RANDOM -1
 /* general environment types */
@@ -209,7 +209,7 @@ on save and restore. */
 
 /* kind of arbitrary */
 #define MAXROOMS 48
-#define MAXCONNECTIONS 4 
+#define MAXCONNECTIONS 4
 #define STRING_LEN 100
 
 /* some random characters */
@@ -218,7 +218,6 @@ on save and restore. */
 #define LINEFEED '\r'
 #define BACKSPACE '\b'
 #define DELETE 127
-
 
 /* tac mode action definitions */
 /* have to remember to find where these are used, mostly unused, now! */
@@ -240,7 +239,6 @@ on save and restore. */
 #define CENTER 2
 #define HIGH 3
 #define CLEVER 4
-
 
 /* weapon types */
 #define CUTTING 1
@@ -387,8 +385,6 @@ on save and restore. */
 #define DRUID 5
 #define DESTINY 6
 
-
-
 /* MONSTER STATUS/ABILITY BITS */
 #define AWAKE 1
 #define MOBILE 2
@@ -396,7 +392,7 @@ on save and restore. */
 #define WANDERING 16
 #define HUNGRY 32
 #define GREEDY 64
-#define NEEDY  128
+#define NEEDY 128
 #define ONLYSWIM 256
 #define FLYING 512
 #define INTANGIBLE 1024
@@ -404,7 +400,6 @@ on save and restore. */
 #define SWIMMING 4096
 #define POISONOUS 8192
 #define EDIBLE 16384
-
 
 /* PLAYER STATUS INDICES */
 #define NUMSTATI 25
@@ -442,7 +437,7 @@ on save and restore. */
 /* also damage types */
 #define NUMIMMUNITIES 14
 
-#define UNSTOPPABLE 0 
+#define UNSTOPPABLE 0
 #define NORMAL_DAMAGE 1
 #define FLAME 2
 #define COLD 3
@@ -458,14 +453,12 @@ on save and restore. */
 #define INFECTION 13
 #define EVERYTHING -1
 
-
 /* location lstatus bits */
 #define SEEN 1
 #define LIT 2
 #define SECRET 4
 #define STOPS 8
 #define CHANGED 16
-
 
 /* room string id */
 /* for use in roomname() */
@@ -505,7 +498,7 @@ on save and restore. */
 #define RS_DESTINY 10
 #define RS_ADEPT 9
 #define RS_WYRM 8
-#define RS_OCEAN 7 
+#define RS_OCEAN 7
 #define RS_PONDS 6
 #define RS_DRAGONLORD 5
 #define RS_GOBLINKING 4
@@ -514,8 +507,8 @@ on save and restore. */
 #define RS_WALLSPACE 1
 
 #if defined(MSDOS_SUPPORTED_ANTIQUE) || defined(AMIGA)
-#define CLR(fg)		COL_##fg
-#define CLRS(fg,bg)	COL_##fg|COL_BG_##bg
+#define CLR(fg) COL_##fg
+#define CLRS(fg, bg) COL_##fg | COL_BG_##bg
 #endif
 
 #ifdef MSDOS_SUPPORTED_ANTIQUE
@@ -555,30 +548,30 @@ on save and restore. */
 
 #define COL_WHITE 0x0100
 #define COL_BLACK COL_WHITE
-	    /* this assumes that all things with black fg have white bg */
+/* this assumes that all things with black fg have white bg */
 #define COL_BROWN 0x0200
 #define COL_YELLOW 0x0300
 #define COL_GREY 0x0400
 #define COL_GREEN 0x0500
 #define COL_BLUE 0x0600
 #define COL_RED 0x0700
-#define COL_CYAN 0x0500		/* = green */
-#define COL_PURPLE 0x0700	/* = red */
-#define COL_LIGHT_BLUE 0x0600	/* = blue */
-#define COL_LIGHT_GREEN 0x0500	/* = green */
-#define COL_LIGHT_CYAN 0x0500	/* = green */
-#define COL_LIGHT_RED 0x0700	/* = red */
-#define COL_LIGHT_PURPLE 0x0100	/* = white */
-#define COL_BRIGHT_WHITE 0x0100	/* = white */
+#define COL_CYAN 0x0500         /* = green */
+#define COL_PURPLE 0x0700       /* = red */
+#define COL_LIGHT_BLUE 0x0600   /* = blue */
+#define COL_LIGHT_GREEN 0x0500  /* = green */
+#define COL_LIGHT_CYAN 0x0500   /* = green */
+#define COL_LIGHT_RED 0x0700    /* = red */
+#define COL_LIGHT_PURPLE 0x0100 /* = white */
+#define COL_BRIGHT_WHITE 0x0100 /* = white */
 #define COL_BG_BLACK 0x0000
-#define COL_BG_WHITE (A_REVERSE<<8)
-#define COL_BG_GREEN (A_REVERSE<<8)
-#define COL_BG_CYAN (A_REVERSE<<8)
-#define COL_BG_RED (A_REVERSE<<8)
-#define COL_BG_PURPLE (A_REVERSE<<8)
-#define COL_BG_BROWN (A_REVERSE<<8)
-#define COL_BG_BLUE (A_REVERSE<<8)
-#define COL_FG_BLINK 0x0000	/* not implemented :( */
+#define COL_BG_WHITE (A_REVERSE << 8)
+#define COL_BG_GREEN (A_REVERSE << 8)
+#define COL_BG_CYAN (A_REVERSE << 8)
+#define COL_BG_RED (A_REVERSE << 8)
+#define COL_BG_PURPLE (A_REVERSE << 8)
+#define COL_BG_BROWN (A_REVERSE << 8)
+#define COL_BG_BLUE (A_REVERSE << 8)
+#define COL_FG_BLINK 0x0000 /* not implemented :( */
 /* WDT: thank goodness for that lack of implementation. */
 
 #else
@@ -588,19 +581,19 @@ on save and restore. */
 
 #ifdef COLOR_PAIR
 
-# ifdef OMEGA_CLRGEN
-#  define CLR(fg)	OMEGA_CLRGEN1 fg
-#  define CLRS(fg, bg)	OMEGA_CLRGEN2 fg bg
-# else
-#  include "../include/clrgen.h"
-#  define CLR(fg)	CLR_##fg##_BLACK
-#  define CLRS(fg, bg)	CLR_##fg##_##bg
-# endif
+#ifdef OMEGA_CLRGEN
+#define CLR(fg) OMEGA_CLRGEN1 fg
+#define CLRS(fg, bg) OMEGA_CLRGEN2 fg bg
+#else
+#include "../include/clrgen.h"
+#define CLR(fg) CLR_##fg##_BLACK
+#define CLRS(fg, bg) CLR_##fg##_##bg
+#endif
 
 #else
 
-#define CLR(fg)		0
-#define CLRS(fg,bg)	0
+#define CLR(fg) 0
+#define CLRS(fg, bg) 0
 
 #endif
 #endif
@@ -638,8 +631,8 @@ extern int CORPSE;
 extern int STATUE;
 extern int RUBBLE;
 extern int ALTAR;
-extern int CASH;	/* various kinds of money */
-extern int PILE;	/* several objects in one place */
+extern int CASH; /* various kinds of money */
+extern int PILE; /* several objects in one place */
 extern int FOOD;
 extern int WEAPON;
 extern int MISSILEWEAPON;
@@ -685,7 +678,6 @@ extern int BED;
 
 /* wow, all characters used! */
 
-
 /* total number of player options */
 #define NUMOPTIONS 11
 
@@ -697,7 +689,7 @@ extern int BED;
 #define SEARCH_DURATION 11
 
 /* player.options bits */
-#define BELLICOSE 1 
+#define BELLICOSE 1
 #define JUMPMOVE 2
 #define RUNSTOP 4
 #define PICKUP 8
@@ -721,7 +713,7 @@ extern int NUMSTICKS;
 extern int NUMARTIFACTS;
 
 /* running sum of itemtypes, for indexing into Objects array */
-extern int THINGID; 
+extern int THINGID;
 extern int FOODID;
 extern int SCROLLID;
 extern int POTIONID;
@@ -749,9 +741,9 @@ extern int TOTALITEMS;
 #define I_NO_OP 0
 #define I_NOTHING 1
 
-  /* note some of these functions are for other types of items too */
+/* note some of these functions are for other types of items too */
 
-    /* scroll functions */
+/* scroll functions */
 #define I_BLESS 101
 #define I_ACQUIRE 102
 #define I_ENCHANT 103
@@ -775,7 +767,7 @@ extern int TOTALITEMS;
 #define I_ILLUMINATE 121
 #define I_DEFLECT 122
 
-    /* potion functions */
+/* potion functions */
 #define I_HEAL 201
 #define I_OBJDET 202
 #define I_MONDET 203
@@ -794,7 +786,7 @@ extern int TOTALITEMS;
 #define I_LEVITATION 217
 #define I_CURE 218
 
-    /* stick functions */
+/* stick functions */
 #define I_FIREBOLT 301
 #define I_LBOLT 302
 #define I_MISSILE 303
@@ -811,7 +803,7 @@ extern int TOTALITEMS;
 #define I_POLYMORPH 314
 #define I_FEAR 315
 
-    /* food functions */
+/* food functions */
 #define I_FOOD 401
 #define I_LEMBAS 402
 #define I_STIM 403
@@ -823,7 +815,7 @@ extern int TOTALITEMS;
 #define I_CANNIBAL 409
 #define I_INEDIBLE 410
 
-    /* boots functions */
+/* boots functions */
 #define I_PERM_SPEED 501
 #define I_PERM_HERO 502
 #define I_PERM_LEVITATE 503
@@ -831,7 +823,7 @@ extern int TOTALITEMS;
 #define I_BOOTS_JUMPING 505
 #define I_BOOTS_7LEAGUE 506
 
-    /* cloak functions */
+/* cloak functions */
 #define I_PERM_DISPLACE 601
 #define I_PERM_NEGIMMUNE 602
 #define I_PERM_INVISIBLE 603
@@ -839,7 +831,7 @@ extern int TOTALITEMS;
 #define I_PERM_PROTECTION 605
 #define I_PERM_TRUESIGHT 606
 
-    /* ring functions */
+/* ring functions */
 #define I_PERM_VISION 701
 #define I_PERM_BURDEN 702
 #define I_PERM_STRENGTH 703
@@ -849,7 +841,7 @@ extern int TOTALITEMS;
 #define I_PERM_REGENERATE 707
 #define I_PERM_KNOWLEDGE 708
 
-    /* armor functions */
+/* armor functions */
 #define I_PERM_ENERGY_RESIST 801
 #define I_PERM_BREATHING 802
 #define I_PERM_FEAR_RESIST 803
@@ -896,7 +888,7 @@ extern int TOTALITEMS;
 /* thing functions */
 #define I_PICK 1101
 #define I_KEY 1102
-#define I_SHOVEL 1103 /* unused */
+#define I_SHOVEL 1103    /* unused */
 #define I_EXCAVATOR 1104 /* unused */
 #define I_PERM_ILLUMINATE 1105
 #define I_TRAP 1106
@@ -995,7 +987,6 @@ for example. */
 #define M_SP_LAIR 241
 #define M_SP_PRIME 242
 #define M_SP_WEREKING 243
-
 
 /* rangestrike functions */
 #define M_STRIKE_MISSILE 301
@@ -1107,7 +1098,7 @@ extern int EYE;
 extern int TOVE;
 extern int NASTY;
 extern int GHOST;
-extern int ENCHANTOR;  /* use 'OR' to avoid conflict with circle rank */
+extern int ENCHANTOR; /* use 'OR' to avoid conflict with circle rank */
 extern int MURK;
 extern int GOBLIN_CHIEF;
 extern int WOLF;
@@ -1336,7 +1327,6 @@ extern int WEREWOLF_KING;
 #define L_DROP_EVERY_PORTCULLIS 87
 #define L_PORTCULLIS 88
 
-
 /* traps */
 #define NUMTRAPS 13
 #define TRAP_BASE 89
@@ -1376,7 +1366,7 @@ extern int WEREWOLF_KING;
 #define O_BELT1 5
 #define O_BELT2 6
 #define O_BELT3 7
-#define O_SHIELD 8 
+#define O_SHIELD 8
 #define O_ARMOR 9
 #define O_BOOTS 10
 #define O_CLOAK 11
@@ -1429,7 +1419,7 @@ public:
 class Weapon : public Object
 {
 public:
-static void init(std::vector<Object>&);
+  static void init(std::vector<Object> &);
   Weapon(
       int id,
       int weight,
@@ -1473,66 +1463,68 @@ static void init(std::vector<Object>&);
                                       truename,
                                       cursestr})
   {
-
   }
 };
 
-class Objectlist {
-  public:
-  static Objectlist* create();
+class Objectlist
+{
+public:
+  static Objectlist *create();
   Object *thing;
   Objectlist *next;
   void free();
 };
 
-class Spell {
-  public:
+class Spell
+{
+public:
   char known;
   char id;
   char powerdrain;
-} ;
-
-
-class Monster {
-  public:
-  static Monster* create();
-  int* named_id;
-  Objectlist *possessions;
-  unsigned char attacked;
-  int aux1,aux2,x,y,click;
-  int id,hp,hit,ac,dmg,sense,wakeup,level,speed;
-  unsigned char sleep,treasure;
-  long xpv;
-  int corpseweight,corpsevalue,transformid,startthing;
-  unsigned char uniqueness;
-  int talkf,movef,meleef,strikef,specialf;
-  long status,immunity;
-  Symbol monchar;
-  char *monstring,*corpsestr,*meleestr;
 };
 
+class Monster
+{
+public:
+  static Monster *create();
+  int *named_id;
+  Objectlist *possessions;
+  unsigned char attacked;
+  int aux1, aux2, x, y, click;
+  int id, hp, hit, ac, dmg, sense, wakeup, level, speed;
+  unsigned char sleep, treasure;
+  long xpv;
+  int corpseweight, corpsevalue, transformid, startthing;
+  unsigned char uniqueness;
+  int talkf, movef, meleef, strikef, specialf;
+  long status, immunity;
+  Symbol monchar;
+  char *monstring, *corpsestr, *meleestr;
+};
 
-class Monsterlist {
-  public:
-  static Monsterlist* create();
+class Monsterlist
+{
+public:
+  static Monsterlist *create();
   Monster *m;
   Monsterlist *next;
   void free();
 };
 
-class Player {
-  public:
-  int str,con,dex,agi,iq,pow,maxstr,maxcon,maxdex,maxagi,maxiq,maxpow;
+class Player
+{
+public:
+  int str, con, dex, agi, iq, pow, maxstr, maxcon, maxdex, maxagi, maxiq, maxpow;
   long xp;
-  int level,hp,maxhp,hit,dmg,absorption,speed,click;
-  int defense,food,alignment;
-  long mana,maxmana;
+  int level, hp, maxhp, hit, dmg, absorption, speed, click;
+  int defense, food, alignment;
+  long mana, maxmana;
   long cash;
-  int patron,birthday;
+  int patron, birthday;
   char preference;
-  int sx,sy; /* sanctuary coordinates */
-  int x,y; /* current player coordinates */
-  int itemweight,maxweight;
+  int sx, sy; /* sanctuary coordinates */
+  int x, y;   /* current player coordinates */
+  int itemweight, maxweight;
   int immunity[NUMIMMUNITIES];
   int status[NUMSTATI];
   long options;
@@ -1546,8 +1538,9 @@ class Player {
 };
 
 /* terrain locations */
-class Terrain {
-  public:
+class Terrain
+{
+public:
   Symbol base_terrain_type;
   Symbol current_terrain_type;
   char aux;
@@ -1555,25 +1548,26 @@ class Terrain {
 };
 
 /* dungeon locations */
-class Location {
-  public:
-  char p_locf; /* function executed when moved on */
-  unsigned char lstatus; /* seen,stopsrun,lit,secret, */
-  char roomnumber; /* so room can be named */
-  Symbol locchar; /* terrain type */
-  Symbol showchar; /*char instantaneously drawn for site */
-  int aux; /* signifies various things */
+class Location
+{
+public:
+  char p_locf;            /* function executed when moved on */
+  unsigned char lstatus;  /* seen,stopsrun,lit,secret, */
+  char roomnumber;        /* so room can be named */
+  Symbol locchar;         /* terrain type */
+  Symbol showchar;        /*char instantaneously drawn for site */
+  int aux;                /* signifies various things */
   unsigned char buildaux; /* used in constructing level */
-  Objectlist *things; 
+  Objectlist *things;
   Monster *creature;
- };
+};
 
-
-class Level {
-  public:
-  static Level* create();
+class Level
+{
+public:
+  static Level *create();
   void free();
-  char depth; /* which level is this */
+  char depth;  /* which level is this */
   Level *next; /* pointer to next level in dungeon */
 #ifndef SAVE_LEVELS
   Location site[MAXWIDTH][MAXLENGTH]; /* dungeon data */
@@ -1581,15 +1575,14 @@ class Level {
   /* Over 64K worth of data! */
   Location *site[MAXWIDTH]; /* dungeon data */
 #endif
-  char generated; /* has the level been made (visited) yet? */
-  char numrooms; /* number of rooms on level */
-  char tunnelled; /* amount of tunnelling done on this level */
+  char generated;     /* has the level been made (visited) yet? */
+  char numrooms;      /* number of rooms on level */
+  char tunnelled;     /* amount of tunnelling done on this level */
   Monsterlist *mlist; /* List of monsters on level */
-  int environment; /* where kind of level is this? */
-  int last_visited; /* time player was last on this level */
+  int environment;    /* where kind of level is this? */
+  int last_visited;   /* time player was last on this level */
 };
 
- 
 /* random typedef's */
 
 /* random  function declarations from system libraries */
@@ -1610,8 +1603,8 @@ class Level {
 #undef abs
 /* These must be made to work for both longs and ints */
 #define sign(n) (((n) < 0) ? -1 : (((n) > 0) ? 1 : 0))
-#define max(a,b) (((a) > (b)) ? (a) : (b))
-#define min(a,b) (((a) < (b)) ? (a) : (b))
+#define max(a, b) (((a) > (b)) ? (a) : (b))
+#define min(a, b) (((a) < (b)) ? (a) : (b))
 #define abs(n) (((n) < 0) ? (-(n)) : (n))
 
 #ifdef NORANDOM
@@ -1624,31 +1617,30 @@ class Level {
 #define SRANDFUNCTION srandom
 #endif
 
-
 /* WDT: This should be harmless under ANSI C, and will stop
  * some errors under bizarre platforms. */
 #define pow2(n) (1L << (n))
 
 /* these bit operations were functions, but are faster as macros... */
 
-#define loc_statusp(x,y,stat) ((level->site[x][y].lstatus&(stat))?1:0)
-#define lset(x,y,stat) (level->site[x][y].lstatus |= (stat))
-#define lreset(x,y,stat) (level->site[x][y].lstatus &= ~(stat))
+#define loc_statusp(x, y, stat) ((level->site[x][y].lstatus & (stat)) ? 1 : 0)
+#define lset(x, y, stat) (level->site[x][y].lstatus |= (stat))
+#define lreset(x, y, stat) (level->site[x][y].lstatus &= ~(stat))
 
-#define c_statusp(x,y,stat) ((Country[x][y].status&(stat))?1:0)
-#define c_set(x,y,stat) (Country[x][y].status |= (stat))
-#define c_reset(x,y,stat) (Country[x][y].status &= ~(stat))
+#define c_statusp(x, y, stat) ((Country[x][y].status & (stat)) ? 1 : 0)
+#define c_set(x, y, stat) (Country[x][y].status |= (stat))
+#define c_reset(x, y, stat) (Country[x][y].status &= ~(stat))
 
-#define m_statusp(m,s) (((m)->status&(s))?1:0)
-#define m_status_set(m,s) ((m)->status |= (s))
-#define m_status_reset(m,s) ((m)->status &= ~(s))
-#define m_immunityp(m,s) (((m)->immunity&pow2(s))?1:0)
+#define m_statusp(m, s) (((m)->status & (s)) ? 1 : 0)
+#define m_status_set(m, s) ((m)->status |= (s))
+#define m_status_reset(m, s) ((m)->status &= ~(s))
+#define m_immunityp(m, s) (((m)->immunity & pow2(s)) ? 1 : 0)
 
-#define gamestatusp(flag) ((GameStatus&(flag))?1:0)
+#define gamestatusp(flag) ((GameStatus & (flag)) ? 1 : 0)
 #define setgamestatus(flag) (GameStatus |= (flag))
 #define resetgamestatus(flag) (GameStatus &= ~(flag))
 
-#define optionp(o) ((player.options&(o))?1:0)
+#define optionp(o) ((player.options & (o)) ? 1 : 0)
 #define optionset(o) (player.options |= (o))
 #define optionreset(o) (player.options &= ~(o))
 
@@ -1671,6 +1663,6 @@ class Level {
 #endif
 
 #ifdef SAVE_LEVELS
-Level* msdos_changelevel();
+Level *msdos_changelevel();
 #endif
 #endif

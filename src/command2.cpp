@@ -183,7 +183,7 @@ void eat()
 }
 
 /* search all adjacent spots for secrecy */
-void search(int* searchval)
+void search(int *searchval)
 {
   int i;
   if (player.status[AFRAID] > 0)
@@ -216,7 +216,7 @@ void pickup()
 /* floor inventory */
 void floor_inv()
 {
-  Objectlist* ol = level->site[player.x][player.y].things;
+  Objectlist *ol = level->site[player.x][player.y].things;
   setgamestatus(SKIP_MONSTERS);
   menuclear();
   while (ol != NULL)
@@ -342,7 +342,7 @@ void talk()
 void disarm()
 {
   int x, y, index = 0;
-  Object* o;
+  Object *o;
 
   clearmsg();
   print1("Disarm -- ");
@@ -371,38 +371,38 @@ void disarm()
           switch (level->site[x][y].p_locf)
           {
           case L_TRAP_DART:
-          o = Object::create("dart-trap component");
+            o = Object::create("dart-trap component");
             break;
           case L_TRAP_DISINTEGRATE:
-          o = Object::create("disintegration-trap component");
+            o = Object::create("disintegration-trap component");
             *o = Objects[THINGID + 23];
             break;
           case L_TRAP_SLEEP_GAS:
-          o = Object::create("sleepgas-trap component");
+            o = Object::create("sleepgas-trap component");
             *o = Objects[THINGID + 22];
             break;
           case L_TRAP_TELEPORT:
-          o = Object::create("teleport-trap component");
+            o = Object::create("teleport-trap component");
             *o = Objects[THINGID + 21];
             break;
           case L_TRAP_ABYSS:
-          o = Object::create("abyss-trap component");
+            o = Object::create("abyss-trap component");
             *o = Objects[THINGID + 24];
             break;
           case L_TRAP_FIRE:
-          o = Object::create("fire-trap component");
+            o = Object::create("fire-trap component");
             *o = Objects[THINGID + 20];
             break;
           case L_TRAP_SNARE:
-          o = Object::create("snare component");
+            o = Object::create("snare component");
             *o = Objects[THINGID + 19];
             break;
           case L_TRAP_ACID:
-          o = Object::create("acid-trap component");
+            o = Object::create("acid-trap component");
             *o = Objects[THINGID + 18];
             break;
           case L_TRAP_MANADRAIN:
-          o = Object::create("manadrain-trap component");
+            o = Object::create("manadrain-trap component");
             *o = Objects[THINGID + 25];
             break;
           default:
@@ -444,7 +444,7 @@ void give()
   int index;
   int dx, dy, dindex = 0;
   Monster *m;
-  Object* obj;
+  Object *obj;
 
   clearmsg();
 
@@ -742,7 +742,7 @@ void setoptions()
 void callitem()
 {
   int index;
-  Object* obj;
+  Object *obj;
 
   clearmsg();
   setgamestatus(SKIP_MONSTERS);
@@ -993,7 +993,7 @@ void bash_location()
 void bash_item()
 {
   int item;
-  Object* obj;
+  Object *obj;
 
   clearmsg();
   print1("Destroy an item --");
@@ -1104,7 +1104,7 @@ void save(int compress, int force)
 #endif
     if (fname[pos])
     {
-      print1("Illegal character '%c' in filename - Save aborted."+ std::to_string(fname[pos]));
+      print1("Illegal character '%c' in filename - Save aborted." + std::to_string(fname[pos]));
       ok = FALSE;
     }
 #ifdef MSDOS

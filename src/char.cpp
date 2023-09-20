@@ -20,7 +20,7 @@ void initplayer()
 #ifndef MSDOS
   struct passwd *dastuff;
 #endif
-  Object* newitem;
+  Object *newitem;
 
   lname = getlogin();
 #ifndef MSDOS
@@ -111,7 +111,7 @@ FILE *omegarc_check()
   {
     print2("Use omega.rc charcter record in current directory? [yn] ");
 #else
-  std::string str = std::string(getenv("HOME"))+"/.omegarc";
+  std::string str = std::string(getenv("HOME")) + "/.omegarc";
   if ((fd = fopen(str.c_str(), "r")) != NULL)
   {
     print2("Use .omegarc in home directory? [yn] ");
@@ -158,7 +158,7 @@ void save_omegarc()
 #if defined(MSDOS) || defined(AMIGA)
   fd = fopen("omega.rc", "wb");
 #else
-  std::string str = std::string(getenv("HOME"))+"/.omegarc";
+  std::string str = std::string(getenv("HOME")) + "/.omegarc";
   fd = fopen(str.c_str(), "w");
 #endif
   if (fd == NULL)
@@ -622,7 +622,7 @@ void omegan_character_stats()
   do
   {
     i++;
-    std::string str = "You have only "+std::to_string(REROLLS - i)+" chance"+(i == (REROLLS - 1) ? "" : "s")+" to reroll... ";
+    std::string str = "You have only " + std::to_string(REROLLS - i) + " chance" + (i == (REROLLS - 1) ? "" : "s") + " to reroll... ";
     print2(str);
     player.iq = player.maxiq = 4 + random_range(5) +
                                (share1 = random_range(6)) + (share2 = random_range(6));
@@ -649,4 +649,3 @@ void omegan_character_stats()
   while ((player.preference != 'm') && (player.preference != 'f') &&
          (player.preference != 'y') && (player.preference != 'n')); /* :-) */
 }
- 

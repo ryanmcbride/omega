@@ -16,7 +16,7 @@ int statmod(int stat)
 }
 
 /* effects of hitting */
-void p_hit(Monster* m, int dmg, int dtype)
+void p_hit(Monster *m, int dmg, int dtype)
 {
   int dmult;
 
@@ -149,7 +149,7 @@ void drop_weapon()
 {
   if (player.possessions[O_WEAPON_HAND] != NULL)
   {
-    std::string str = std::string("You dropped your ")+player.possessions[O_WEAPON_HAND]->objstr;
+    std::string str = std::string("You dropped your ") + player.possessions[O_WEAPON_HAND]->objstr;
     mprint(str);
     morewait();
     p_drop_at(player.x, player.y, 1, player.possessions[O_WEAPON_HAND]);
@@ -164,7 +164,7 @@ void break_weapon()
 {
   if (player.possessions[O_WEAPON_HAND] != NULL)
   {
-    std::string str = std::string("Your ")+itemid(player.possessions[O_WEAPON_HAND])+" vibrates in your hand....";
+    std::string str = std::string("Your ") + itemid(player.possessions[O_WEAPON_HAND]) + " vibrates in your hand....";
     mprint(str);
     (void)damage_item(player.possessions[O_WEAPON_HAND]);
     morewait();
@@ -185,7 +185,7 @@ void p_win()
 
 /* handle a h,j,k,l, etc., to change x and y by dx and dy */
 /* for targeting in dungeon */
-void movecursor(int* x, int* y, int dx, int dy)
+void movecursor(int *x, int *y, int dx, int dy)
 {
   if (inbounds(*x + dx, *y + dy))
   {
@@ -568,7 +568,7 @@ long expval(int plevel)
 }
 
 /* If an item is unidentified, it isn't worth much to those who would buy it */
-long item_value(Object* item)
+long item_value(Object *item)
 {
   if (item->known == 0)
   {
@@ -589,7 +589,7 @@ long item_value(Object* item)
 }
 
 /* figures value based on item base-value, charge, plus, and blessing */
-long true_item_value(Object* item)
+long true_item_value(Object *item)
 {
   long value = item->basevalue;
 
@@ -677,7 +677,7 @@ void p_drown()
 }
 
 /* the effect of some weapon on Monster m, with dmgmod a bonus to damage */
-void weapon_use(int dmgmod, Object* weapon, Monster *m)
+void weapon_use(int dmgmod, Object *weapon, Monster *m)
 {
   int aux = (weapon == NULL ? -2 : weapon->aux); /* bare hands */
   switch (aux)
@@ -857,7 +857,7 @@ int player_hit(int hitmod, char hitloc, Monster *m)
       }
       else
         str = m->monstring;
-      str +=" blocks it!";
+      str += " blocks it!";
       if (Verbosity == VERBOSE)
         mprint(str);
     }
@@ -906,21 +906,20 @@ void toggle_item_use(int on)
 void enter_site(Symbol site)
 {
   std::map<Symbol, unsigned int> siteMap = {
-    {CITY,E_CITY},
-    {VILLAGE,E_VILLAGE},
-    {CAVES,E_CAVES},
-    {CASTLE,E_CASTLE},
-    {VOLCANO,E_VOLCANO},
-    {TEMPLE,E_TEMPLE},
-    {DRAGONLAIR,E_DLAIR},
-    {STARPEAK,E_STARPEAK},
-    {MAGIC_ISLE,E_MAGIC_ISLE},
-    {WEREWOLF_DEN,E_WEREWOLF_DEN}
-  };
-  if(siteMap.count(site) > 0)
+      {CITY, E_CITY},
+      {VILLAGE, E_VILLAGE},
+      {CAVES, E_CAVES},
+      {CASTLE, E_CASTLE},
+      {VOLCANO, E_VOLCANO},
+      {TEMPLE, E_TEMPLE},
+      {DRAGONLAIR, E_DLAIR},
+      {STARPEAK, E_STARPEAK},
+      {MAGIC_ISLE, E_MAGIC_ISLE},
+      {WEREWOLF_DEN, E_WEREWOLF_DEN}};
+  if (siteMap.count(site) > 0)
     change_environment(siteMap[site]);
   else
-    print3("There's nothing to enter here!");    
+    print3("There's nothing to enter here!");
 }
 
 /* Switches context dungeon/countryside/city, etc */

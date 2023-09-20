@@ -108,7 +108,7 @@ void msdos_init()
 
     /* Allocate the inner level of pointers for TheLevel */
     for (i = 0; i < MAXWIDTH; i++)
-        TheLevel.site[i] = (Location*)checkmalloc(MAXLENGTH * sizeof(loctype));
+        TheLevel.site[i] = (Location *)checkmalloc(MAXLENGTH * sizeof(loctype));
 
     /* Remove old level files */
     kill_all_levels();
@@ -139,21 +139,17 @@ void check_memory()
     char *mems[50];
     long amount = 0;
     int num_mems = 0;
-    unsigned try
-        ;
+    unsigned try;
 
     sprintf(Str1, "Heapchk returned %d.", _heapchk());
     mprint(Str1);
 
-    try
-        = MEM_CHECK_AMOUNT;
+    try = MEM_CHECK_AMOUNT;
     while (try > 10000)
     {
         while (try > 0 && (mems[num_mems] = checkmalloc(try)) == NULL)
-            try
-                -= 0x400;
-        amount += try
-            ;
+            try -= 0x400;
+        amount += try;
         num_mems++;
     }
     while (--num_mems >= 0)
@@ -164,7 +160,8 @@ void check_memory()
     mprint(Str1);
 }
 
-static FILE *open_levfile(env, depth, rw) int env, depth, rw;
+static FILE *open_levfile(env, depth, rw)
+int env, depth, rw;
 {
     sprintf(Str1, "%som%03d%03d.lev", Omegalib, env, depth);
     return (fopen(Str1, (rw) ? "wb" : "rb"));
@@ -172,8 +169,8 @@ static FILE *open_levfile(env, depth, rw) int env, depth, rw;
 
 /* Saves oldlevel (unless NULL), and reads in the new level,
    unless depth is < 0. */
-Level* msdos_changelevel(oldlevel, newenv, newdepth)
-    Level* oldlevel;
+Level *msdos_changelevel(oldlevel, newenv, newdepth)
+Level *oldlevel;
 int newenv, newdepth;
 {
     FILE *fp;

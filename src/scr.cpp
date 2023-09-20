@@ -997,6 +997,7 @@ void plotchar(Symbol pyx, int x, int y)
 {
   if (!offscreen(y))
   {
+    curs_set(0);
     wmove(Levelw, screenmod(y), x);
     if (optionp(SHOW_COLOUR))
       wattrset(Levelw, CHARATTR(pyx));

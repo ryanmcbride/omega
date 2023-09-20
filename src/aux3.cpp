@@ -52,8 +52,8 @@ void hourly_check()
 
 void indoors_random_event()
 {
-  Monsterlist* ml;
-  Objectlist* ol;
+  Monsterlist *ml;
+  Objectlist *ol;
   switch (random_range(1000))
   {
   case 0:
@@ -147,7 +147,7 @@ void indoors_random_event()
 void outdoors_random_event()
 {
   int num, i, j;
-  Object* ob;
+  Object *ob;
 
   switch (random_range(300))
   {
@@ -156,7 +156,8 @@ void outdoors_random_event()
       mprint("It begins to snow. Heavily.");
     else if (Country[player.x][player.y].current_terrain_type == DESERT)
       mprint("A sandstorm swirls around you.");
-    else {
+    else
+    {
       if ((Date > 75) && (Date < 330))
         mprint("You are drenched by a sudden downpour!");
       else
@@ -424,7 +425,7 @@ char getlocation()
 
 /* chance for player to resist magic somehow */
 /* hostile_magic ranges in power from 0 (weak) to 10 (strong) */
-int magic_resist(int hostile_magic) 
+int magic_resist(int hostile_magic)
 {
   if ((player.rank[COLLEGE] + player.rank[CIRCLE] > 0) &&
       (player.level / 2 + random_range(20) >
@@ -1237,7 +1238,7 @@ int stonecheck(int alignment)
 void alert_guards()
 {
   int foundguard = FALSE;
-  Monsterlist* ml;
+  Monsterlist *ml;
   int suppress = 0;
   for (ml = level->mlist; ml != NULL; ml = ml->next)
     if (((ml->m->id == GUARD) ||

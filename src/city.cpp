@@ -8,7 +8,7 @@
 void load_city(int populate)
 {
   int i, j;
-  Monsterlist* ml;
+  Monsterlist *ml;
   char site;
 
   FILE *fd;
@@ -468,7 +468,7 @@ void assign_city_function(int x, int y)
 /* makes a hiscore npc for mansions */
 void make_justiciar(int i, int j)
 {
-  Monsterlist* ml = Monsterlist::create();
+  Monsterlist *ml = Monsterlist::create();
   ml->m = Monster::create();
   *(ml->m) = Monsters[NPC];
   make_hiscore_npc(ml->m, 15);

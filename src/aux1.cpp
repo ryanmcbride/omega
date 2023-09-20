@@ -4,6 +4,7 @@
 
 #include "glob.h"
 #include <map>
+#include <string>
 
 /* check to see if too much tunneling has been done in this level */
 void tunnelcheck()
@@ -25,17 +26,18 @@ void tunnelcheck()
     if (player.status[SHADOWFORM])
     {
       change_environment(E_COUNTRYSIDE);
-      static std::map<unsigned int,unsigned int> terrainMap = {
-        {CASTLE,MOUNTAINS},
-        {STARPEAK,MOUNTAINS},
-        {CAVES,MOUNTAINS},
-        {VOLCANO,MOUNTAINS},
-        {DRAGONLAIR,DESERT},
-        {MAGIC_ISLE,CHAOS_SEA},
+      static std::map<unsigned int, unsigned int> terrainMap = {
+          {CASTLE, MOUNTAINS},
+          {STARPEAK, MOUNTAINS},
+          {CAVES, MOUNTAINS},
+          {VOLCANO, MOUNTAINS},
+          {DRAGONLAIR, DESERT},
+          {MAGIC_ISLE, CHAOS_SEA},
       };
-      if(terrainMap.count(Country[player.x][player.y].base_terrain_type) > 0){
-        Country[player.x][player.y].current_terrain_type = 
-        terrainMap[Country[player.x][player.y].base_terrain_type];
+      if (terrainMap.count(Country[player.x][player.y].base_terrain_type) > 0)
+      {
+        Country[player.x][player.y].current_terrain_type =
+            terrainMap[Country[player.x][player.y].base_terrain_type];
       }
       Country[player.x][player.y].base_terrain_type =
           Country[player.x][player.y].current_terrain_type;
@@ -114,7 +116,7 @@ void showroom(int i)
   }
   if (Current_Environment == Current_Dungeon)
   {
-    str1 = "Level "+std::to_string((int)level->depth);
+    str1 = "Level " + std::to_string((int)level->depth);
     str1 += std::string(" (") + roomname(i) + ")";
   }
   else if (str2.length() == 0 || Current_Environment == E_MANSION ||
@@ -393,7 +395,7 @@ void calc_melee()
 }
 
 /* player attacks monster m */
-void fight_monster(Monster* m)
+void fight_monster(Monster *m)
 {
   int hitmod = 0;
   int reallyfight = TRUE;
@@ -443,7 +445,7 @@ void fight_monster(Monster* m)
 }
 
 /* Attempt to break an object o */
-int damage_item(Object* o)
+int damage_item(Object *o)
 {
   int i;
   /* special case -- break star gem */
@@ -489,9 +491,7 @@ int damage_item(Object* o)
     {
       if (o->objchar == STICK)
       {
-        std::string str = "Your "
-        +(o->blessing >= 0 ? o->truename : o->cursestr)
-        + " explodes!";
+        std::string str = "Your " + (o->blessing >= 0 ? o->truename : o->cursestr) + " explodes!";
         print1(str);
         morewait();
         if (o->charge < 1)
@@ -508,19 +508,19 @@ int damage_item(Object* o)
       }
       else if ((o->blessing > 0) && (o->level > random_range(10)))
       {
-        std::string str =  std::string("Your ")+itemid(o)+" glows strongly.";
+        std::string str = std::string("Your ") + itemid(o) + " glows strongly.";
         print1(str);
         return 0;
       }
       else if ((o->blessing < -1) && (o->level > random_range(10)))
       {
-        std::string str = std::string("You hear an evil giggle from your ")+itemid(o);
+        std::string str = std::string("You hear an evil giggle from your ") + itemid(o);
         print1(str);
         return 0;
       }
       else if (o->plus > 0)
       {
-       std::string str = std::string("Your ")+itemid(o)+" glows and then fades.";
+        std::string str = std::string("Your ") + itemid(o) + " glows and then fades.";
         print1(str);
         o->plus--;
         return 0;
@@ -531,7 +531,7 @@ int damage_item(Object* o)
           print1("You hear a faint despairing cry!");
         else if (o->blessing < 0)
           print1("You hear an agonized scream!");
-        std::string str = std::string("Your ")+itemid(o)+" shatters in a thousand lost fragments!";
+        std::string str = std::string("Your ") + itemid(o) + " shatters in a thousand lost fragments!";
         print2(str);
         morewait();
         dispose_lost_objects(1, o);
@@ -543,7 +543,7 @@ int damage_item(Object* o)
 }
 
 /* do dmg points of damage of type dtype, from source fromstring */
-void p_damage(int dmg, int dtype, char* fromstring)
+void p_damage(int dmg, int dtype, std::string fromstring)
 {
   if (!p_immune(dtype))
   {
@@ -565,7 +565,7 @@ void p_damage(int dmg, int dtype, char* fromstring)
 }
 
 /* game over, you lose! */
-void p_death(char* fromstring)
+void p_death(std::string fromstring)
 {
   player.hp = -1;
   print3("You died!");
@@ -579,7 +579,7 @@ void p_death(char* fromstring)
 }
 
 /* move the cursor around, like for firing a wand, sets x and y to target */
-void setspot(int* x, int* y)
+void setspot(int *x, int *y)
 {
   char c = ' ';
   mprint("Targeting.... ? for help");
@@ -682,7 +682,7 @@ int getdir()
 }
 
 /* functions describes monster m's state for examine function */
-char *mstatus_string(Monster* m)
+char *mstatus_string(Monster *m)
 {
   if (m_statusp(m, M_INVISIBLE) && !player.status[TRUESIGHT])
     strcpy(Str2, "Some invisible creature");
@@ -854,7 +854,7 @@ void roomcheck()
 #ifdef MSDOS_SUPPORTED_ANTIQUE
   static int oldlevel = -1;
 #else
-  static Level* oldlevel = NULL;
+  static Level *oldlevel = NULL;
 #endif
   int roomno = level->site[player.x][player.y].roomnumber;
 
@@ -893,7 +893,7 @@ void roomcheck()
 }
 
 /* ask for mercy */
-void surrender(Monster* m)
+void surrender(Monster *m)
 {
   int i;
   long bestitem, bestvalue;
@@ -989,7 +989,7 @@ void surrender(Monster* m)
 }
 
 /* threaten a monster */
-void threaten(Monster* m)
+void threaten(Monster *m)
 {
   char response;
   switch (random_range(4))
