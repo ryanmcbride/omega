@@ -9,25 +9,25 @@ level structure generation */
 /* monsters for tactical encounters */
 void make_country_monsters(Symbol terrain)
 {
-  Monsterlist* tml = NULL;
-  Monsterlist* ml = NULL;
-   int plains[10] =
+  Monsterlist *tml = NULL;
+  Monsterlist *ml = NULL;
+  int plains[10] =
       {BUNNY, BUNNY, HORNET, QUAIL, HAWK, DEER, WOLF, LION, BRIGAND, RANDOM};
   /*    {BUNNY,BUNNY,BLACKSNAKE,HAWK,IMPALA,WOLF,LION,BRIGAND,RANDOM};*/
   /* DG changed (WDT: I'd like to see a blacksnake). */
-   int forest[10] =
+  int forest[10] =
       {BUNNY, QUAIL, HAWK, BADGER, DEER, DEER, WOLF, BEAR, BRIGAND, RANDOM};
-   int jungle[10] =
+  int jungle[10] =
       {ANTEATER, PARROT, MAMBA, ANT, ANT, HYENA, HYENA, ELEPHANT, LION, RANDOM};
-   int river[10] =
+  int river[10] =
       {QUAIL, TROUT, TROUT, MANOWAR, BASS, BASS, CROC, CROC, BRIGAND, RANDOM};
-   int swamp[10] =
+  int swamp[10] =
       {BASS, BASS, CROC, CROC, BOGTHING, ANT, ANT, RANDOM, RANDOM, RANDOM};
-   int desert[10] =
+  int desert[10] =
       {HAWK, HAWK, CAMEL, CAMEL, HYENA, HYENA, LION, LION, RANDOM, RANDOM};
-   int tundra[10] =
+  int tundra[10] =
       {WOLF, WOLF, BEAR, BEAR, DEER, DEER, RANDOM, RANDOM, RANDOM, RANDOM};
-   int mountain[10] =
+  int mountain[10] =
       {BUNNY, SHEEP, WOLF, WOLF, HAWK, HAWK, HAWK, RANDOM, RANDOM, RANDOM};
   int *monsters, i, nummonsters;
 
@@ -88,8 +88,8 @@ is completely random, but also gets harder as it is explored;
 the astral and the volcano just stay hard... */
 void populate_level(int monstertype)
 {
-  Monsterlist* head = NULL;
-  Monsterlist* tml = NULL;
+  Monsterlist *head = NULL;
+  Monsterlist *tml = NULL;
   int i, j, k, monsterid, nummonsters = (random_range(difficulty() / 3) + 1) * 3 + 8;
 
   if (monstertype == E_CASTLE)
@@ -372,7 +372,7 @@ void populate_level(int monstertype)
     }
 
     assert(RANDOM == -1); /* WDT: the following test slightly assumes
-                             * this. */
+                           * this. */
     if (monsterid > RANDOM)
       level->site[i][j].creature = make_creature(monsterid);
     else
@@ -409,7 +409,7 @@ void populate_level(int monstertype)
 void wandercheck()
 {
   int x, y;
-  Monsterlist* tml;
+  Monsterlist *tml;
   if (random_range(MaxDungeonLevels) < difficulty())
   {
     findspace(&x, &y, -1);
@@ -423,8 +423,8 @@ void wandercheck()
 /* call make_creature and place created monster on level->mlist and Level */
 void make_site_monster(int i, int j, int mid)
 {
-  Monsterlist* ml = Monsterlist::create();
-  Monster* m;
+  Monsterlist *ml = Monsterlist::create();
+  Monster *m;
   if (mid > -1)
     level->site[i][j].creature = (m = make_creature(mid));
   else
@@ -439,9 +439,9 @@ void make_site_monster(int i, int j, int mid)
 /* make and return an appropriate monster for the level and depth*/
 /* called by populate_level, doesn't actually add to mlist for some reason*/
 /* eventually to be more intelligent */
-Monster* m_create(int x, int y, int kind, int level)
+Monster *m_create(int x, int y, int kind, int level)
 {
-  Monster* newmonster;
+  Monster *newmonster;
   int monster_range;
   int mid;
 
@@ -497,10 +497,10 @@ Monster* m_create(int x, int y, int kind, int level)
 
 /* make creature # mid, totally random if mid == -1 */
 /* make creature allocates space for the creature */
-Monster* make_creature(int mid)
+Monster *make_creature(int mid)
 {
-  Monster* newmonster = Monster::create();
-  Object* ob;
+  Monster *newmonster = Monster::create();
+  Object *ob;
   int i, treasures;
 
   if (mid == -1)
@@ -589,7 +589,7 @@ Monster* make_creature(int mid)
     {
       do
       {
-        ob = (Object*)(create_object(newmonster->level));
+        ob = Object::create_object(newmonster->level);
         if (ob->uniqueness != COMMON)
         {
           Objects[ob->id].uniqueness = UNIQUE_UNMADE;
@@ -643,8 +643,8 @@ void stock_level()
 /* make a new object (of at most level itemlevel) at site i,j on level*/
 void make_site_treasure(int i, int j, int itemlevel)
 {
-  Objectlist* tmp = Objectlist::create();
-  tmp->thing = ((Object*)create_object(itemlevel));
+  Objectlist *tmp = Objectlist::create();
+  tmp->thing = Object::create_object(itemlevel);
   tmp->next = level->site[i][j].things;
   level->site[i][j].things = tmp;
 }
@@ -652,7 +652,7 @@ void make_site_treasure(int i, int j, int itemlevel)
 /* make a specific new object at site i,j on level*/
 void make_specific_treasure(int i, int j, int itemid)
 {
-  Objectlist* tmp;
+  Objectlist *tmp;
   if (Objects[itemid].uniqueness == UNIQUE_TAKEN)
     return;
   tmp = Objectlist::create();

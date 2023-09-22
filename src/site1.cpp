@@ -204,7 +204,7 @@ void buyfromstock(int base, int numitems)
 {
 	int i;
 	char item;
-	Object* newitem;
+	Object *newitem;
 
 	print2("Purchase which item? [ESCAPE to quit] ");
 	menuclear();
@@ -219,7 +219,7 @@ void buyfromstock(int base, int numitems)
 	showmenu();
 	item = ' ';
 	while ((item != ESCAPE) &&
-				 ((item < 'a') || (item >= 'a' + numitems)))
+		   ((item < 'a') || (item >= 'a' + numitems)))
 		item = mgetc();
 	if (item != ESCAPE)
 	{
@@ -393,7 +393,7 @@ void l_healer()
 
 void statue_random(int x, int y)
 {
-	Object* item;
+	Object *item;
 	int i, j;
 	switch (random_range(difficulty() + 3) - 1)
 	{
@@ -430,13 +430,13 @@ void statue_random(int x, int y)
 		break;
 	case 5:
 		if ((Current_Environment == Current_Dungeon) ||
-				(Current_Environment == E_CITY))
+			(Current_Environment == E_CITY))
 		{
 			print1("You hear the whirr of some mechanism.");
 			print2("The statue glides smoothly into the floor!");
 			/* WDT HACK: I shouldn't be making this choice on a level
-       * where no stairs can be (or perhaps I should, and I should
-       * implement a bonus level!). */
+			 * where no stairs can be (or perhaps I should, and I should
+			 * implement a bonus level!). */
 			level->site[x][y].locchar = STAIRS_DOWN;
 			level->site[x][y].p_locf = L_NO_OP;
 			lset(x, y, CHANGED | STOPS);
@@ -489,7 +489,7 @@ void l_statue_wake()
 void wake_statue(int x, int y, int first)
 {
 	int i;
-	Monsterlist* tml;
+	Monsterlist *tml;
 	if (level->site[x][y].locchar == STATUE)
 	{
 		if (!first)
@@ -500,7 +500,7 @@ void wake_statue(int x, int y, int first)
 		lset(x, y, CHANGED);
 		tml = Monsterlist::create();
 		tml->m =
-				(level->site[x][y].creature = m_create(x, y, 0, difficulty() + 1));
+			(level->site[x][y].creature = m_create(x, y, 0, difficulty() + 1));
 		m_status_set(level->site[x][y].creature, HOSTILE);
 		tml->next = level->mlist;
 		level->mlist = tml;
@@ -675,7 +675,7 @@ void l_casino()
 void l_commandant()
 {
 	int num;
-	Object* food;
+	Object *food;
 	print1("Commandant Sonder's Rampart-fried Lyzzard partes. Open 24 hrs.");
 	print2("Buy a bucket! Only 5 Au. Make a purchase? [yn] ");
 	if (ynq2() == 'y')
@@ -765,10 +765,10 @@ void l_tavern()
 		do
 			response = (char)mcigetc();
 		while ((response != 'a') &&
-					 (response != 'b') &&
-					 (response != 'c') &&
-					 (response != 'd') &&
-					 (response != ESCAPE));
+			   (response != 'b') &&
+			   (response != 'c') &&
+			   (response != 'd') &&
+			   (response != ESCAPE));
 		switch (response)
 		{
 		case 'a':
@@ -909,7 +909,7 @@ void l_alchemist()
 {
 	int i, done = FALSE, mlevel;
 	char response;
-	Object* obj;
+	Object *obj;
 	print1("Ambrosias' Potions et cie.");
 	if (nighttime())
 		print2("Ambrosias doesn't seem to be in right now.");
@@ -1119,7 +1119,7 @@ void l_library()
 								player.maxiq++;
 								dataprint();
 								if (player.maxiq < 19 &&
-										fee != max(50, 1000 - (18 - player.maxiq) * 125))
+									fee != max(50, 1000 - (18 - player.maxiq) * 125))
 								{
 									morewait();
 									clearmsg();
@@ -1191,11 +1191,11 @@ void l_pawn_shop()
 					{
 						if (Pawnitems[i] != NULL)
 							delete Pawnitems[i];
-						Pawnitems[i] = create_object(5);
+						Pawnitems[i] = Object::create_object(5);
 						Pawnitems[i]->known = 2;
 					} while ((Pawnitems[i]->objchar == CASH) ||
-									 (Pawnitems[i]->objchar == ARTIFACT) ||
-									 (true_item_value(Pawnitems[i]) <= 0));
+							 (Pawnitems[i]->objchar == ARTIFACT) ||
+							 (true_item_value(Pawnitems[i]) <= 0));
 		}
 		while (!done)
 		{
@@ -1220,7 +1220,7 @@ void l_pawn_shop()
 				print2("Purchase which item? [ESCAPE to quit] ");
 				item = ' ';
 				while ((item != ESCAPE) &&
-							 ((item < 'a') || (item >= 'a' + PAWNITEMS)))
+					   ((item < 'a') || (item >= 'a' + PAWNITEMS)))
 					item = (char)mcigetc();
 				if (item != ESCAPE)
 				{
@@ -1243,8 +1243,8 @@ void l_pawn_shop()
 						if (ynq1() == 'y')
 						{
 							if (player.cash <
-									Pawnitems[i]->number *
-											true_item_value(Pawnitems[i]))
+								Pawnitems[i]->number *
+									true_item_value(Pawnitems[i]))
 							{
 								print2("No credit! Gwan, Beat it!");
 								morewait();
@@ -1252,8 +1252,8 @@ void l_pawn_shop()
 							else
 							{
 								player.cash -=
-										Pawnitems[i]->number *
-										true_item_value(Pawnitems[i]);
+									Pawnitems[i]->number *
+									true_item_value(Pawnitems[i]);
 								Objects[Pawnitems[i]->id].known = 1;
 								gain_item(Pawnitems[i]);
 								Pawnitems[i] = NULL;
@@ -1289,10 +1289,10 @@ void l_pawn_shop()
 						{
 							number = getnumber(player.possessions[i]->number);
 							if ((number >= player.possessions[i]->number) &&
-									player.possessions[i]->used)
+								player.possessions[i]->used)
 							{
 								player.possessions[i]->used = FALSE;
-								item_use(player.possessions[i]);
+								player.possessions[i]->item_use();
 							}
 							player.cash += number * item_value(player.possessions[i]) / 2;
 							delete Pawnitems[0];
@@ -1313,7 +1313,7 @@ void l_pawn_shop()
 				for (i = 0; i < player.packptr; i++)
 				{
 					if (player.pack[i]->blessing > -1 &&
-							true_item_value(player.pack[i]) > 0)
+						true_item_value(player.pack[i]) > 0)
 					{
 						clearmsg();
 						print1("Sell ");

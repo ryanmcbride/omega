@@ -39,7 +39,7 @@ void enchant(int delta)
       if (used)
       {
         player.possessions[i]->used = FALSE;
-        item_use(player.possessions[i]);
+        player.possessions[i]->item_use();
       }
       if (player.possessions[i]->uniqueness == COMMON)
         print1("Your ");
@@ -52,7 +52,7 @@ void enchant(int delta)
       if (used)
       {
         player.possessions[i]->used = TRUE;
-        item_use(player.possessions[i]);
+        player.possessions[i]->item_use();
       }
     }
   }
@@ -110,7 +110,7 @@ void enchant(int delta)
         {
           setgamestatus(SUPPRESS_PRINTING);
           player.possessions[i]->used = FALSE;
-          item_use(player.possessions[i]);
+          player.possessions[i]->item_use();
           resetgamestatus(SUPPRESS_PRINTING);
         }
         print1("The item shines!");
@@ -123,7 +123,7 @@ void enchant(int delta)
         {
           setgamestatus(SUPPRESS_PRINTING);
           player.possessions[i]->used = TRUE;
-          item_use(player.possessions[i]);
+          player.possessions[i]->item_use();
           resetgamestatus(SUPPRESS_PRINTING);
         }
       }
@@ -157,7 +157,7 @@ void bless(int blessing)
       {
         setgamestatus(SUPPRESS_PRINTING);
         player.possessions[index]->used = FALSE;
-        item_use(player.possessions[index]);
+        player.possessions[index]->item_use();
         resetgamestatus(SUPPRESS_PRINTING);
       }
       player.possessions[index]->blessing -= 2;
@@ -168,7 +168,7 @@ void bless(int blessing)
       {
         setgamestatus(SUPPRESS_PRINTING);
         player.possessions[index]->used = TRUE;
-        item_use(player.possessions[index]);
+        player.possessions[index]->item_use();
         resetgamestatus(SUPPRESS_PRINTING);
       }
     }
@@ -188,7 +188,7 @@ void bless(int blessing)
       {
         setgamestatus(SUPPRESS_PRINTING);
         player.possessions[index]->used = FALSE;
-        item_use(player.possessions[index]);
+        player.possessions[index]->item_use();
         resetgamestatus(SUPPRESS_PRINTING);
       }
       print1("A pure white light surrounds the item... ");
@@ -221,7 +221,7 @@ void bless(int blessing)
       {
         setgamestatus(SUPPRESS_PRINTING);
         player.possessions[index]->used = TRUE;
-        item_use(player.possessions[index]);
+        player.possessions[index]->item_use();
         resetgamestatus(SUPPRESS_PRINTING);
       }
     }
@@ -548,7 +548,7 @@ void ball(int fx, int fy, int tx, int ty, int dmg, int dtype)
 
 void mondet(int blessing)
 {
-  Monsterlist* ml;
+  Monsterlist *ml;
   for (ml = level->mlist; ml != NULL; ml = ml->next)
     if (ml->m->hp > 0) /* FIXED 12/30/98 DG */
       if (blessing > -1)
@@ -754,7 +754,7 @@ void acquire(int blessing)
 {
   char otype;
   int index, id = ABORT;
-  Object* newthing;
+  Object *newthing;
 
   if (blessing < 0)
   {
@@ -780,130 +780,142 @@ void acquire(int blessing)
       print1("Acquire which kind of item: !?][}{)/=%%\\ ");
     otype = mgetc();
     std::map<unsigned char, std::function<void()>> objMap = {
-      {POTION & 0xff,[&](){if (blessing > 0)
+        {POTION & 0xff, [&]()
+         {if (blessing > 0)
         id = itemlist(POTIONID, NUMPOTIONS);
       else
         id = random_range(NUMPOTIONS);
       if (id < 0)
         print2("You feel stupid.");
       else
-        make_potion(newthing, id);}},
-        {SCROLL & 0xff,[&](){
-          if (blessing > 0)
-        id = itemlist(SCROLLID, NUMSCROLLS);
-      else
-        id = random_range(NUMSCROLLS);
-      if (id < 0)
-        print2("You feel stupid.");
-      else
-        make_scroll(newthing, id);
-        }},
-        {RING & 0xff,[&](){
-                if (blessing > 0)
-        id = itemlist(RINGID, NUMRINGS);
-      else
-        id = random_range(NUMRINGS);
-      if (id < 0)
-        print2("You feel stupid.");
-      else
-        make_ring(newthing, id);
-        }},
-        {STICK & 0xff,[&](){
-                if (blessing > 0)
-        id = itemlist(STICKID, NUMSTICKS);
-      else
-        id = random_range(NUMSTICKS);
-      if (id < 0)
-        print2("You feel stupid.");
-      else
-        make_stick(newthing, id);
-        }},
-        {ARMOR & 0xff,[&](){
-                if (blessing > 0)
-        id = itemlist(ARMORID, NUMARMOR);
-      else
-        id = random_range(NUMARMOR);
-      if (id < 0)
-        print2("You feel stupid.");
-      else
-        make_armor(newthing, id);
-        }},
-        {SHIELD & 0xff,[&](){
-          if (blessing > 0)
-        id = itemlist(SHIELDID, NUMSHIELDS);
-      else
-        id = random_range(NUMSHIELDS);
-      if (id < 0)
-        print2("You feel stupid.");
-      else
-        make_shield(newthing, id);
-        }},
-        {WEAPON & 0xff,[&](){
-                if (blessing > 0)
-        id = itemlist(WEAPONID, NUMWEAPONS);
-      else
-        id = random_range(NUMWEAPONS);
-      if (id < 0)
-        print2("You feel stupid.");
-      else
-        Object::makeWeapon(id,newthing);
-        }},
-        {BOOTS & 0xff,[&](){
-                if (blessing > 0)
-        id = itemlist(BOOTID, NUMBOOTS);
-      else
-        id = random_range(NUMBOOTS);
-      if (id < 0)
-        print2("You feel stupid.");
-      else
-        make_boots(newthing, id);
-        }},
-        {CLOAK & 0xff,[&](){
-                if (blessing > 0)
-        id = itemlist(CLOAKID, NUMCLOAKS);
-      else
-        id = random_range(NUMCLOAKS);
-      if (id < 0)
-        print2("You feel stupid.");
-      else
-        make_cloak(newthing, id);
-        }},
-        {FOOD & 0xff,[&](){
-                if (blessing > 0)
-        id = itemlist(FOODID, NUMFOODS);
-      else
-        id = random_range(NUMFOODS);
-      if (id < 0)
-        print2("You feel stupid.");
-      else
-        make_food(newthing, id);
-        }},
-        {THING & 0xff,[&](){
-                if (blessing > 0)
-        id = itemlist(THINGID, NUMTHINGS);
-      else
-        id = random_range(NUMTHINGS);
-      if (id < 0)
-        print2("You feel stupid.");
-      else
-        make_thing(newthing, id);
-        }},
-        {ARTIFACT & 0xff,[&](){
-                if (gamestatusp(CHEATED))
-        id = itemlist(ARTIFACTID, NUMARTIFACTS);
-      else
-        id = -1;
-      if (id < 0)
-        print2("You feel stupid.");
-      else
-        make_artifact(newthing, id);
-        }},
+        newthing->make_potion(id); }},
+        {SCROLL & 0xff, [&]()
+         {
+           if (blessing > 0)
+             id = itemlist(SCROLLID, NUMSCROLLS);
+           else
+             id = random_range(NUMSCROLLS);
+           if (id < 0)
+             print2("You feel stupid.");
+           else
+             newthing->make_scroll(id);
+         }},
+        {RING & 0xff, [&]()
+         {
+           if (blessing > 0)
+             id = itemlist(RINGID, NUMRINGS);
+           else
+             id = random_range(NUMRINGS);
+           if (id < 0)
+             print2("You feel stupid.");
+           else
+             newthing->make_ring(id);
+         }},
+        {STICK & 0xff, [&]()
+         {
+           if (blessing > 0)
+             id = itemlist(STICKID, NUMSTICKS);
+           else
+             id = random_range(NUMSTICKS);
+           if (id < 0)
+             print2("You feel stupid.");
+           else
+             newthing->make_stick(id);
+         }},
+        {ARMOR & 0xff, [&]()
+         {
+           if (blessing > 0)
+             id = itemlist(ARMORID, NUMARMOR);
+           else
+             id = random_range(NUMARMOR);
+           if (id < 0)
+             print2("You feel stupid.");
+           else
+             newthing->make_armor(id);
+         }},
+        {SHIELD & 0xff, [&]()
+         {
+           if (blessing > 0)
+             id = itemlist(SHIELDID, NUMSHIELDS);
+           else
+             id = random_range(NUMSHIELDS);
+           if (id < 0)
+             print2("You feel stupid.");
+           else
+             newthing->make_shield(id);
+         }},
+        {WEAPON & 0xff, [&]()
+         {
+           if (blessing > 0)
+             id = itemlist(WEAPONID, NUMWEAPONS);
+           else
+             id = random_range(NUMWEAPONS);
+           if (id < 0)
+             print2("You feel stupid.");
+           else
+             Object::makeWeapon(id, newthing);
+         }},
+        {BOOTS & 0xff, [&]()
+         {
+           if (blessing > 0)
+             id = itemlist(BOOTID, NUMBOOTS);
+           else
+             id = random_range(NUMBOOTS);
+           if (id < 0)
+             print2("You feel stupid.");
+           else
+             newthing->make_boots(id);
+         }},
+        {CLOAK & 0xff, [&]()
+         {
+           if (blessing > 0)
+             id = itemlist(CLOAKID, NUMCLOAKS);
+           else
+             id = random_range(NUMCLOAKS);
+           if (id < 0)
+             print2("You feel stupid.");
+           else
+             newthing->make_cloak(id);
+         }},
+        {FOOD & 0xff, [&]()
+         {
+           if (blessing > 0)
+             id = itemlist(FOODID, NUMFOODS);
+           else
+             id = random_range(NUMFOODS);
+           if (id < 0)
+             print2("You feel stupid.");
+           else
+             newthing->make_food(id);
+         }},
+        {THING & 0xff, [&]()
+         {
+           if (blessing > 0)
+             id = itemlist(THINGID, NUMTHINGS);
+           else
+             id = random_range(NUMTHINGS);
+           if (id < 0)
+             print2("You feel stupid.");
+           else
+             newthing->make_thing(id);
+         }},
+        {ARTIFACT & 0xff, [&]()
+         {
+           if (gamestatusp(CHEATED))
+             id = itemlist(ARTIFACTID, NUMARTIFACTS);
+           else
+             id = -1;
+           if (id < 0)
+             print2("You feel stupid.");
+           else
+             newthing->make_artifact(id);
+         }},
     };
-    if(objMap.count(otype)>0)
+    if (objMap.count(otype) > 0)
       objMap[otype]();
     else
       print2("You feel stupid.");
-    
+
     xredraw();
     if (id != ABORT)
     {

@@ -6,8 +6,8 @@
 
 void l_condo()
 {
-  Objectlist* ol = NULL;
-  Objectlist* prev = NULL;
+  Objectlist *ol = NULL;
+  Objectlist *prev = NULL;
   int i, done = FALSE, over = FALSE, weeksleep = FALSE;
   char response;
 
@@ -151,7 +151,7 @@ void l_condo()
   }
 }
 
-void gymtrain(int* maxstat, int* stat)
+void gymtrain(int *maxstat, int *stat)
 {
   if (Gymcredit + player.cash < 2000)
     print2("You can't afford our training!");
@@ -215,7 +215,7 @@ void cureforpay()
 
 void pacify_guards()
 {
-  Monsterlist* ml;
+  Monsterlist *ml;
 
   for (ml = level->mlist; ml != NULL; ml = ml->next)
     if ((ml->m->id == GUARD) || /*guard*/
@@ -1009,7 +1009,7 @@ void l_hovel()
 void l_safe()
 {
   char response;
-  Object* newitem;
+  Object *newitem;
   int attempt = 0;
   print1("You have discovered a safe!");
   print2("Pick the lock [p], Force the door [f], or ignore [ESCAPE]");
@@ -1033,7 +1033,7 @@ void l_safe()
       print1("You find:");
       do
       {
-        newitem = create_object(difficulty());
+        newitem = Object::create_object(difficulty());
         print2(itemid(newitem));
         morewait();
         gain_item(newitem);

@@ -82,7 +82,7 @@ void peruse()
       {
         nprint1("You carefully unfurl the scroll....");
         morewait();
-        item_use(obj);
+        obj->item_use();
         dispose_lost_objects(1, obj);
       }
     }
@@ -109,7 +109,7 @@ void quaff()
     else
     {
       print1("You drink it down.... ");
-      item_use(obj);
+      obj->item_use();
       morewait();
       dispose_lost_objects(1, obj);
     }
@@ -138,7 +138,7 @@ void activate()
       clearmsg();
       print1("You activate it.... ");
       morewait();
-      item_use(player.possessions[index]);
+      player.possessions[index]->item_use();
     }
     else
       setgamestatus(SKIP_MONSTERS);
@@ -170,7 +170,7 @@ void eat()
     {
       if (obj->usef == I_FOOD)
         player.food = max(0, player.food + obj->aux);
-      item_use(obj);
+      obj->item_use();
       dispose_lost_objects(1, obj);
       if (Current_Dungeon == E_COUNTRYSIDE)
       {
@@ -529,7 +529,7 @@ void zapwand()
       else
       {
         obj->charge--;
-        item_use(obj);
+        obj->item_use();
       }
     }
   }

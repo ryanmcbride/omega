@@ -1,0 +1,883 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 3.81
+# Copyright (C) 2006  Free Software Foundation, Inc.
+# This is free software; see the source for copying conditions.
+# There is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+# This program built for i386-apple-darwin11.3.0
+ 
+
+# Make data base, printed on Thu Jul 28 21:21:10 2022
+
+# Variables
+
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# environment
+RUBY_VERSION = ruby-2.6.3
+# automatic
+?F = $(notdir $?)
+# makefile (from `Makefile', line 7)
+SRC := src
+# makefile (from `Makefile', line 16)
+GEN_CLR_EXECUTABLE := genclr
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# makefile (from `Makefile', line 18)
+DECRYPT_EXECUTABLE := decrypt
+# environment
+rvm_path = /Users/ryanmcbride/.rvm
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# automatic
+@F = $(notdir $@)
+# makefile
+CURDIR := /Users/ryanmcbride/Documents/projects/omega
+# makefile
+SHELL = /bin/sh
+# makefile (from `Makefile', line 6)
+BIN := bin
+ 
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+# environment
+_ = /usr/bin/make
+# environment
+__GIT_PROMPT_DIR = /Users/ryanmcbride/Documents/projects/zsh-git-prompt
+# makefile (from `Makefile', line 1)
+MAKEFILE_LIST :=  Makefile
+# environment
+__CFBundleIdentifier = com.microsoft.VSCode
+# environment
+VSCODE_CWD = /
+# environment
+PATH = /Users/ryanmcbride/.rvm/gems/ruby-2.6.3/bin:/Users/ryanmcbride/.rvm/gems/ruby-2.6.3@global/bin:/Users/ryanmcbride/.rvm/rubies/ruby-2.6.3/bin:/usr/local/Caskroom/android-sdk/4333796/tools:/usr/local/Caskroom/android-sdk/4333796/platform-tools:/usr/local/Caskroom/android-sdk/4333796:/Users/ryanmcbride/Library/Android/sdk/ndk-bundle/:/Volumes/VMSetup/projects/cocos2d-x-3.17/templates:/Volumes/VMSetup/projects:/Volumes/VMSetup/projects/cocos2d-x-3.17/tools/cocos2d-console/bin:/usr/local/sbin:/Users/ryanmcbride/.fastlane/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/usr/local/share/dotnet:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/ryanmcbride/.rvm/bin:/Users/ryanmcbride/Library/Android/sdk/platform-tools:/Users/ryanmcbride/bin:/Users/ryanmcbride/Documents/projects/flutter/bin:/Users/ryanmcbride/Documents/go/bin:/Users/ryanmcbride/.pub-cache/bin:/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Helpers
+# environment
+GOPATH = /Users/ryanmcbride/Documents/go
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# makefile (from `Makefile', line 12)
+LIB := lib
+# default
+.FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
+# makefile (from `Makefile', line 10)
+TOOLS_SRC := tools
+# environment
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.4my8Kow2Rk/Listeners
+# automatic
+%F = $(notdir $%)
+# makefile (from `Makefile', line 8)
+GEN_CLR_SRC := genclrsrc
+# environment
+rvm_bin_path = /Users/ryanmcbride/.rvm/bin
+# environment
+PWD = /Users/ryanmcbride/Documents/projects/omega
+# environment
+COCOS_TEMPLATES_ROOT = /Volumes/VMSetup/projects/cocos2d-x-3.17/templates
+# environment
+GEM_HOME = /Users/ryanmcbride/.rvm/gems/ruby-2.6.3
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = undefined
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /Users/ryanmcbride
+# default
+MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
+# environment
+VSCODE_CODE_CACHE_PATH = /Users/ryanmcbride/Library/Application Support/Code/CachedData/3b889b090b5ad5793f524b5d1d39fda662b96a2a
+# environment
+LOGNAME = ryanmcbride
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+GEM_PATH = /Users/ryanmcbride/.rvm/gems/ruby-2.6.3:/Users/ryanmcbride/.rvm/gems/ruby-2.6.3@global
+# environment
+XPC_FLAGS = 0x0
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+IRBRC = /Users/ryanmcbride/.rvm/rubies/ruby-2.6.3/.irbrc
+# environment
+SHLVL = 1
+# makefile (from `Makefile', line 3)
+CC := gcc
+# makefile (from `Makefile', line 2)
+CXX_FLAGS := -w -g -DBSD -std=c++11 -L/usr/local/opt/ncurses/lib -I/usr/local/opt/ncurses/include
+# default
+MAKE_VERSION := 3.81
+# environment
+USER = ryanmcbride
+# makefile
+.DEFAULT_GOAL := all
+# makefile (from `Makefile', line 11)
+INCLUDE := include
+# makefile (from `Makefile', line 9)
+TEST_CURSE_SRC := curses
+# environment
+rvm_version = 1.29.12-next (master)
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+COCOS_CONSOLE_ROOT = /Volumes/VMSetup/projects/cocos2d-x-3.17/tools/cocos2d-console/bin
+# makefile (from `Makefile', line 17)
+TEST_CURSE_EXECUTABLE := testcurse
+# environment
+COCOS_X_ROOT = /Volumes/VMSetup/projects
+# default
+.VARIABLES := 
+# environment
+TMPDIR = /var/folders/yv/qmxqy10d5490qyss095065lr0000gn/T/
+# automatic
+*F = $(notdir $*)
+# environment
+VSCODE_IPC_HOOK = /Users/ryanmcbride/Library/Application Support/Code/1.69.2-main.sock
+# environment
+MallocNanoZone = 0
+# makefile
+MAKEFLAGS = Rrqp
+# environment
+MFLAGS = -Rrqp
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.63624624.63624630
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# makefile (from `Makefile', line 21)
+OMEGAC := omegac.a
+# automatic
++F = $(notdir $+)
+# default
+MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
+# environment
+__CF_USER_TEXT_ENCODING = 0x1F5:0x0:0x0
+# environment
+COMMAND_MODE = unix2003
+# default
+MAKEFILES := 
+# automatic
+<F = $(notdir $<)
+# makefile (from `Makefile', line 15)
+EXECUTABLE := omega
+# makefile (from `Makefile', line 1)
+CXX := g++
+# makefile (from `Makefile', line 4)
+C_FLAGS := -w -g -DBSD -I/usr/local/opt/ncurses/include
+# environment
+ANDROID_SDK_ROOT = /usr/local/Caskroom/android-sdk/4333796
+# environment
+ 
+LC_ALL = C
+# makefile (from `Makefile', line 14)
+LIBRARIES := -lncurses
+# automatic
+^F = $(notdir $^)
+# environment
+rvm_prefix = /Users/ryanmcbride
+# default
+SUFFIXES := 
+# environment
+NDK_ROOT = /Users/ryanmcbride/Library/Android/sdk/ndk-bundle/
+# default
+.INCLUDE_DIRS = /usr/local/include
+# environment
+MAKELEVEL := 0
+# environment
+LANG = C
+# environment
+VSCODE_PID = 32246
+# environment
+MY_RUBY_HOME = /Users/ryanmcbride/.rvm/rubies/ruby-2.6.3
+# makefile (from `Makefile', line 19)
+ENCRYPT_EXECUTABLE := encrypt
+# variable set hash-table stats:
+# Load=92/1024=9%, Rehash=0, Collisions=6/144=4%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 16777221, inode 2134052): 29 files, no impossibilities.
+# genclrsrc (device 16777221, inode 2135126): 4 files, no impossibilities.
+# src (device 16777221, inode 2135188): 59 files, no impossibilities.
+
+# 92 files, no impossibilities in 3 directories.
+
+# Implicit Rules
+
+# No implicit rules.
+
+# Files
+
+# Not a target:
+src/mon.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-03 13:02:31
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+bin/decrypt: tools/decrypt.c
+#  Implicit rule search has not been done.
+#  Last modified 2020-04-18 09:31:46
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 48):
+	$(CC) $(C_FLAGS) -I$(INCLUDE) -L$(LIB) $^ -o $@ $(LIBRARIES)
+	
+
+# Not a target:
+src/country.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-03 21:43:50
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/move.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-29 16:50:19
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/itemf3.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-29 16:50:19
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/command3.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-03 19:40:19
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/object.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-03 14:03:00
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+all: bin/genclr bin/decrypt bin/encrypt bin/omega bin/testcurse
+#  Command-line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/effect2.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-30 12:09:22
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/init.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-04 08:32:04
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+bin/omegac.a: src/*.c
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 34):
+	$(CC) $(C_FLAGS) -c -I$(INCLUDE) $^
+	mv *.o $(SRC)
+	ar rvs $(BIN)/$(OMEGAC) $(^:.c=.o)
+	rm -rf $(SRC)/*.o
+	
+
+# Not a target:
+src/compress.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-28 20:20:09
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/file.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-29 16:50:19
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+tools/decrypt.c:
+#  Implicit rule search has been done.
+#  Last modified 1998-08-08 05:45:10
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+ 
+src/omega.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-04 06:59:05
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+src/mspec.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-29 20:56:33
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/clrgen.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-04 08:32:06
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-29 11:29:16
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/util.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-03 12:26:40
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/gen1.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-29 19:36:08
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/aux3.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-03 19:21:57
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+bin/omega: src/abyss.cpp src/aux1.cpp src/aux2.cpp src/aux3.cpp src/char.cpp src/city.cpp src/clrgen.cpp src/command1.cpp src/command2.cpp src/command3.cpp src/compress.cpp src/country.cpp src/effect1.cpp src/effect2.cpp src/effect3.cpp src/env.cpp src/etc.cpp src/file.cpp src/gen1.cpp src/gen2.cpp src/guild1.cpp src/guild2.cpp src/house.cpp src/init.cpp src/inv.cpp src/item.cpp src/itemf1.cpp src/itemf2.cpp src/itemf3.cpp src/lev.cpp src/mmelee.cpp src/mmove.cpp src/mon.cpp src/move.cpp src/movef.cpp src/mspec.cpp src/mstrike.cpp src/mtalk.cpp src/object.cpp src/omega.cpp src/priest.cpp src/save.cpp src/scr.cpp src/site1.cpp src/site2.cpp src/spell.cpp src/test.cpp src/time.cpp src/trap.cpp src/util.cpp src/village.cpp src/weapon.cpp
+#  Implicit rule search has not been done.
+#  Last modified 2020-04-18 09:32:09
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 40):
+	$(CXX) $(CXX_FLAGS) -I$(INCLUDE) $^ -o $@ $(LIBRARIES)
+	./encryptall.sh
+	cp -rf omegalib $(BIN)/omegalib
+	
+
+# Not a target:
+src/abyss.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-29 16:50:19
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/site1.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-03 15:14:46
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/save.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-03 15:13:59
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/env.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-29 16:59:08
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/priest.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-29 16:50:19
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/inv.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-03 20:41:22
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+genclrsrc/clrgen.c:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-26 09:20:16
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/mstrike.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-29 17:00:43
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+curses/cursetest.c:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-28 13:47:29
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+bin/genclr: genclrsrc/clrgen.c genclrsrc/genclr.c
+#  Implicit rule search has not been done.
+#  Last modified 2020-04-18 09:31:46
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 45):
+	$(CC) $(C_FLAGS) -I$(INCLUDE) -L$(LIB) $^ -o $@ $(LIBRARIES)
+	
+
+# Not a target:
+src/guild1.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-03 13:29:20
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+ 
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/time.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-29 17:00:43
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/village.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-29 16:50:19
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/command1.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-29 16:50:19
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/trap.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-29 16:50:19
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/city.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-29 16:59:08
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/gen2.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-03 21:04:17
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/site2.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-29 16:50:19
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+genclrsrc/genclr.c:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-26 09:20:16
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+src/effect3.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-31 20:52:06
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/aux1.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-03 18:56:22
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/mmove.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-29 17:00:43
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/scr.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-04 08:42:14
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+run: clean all
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 27):
+	./$(BIN)/$(EXECUTABLE)
+	./$(BIN)/$(GEN_CLR_EXECUTABLE)
+	./$(BIN)/$(DECRYPT_EXECUTABLE)
+	./$(BIN)/$(ENCRYPT_EXECUTABLE)
+	./$(BIN)/$(TEST_CURSE_EXECUTABLE)
+	
+
+clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `Makefile', line 57):
+	-rm -rf $(BIN)/omegalib
+	-rm -rf $(BIN)/omega*
+	-rm -rf $(BIN)/encrypt*
+	-rm -rf $(BIN)/decrypt*
+	-rm -rf $(BIN)/genclr*
+	-rm -rf $(BIN)/testcurse*
+	-rm -rf *.o
+	
+
+# Not a target:
+src/guild2.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-03 13:02:31
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+bin/encrypt: tools/crypt.c
+#  Implicit rule search has not been done.
+#  Last modified 2020-04-18 09:31:46
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 51):
+	$(CC) $(C_FLAGS) -I$(INCLUDE) -L$(LIB) $^ -o $@ $(LIBRARIES)
+	
+
+# Not a target:
+src/lev.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-03 20:44:55
+ 
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/command2.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-03 14:28:34
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/char.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-03 14:28:34
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/house.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-29 16:59:08
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/movef.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-29 18:13:54
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/item.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-03 15:15:10
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/itemf1.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-03 15:04:40
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/*.c:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+src/aux2.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-03 19:02:45
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/weapon.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-03 18:37:15
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/effect1.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-03 20:27:19
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+tools/crypt.c:
+#  Implicit rule search has been done.
+#  Last modified 1998-08-08 05:45:10
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/mtalk.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-31 20:52:12
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/mmelee.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-29 17:01:18
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/test.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-26 10:58:06
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/etc.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-10-29 16:50:19
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+bin/testcurse: curses/cursetest.c
+#  Implicit rule search has not been done.
+#  Last modified 2020-04-18 09:32:10
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+#  commands to execute (from `Makefile', line 54):
+	$(CC) $(C_FLAGS) -I$(INCLUDE) -L$(LIB) $^ -o $@ $(LIBRARIES)
+	
+
+# Not a target:
+src/itemf2.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-03 13:48:31
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+src/spell.cpp:
+#  Implicit rule search has been done.
+#  Last modified 2018-11-03 13:02:31
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# files hash-table stats:
+# Load=70/1024=7%, Rehash=0, Collisions=10/148=7%
+# VPATH Search Paths
+
+# No `vpath' search paths.
+
+# No general (`VPATH' variable) search path.
+
+# # of strings in strcache: 1
+# # of strcache buffers: 1
+# strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
+# strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
+
+# Finished Make data base on Thu Jul 28 21:21:10 2022
+
+ 

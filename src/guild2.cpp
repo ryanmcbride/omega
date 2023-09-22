@@ -12,15 +12,15 @@ void l_thieves_guild()
 {
 	int fee, count, i, number, done = FALSE, dues = 1000;
 	char c, action;
-	Object* lockpick;
+	Object *lockpick;
 	print1("You have penetrated to the Lair of the Thieves' Guild.");
 	if (!nighttime())
 		print2("There aren't any thieves around in the daytime.");
 	else
 	{
 		if ((player.rank[THIEVES] == TMASTER) &&
-				(player.level > Shadowlordlevel) &&
-				find_and_remove_item(THINGID + 16, -1))
+			(player.level > Shadowlordlevel) &&
+			find_and_remove_item(THINGID + 16, -1))
 		{
 			print2("You nicked the Justiciar's Badge!");
 			morewait();
@@ -246,15 +246,15 @@ void l_thieves_guild()
 							{
 								number = getnumber(player.possessions[i]->number);
 								if ((number >= player.possessions[i]->number) &&
-										player.possessions[i]->used)
+									player.possessions[i]->used)
 								{
 									player.possessions[i]->used = FALSE;
-									item_use(player.possessions[i]);
+									player.possessions[i]->item_use();
 								}
 								player.cash += number * 2 * item_value(player.possessions[i]) / 3;
 								/* Fenced artifacts could turn up anywhere, really... */
 								if (Objects[player.possessions[i]->id].uniqueness >
-										UNIQUE_UNMADE)
+									UNIQUE_UNMADE)
 									Objects[player.possessions[i]->id].uniqueness = UNIQUE_UNMADE;
 								dispose_lost_objects(number, player.possessions[i]);
 								dataprint();
@@ -315,8 +315,8 @@ void l_college()
 		while (!done)
 		{
 			if ((player.rank[COLLEGE] == MAGE) &&
-					(player.level > Archmagelevel) &&
-					find_and_remove_item(CORPSEID, EATER))
+				(player.level > Archmagelevel) &&
+				find_and_remove_item(CORPSEID, EATER))
 			{
 				print1("You brought back the heart of the Eater of Magic!");
 				morewait();
@@ -525,8 +525,8 @@ void l_sorcerors()
 		while (!done)
 		{
 			if ((player.rank[CIRCLE] == HIGHSORCEROR) &&
-					(player.level > Primelevel) &&
-					find_and_remove_item(CORPSEID, LAWBRINGER))
+				(player.level > Primelevel) &&
+				find_and_remove_item(CORPSEID, LAWBRINGER))
 			{
 				print2("You obtained the Crown of the Lawgiver!");
 				morewait();
@@ -713,14 +713,14 @@ void l_sorcerors()
 
 void l_order()
 {
-	Object* newitem;
-	Monsterlist* ml;
+	Object *newitem;
+	Monsterlist *ml;
 	print1("The Headquarters of the Order of Paladins.");
 	morewait();
 	if ((player.rank[ORDER] == PALADIN) &&
-			(player.level > Justiciarlevel) &&
-			gamestatusp(GAVE_STARGEM) &&
-			player.alignment > 300)
+		(player.level > Justiciarlevel) &&
+		gamestatusp(GAVE_STARGEM) &&
+		player.alignment > 300)
 	{
 		print1("You have succeeded in your quest!");
 		morewait();
@@ -728,8 +728,8 @@ void l_order()
 		print2("You are now the Justiciar of Rampart and the Order!");
 		strcpy(Justiciar, player.name);
 		for (ml = level->mlist; ml && (ml->m->id != HISCORE_NPC ||
-																	 ml->m->aux2 != 15);
-				 ml = ml->next)
+									   ml->m->aux2 != 15);
+			 ml = ml->next)
 			/* just scan for current Justicar */;
 		if (ml)
 		{
@@ -810,7 +810,7 @@ void l_order()
 		morewait();
 		clearmsg();
 		if ((player.hp < player.maxhp) || (player.status[DISEASED]) ||
-				(player.status[POISONED]))
+			(player.status[POISONED]))
 			print1("Your wounds are treated by a medic.");
 		cleanse(0);
 		player.hp = player.maxhp;

@@ -7,7 +7,7 @@
 void summon(int blessing, int id)
 {
   int i, looking = TRUE, x, y;
-  Monsterlist* tml;
+  Monsterlist *tml;
 
   if (id < 0)
   {
@@ -121,10 +121,10 @@ void cleanse(int blessing)
               (player.possessions[i]->blessing < 0))
           {
             player.possessions[i]->used = FALSE;
-            item_use(player.possessions[i]);
+            player.possessions[i]->item_use();
             player.possessions[i]->blessing = 0;
             player.possessions[i]->used = TRUE;
-            item_use(player.possessions[i]);
+            player.possessions[i]->item_use();
           }
         }
 
@@ -150,7 +150,7 @@ void cleanse(int blessing)
 
 void annihilate(int blessing)
 {
-  Monsterlist* ml;
+  Monsterlist *ml;
   int i;
 
   if (blessing == 0)
@@ -189,7 +189,7 @@ void annihilate(int blessing)
 
 void sleep_monster(int blessing)
 {
-  Monsterlist* ml;
+  Monsterlist *ml;
   int x = player.x, y = player.y;
   Monster *target;
 
@@ -281,7 +281,7 @@ void clairvoyance(int vision)
 
 void aggravate()
 {
-  Monsterlist* tm;
+  Monsterlist *tm;
 
   for (tm = level->mlist; tm != NULL; tm = tm->next)
   {
@@ -346,7 +346,7 @@ void amnesia()
 }
 
 /*affects player only */
-void level_drain(int levels, char* source)
+void level_drain(int levels, char *source)
 {
   int decrement = ((int)(player.maxhp / (player.level + 1)));
 
@@ -892,7 +892,7 @@ void truesight(int blessing)
 void dispel(int blessing)
 {
   int i, x = player.x, y = player.y;
-  Object* o;
+  Object *o;
   if (blessing > -1)
   {
     setspot(&x, &y);
@@ -908,14 +908,14 @@ void dispel(int blessing)
             {
               o->used = FALSE;
               setgamestatus(SUPPRESS_PRINTING);
-              item_use(o);
+              o->item_use();
               resetgamestatus(SUPPRESS_PRINTING);
               mprint("You hear a sighing sound from");
               mprint(itemid(o));
               o->blessing = 0;
               o->used = TRUE;
               setgamestatus(SUPPRESS_PRINTING);
-              item_use(o);
+              o->item_use();
               resetgamestatus(SUPPRESS_PRINTING);
             }
             else
@@ -1031,7 +1031,7 @@ void polymorph(int blessing)
                (newmonster == MAST_THIEF) ||
                (Monsters[newmonster].uniqueness != COMMON));
       }
-      /* WDT HACK: most of this could (and should) be implemented by 
+      /* WDT HACK: most of this could (and should) be implemented by
        * the following line: "*m = Monsters[newmonster];".  The exception,
        * of course, are the parts where the new monster inherits the old
        * one's abilities.  This would be better because it would be robust
@@ -1081,7 +1081,7 @@ void hellfire(int x, int y, int blessing)
   else
   {
     mprint("The monster writhes in the flames...");
-    if (m->id == WEREWOLF_KING ||  blessing < 0)
+    if (m->id == WEREWOLF_KING || blessing < 0)
     {
       mprint("...and appears stronger.");
       morewait();
@@ -1208,7 +1208,7 @@ void sanctuary()
 void shadowform()
 {
   /* WDT HACK: this fix might work, but it seems like the immunity
-   * will be FAR too short.  It's obviously better than the old 
+   * will be FAR too short.  It's obviously better than the old
    * situation, though... */
   if (!player.status[SHADOWFORM])
   {

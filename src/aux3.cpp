@@ -29,7 +29,6 @@ void tenminute_check()
 /* hourly check is same as ten_minutely check except food is also
    checked, and since time moves in hours out of doors, also
    outdoors_random_event is possible */
-
 void hourly_check()
 {
   player.food--;
@@ -109,8 +108,8 @@ void indoors_random_event()
     print3("You trip over something hidden in a shadow...");
     morewait();
     ol = Objectlist::create();
-    ol->thing = create_object(difficulty()); /* FIXED!  12/30/98 */
-    assert(ol->thing);                       /* WDT I want to make sure... */
+    ol->thing = Object::create_object(difficulty()); /* FIXED!  12/30/98 */
+    assert(ol->thing);                               /* WDT I want to make sure... */
     ol->next = level->site[player.x][player.y].things;
     level->site[player.x][player.y].things = ol;
     pickup();
@@ -281,7 +280,7 @@ void outdoors_random_event()
       mprint("A tendril of the storm condenses and falls into your hands.");
       morewait();
       ob = Object::create();
-      make_artifact(ob, -1);
+      ob->make_artifact(-1);
       gain_item(ob);
     }
     else if (num < 80)

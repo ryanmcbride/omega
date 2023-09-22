@@ -1,0 +1,14 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/ryanmcbride/Documents/projects/omega'
+gcc -w -g -DBSD -I/usr/local/opt/ncurses/include -Iinclude -Llib genclrsrc/clrgen.c genclrsrc/genclr.c -o bin/genclr -lncurses
+ 
+gcc -w -g -DBSD -I/usr/local/opt/ncurses/include -Iinclude -Llib tools/decrypt.c -o bin/decrypt -lncurses
+gcc -w -g -DBSD -I/usr/local/opt/ncurses/include -Iinclude -Llib tools/crypt.c -o bin/encrypt -lncurses
+ 
+g++ -w -g -DBSD -std=c++11 -L/usr/local/opt/ncurses/lib -I/usr/local/opt/ncurses/include -Iinclude src/abyss.cpp src/aux1.cpp src/aux2.cpp src/aux3.cpp src/char.cpp src/city.cpp src/clrgen.cpp src/command1.cpp src/command2.cpp src/command3.cpp src/compress.cpp src/country.cpp src/effect1.cpp src/effect2.cpp src/effect3.cpp src/env.cpp src/etc.cpp src/file.cpp src/gen1.cpp src/gen2.cpp src/guild1.cpp src/guild2.cpp src/house.cpp src/init.cpp src/inv.cpp src/item.cpp src/itemf1.cpp src/itemf2.cpp src/itemf3.cpp src/lev.cpp src/mmelee.cpp src/mmove.cpp src/mon.cpp src/move.cpp src/movef.cpp src/mspec.cpp src/mstrike.cpp src/mtalk.cpp src/object.cpp src/omega.cpp src/priest.cpp src/save.cpp src/scr.cpp src/site1.cpp src/site2.cpp src/spell.cpp src/test.cpp src/time.cpp src/trap.cpp src/util.cpp src/village.cpp src/weapon.cpp -o bin/omega -lncurses
+./encryptall.sh
+cp -rf omegalib bin/omegalib
+ 
+gcc -w -g -DBSD -I/usr/local/opt/ncurses/include -Iinclude -Llib curses/cursetest.c -o bin/testcurse -lncurses
+make: Leaving directory `/Users/ryanmcbride/Documents/projects/omega'
+ 

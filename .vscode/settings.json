@@ -23,5 +23,6 @@
         "ios": "cpp",
         "locale": "cpp"
     },
-    "terminal.integrated.shell.windows": "cmd.exe"
+    "terminal.integrated.shell.windows": "cmd.exe",
+    "C_Cpp.default.compilerPath": "/usr/bin/clang++"
 }

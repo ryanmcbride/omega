@@ -287,7 +287,7 @@ void fire()
     if (player.possessions[index]->used)
     {
       player.possessions[index]->used = FALSE;
-      item_use(player.possessions[index]);
+      player.possessions[index]->item_use();
     }
     obj = player.possessions[index];
     x1 = x2 = player.x;

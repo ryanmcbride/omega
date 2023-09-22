@@ -562,7 +562,7 @@ void conform_unused_object(Object *obj)
   if (obj->used)
   {
     obj->used = FALSE;
-    item_use(obj);
+    obj->item_use();
   }
   calc_melee();
 }
@@ -794,7 +794,7 @@ int use_pack_item(int response, int slot)
   if (item_useable(item, slot))
   {
     item->used = TRUE;
-    item_use(item);
+    item->item_use();
     morewait();
     if (item->number > 1)
       pack_extra_items(item);
@@ -1501,7 +1501,7 @@ void switch_to_slot(int slot)
       if (item_useable(oair, slot))
       {
         oair->used = TRUE;
-        item_use(oair);
+        oair->item_use();
         morewait();
         if (oair->number > 1)
           pack_extra_items(oair);
@@ -1558,7 +1558,7 @@ void switch_to_slot(int slot)
       if (item_useable(oair, slot))
       {
         oair->used = TRUE;
-        item_use(oair);
+        oair->item_use();
         morewait();
         if (oair->number > 1)
           pack_extra_items(oair);

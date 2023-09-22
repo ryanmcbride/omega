@@ -1376,7 +1376,7 @@ extern int WEREWOLF_KING;
 #define O_RING4 15
 
 /* structure definitions */
-
+class Monster;
 class Room
 {
 public:
@@ -1415,6 +1415,21 @@ public:
   std::string objstr;
   std::string truename;
   std::string cursestr;
+
+  static Object *create_object(int);
+  void item_use();
+  void make_armor(int);
+  void make_artifact(int);
+  void make_boots(int);
+  void make_cloak(int);
+  void make_corpse(Monster *);
+  void make_food(int);
+  void make_potion(int);
+  void make_ring(int);
+  void make_scroll(int);
+  void make_shield(int);
+  void make_stick(int);
+  void make_thing(int);
 };
 class Weapon : public Object
 {

@@ -7,11 +7,11 @@
 /*               Revised function                   */
 /* WDT: code contributed by David J. Robertson */
 /* consider one monster's action */
-void m_pulse(Monster* m)
+void m_pulse(Monster *m)
 {
   int range = distance(m->x, m->y, player.x, player.y);
   int STRIKE = FALSE;
-  Objectlist* prev;
+  Objectlist *prev;
 
   if (Time % 10 == 0)
     if (m->hp < Monsters[m->id].hp)
@@ -71,7 +71,7 @@ void m_pulse(Monster* m)
 }
 
 /* actually make a move */
-void movemonster(Monster* m, int newx, int newy)
+void movemonster(Monster *m, int newx, int newy)
 {
   if (level->site[newx][newy].creature != NULL)
     return;
@@ -84,17 +84,17 @@ void movemonster(Monster* m, int newx, int newy)
 }
 
 /* give object o to monster m */
-void m_pickup(Monster* m, Object* o)
+void m_pickup(Monster *m, Object *o)
 {
-  Objectlist* tmp = Objectlist::create();
+  Objectlist *tmp = Objectlist::create();
   tmp->thing = o;
   tmp->next = m->possessions;
   m->possessions = tmp;
 }
 
-void m_dropstuff(Monster* m)
+void m_dropstuff(Monster *m)
 {
-  Objectlist* tmp = m->possessions;
+  Objectlist *tmp = m->possessions;
   if (tmp != NULL)
   {
     while (tmp->next != NULL)
@@ -106,7 +106,7 @@ void m_dropstuff(Monster* m)
   }
 }
 
-void m_damage(Monster* m, int dmg, int dtype)
+void m_damage(Monster *m, int dmg, int dtype)
 {
   m_status_set(m, AWAKE);
   m_status_set(m, HOSTILE);
@@ -129,13 +129,13 @@ void m_damage(Monster* m, int dmg, int dtype)
     m_death(m);
 }
 
-void m_death(Monster* m)
+void m_death(Monster *m)
 {
-  Object* corpse;
-  Monsterlist* ml;
+  Object *corpse;
+  Monsterlist *ml;
   int x, y, found = FALSE;
-  Objectlist* curr = NULL;
-  Objectlist* prev = NULL;
+  Objectlist *curr = NULL;
+  Objectlist *prev = NULL;
 
   m->hp = -1;
   if (los_p(player.x, player.y, m->x, m->y))
@@ -201,7 +201,7 @@ void m_death(Monster* m)
     if (random_range(2) || (m->uniqueness != COMMON))
     {
       corpse = Object::create();
-      make_corpse(corpse, m);
+      corpse->make_corpse(m);
       drop_at(m->x, m->y, corpse);
     }
     plotspot(m->x, m->y, FALSE);
@@ -274,7 +274,7 @@ void m_death(Monster* m)
         break;
       case 15:
         /* just a tad complicated. Promote a new justiciar if any
-	   guards are left in the city, otherwise Destroy the Order! */
+     guards are left in the city, otherwise Destroy the Order! */
         player.alignment -= 100;
         if (!gamestatusp(DESTROYED_ORDER))
         {
@@ -392,8 +392,10 @@ void m_death(Monster* m)
         mprint("'Return to the Prime Plane via the Circle of Sorcerors....'");
       }
     } /* elem mast */
-    else if (m->id == WEREWOLF_KING){
-      if (player.rank[WEREWOLF] == ALPHA && player.guildxp[WEREWOLF] >= 10000){
+    else if (m->id == WEREWOLF_KING)
+    {
+      if (player.rank[WEREWOLF] == ALPHA && player.guildxp[WEREWOLF] >= 10000)
+      {
         mprint("You stand over the bloody corpse of your former master");
         mprint("You eat the heart of the dead king");
         mprint("You feel mighty");
@@ -414,7 +416,8 @@ void m_death(Monster* m)
         dataprint();
         showflags();
       }
-      else {
+      else
+      {
         mprint("The hulking create lies dead on the ground......");
         mprint("it then twitches and gets back to its feet.");
         mprint("'You're not wolf enough to kill me'");
@@ -432,12 +435,12 @@ void m_death(Monster* m)
   }
 }
 
-void monster_move(Monster* m)
+void monster_move(Monster *m)
 {
   monster_action(m, m->movef);
 }
 
-void monster_strike(Monster* m)
+void monster_strike(Monster *m)
 {
   if (player_on_sanctuary())
     print1("The aegis of your deity protects you!");
@@ -451,7 +454,7 @@ void monster_strike(Monster* m)
   }
 }
 
-void monster_special(Monster* m)
+void monster_special(Monster *m)
 {
   /* since many special functions are really attacks, cancel them
      all if on sanctuary */
@@ -459,12 +462,12 @@ void monster_special(Monster* m)
     monster_action(m, m->specialf);
 }
 
-void monster_talk(Monster* m)
+void monster_talk(Monster *m)
 {
   monster_action(m, m->talkf);
 }
 
-void monster_action(Monster* m, int action)
+void monster_action(Monster *m, int action)
 {
   int meleef;
   if ((action >= M_MELEE_NORMAL) && (action < M_MOVE_NORMAL))
@@ -757,10 +760,10 @@ void monster_action(Monster* m, int action)
 }
 
 /* makes one of the highscore npcs */
-void make_hiscore_npc(Monster* npc, int npcid)
+void make_hiscore_npc(Monster *npc, int npcid)
 {
   int st = -1;
-  Object* ob;
+  Object *ob;
   *npc = Monsters[HISCORE_NPC];
   npc->aux2 = npcid;
   /* each of the high score npcs can be created here */
@@ -856,7 +859,7 @@ void make_hiscore_npc(Monster* npc, int npcid)
 }
 
 /* sets npc behavior given level and behavior code */
-void determine_npc_behavior(Monster* npc, int level, int behavior)
+void determine_npc_behavior(Monster *npc, int level, int behavior)
 {
   int combatype, competence, talktype;
   npc->hp = (level + 1) * 20;
@@ -931,7 +934,7 @@ void determine_npc_behavior(Monster* npc, int level, int behavior)
 }
 
 /* makes an ordinary npc (maybe undead) */
-void make_log_npc(Monster* npc) 
+void make_log_npc(Monster *npc)
 {
   int i, n;
   int behavior, status, level;
@@ -1001,7 +1004,7 @@ void make_log_npc(Monster* npc)
   determine_npc_behavior(npc, level, behavior);
 }
 
-void m_trap_dart(Monster* m)
+void m_trap_dart(Monster *m)
 {
   if (los_p(m->x, m->y, player.x, player.y))
   {
@@ -1020,7 +1023,7 @@ void m_trap_dart(Monster* m)
   m_damage(m, difficulty() * 2, NORMAL_DAMAGE);
 }
 
-void m_trap_pit(Monster* m)
+void m_trap_pit(Monster *m)
 {
   if (los_p(m->x, m->y, player.x, player.y))
   {
@@ -1041,7 +1044,7 @@ void m_trap_pit(Monster* m)
   m_damage(m, difficulty() * 5, NORMAL_DAMAGE);
 }
 
-void m_trap_door(Monster* m)
+void m_trap_door(Monster *m)
 {
   if (los_p(m->x, m->y, player.x, player.y))
   {
@@ -1060,7 +1063,7 @@ void m_trap_door(Monster* m)
   m_vanish(m);
 }
 
-void m_trap_abyss(Monster* m)
+void m_trap_abyss(Monster *m)
 {
   char Str1[80];
   if (los_p(m->x, m->y, player.x, player.y))
@@ -1084,7 +1087,7 @@ void m_trap_abyss(Monster* m)
   resetgamestatus(SUPPRESS_PRINTING);
 }
 
-void m_trap_snare(Monster* m)
+void m_trap_snare(Monster *m)
 {
   char Str1[80];
   level->site[m->x][m->y].locchar = TRAP;
@@ -1105,7 +1108,7 @@ void m_trap_snare(Monster* m)
     m_status_reset(m, MOBILE);
 }
 
-void m_trap_blade(Monster* m)
+void m_trap_blade(Monster *m)
 {
   char Str1[80];
   level->site[m->x][m->y].locchar = TRAP;
@@ -1125,7 +1128,7 @@ void m_trap_blade(Monster* m)
   m_damage(m, (difficulty() + 1) * 7 - player.defense, NORMAL_DAMAGE);
 }
 
-void m_trap_fire(Monster* m)
+void m_trap_fire(Monster *m)
 {
   char Str1[80];
   level->site[m->x][m->y].locchar = TRAP;
@@ -1145,7 +1148,7 @@ void m_trap_fire(Monster* m)
   m_damage(m, (difficulty() + 1) * 5, FLAME);
 }
 
-void m_fire(Monster* m)
+void m_fire(Monster *m)
 {
   char Str1[80];
   if (los_p(m->x, m->y, player.x, player.y))
@@ -1163,7 +1166,7 @@ void m_fire(Monster* m)
   m_damage(m, random_range(100), FLAME);
 }
 
-void m_trap_teleport(Monster* m)
+void m_trap_teleport(Monster *m)
 {
   char Str1[80];
   level->site[m->x][m->y].locchar = TRAP;
@@ -1183,7 +1186,7 @@ void m_trap_teleport(Monster* m)
   m_teleport(m);
 }
 
-void m_trap_disintegrate(Monster* m)
+void m_trap_disintegrate(Monster *m)
 {
   char Str1[80];
   if (los_p(m->x, m->y, player.x, player.y))
@@ -1203,7 +1206,7 @@ void m_trap_disintegrate(Monster* m)
   disintegrate(m->x, m->y);
 }
 
-void m_trap_sleepgas(Monster* m)
+void m_trap_sleepgas(Monster *m)
 {
   char Str1[80];
   if (los_p(m->x, m->y, player.x, player.y))
@@ -1224,7 +1227,7 @@ void m_trap_sleepgas(Monster* m)
     m_status_reset(m, AWAKE);
 }
 
-void m_trap_acid(Monster* m)
+void m_trap_acid(Monster *m)
 {
   char Str1[80];
   if (los_p(m->x, m->y, player.x, player.y))
@@ -1244,7 +1247,7 @@ void m_trap_acid(Monster* m)
   m_damage(m, random_range(difficulty() * difficulty()), ACID);
 }
 
-void m_trap_manadrain(Monster* m)
+void m_trap_manadrain(Monster *m)
 {
   char Str1[80];
   if (los_p(m->x, m->y, player.x, player.y))
@@ -1265,7 +1268,7 @@ void m_trap_manadrain(Monster* m)
     m->specialf = M_NO_OP;
 }
 
-void m_water(Monster* m)
+void m_water(Monster *m)
 {
   char Str1[80];
   if ((!m_statusp(m, INTANGIBLE)) &&
@@ -1288,7 +1291,7 @@ void m_water(Monster* m)
   }
 }
 
-void m_abyss(Monster* m)
+void m_abyss(Monster *m)
 {
   char Str1[80];
   if (los_p(m->x, m->y, player.x, player.y))
@@ -1306,7 +1309,7 @@ void m_abyss(Monster* m)
   m_vanish(m);
 }
 
-void m_lava(Monster* m)
+void m_lava(Monster *m)
 {
   char Str1[80];
   if ((!m_immunityp(m, FLAME)) ||
@@ -1328,7 +1331,7 @@ void m_lava(Monster* m)
   }
 }
 
-void m_altar(Monster* m)
+void m_altar(Monster *m)
 {
   int visible = view_los_p(player.x, player.y, m->x, m->y);
   int reaction = 0;
@@ -1433,10 +1436,10 @@ char *mantype()
   }
 }
 
-void strengthen_death(Monster* m)
+void strengthen_death(Monster *m)
 {
-  Objectlist* ol = Objectlist::create();
-  Object* scythe = Object::create("Scythe of Death");
+  Objectlist *ol = Objectlist::create();
+  Object *scythe = Object::create("Scythe of Death");
 #ifdef MSDOS_SUPPORTED_ANTIQUE
   unsigned tmp;
 #endif
@@ -1459,7 +1462,7 @@ void strengthen_death(Monster* m)
   m->possessions = ol;
 }
 
-void resurrect_wereking(Monster* m)
+void resurrect_wereking(Monster *m)
 {
   m->xpv += min(10000, m->xpv + 1000);
   m->hit += min(1000, m->hit + 10);
@@ -1470,6 +1473,6 @@ void resurrect_wereking(Monster* m)
   m->hp = min(100000, 100 + m->dmg * 10);
 }
 
-void m_no_op(Monster* m)
+void m_no_op(Monster *m)
 {
 }

@@ -4,9 +4,9 @@
 #include "glob.h"
 
 /* make a random new_obj object, returning pointer */
-Object* create_object(int itemlevel)
+Object *Object::create_object(int itemlevel)
 {
-  Object* new_obj;
+  Object *new_obj;
   int r;
   int ok = FALSE;
 
@@ -15,29 +15,29 @@ Object* create_object(int itemlevel)
     new_obj = Object::create();
     r = random_range(135);
     if (r < 20)
-      make_thing(new_obj, -1);
+      new_obj->make_thing(-1);
     else if (r < 40)
-      make_food(new_obj, -1);
+      new_obj->make_food(-1);
     else if (r < 50)
-      make_scroll(new_obj, -1);
+      new_obj->make_scroll(-1);
     else if (r < 60)
-      make_potion(new_obj, -1);
+      new_obj->make_potion(-1);
     else if (r < 70)
-      Object::makeWeapon(-1,new_obj);
+      Object::makeWeapon(-1, new_obj);
     else if (r < 80)
-      make_armor(new_obj, -1);
+      new_obj->make_armor(-1);
     else if (r < 90)
-      make_shield(new_obj, -1);
+      new_obj->make_shield(-1);
     else if (r < 100)
-      make_stick(new_obj, -1);
+      new_obj->make_stick(-1);
     else if (r < 110)
-      make_boots(new_obj, -1);
+      new_obj->make_boots(-1);
     else if (r < 120)
-      make_cloak(new_obj, -1);
+      new_obj->make_cloak(-1);
     else if (r < 130)
-      make_ring(new_obj, -1);
+      new_obj->make_ring(-1);
     else
-      make_artifact(new_obj, -1);
+      new_obj->make_artifact(-1);
     /* not ok if object is too good for level, or if unique and already made */
     /* 1/100 chance of finding object if too good for level */
     ok = ((new_obj->uniqueness < UNIQUE_MADE) &&
@@ -52,15 +52,17 @@ Object* create_object(int itemlevel)
   return (new_obj);
 }
 
-void make_food(Object* new_obj, int id)
+void Object::make_food(int id)
 {
+  Object *new_obj = this;
   if (id == -1)
     id = random_range(NUMFOODS);
   *new_obj = Objects[FOODID + id];
 }
 
-void make_corpse(Object* new_obj, Monster* m)
+void Object::make_corpse(Monster *m)
 {
+  Object *new_obj = this;
   *new_obj = Objects[CORPSEID];
   new_obj->charge = m->id;
   new_obj->weight = m->corpseweight;
@@ -143,11 +145,11 @@ void make_corpse(Object* new_obj, Monster* m)
     new_obj->usef = I_INEDIBLE; 
     break;
 #endif
-    
 }
 
-void make_ring(Object* new_obj, int id)
+void Object::make_ring(int id)
 {
+  Object *new_obj = this;
   if (id == -1)
     id = random_range(NUMRINGS);
   *new_obj = Objects[RINGID + id];
@@ -159,8 +161,9 @@ void make_ring(Object* new_obj, int id)
     new_obj->plus = -1 - abs(new_obj->plus);
 }
 
-void make_thing(Object* new_obj, int id)
+void Object::make_thing(int id)
 {
+  Object *new_obj = this;
   if (id == -1)
     id = random_range(NUMTHINGS);
   *new_obj = Objects[THINGID + id];
@@ -171,8 +174,9 @@ void make_thing(Object* new_obj, int id)
   }
 }
 
-void make_scroll(Object* new_obj, int id)
+void Object::make_scroll(int id)
 {
+  Object *new_obj = this;
   if (id == -1)
     id = random_range(NUMSCROLLS);
   *new_obj = Objects[SCROLLID + id];
@@ -183,8 +187,9 @@ void make_scroll(Object* new_obj, int id)
   }
 }
 
-void make_potion(Object* new_obj, int id)
+void Object::make_potion(int id)
 {
+  Object *new_obj = this;
   if (id == -1)
     id = random_range(NUMPOTIONS);
   *new_obj = Objects[POTIONID + id];
@@ -192,8 +197,9 @@ void make_potion(Object* new_obj, int id)
     new_obj->plus = itemplus();
 }
 
-void make_shield(Object* new_obj, int id)
+void Object::make_shield(int id)
 {
+  Object *new_obj = this;
   if (id == -1)
     id = random_range(NUMSHIELDS);
   *new_obj = Objects[SHIELDID + id];
@@ -207,8 +213,9 @@ void make_shield(Object* new_obj, int id)
     new_obj->plus = 1 + abs(new_obj->plus);
 }
 
-void make_armor(Object* new_obj, int id)
+void Object::make_armor(int id)
 {
+  Object *new_obj = this;
   if (id == -1)
     id = random_range(NUMARMOR);
   *new_obj = Objects[ARMORID + id];
@@ -222,8 +229,9 @@ void make_armor(Object* new_obj, int id)
     new_obj->plus = 1 + abs(new_obj->plus);
 }
 
-void make_cloak(Object* new_obj, int id)
+void Object::make_cloak(int id)
 {
+  Object *new_obj = this;
   if (id == -1)
     id = random_range(NUMCLOAKS);
   Objects[CLOAKID + 4].plus = 2;
@@ -232,8 +240,9 @@ void make_cloak(Object* new_obj, int id)
     new_obj->blessing = itemblessing();
 }
 
-void make_boots(Object* new_obj, int id)
+void Object::make_boots(int id)
 {
+  Object *new_obj = this;
   if (id == -1)
     id = random_range(NUMBOOTS);
   *new_obj = Objects[BOOTID + id];
@@ -241,8 +250,9 @@ void make_boots(Object* new_obj, int id)
     new_obj->blessing = itemblessing();
 }
 
-void make_stick(Object* new_obj, int id)
+void Object::make_stick(int id)
 {
+  Object *new_obj = this;
   if (id == -1)
     id = random_range(NUMSTICKS);
   *new_obj = Objects[STICKID + id];
@@ -251,8 +261,9 @@ void make_stick(Object* new_obj, int id)
     new_obj->blessing = itemblessing();
 }
 
-void make_artifact(Object* new_obj, int id)
+void Object::make_artifact(int id)
 {
+  Object *new_obj = this;
   if (id == -1)
     do
       id = random_range(NUMARTIFACTS);
@@ -672,24 +683,24 @@ int itemblessing()
 
 int twohandedp(int id)
 {
-  if(id == Object::getIdByName("great-sword")||
-  id ==  Object::getIdByName("great-axe") ||
-  id ==  Object::getIdByName("quarterstaff")||
-  id ==  Object::getIdByName("halberd")||
-  id ==  Object::getIdByName("longbow") ||
-  id ==  Object::getIdByName("crossbow") ||
-  id ==  Object::getIdByName("Desecrator") ||
-  id ==  Object::getIdByName("Goblins' Hewer") ||
-  id ==  Object::getIdByName("giant club") ||
-  id ==  Object::getIdByName("Scythe of Death"))
+  if (id == Object::getIdByName("great-sword") ||
+      id == Object::getIdByName("great-axe") ||
+      id == Object::getIdByName("quarterstaff") ||
+      id == Object::getIdByName("halberd") ||
+      id == Object::getIdByName("longbow") ||
+      id == Object::getIdByName("crossbow") ||
+      id == Object::getIdByName("Desecrator") ||
+      id == Object::getIdByName("Goblins' Hewer") ||
+      id == Object::getIdByName("giant club") ||
+      id == Object::getIdByName("Scythe of Death"))
     return (TRUE);
   else
     return (FALSE);
-  
 }
 
-void item_use(Object* o)
+void Object::item_use()
 {
+  Object *o = this;
   clearmsg();
   switch (o->usef)
   {

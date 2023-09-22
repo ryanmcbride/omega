@@ -426,20 +426,6 @@ int itemblessing(void);
 int itemcharge(void);
 int itemplus(void);
 int twohandedp(int);
-Object *create_object(int);
-void item_use(Object *);
-void make_armor(Object *, int);
-void make_artifact(Object *, int);
-void make_boots(Object *, int);
-void make_cloak(Object *, int);
-void make_corpse(Object *, Monster *);
-void make_food(Object *, int);
-void make_potion(Object *, int);
-void make_ring(Object *, int);
-void make_scroll(Object *, int);
-void make_shield(Object *, int);
-void make_stick(Object *, int);
-void make_thing(Object *, int);
 
 /* itemf1.c functions */
 

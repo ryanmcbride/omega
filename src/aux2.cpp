@@ -883,7 +883,7 @@ void toggle_item_use(int on)
         if ((used[i] = player.possessions[i]->used) == TRUE)
         {
           player.possessions[i]->used = FALSE;
-          item_use(player.possessions[i]);
+          player.possessions[i]->item_use();
         }
       }
     }
@@ -893,7 +893,7 @@ void toggle_item_use(int on)
       if (used[i])
       {
         player.possessions[i]->used = TRUE;
-        item_use(player.possessions[i]);
+        player.possessions[i]->item_use();
       }
     calc_melee();
     showflags();
